@@ -1,0 +1,37 @@
+func: as you revise, try to tie the points you locate in your notes with the terms on the trail
+func: software to create timetable automatically or manually.
+func: automatically create termtrail from user documents
+func: users can enter answers to self created questions. They could either be: multiple choice; essay type answers (requires matching sentences and checking for similarities)
+func: users can collaborate in making termtrails
+func: can export termtrails to other users.
+func: can import termtrails to own account.
+func: users can make their account public or private: on public you'll show up on search results and your account can be found by searching your username. For private, you can only be found if you give another user a password that they can use to access your account.
+func: provide a hints and tips section
+func: term randomiser
+func: provide feedback on how ready the user is for exam; have two modes: note-taking, and exam mode.
+tip: try to enter terms in the form of questions or commands.
+tip: when in exam mode, alternate between the 1st and last lectures as starting points for each run. Human brain tends to get more familiar with the start than end; this evens out the familiarity levels.
+func: provide random mode, so the user can view and answer a different sequence of questions.
+tip: use past papers to get a feel for what kind of questions the teacher likes to ask.
+tip: listen attentively to the teacher during classes. Do they go to a great mile to talk about the details? There is a good chance they would obsess about details while marking exam answers.
+tip: Red (no clue), Orange (idea, but nothing concrete), Yellow (know a bit of the correct answer), Light Green (know the answer, but not perfect), Dark Green (perfect answer), Black (may not need to know, but keeping just in case).
+func: explain the disadvantages of using this system: if you don't ever add something to your termtrail, you could end up not knowing it even exists. so be careful to add in as much information as possible.
+tip: there is no limit to what you're brain can store; the only question is, do you feel like working hard?
+tip: this is not a one size fits all approach. This is just for you to use to check your understanding of the concepts explained in your course.
+con: you may ask yourself lots of questions that may never come out in the exam.
+func: allow users to upload their files, and annotate it with their termtrail. Clicking on a term trail should show the user the part of the file connected to that trail.
+func: mnemonic generator; construct easy to remember mnemonics from acronyms that can aid the students in remembering long lists. Allow them to add it unto their termtrail. Terms that have mnemonics should be highlighted to the user.
+func: acronym generator; rearrange the letters of an acronym provided for by users.
+func: allow users to click buttons on the  keyboard so as to allow quick selection of colours.
+func: full screen mode, where each term takes up a full screen. This prevent's the user from seeing the other terms on the trail that could help them answer their questions.
+tip: if you can't remember the answer to a term in more than a minute, then you have to colour it, and move on to another.
+func: provide timer that can be used to keep track of time spent thinking about answer to term.
+tip: when colouring terms, be honest with yourself. If you give a colour green to a term, only to find out later that you didn't really know it that well, it could cause problems.
+tip: when working through the termtrail after the first time, if you can't properly remember how to answer a green term, then don't hesitate to change the colour of the term to a less favourable one.
+func: be able to create multiple branches on the same repository
+func: leave comments next to terms; could be answers or criticisms
+func: can sell your termtrail. could even motivate students to use.
+func: allow users to assign a weight to each question. So they can recieve a more accurate mark when they have finished their trailing session.
+func: add 10% to the selling price of any termtrail. which get's collected by termtrail.
+func: take £1 from users a year after they use them. give them warnings so they're not caught unaware.
+func: send money directly to users bank accounts. makes accounting easier.
