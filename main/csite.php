@@ -3,8 +3,10 @@ class csite {
   private $header;
   private $footer;
   private $page;
+  private $content_folder;
 
   public function __construct() {
+    $this->content_folder = "content";
   }
 
   public function __destruct() {
@@ -20,12 +22,12 @@ class csite {
   
   // takes string containing file name of header file
   public function addHeader($file) {
-    $this->header = $file;
+    $this->header = "$this->content_folder/$file";
   }
   
   // takes string containing file name of footer file
   public function addFooter($file) {
-    $this->footer = $file;
+    $this->footer = "$this->content_folder/$file";
   }
 
   public function setPage(cpage $page) {
