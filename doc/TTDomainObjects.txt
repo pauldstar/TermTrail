@@ -1,0 +1,20 @@
+terms
+chapter
+trail/course
+user (with username)
+public account (read/write)
+private account
+mode (note-taking and exam)
+answers (term)
+comments (negative/positive)
+import termtrail
+randomise
+mark (term)
+total mark (trail)
+confidence score (colour)
+q&a session
+timer
+sales (termtrails)
+account (user, TT)
+subscribe to TT
+TT
