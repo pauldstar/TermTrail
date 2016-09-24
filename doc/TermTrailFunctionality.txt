@@ -36,3 +36,6 @@ tip: when working through the termtrail after the first time, if you can't prope
 tip: if you can't remember the answer to a term in more than a minute, then you have to colour it, and move on to another.
 func: A buyer of a trail can't resell to another buyer. The trail is also unsharable, so no collaboration. However, your own changes could be made to it.
 func: allow users to assign a weight to each question. So they can recieve a more accurate mark when they have finished their trailing session.
+func: a right click can bring up a menu that enables the user to add new terms, new chapters, new trails
+func: prevent someone's termtrail from being crawled by another user
+func: revert to previous versions of a trail

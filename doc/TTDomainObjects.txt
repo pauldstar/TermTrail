@@ -14,7 +14,7 @@ total mark (trail)
 confidence score (colour)
 q&a session
 timer
-sales (termtrails)
+purchase (termtrails)
 account (user, TT)
 subscribe to TT
 TT
