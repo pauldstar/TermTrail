@@ -7,14 +7,16 @@ func: provide randomiser during exam mode, so the user can view and answer a dif
 func: Red (no clue), Orange (idea, but nothing concrete), Yellow (know a bit of the correct answer), Light Green (know the answer, but not perfect), Dark Green (perfect answer), Black (may not need to know, but keeping just in case).
 func: allow users to upload their files, and annotate it with their termtrail. Clicking on a term trail should show the user the part of the file connected to that trail.
 func: allow users to click buttons on the keyboard so as to allow quick selection of colours.
-func: full screen mode, where each term takes up a full screen. This prevent's the user from seeing the other terms on the trail that could help them answer their questions.
+func: full screen mode, where each term takes up a full screen. This prevents the user from seeing the other terms on the trail that could help them answer their questions.
 func: provide timer that can be used to keep track of time spent thinking about answer to term.
 func: be able to create multiple branches on the same repository
 func: leave comments next to terms; could be answers or criticisms
 func: can sell your termtrail. could even motivate students to use.
-func: add 10% to the selling price of any termtrail. which get's collected by termtrail.
+func: add 10% to the selling price of any termtrail. which gets collected by termtrail.
 func: take £1 from users a year after they use them. give them warnings so they're not caught unaware.
-func: tt should backup the users information on a daily basis until it becomes unfeasible due to data load.
+func: tt should backup the users information on a daily basis until it becomes infeasible due to data load.
+func: if buyer wants to sell a copy, then  the buyer keeps = (selling_price - commission)/trail_export_count. owners of origin trails get cuts.
+func: buyer can't share a copy for free, unless selling price for origin trail is 0; must sell for atleast same price as origin trail.
 
 func: software to create timetable automatically or manually.
 tip: as you revise, try to tie the points you locate in your notes with the terms on the trail
