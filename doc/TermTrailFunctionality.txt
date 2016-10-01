@@ -17,6 +17,7 @@ func: take £1 from users a year after they use them. give them warnings so they
 func: tt should backup the users information on a daily basis until it becomes infeasible due to data load.
 func: if buyer wants to sell a copy, then  the buyer keeps = (selling_price - commission)/trail_export_count. owners of origin trails get cuts.
 func: buyer can't share a copy for free, unless selling price for origin trail is 0; must sell for atleast same price as origin trail.
+func: user can't import same trail twice, unless he deletes first copy.
 
 func: software to create timetable automatically or manually.
 tip: as you revise, try to tie the points you locate in your notes with the terms on the trail
