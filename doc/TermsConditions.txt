@@ -1,3 +1,5 @@
 there are no refunds for buying another user's termtrail
 this doesn't guarantee a great result, it just makes reading and remembering important parts of your course easier.
-A buyer of a trail can't resell or share the trail to another user. Therefore no "collaboration".
+Buying a trail only gives you the right to read/write on your trail copy. but no "collaboration".
+if buyer wants to sell a copy, then  the buyer keeps = (selling_price - commission)/trail_export_count. owners of origin trails get cuts.
+buyer can't share a copy for free, unless selling price for origin trail is 0; must sell for atleast same price as origin trail.
