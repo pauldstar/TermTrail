@@ -1,5 +1,6 @@
 <?php
 class Timer {
+  
   var $classname = "Timer";
   var $start = 0;
   var $stop = 0;
