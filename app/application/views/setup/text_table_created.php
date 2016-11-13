@@ -1,0 +1,1 @@
+<li>Table '<?php echo $name ?>' created or already exists.</li>
