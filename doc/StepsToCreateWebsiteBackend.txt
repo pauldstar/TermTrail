@@ -1,0 +1,6 @@
+create a domain model; add multiplicities; no attributes or functions
+add attributes (and functions; optional)
+copy and convert to ER diagram
+convert ER to EER diagram (optional)
+convert EER to relational model using 7 step process
+convert relational model to physical model
