@@ -7,8 +7,7 @@ class Setup extends CI_Controller {
     $this->load->database();
     $this->load->view("templates/header.php");
     Setup::create_table(
-        "user", 
-        "
+        "user", "
         user_id INT UNSIGNED AUTO_INCREMENT NOT NULL,
         username VARCHAR(50) NOT NULL,
         scope VARCHAR(7) NOT NULL,
@@ -16,10 +15,30 @@ class Setup extends CI_Controller {
         email VARCHAR(255) NOT NULL,
         sign_up_time BIGINT UNSIGNED NOT NULL,
         last_login_time BIGINT UNSIGNED NOT NULL,
-        account_balance MEDIUMINT DEFAULT 0,
         has_notification CHAR(1) DEFAULT 'N',
         INDEX(username),
         PRIMARY KEY(user_id)");
+    Setup::create_table(
+        "course", "
+        owner_id INT UNSIGNED AUTO_INCREMENT NOT NULL,
+        course_id TINYINT UNSIGNED AUTO_INCREMENT NOT NULL,
+        course_name VARCHAR(50) NOT NULL,
+        scope VARCHAR(7) NOT NULL,
+        time_added BIGINT UNSIGNED NOT NULL,
+        course_type CHAR(6) NOT NULL,
+        FOREIGN KEY(owner_id) REFERENCES user(user_id),
+        PRIMARY KEY(course_id, owner_id)");
+    Setup::create_table(
+        "course_import", "
+        importer_id INT UNSIGNED AUTO_INCREMENT NOT NULL,
+        course_id TINYINT UNSIGNED AUTO_INCREMENT NOT NULL,
+        origin_owner_id INT UNSIGNED NOT NULL,
+        origin_course_id TINYINT UNSIGNED NOT NULL,
+        FOREIGN KEY(importer_id) REFERENCES user(user_id),
+        FOREIGN KEY(course_id) REFERENCES user(course_id),
+        FOREIGN KEY(origin_owner_id) REFERENCES user(user_id),
+        FOREIGN KEY(origin_course_id) REFERENCES user(course_id),
+        PRIMARY KEY(importer_id, course_id, origin_owner_id, origin_course_id)");
     
     /*
      * create_table('link',

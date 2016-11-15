@@ -44,8 +44,15 @@ func: allow users to assign a weight to each question. So they can recieve a mor
 func: a right click can bring up a menu that enables the user to add new terms, new chapters, new trails
 func: prevent someone's termtrail from being crawled by another user
 func: revert to previous versions of a trail
-func: add 
+func: allow users to enter their grades so they and other users can view their progress.
 
+TrailBuying
+func: allow users to register as trail buyers (with course and school requirements)
+func: users register as sellers 
+
+TrailMaking
+func: users can pay others to make trails for them
+cond: 
 you need an advice guide, module tracker, TSR, 
 
 func: ultimately TermTrail should implement a distributed cloud storage system; could work with storj.io.

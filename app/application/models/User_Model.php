@@ -55,16 +55,9 @@ class User_Model extends CI_Model {
         'last_login_time' => $current_time);
     $query_successful = $this->db->insert('user', $data);
     if ($query_successful) {
-      $user = array(
-          'username' => $u_username, 
-          'scope' => $u_scope, 
-          'password_hash' => $u_password_hash, 
-          'email' => $u_email, 
-          'sign_up_time' => $current_time, 
-          'last_login_time' => $current_time, 
-          'this_is_main_user' => TRUE, 
-          'has_notification' => 'Y', 
-          'account_balance' => 0);
+      $data['this_is_main_user'] = TRUE;
+      $data['has_notification'] = 'N';
+      $data['account_balance'] = 0;
       return new User($user);
     }
     return null;
