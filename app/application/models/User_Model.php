@@ -11,7 +11,7 @@ class User_Model extends CI_Model {
     $query = $this->db->query("SELECT * FROM user WHERE email='$u_email'");
     $row = $query->row();
     if (isset($row) && password_verify($u_password, $row->password_hash)) {
-      $user = array(
+      $user_params = array(
           "username" => $row->username, 
           "email" => $row->email, 
           "scope" => $row->scope, 
@@ -20,7 +20,7 @@ class User_Model extends CI_Model {
           "last_login_time" => $row->last_login_time, 
           "has_notification" => $row->has_notification, 
           "this_is_main_user" => TRUE);
-      return new User($user);
+      return new User($user_params);
     } else
       show_error("Invalid Username/Password");
     return null;
@@ -29,14 +29,14 @@ class User_Model extends CI_Model {
   public function get_other_user($username) {
     $query = $this->db->query("SELECT * FROM user WHERE username='$username'");
     $row = $query->result();
-    $user = array(
+    $user_params = array(
         "username" => $row->username, 
         "account_balance" => $row->account_balance, 
         "sign_up_time" => $row->sign_up_time, 
         "last_login_time" => $row->last_login_time, 
         "has_notification" => $row->has_notification, 
         "this_is_main_user" => FALSE);
-    return new User($user);
+    return new User($user_params);
   }
 
   public function set_and_get_new_user() {
@@ -58,7 +58,7 @@ class User_Model extends CI_Model {
       $data['this_is_main_user'] = TRUE;
       $data['has_notification'] = 'N';
       $data['account_balance'] = 0;
-      return new User($user);
+      return new User($user_params);
     }
     return null;
   }
