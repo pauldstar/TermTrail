@@ -15,11 +15,12 @@ func: can sell your termtrail. could even motivate students to use.
 func: add 10% to the selling price of any termtrail. which gets collected by termtrail.
 func: take £1 from users a year after they use them. give them warnings so they're not caught unaware.
 func: tt should backup the users information on a daily basis until it becomes infeasible due to data load.
-func: if buyer wants to sell a copy, then  the buyer keeps = (selling_price - commission)/trail_export_count. owners of origin trails get cuts.
+func: if buyer wants to sell a copy, then 30% of the selling price is added to the final selling price (+ commission). 30% goes to previous owners.
 func: buyer can't share a copy for free, unless selling price for origin trail is 0; must sell for atleast same price as origin trail.
 func: ask the user to enter a trail title for trail copy; same for a new trail being created.
 func: trail preview access grants user rights to view your trail for specified period of time; useful to give them taster of trail before they get to buy it.
-func: trail read access grants another user the right to have a session on your trail.
+func: trail session access grants another user the right to have a session on your trail.
+func: users can have full or partial access to a course. full access means they can see all trails in a course. part access means they can only see some trails in the course.
 
 func: software to create timetable automatically or manually.
 tip: as you revise, try to tie the points you locate in your notes with the terms on the trail
@@ -45,14 +46,27 @@ func: a right click can bring up a menu that enables the user to add new terms, 
 func: prevent someone's termtrail from being crawled by another user
 func: revert to previous versions of a trail
 func: allow users to enter their grades so they and other users can view their progress.
+func: users can add images to their trails
 
-TrailBuying
-func: allow users to register as trail buyers (with course and school requirements)
-func: users register as sellers 
+TrailProposals
+func: allow users to place proposals requesting trails to be made for their course material.
+func: this would require the users to be able to message each other
+func: users will have to make known what categories their course is, needed to calculate the ratings for each trailmaker.
+func: trailmakers (tm) can view a list of all proposals...can sort by category and price.
+func: multiple tm can register interest in proposal; the tm's will be sorted according to price, rating, and price density (price/rating).
+func: buyers can add specific tm's they would like to view their proposals (invites). The invited tm's can then state their price.
 
 TrailMaking
 func: users can pay others to make trails for them
-cond: 
+func: users can view the trail and work on the trail as it's being made. They communicate with the trail maker through out the entire process. This is to ensure buyer satisfaction.
+func: TT keeps hold of all cash while the project is ongoing.
+cond: TT Only releases cash after the buyer has received and is satisfied with the trail i.e. no disputes. In the event of a dispute, TT would have to investigate.
+func: the tm retains ownership of the trail. therefore the tm recieves money for any sales made on that trail. TT still gets 10%.
+
+RATING
+func: create a rating system that's based on the quality/traits of the user. e.g. if there are 10 traits a tm should have, the tm would get rated by their customer on each trait. If the tm recieve full score on each trait, then the tm gets a 10 star rating.
+
+
 you need an advice guide, module tracker, TSR, 
 
 func: ultimately TermTrail should implement a distributed cloud storage system; could work with storj.io.
