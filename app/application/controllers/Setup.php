@@ -13,6 +13,7 @@ class Setup extends CI_Controller {
         scope VARCHAR(7) NOT NULL,
         password_hash CHAR(60) NOT NULL,
         email VARCHAR(255) NOT NULL,
+		profile_view_count INT UNSIGNED NOT NULL,
 		account_balance MEDIUMINT DEFAULT 0,
         sign_up_time BIGINT UNSIGNED NOT NULL,
         last_login_time BIGINT UNSIGNED NOT NULL,
@@ -36,7 +37,7 @@ class Setup extends CI_Controller {
 		time_added BIGINT UNSIGNED NOT NULL,
         FOREIGN KEY(active_user) REFERENCES user(user_id),
         FOREIGN KEY(passive_user) REFERENCES user(user_id),
-        PRIMARY KEY(active_user, time_added)");
+        PRIMARY KEY(active_user, passive_user, time_added)");
     Setup::create_table(
         "course", "
         owner_id INT UNSIGNED AUTO_INCREMENT NOT NULL,
@@ -44,6 +45,7 @@ class Setup extends CI_Controller {
         course_title VARCHAR(50) NOT NULL,
         scope VARCHAR(7) NOT NULL,
         time_added BIGINT UNSIGNED NOT NULL,
+		course_view_count INT UNSIGNED NOT NULL,
         course_type CHAR(6) NOT NULL,
 		category VARCHAR(50) NOT NULL,
 		education_level VARCHAR(10) NOT NULL,
@@ -85,6 +87,7 @@ class Setup extends CI_Controller {
         scope VARCHAR(7) NOT NULL,
 		mode CHAR(8) DEFAULT 'building',
         time_added BIGINT UNSIGNED NOT NULL,
+		trail_view_count INT UNSIGNED NOT NULL,
 		trail_type CHAR(6) NOT NULL,
 		preview_length_time SMALLINT DEFAULT 1800,
         FOREIGN KEY(owner_id) REFERENCES course(owner_id),
