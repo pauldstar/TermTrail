@@ -10,6 +10,7 @@ class Setup extends CI_Controller {
   public function create_database($passcode = '') {
     // later, add a passcode to prevent unauthorised database creation
     $this->load->view("templates/header.php");
+	// create tables in a steadily ascending order of foreign key references
     Setup::create_table(
         "user", 
         "
@@ -39,9 +40,9 @@ class Setup extends CI_Controller {
         "
         active_user INT UNSIGNED NOT NULL,
         passive_user INT UNSIGNED NOT NULL,
+		time_added BIGINT UNSIGNED NOT NULL,
 		message TEXT NOT NULL,
         has_been_viewed CHAR(1) DEFAULT 'N',
-		time_added BIGINT UNSIGNED NOT NULL,
         FOREIGN KEY(active_user) REFERENCES user(user_id),
         FOREIGN KEY(passive_user) REFERENCES user(user_id),
         PRIMARY KEY(active_user, passive_user, time_added)");
@@ -75,7 +76,7 @@ class Setup extends CI_Controller {
         FOREIGN KEY(course_id) REFERENCES course(course_id),
         FOREIGN KEY(origin_owner_id) REFERENCES course(owner_id),
         FOREIGN KEY(origin_course_id) REFERENCES course(course_id),
-        PRIMARY KEY(importer_id, course_id, origin_owner_id, origin_course_id)");
+        PRIMARY KEY(importer_id, course_id)");
     Setup::create_table(
         "access_course", 
         "
@@ -120,8 +121,7 @@ class Setup extends CI_Controller {
         FOREIGN KEY(origin_owner_id) REFERENCES trail(owner_id),
         FOREIGN KEY(origin_course_id) REFERENCES trail(course_id),
         FOREIGN KEY(origin_trail_id) REFERENCES trail(trail_id),
-        PRIMARY KEY(trail_id, course_id, importer_id, origin_owner_id, 
-                    origin_course_id, origin_trail_id)");
+        PRIMARY KEY(trail_id, course_id, importer_id)");
     Setup::create_table(
         "access_trail", 
         "
@@ -212,6 +212,8 @@ class Setup extends CI_Controller {
 
   public function delete_database() {
     $this->load->view("templates/header.php");
+	// drop tables in descending order of foreign key references
+	// can't delete a table while it's referenced by another
     Setup::drop_table("term_comment");
     Setup::drop_table("term");
     Setup::drop_table("chapter");
