@@ -2,12 +2,17 @@
 
 class Setup extends CI_Controller {
 
+  public function __construct() {
+    parent::__construct();
+    $this->load->database();
+  }
+
   public function create_database($passcode = '') {
     // later, add a passcode to prevent unauthorised database creation
-    $this->load->database();
     $this->load->view("templates/header.php");
     Setup::create_table(
-        "user", "
+        "user", 
+        "
         user_id INT UNSIGNED AUTO_INCREMENT NOT NULL,
         username VARCHAR(50) NOT NULL UNIQUE,
         scope VARCHAR(7) NOT NULL,
@@ -20,16 +25,18 @@ class Setup extends CI_Controller {
         has_notification CHAR(1) DEFAULT 'N',
         INDEX(username),
         PRIMARY KEY(user_id)");
-	Setup::create_table(
-        "subscription", "
+    Setup::create_table(
+        "subscription", 
+        "
         user INT UNSIGNED NOT NULL,
         start_date BIGINT UNSIGNED NOT NULL,
         end_date BIGINT UNSIGNED NOT NULL,
 		cost TINYINT UNSIGNED NOT NULL,
         FOREIGN KEY(user) REFERENCES user(user_id),
         PRIMARY KEY(user)");
-	Setup::create_table(
-        "activity", "
+    Setup::create_table(
+        "activity", 
+        "
         active_user INT UNSIGNED NOT NULL,
         passive_user INT UNSIGNED NOT NULL,
 		message TEXT NOT NULL,
@@ -39,8 +46,9 @@ class Setup extends CI_Controller {
         FOREIGN KEY(passive_user) REFERENCES user(user_id),
         PRIMARY KEY(active_user, passive_user, time_added)");
     Setup::create_table(
-        "course", "
-        owner_id INT UNSIGNED AUTO_INCREMENT NOT NULL,
+        "course", 
+        "
+        owner_id INT UNSIGNED NOT NULL,
         course_id SMALLINT UNSIGNED AUTO_INCREMENT NOT NULL,
         course_title VARCHAR(50) NOT NULL,
         scope VARCHAR(7) NOT NULL,
@@ -56,19 +64,21 @@ class Setup extends CI_Controller {
         FOREIGN KEY(owner_id) REFERENCES user(user_id),
         PRIMARY KEY(course_id, owner_id)");
     Setup::create_table(
-        "course_import", "
+        "course_import", 
+        "
         importer_id INT UNSIGNED NOT NULL,
         course_id SMALLINT UNSIGNED NOT NULL,
         origin_owner_id INT UNSIGNED NOT NULL,
-        origin_course_id TINYINT UNSIGNED NOT NULL,
+        origin_course_id SMALLINT UNSIGNED NOT NULL,
 		cost SMALLINT UNSIGNED DEFAULT 0,
         FOREIGN KEY(importer_id) REFERENCES course(owner_id),
         FOREIGN KEY(course_id) REFERENCES course(course_id),
         FOREIGN KEY(origin_owner_id) REFERENCES course(owner_id),
         FOREIGN KEY(origin_course_id) REFERENCES course(course_id),
         PRIMARY KEY(importer_id, course_id, origin_owner_id, origin_course_id)");
-	Setup::create_table(
-        "access_course", "
+    Setup::create_table(
+        "access_course", 
+        "
 		visitor INT UNSIGNED NOT NULL,
 		course_owner_id INT UNSIGNED NOT NULL,
         course_id SMALLINT UNSIGNED NOT NULL,
@@ -78,11 +88,12 @@ class Setup extends CI_Controller {
         FOREIGN KEY(course_owner_id) REFERENCES course(owner_id),
         FOREIGN KEY(course_id) REFERENCES course(course_id),
         PRIMARY KEY(visitor, course_id, course_owner_id)");
-	Setup::create_table(
-        "trail", "
+    Setup::create_table(
+        "trail", 
+        "
 		owner_id INT UNSIGNED NOT NULL,
         course_id SMALLINT UNSIGNED NOT NULL,
-		trail_id TINYINT UNSIGNED NOT NULL,
+		trail_id TINYINT UNSIGNED AUTO_INCREMENT NOT NULL,
         trail_title VARCHAR(50) NOT NULL,
         scope VARCHAR(7) NOT NULL,
 		mode CHAR(8) DEFAULT 'building',
@@ -93,11 +104,12 @@ class Setup extends CI_Controller {
         FOREIGN KEY(owner_id) REFERENCES course(owner_id),
         FOREIGN KEY(course_id) REFERENCES course(course_id),
         PRIMARY KEY(trail_id, course_id, owner_id)");
-	Setup::create_table(
-        "trail_import", "
+    Setup::create_table(
+        "trail_import", 
+        "
 		importer_id INT UNSIGNED NOT NULL,
 		course_id SMALLINT UNSIGNED NOT NULL,
-        trail_id TINYINT NOT NULL,
+        trail_id TINYINT UNSIGNED NOT NULL,
 		origin_owner_id INT UNSIGNED NOT NULL,
 		origin_course_id SMALLINT UNSIGNED NOT NULL,
 		origin_trail_id TINYINT UNSIGNED NOT NULL,
@@ -108,13 +120,15 @@ class Setup extends CI_Controller {
         FOREIGN KEY(origin_owner_id) REFERENCES trail(owner_id),
         FOREIGN KEY(origin_course_id) REFERENCES trail(course_id),
         FOREIGN KEY(origin_trail_id) REFERENCES trail(trail_id),
-        PRIMARY KEY(trail_id, course_id, owner_id)");
-	Setup::create_table(
-        "access_trail", "
+        PRIMARY KEY(trail_id, course_id, importer_id, origin_owner_id, 
+                    origin_course_id, origin_trail_id)");
+    Setup::create_table(
+        "access_trail", 
+        "
 		visitor INT UNSIGNED NOT NULL,
 		course_owner_id INT UNSIGNED NOT NULL,
         course_id SMALLINT UNSIGNED NOT NULL,
-		trail_id TINYINT NOT NULL,
+		trail_id TINYINT UNSIGNED NOT NULL,
 		access_request_state VARCHAR(8) DEFAULT 'pending',
 		permission CHAR(7) NOT NULL,
 		preview_time TINYINT DEFAULT 0,
@@ -124,8 +138,9 @@ class Setup extends CI_Controller {
         FOREIGN KEY(course_id) REFERENCES trail(course_id),
         FOREIGN KEY(trail_id) REFERENCES trail(trail_id),
         PRIMARY KEY(visitor, trail_id, course_id, course_owner_id)");
-	Setup::create_table(
-        "session", "
+    Setup::create_table(
+        "session", 
+        "
 		trail_owner_id INT UNSIGNED NOT NULL,
         trail_course_id SMALLINT UNSIGNED NOT NULL,
 		trail_id TINYINT UNSIGNED NOT NULL,
@@ -138,26 +153,28 @@ class Setup extends CI_Controller {
 		FOREIGN KEY(trail_owner_id) REFERENCES trail(owner_id),
         FOREIGN KEY(trail_course_id) REFERENCES trail(course_id),
         FOREIGN KEY(trail_id) REFERENCES trail(trail_id),
-        PRIMARY KEY(session_id, trail_id, trail_course_id, trail_id)");
-	Setup::create_table(
-        "chapter", "
+        PRIMARY KEY(session_id, trail_id, trail_course_id, trail_owner_id)");
+    Setup::create_table(
+        "chapter", 
+        "
 		owner_id INT UNSIGNED NOT NULL,
         course_id SMALLINT UNSIGNED NOT NULL,
 		trail_id TINYINT UNSIGNED NOT NULL,
-		chapter_id TINYINT UNSIGNED NOT NULL,
+		chapter_id TINYINT UNSIGNED AUTO_INCREMENT NOT NULL,
 		chapter_title VARCHAR(50) NOT NULL,
 		chapter_position SMALLINT UNSIGNED NOT NULL,
         FOREIGN KEY(owner_id) REFERENCES trail(owner_id),
         FOREIGN KEY(course_id) REFERENCES trail(course_id),
         FOREIGN KEY(trail_id) REFERENCES trail(trail_id),
         PRIMARY KEY(chapter_id, trail_id, course_id, owner_id)");
-	Setup::create_table(
-        "term", "
+    Setup::create_table(
+        "term", 
+        "
 		owner_id INT UNSIGNED NOT NULL,
         course_id SMALLINT UNSIGNED NOT NULL,
 		trail_id TINYINT UNSIGNED NOT NULL,
 		chapter_id TINYINT UNSIGNED NOT NULL,
-		term_id SMALLINT UNSIGNED NOT NULL,
+		term_id SMALLINT UNSIGNED AUTO_INCREMENT NOT NULL,
 		author_id INT UNSIGNED NOT NULL,
 		term_position SMALLINT UNSIGNED NOT NULL,
 		content TEXT NOT NULL,
@@ -171,8 +188,9 @@ class Setup extends CI_Controller {
         FOREIGN KEY(trail_id) REFERENCES chapter(trail_id),
         FOREIGN KEY(chapter_id) REFERENCES chapter(chapter_id),
         PRIMARY KEY(term_id, chapter_id, trail_id, course_id, owner_id)");
-	Setup::create_table(
-        "term_comment", "
+    Setup::create_table(
+        "term_comment", 
+        "
 		author_id INT UNSIGNED NOT NULL,
 		term_owner_id INT UNSIGNED NOT NULL,
         course_id SMALLINT UNSIGNED NOT NULL,
@@ -183,12 +201,30 @@ class Setup extends CI_Controller {
 		resolved CHAR(1) DEFAULT 'N',
 		last_edit_time BIGINT UNSIGNED NOT NULL,
         FOREIGN KEY(author_id) REFERENCES user(user_id),
-        FOREIGN KEY(owner_id) REFERENCES term(owner_id),
+        FOREIGN KEY(term_owner_id) REFERENCES term(owner_id),
         FOREIGN KEY(course_id) REFERENCES term(course_id),
         FOREIGN KEY(trail_id) REFERENCES term(trail_id),
         FOREIGN KEY(chapter_id) REFERENCES term(chapter_id),
         FOREIGN KEY(term_id) REFERENCES term(term_id),
-        PRIMARY KEY(author_id, term_id, chapter_id, trail_id, course_id, owner_id)");
+        PRIMARY KEY(author_id, term_id, chapter_id, trail_id, course_id, term_owner_id)");
+    $this->load->view("templates/footer.php");
+  }
+
+  public function delete_database() {
+    $this->load->view("templates/header.php");
+    Setup::drop_table("term_comment");
+    Setup::drop_table("term");
+    Setup::drop_table("chapter");
+    Setup::drop_table("session");
+    Setup::drop_table("access_trail");
+    Setup::drop_table("trail_import");
+    Setup::drop_table("trail");
+    Setup::drop_table("access_course");
+    Setup::drop_table("course_import");
+    Setup::drop_table("course");
+    Setup::drop_table("activity");
+    Setup::drop_table("subscription");
+    Setup::drop_table("user");
     $this->load->view("templates/footer.php");
   }
 

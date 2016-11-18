@@ -48,19 +48,19 @@ class User_Model extends CI_Model {
     $u_password_hash = password_hash($u_password, PASSWORD_BCRYPT);
     $current_time = date_timestamp_get(date_create());
 	// insert new user into database
-    $data = array(
+    $user_params = array(
         'username' => $u_username, 
         'scope' => $u_scope, 
         'password_hash' => $u_password_hash, 
         'email' => $u_email, 
         'sign_up_time' => $current_time, 
         'last_login_time' => $current_time);
-    $query_successful = $this->db->insert('user', $data);
+    $query_successful = $this->db->insert('user', $user_params);
 	// return the new user if successfully inserted into DB
     if ($query_successful) {
-      $data['this_is_main_user'] = TRUE;
-      $data['has_notification'] = 'N';
-      $data['account_balance'] = 0;
+      $user_params['this_is_main_user'] = TRUE;
+      $user_params['has_notification'] = 'N';
+      $user_params['account_balance'] = 0;
       return new User($user_params);
     }
     return null;
