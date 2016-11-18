@@ -1,6 +1,6 @@
 <?php
 
-class Setup extends CI_Controller {
+class Database extends CI_Controller {
 
   public function __construct() {
     parent::__construct();
@@ -11,7 +11,7 @@ class Setup extends CI_Controller {
     // later, add a passcode to prevent unauthorised database creation
     $this->load->view("templates/header.php");
 	// create tables in a steadily ascending order of foreign key references
-    Setup::create_table(
+    Database::create_table(
         "user", 
         "
         user_id INT UNSIGNED AUTO_INCREMENT NOT NULL,
@@ -26,7 +26,7 @@ class Setup extends CI_Controller {
         has_notification CHAR(1) DEFAULT 'N',
         INDEX(username),
         PRIMARY KEY(user_id)");
-    Setup::create_table(
+    Database::create_table(
         "subscription", 
         "
         user INT UNSIGNED NOT NULL,
@@ -35,7 +35,7 @@ class Setup extends CI_Controller {
 		cost TINYINT UNSIGNED NOT NULL,
         FOREIGN KEY(user) REFERENCES user(user_id),
         PRIMARY KEY(user)");
-    Setup::create_table(
+    Database::create_table(
         "activity", 
         "
         active_user INT UNSIGNED NOT NULL,
@@ -46,7 +46,7 @@ class Setup extends CI_Controller {
         FOREIGN KEY(active_user) REFERENCES user(user_id),
         FOREIGN KEY(passive_user) REFERENCES user(user_id),
         PRIMARY KEY(active_user, passive_user, time_added)");
-    Setup::create_table(
+    Database::create_table(
         "course", 
         "
         owner_id INT UNSIGNED NOT NULL,
@@ -64,7 +64,7 @@ class Setup extends CI_Controller {
 		INDEX(education_level),
         FOREIGN KEY(owner_id) REFERENCES user(user_id),
         PRIMARY KEY(course_id, owner_id)");
-    Setup::create_table(
+    Database::create_table(
         "course_import", 
         "
         importer_id INT UNSIGNED NOT NULL,
@@ -77,7 +77,7 @@ class Setup extends CI_Controller {
         FOREIGN KEY(origin_owner_id) REFERENCES course(owner_id),
         FOREIGN KEY(origin_course_id) REFERENCES course(course_id),
         PRIMARY KEY(importer_id, course_id)");
-    Setup::create_table(
+    Database::create_table(
         "access_course", 
         "
 		visitor INT UNSIGNED NOT NULL,
@@ -89,7 +89,7 @@ class Setup extends CI_Controller {
         FOREIGN KEY(course_owner_id) REFERENCES course(owner_id),
         FOREIGN KEY(course_id) REFERENCES course(course_id),
         PRIMARY KEY(visitor, course_id, course_owner_id)");
-    Setup::create_table(
+    Database::create_table(
         "trail", 
         "
 		owner_id INT UNSIGNED NOT NULL,
@@ -105,7 +105,7 @@ class Setup extends CI_Controller {
         FOREIGN KEY(owner_id) REFERENCES course(owner_id),
         FOREIGN KEY(course_id) REFERENCES course(course_id),
         PRIMARY KEY(trail_id, course_id, owner_id)");
-    Setup::create_table(
+    Database::create_table(
         "trail_import", 
         "
 		importer_id INT UNSIGNED NOT NULL,
@@ -122,7 +122,7 @@ class Setup extends CI_Controller {
         FOREIGN KEY(origin_course_id) REFERENCES trail(course_id),
         FOREIGN KEY(origin_trail_id) REFERENCES trail(trail_id),
         PRIMARY KEY(trail_id, course_id, importer_id)");
-    Setup::create_table(
+    Database::create_table(
         "access_trail", 
         "
 		visitor INT UNSIGNED NOT NULL,
@@ -138,7 +138,7 @@ class Setup extends CI_Controller {
         FOREIGN KEY(course_id) REFERENCES trail(course_id),
         FOREIGN KEY(trail_id) REFERENCES trail(trail_id),
         PRIMARY KEY(visitor, trail_id, course_id, course_owner_id)");
-    Setup::create_table(
+    Database::create_table(
         "session", 
         "
 		trail_owner_id INT UNSIGNED NOT NULL,
@@ -154,7 +154,7 @@ class Setup extends CI_Controller {
         FOREIGN KEY(trail_course_id) REFERENCES trail(course_id),
         FOREIGN KEY(trail_id) REFERENCES trail(trail_id),
         PRIMARY KEY(session_id, trail_id, trail_course_id, trail_owner_id)");
-    Setup::create_table(
+    Database::create_table(
         "chapter", 
         "
 		owner_id INT UNSIGNED NOT NULL,
@@ -167,7 +167,7 @@ class Setup extends CI_Controller {
         FOREIGN KEY(course_id) REFERENCES trail(course_id),
         FOREIGN KEY(trail_id) REFERENCES trail(trail_id),
         PRIMARY KEY(chapter_id, trail_id, course_id, owner_id)");
-    Setup::create_table(
+    Database::create_table(
         "term", 
         "
 		owner_id INT UNSIGNED NOT NULL,
@@ -188,7 +188,7 @@ class Setup extends CI_Controller {
         FOREIGN KEY(trail_id) REFERENCES chapter(trail_id),
         FOREIGN KEY(chapter_id) REFERENCES chapter(chapter_id),
         PRIMARY KEY(term_id, chapter_id, trail_id, course_id, owner_id)");
-    Setup::create_table(
+    Database::create_table(
         "term_comment", 
         "
 		author_id INT UNSIGNED NOT NULL,
@@ -214,19 +214,19 @@ class Setup extends CI_Controller {
     $this->load->view("templates/header.php");
 	// drop tables in descending order of foreign key references
 	// can't delete a table while it's referenced by another
-    Setup::drop_table("term_comment");
-    Setup::drop_table("term");
-    Setup::drop_table("chapter");
-    Setup::drop_table("session");
-    Setup::drop_table("access_trail");
-    Setup::drop_table("trail_import");
-    Setup::drop_table("trail");
-    Setup::drop_table("access_course");
-    Setup::drop_table("course_import");
-    Setup::drop_table("course");
-    Setup::drop_table("activity");
-    Setup::drop_table("subscription");
-    Setup::drop_table("user");
+    Database::drop_table("term_comment");
+    Database::drop_table("term");
+    Database::drop_table("chapter");
+    Database::drop_table("session");
+    Database::drop_table("access_trail");
+    Database::drop_table("trail_import");
+    Database::drop_table("trail");
+    Database::drop_table("access_course");
+    Database::drop_table("course_import");
+    Database::drop_table("course");
+    Database::drop_table("activity");
+    Database::drop_table("subscription");
+    Database::drop_table("user");
     $this->load->view("templates/footer.php");
   }
 
