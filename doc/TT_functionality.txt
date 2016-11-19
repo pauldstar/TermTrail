@@ -33,6 +33,7 @@ TRAIL SALE
 - add 10% to the selling price of any termtrail; commission for termtrail.
 - if buyer wants to sell a copy, then 30% of the selling price is added to the final selling price (+ commission). 30% goes to previous owners.
 - buyer can't share a copy for free, unless selling price for origin trail is 0; must sell for atleast same price as origin trail.
+- there are no refunds for buying another user's termtrail
 
 OPERATIONS
 - take £1 from users a year after they use them. give them warnings so they're not caught unaware.
@@ -47,7 +48,7 @@ OPERATIONS
 - perfect the advice guide (consider Victizzle).
 - ultimately TermTrail could implement a distributed cloud storage system to save ops costs; could work with storj.io.
 
-TIPS
+Advice
 - as you revise, try to relate the points you locate in your notes with the terms on the trail
 - enter terms in the form of questions or commands.
 - when in exam mode, alternate between the 1st and last lectures as starting points for each run. Human brain tends to get more familiar with the start than end; this evens out the familiarity levels.
@@ -55,10 +56,11 @@ TIPS
 - listen attentively to the teacher during classes. Do they go to a great mile to talk about the details? There is a good chance they would obsess about details while marking exam answers.
 - there is no limit to what you're brain can store; the only question is, do you feel like working hard?
 - this is not a one size fits all approach. This is just for you to use to check your understanding of the concepts explained in your course.
-con: you may ask yourself lots of questions that may never come out in the exam.
+- you may ask yourself lots of questions that may never come out in the exam.
 - when colouring terms, be honest with yourself. If you give a colour green to a term, only to find out later that you didn't really know it that well, it could cause problems.
 - when working through the termtrail after the first time, if you can't properly remember how to answer a green term, then don't hesitate to change the colour of the term to a less favourable one.
 - on your first revision run of the trail, if you can't remember the answer to a term in more than 20 secs, then you have to colour it, and move on to another. ONLY FOR FIRST RUN.
+- this doesn't guarantee a great result, it just makes reading and remembering important parts of your course easier.
 
 TRAIL PROPOSALS
 - allow users to place proposals requesting trails to be made for their course material.
