@@ -12,4 +12,8 @@ echo form_open('home/index/login', '', $hidden);
 <input type='password' name='password' class='form-control'>
 <br />
 <input type="submit" name="submit" value="Login" />
-<?php echo form_close(); ?>
+<?php
+echo form_close();
+$this->load->helper('url');
+echo anchor('signup', 'Sign Up', 'title="New user?"');
+?>

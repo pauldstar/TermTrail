@@ -13,6 +13,7 @@ class User_Model extends CI_Model {
     // if the query returns data and the password is valid, return the user
     if (isset($row) && password_verify($u_password, $row->password_hash)) {
       $user_params = array(
+          "user_id" => $row->user_id, 
           "username" => $row->username, 
           "email" => $row->email, 
           "scope" => $row->scope, 
@@ -30,6 +31,7 @@ class User_Model extends CI_Model {
     $query = $this->db->query("SELECT * FROM user WHERE username='$username'");
     $row = $query->result();
     $user_params = array(
+        "user_id" => $row->user_id, 
         "username" => $row->username, 
         "account_balance" => $row->account_balance, 
         "sign_up_time" => $row->sign_up_time, 
@@ -58,6 +60,7 @@ class User_Model extends CI_Model {
     $query_successful = $this->db->insert('user', $user_params);
     // return the new user if successfully inserted into DB
     if ($query_successful) {
+      $user_params['user_id'] = $this->db->insert_id();
       $user_params['this_is_main_user'] = TRUE;
       $user_params['has_notification'] = 'N';
       $user_params['account_balance'] = 0;
@@ -75,8 +78,8 @@ class User {
 
   public function __construct($user_params) {
     // this is an ancillary class, there4 used get_instance() to access course_model
-    $user_class =& get_instance();
-    $this->user_class->load->model('course_model');
+    $this_class = &get_instance();
+    $this_class->load->model('course_model');
     // load up the user params
     $this->user_id = $user_params['user_id'];
     $this->username = $user_params['username'];
@@ -90,7 +93,7 @@ class User {
       $this->email = $user_params['email'];
       // courses each contain trails, trails contain chapters, then terms, then term_comments
       // loading the courses loads the rest of the user's work; for good offline behaviour
-      $this->courses = $this->course_model->$get_user_courses($this->user_id);
+      $this->courses = $this_class->course_model->get_user_courses($this->user_id);
     }
   }
 }

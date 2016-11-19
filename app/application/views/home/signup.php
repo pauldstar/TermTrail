@@ -20,5 +20,9 @@ echo form_dropdown('scope', $scope, 'private');
 <label for="password">Password</label>
 <input type='password' name='password' class='form-control'>
 <br />
-<input type="submit" name="submit" value="Login" />
-<?php echo form_close(); ?> 
+<input type="submit" name="submit" value="Sign Up" />
+<?php
+echo form_close();
+$this->load->helper('url');
+echo anchor('login', 'Login', 'title="Login instead?"');
+?>
