@@ -1,25 +1,31 @@
 <?php
 
-class User_Model extends CI_Model {
+class Course_Model extends CI_Model {
 
   public function __construct() {
     parent::__construct();
     $this->load->database();
   }
-
+  
+  public function get_user_courses($user_id) {
+    // may need to check if user is offline before returning array of courses
+    return array();
+  }
+  
+/* 
   public function get_main_user($u_email, $u_password) {
     $query = $this->db->query("SELECT * FROM user WHERE email='$u_email'");
     $row = $query->row();
     // if the query returns data and the password is valid, return the user
     if (isset($row) && password_verify($u_password, $row->password_hash)) {
       $user_params = array(
-          "username" => $row->username, 
-          "email" => $row->email, 
-          "scope" => $row->scope, 
-          "account_balance" => $row->account_balance, 
-          "sign_up_time" => $row->sign_up_time, 
-          "last_login_time" => $row->last_login_time, 
-          "has_notification" => $row->has_notification, 
+          "username" => $row->username,
+          "email" => $row->email,
+          "scope" => $row->scope,
+          "account_balance" => $row->account_balance,
+          "sign_up_time" => $row->sign_up_time,
+          "last_login_time" => $row->last_login_time,
+          "has_notification" => $row->has_notification,
           "this_is_main_user" => TRUE);
       return new User($user_params);
     }
@@ -30,11 +36,11 @@ class User_Model extends CI_Model {
     $query = $this->db->query("SELECT * FROM user WHERE username='$username'");
     $row = $query->result();
     $user_params = array(
-        "username" => $row->username, 
-        "account_balance" => $row->account_balance, 
-        "sign_up_time" => $row->sign_up_time, 
-        "last_login_time" => $row->last_login_time, 
-        "has_notification" => $row->has_notification, 
+        "username" => $row->username,
+        "account_balance" => $row->account_balance,
+        "sign_up_time" => $row->sign_up_time,
+        "last_login_time" => $row->last_login_time,
+        "has_notification" => $row->has_notification,
         "this_is_main_user" => FALSE);
     return new User($user_params);
   }
@@ -49,11 +55,11 @@ class User_Model extends CI_Model {
     $current_time = date_timestamp_get(date_create());
     // insert new user into database
     $user_params = array(
-        'username' => $u_username, 
-        'scope' => $u_scope, 
-        'password_hash' => $u_password_hash, 
-        'email' => $u_email, 
-        'sign_up_time' => $current_time, 
+        'username' => $u_username,
+        'scope' => $u_scope,
+        'password_hash' => $u_password_hash,
+        'email' => $u_email,
+        'sign_up_time' => $current_time,
         'last_login_time' => $current_time);
     $query_successful = $this->db->insert('user', $user_params);
     // return the new user if successfully inserted into DB
@@ -66,18 +72,18 @@ class User_Model extends CI_Model {
     return null;
   }
 
-  public function delete_user($username) {}
+  public function delete_user($username) {} */
 }
 
-class User {
+class Course {
+  
+  /* 
   public $user_id, $account_balance, $email, $username, $scope;
   public $sign_up_time, $last_login_time, $has_notification, $courses;
 
   public function __construct($user_params) {
-    // this is an ancillary class, there4 used get_instance() to access course_model
     $user_class =& get_instance();
     $this->user_class->load->model('course_model');
-    // load up the user params
     $this->user_id = $user_params['user_id'];
     $this->username = $user_params['username'];
     $this->account_balance = $user_params['account_balance'];
@@ -88,9 +94,7 @@ class User {
     if ($this->this_is_main_user) {
       $this->scope = $user_params['scope'];
       $this->email = $user_params['email'];
-      // courses each contain trails, trails contain chapters, then terms, then term_comments
-      // loading the courses loads the rest of the user's work; for good offline behaviour
       $this->courses = $this->course_model->$get_user_courses($this->user_id);
-    }
-  }
+    } 
+  }*/
 }

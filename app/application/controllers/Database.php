@@ -7,227 +7,34 @@ class Database extends CI_Controller {
     $this->load->database();
   }
 
-  public function create_database($passcode = '') {
+  public function create($table_name = '') {
     // later, add a passcode to prevent unauthorised database creation
-    $this->load->view("templates/header.php");
-	// create tables in a steadily ascending order of foreign key references
-    Database::create_table(
-        "user", 
-        "
-        user_id INT UNSIGNED AUTO_INCREMENT NOT NULL,
-        username VARCHAR(50) NOT NULL UNIQUE,
-        scope VARCHAR(7) NOT NULL,
-        password_hash CHAR(60) NOT NULL,
-        email VARCHAR(255) NOT NULL,
-		profile_view_count INT UNSIGNED NOT NULL,
-		account_balance MEDIUMINT DEFAULT 0,
-        sign_up_time BIGINT UNSIGNED NOT NULL,
-        last_login_time BIGINT UNSIGNED NOT NULL,
-        has_notification CHAR(1) DEFAULT 'N',
-        INDEX(username),
-        PRIMARY KEY(user_id)");
-    Database::create_table(
-        "subscription", 
-        "
-        user INT UNSIGNED NOT NULL,
-        start_date BIGINT UNSIGNED NOT NULL,
-        end_date BIGINT UNSIGNED NOT NULL,
-		cost TINYINT UNSIGNED NOT NULL,
-        FOREIGN KEY(user) REFERENCES user(user_id),
-        PRIMARY KEY(user)");
-    Database::create_table(
-        "activity", 
-        "
-        active_user INT UNSIGNED NOT NULL,
-        passive_user INT UNSIGNED NOT NULL,
-		time_added BIGINT UNSIGNED NOT NULL,
-		message TEXT NOT NULL,
-        has_been_viewed CHAR(1) DEFAULT 'N',
-        FOREIGN KEY(active_user) REFERENCES user(user_id),
-        FOREIGN KEY(passive_user) REFERENCES user(user_id),
-        PRIMARY KEY(active_user, passive_user, time_added)");
-    Database::create_table(
-        "course", 
-        "
-        owner_id INT UNSIGNED NOT NULL,
-        course_id SMALLINT UNSIGNED AUTO_INCREMENT NOT NULL,
-        course_title VARCHAR(50) NOT NULL,
-        scope VARCHAR(7) NOT NULL,
-        time_added BIGINT UNSIGNED NOT NULL,
-		course_view_count INT UNSIGNED NOT NULL,
-        course_type CHAR(6) NOT NULL,
-		category VARCHAR(50) NOT NULL,
-		education_level VARCHAR(10) NOT NULL,
-		INDEX(course_title),
-		INDEX(course_type),
-		INDEX(category),
-		INDEX(education_level),
-        FOREIGN KEY(owner_id) REFERENCES user(user_id),
-        PRIMARY KEY(course_id, owner_id)");
-    Database::create_table(
-        "course_import", 
-        "
-        importer_id INT UNSIGNED NOT NULL,
-        course_id SMALLINT UNSIGNED NOT NULL,
-        origin_owner_id INT UNSIGNED NOT NULL,
-        origin_course_id SMALLINT UNSIGNED NOT NULL,
-		cost SMALLINT UNSIGNED DEFAULT 0,
-        FOREIGN KEY(importer_id) REFERENCES course(owner_id),
-        FOREIGN KEY(course_id) REFERENCES course(course_id),
-        FOREIGN KEY(origin_owner_id) REFERENCES course(owner_id),
-        FOREIGN KEY(origin_course_id) REFERENCES course(course_id),
-        PRIMARY KEY(importer_id, course_id)");
-    Database::create_table(
-        "access_course", 
-        "
-		visitor INT UNSIGNED NOT NULL,
-		course_owner_id INT UNSIGNED NOT NULL,
-        course_id SMALLINT UNSIGNED NOT NULL,
-		access_request_state VARCHAR(8) DEFAULT 'pending',
-		permission CHAR(4) NOT NULL,
-        FOREIGN KEY(visitor) REFERENCES user(user_id),
-        FOREIGN KEY(course_owner_id) REFERENCES course(owner_id),
-        FOREIGN KEY(course_id) REFERENCES course(course_id),
-        PRIMARY KEY(visitor, course_id, course_owner_id)");
-    Database::create_table(
-        "trail", 
-        "
-		owner_id INT UNSIGNED NOT NULL,
-        course_id SMALLINT UNSIGNED NOT NULL,
-		trail_id TINYINT UNSIGNED AUTO_INCREMENT NOT NULL,
-        trail_title VARCHAR(50) NOT NULL,
-        scope VARCHAR(7) NOT NULL,
-		mode CHAR(8) DEFAULT 'building',
-        time_added BIGINT UNSIGNED NOT NULL,
-		trail_view_count INT UNSIGNED NOT NULL,
-		trail_type CHAR(6) NOT NULL,
-		preview_length_time SMALLINT DEFAULT 1800,
-        FOREIGN KEY(owner_id) REFERENCES course(owner_id),
-        FOREIGN KEY(course_id) REFERENCES course(course_id),
-        PRIMARY KEY(trail_id, course_id, owner_id)");
-    Database::create_table(
-        "trail_import", 
-        "
-		importer_id INT UNSIGNED NOT NULL,
-		course_id SMALLINT UNSIGNED NOT NULL,
-        trail_id TINYINT UNSIGNED NOT NULL,
-		origin_owner_id INT UNSIGNED NOT NULL,
-		origin_course_id SMALLINT UNSIGNED NOT NULL,
-		origin_trail_id TINYINT UNSIGNED NOT NULL,
-		cost SMALLINT UNSIGNED DEFAULT 0,
-        FOREIGN KEY(importer_id) REFERENCES trail(owner_id),
-        FOREIGN KEY(course_id) REFERENCES trail(course_id),
-        FOREIGN KEY(trail_id) REFERENCES trail(trail_id),
-        FOREIGN KEY(origin_owner_id) REFERENCES trail(owner_id),
-        FOREIGN KEY(origin_course_id) REFERENCES trail(course_id),
-        FOREIGN KEY(origin_trail_id) REFERENCES trail(trail_id),
-        PRIMARY KEY(trail_id, course_id, importer_id)");
-    Database::create_table(
-        "access_trail", 
-        "
-		visitor INT UNSIGNED NOT NULL,
-		course_owner_id INT UNSIGNED NOT NULL,
-        course_id SMALLINT UNSIGNED NOT NULL,
-		trail_id TINYINT UNSIGNED NOT NULL,
-		access_request_state VARCHAR(8) DEFAULT 'pending',
-		permission CHAR(7) NOT NULL,
-		preview_time TINYINT DEFAULT 0,
-		preview_finished CHAR(1) DEFAULT 'N',
-        FOREIGN KEY(visitor) REFERENCES user(user_id),
-        FOREIGN KEY(course_owner_id) REFERENCES trail(owner_id),
-        FOREIGN KEY(course_id) REFERENCES trail(course_id),
-        FOREIGN KEY(trail_id) REFERENCES trail(trail_id),
-        PRIMARY KEY(visitor, trail_id, course_id, course_owner_id)");
-    Database::create_table(
-        "session", 
-        "
-		trail_owner_id INT UNSIGNED NOT NULL,
-        trail_course_id SMALLINT UNSIGNED NOT NULL,
-		trail_id TINYINT UNSIGNED NOT NULL,
-		session_id SMALLINT UNSIGNED NOT NULL,
-		start_time BIGINT UNSIGNED NOT NULL,
-		elapsed_time BIGINT UNSIGNED,
-		stop_time BIGINT UNSIGNED,
-		confidence_score INT UNSIGNED DEFAULT 0,
-        mode VARCHAR(10) DEFAULT 'sequential',
-		FOREIGN KEY(trail_owner_id) REFERENCES trail(owner_id),
-        FOREIGN KEY(trail_course_id) REFERENCES trail(course_id),
-        FOREIGN KEY(trail_id) REFERENCES trail(trail_id),
-        PRIMARY KEY(session_id, trail_id, trail_course_id, trail_owner_id)");
-    Database::create_table(
-        "chapter", 
-        "
-		owner_id INT UNSIGNED NOT NULL,
-        course_id SMALLINT UNSIGNED NOT NULL,
-		trail_id TINYINT UNSIGNED NOT NULL,
-		chapter_id TINYINT UNSIGNED AUTO_INCREMENT NOT NULL,
-		chapter_title VARCHAR(50) NOT NULL,
-		chapter_position SMALLINT UNSIGNED NOT NULL,
-        FOREIGN KEY(owner_id) REFERENCES trail(owner_id),
-        FOREIGN KEY(course_id) REFERENCES trail(course_id),
-        FOREIGN KEY(trail_id) REFERENCES trail(trail_id),
-        PRIMARY KEY(chapter_id, trail_id, course_id, owner_id)");
-    Database::create_table(
-        "term", 
-        "
-		owner_id INT UNSIGNED NOT NULL,
-        course_id SMALLINT UNSIGNED NOT NULL,
-		trail_id TINYINT UNSIGNED NOT NULL,
-		chapter_id TINYINT UNSIGNED NOT NULL,
-		term_id SMALLINT UNSIGNED AUTO_INCREMENT NOT NULL,
-		author_id INT UNSIGNED NOT NULL,
-		term_position SMALLINT UNSIGNED NOT NULL,
-		content TEXT NOT NULL,
-		answer TEXT,
-		hint TEXT,
-		session_state VARCHAR(7) DEFAULT 'pending',
-		confidence_score INT UNSIGNED,
-		last_edit_time BIGINT UNSIGNED NOT NULL,
-        FOREIGN KEY(owner_id) REFERENCES chapter(owner_id),
-        FOREIGN KEY(course_id) REFERENCES chapter(course_id),
-        FOREIGN KEY(trail_id) REFERENCES chapter(trail_id),
-        FOREIGN KEY(chapter_id) REFERENCES chapter(chapter_id),
-        PRIMARY KEY(term_id, chapter_id, trail_id, course_id, owner_id)");
-    Database::create_table(
-        "term_comment", 
-        "
-		author_id INT UNSIGNED NOT NULL,
-		term_owner_id INT UNSIGNED NOT NULL,
-        course_id SMALLINT UNSIGNED NOT NULL,
-		trail_id TINYINT UNSIGNED NOT NULL,
-		chapter_id TINYINT UNSIGNED NOT NULL,
-		term_id SMALLINT UNSIGNED NOT NULL,
-		comment TEXT NOT NULL,
-		resolved CHAR(1) DEFAULT 'N',
-		last_edit_time BIGINT UNSIGNED NOT NULL,
-        FOREIGN KEY(author_id) REFERENCES user(user_id),
-        FOREIGN KEY(term_owner_id) REFERENCES term(owner_id),
-        FOREIGN KEY(course_id) REFERENCES term(course_id),
-        FOREIGN KEY(trail_id) REFERENCES term(trail_id),
-        FOREIGN KEY(chapter_id) REFERENCES term(chapter_id),
-        FOREIGN KEY(term_id) REFERENCES term(term_id),
-        PRIMARY KEY(author_id, term_id, chapter_id, trail_id, course_id, term_owner_id)");
-    $this->load->view("templates/footer.php");
+    $this->load->config('database');
+    $this->load->view('templates/header.php');
+    // if table_name not specified, then create all tables
+    if (empty($table_name)) {
+      $db_tables = $this->config->config;
+      foreach ($db_tables as $name => $structure)
+        Database::create_table($name, $structure);
+    } else
+      Database::create_table($table_name, $this->config->item($table_name));
+    $this->load->view('templates/footer.php');
   }
 
-  public function delete_database() {
-    $this->load->view("templates/header.php");
-	// drop tables in descending order of foreign key references
-	// can't delete a table while it's referenced by another
-    Database::drop_table("term_comment");
-    Database::drop_table("term");
-    Database::drop_table("chapter");
-    Database::drop_table("session");
-    Database::drop_table("access_trail");
-    Database::drop_table("trail_import");
-    Database::drop_table("trail");
-    Database::drop_table("access_course");
-    Database::drop_table("course_import");
-    Database::drop_table("course");
-    Database::drop_table("activity");
-    Database::drop_table("subscription");
-    Database::drop_table("user");
-    $this->load->view("templates/footer.php");
+  public function delete($table_name = '') {
+    $this->load->config('database');
+    $this->load->view('templates/header.php');
+    // if table_name not specified, then delete all tables
+    if (empty($table_name)) {
+      // retrieve array of table names and their structure in reverse order
+      // so we drop tables in descending order of foreign key references
+      // can't delete a table while it's referenced by another
+      $db_tables = array_reverse($this->config->config);
+      foreach ($db_tables as $name => $structure)
+        Database::drop_table($name);
+    } else
+      Database::create_table($table_name, $this->config->item($table_name));
+    $this->load->view('templates/footer.php');
   }
 
   private function create_table($name, $query) {
@@ -235,7 +42,7 @@ class Database extends CI_Controller {
         "CREATE TABLE IF NOT EXISTS $name($query) ENGINE InnoDB");
     if ($query_successful) {
       $data['name'] = $name;
-      $this->load->view("setup/text_table_created", $data);
+      $this->load->view('setup/text_table_created', $data);
     } else
       show_error("Can't create table '$name'");
   }
@@ -244,7 +51,7 @@ class Database extends CI_Controller {
     $query_successful = $this->db->query("DROP TABLE IF EXISTS $name");
     if ($query_successful) {
       $data['name'] = $name;
-      $this->load->view("setup/text_table_dropped", $data);
+      $this->load->view('setup/text_table_dropped', $data);
     } else
       show_error("Can't drop table '$name'");
   }

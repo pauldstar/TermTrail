@@ -21,4 +21,4 @@ echo form_dropdown('scope', $scope, 'private');
 <input type='password' name='password' class='form-control'>
 <br />
 <input type="submit" name="submit" value="Login" />
-<?php echo form_close(); ?>
+<?php echo form_close(); ?> 
