@@ -47,6 +47,8 @@ OPERATIONS
 - allow users to enter their grades so they and other users can view their progress.
 - perfect the advice guide (consider Victizzle).
 - ultimately TermTrail could implement a distributed cloud storage system to save ops costs; could work with storj.io.
+- users can search their courses, and trails.
+- users can arrange courses into different folders
 
 Advice
 - as you revise, try to relate the points you locate in your notes with the terms on the trail
