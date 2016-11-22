@@ -2,54 +2,53 @@
 
 class Home extends CI_Controller {
 
-  public function index($action) {
+  public function __construct() {
+    parent::__construct();
+    $this->load->helper('url');
+    $this->load->library('session');
+  }
+
+  public function login() {
     $this->load->library('form_validation');
     $this->load->model('user_model');
-    // if action = login, check user details validity, before allowing access
-    if (strcmp($action, 'login') == 0) {
-      $this->form_validation->set_rules('email', 'Email', 'required');
-      $this->form_validation->set_rules('password', 'Password', 'required');
-      if ($this->form_validation->run() === FALSE)
-        Home::load_login_view();
-      else {
-        $email = $this->input->post('email');
-        $password = $this->input->post('password');
-        $_SESSION['user'] = $this->user_model->get_main_user($email, $password);
-        if ($_SESSION['user'] == null) show_error("Invalid Username/Password");
-        Home::load_member_view();
-      } // if action = signup, check validity, b4 saving in DB, and allowing access
-    } elseif (strcmp($action, 'signup') == 0) {
-      $this->form_validation->set_rules('username', 'Username', 'required');
-      $this->form_validation->set_rules('email', 'Email', 'required');
-      $this->form_validation->set_rules('scope', 'Scope', 'required');
-      $this->form_validation->set_rules('password', 'Password', 'required');
-      if ($this->form_validation->run() === FALSE) {
-        $data['signup_title'] = 'Sign-Up';
-        $this->load->view('templates/header', $data);
-        $this->load->view('home/signup');
-        $this->load->view('templates/footer');
-      } else {
-        $_SESSION['user'] = $this->user_model->set_and_get_new_user();
-        Home::load_member_view();
-      }
+    $this->form_validation->set_rules('email', 'Email', 'required');
+    $this->form_validation->set_rules('password', 'Password', 'required');
+    // check user details validity, before allowing access
+    if ($this->form_validation->run() === FALSE) {
+      $data['login_title'] = 'Login';
+      $this->load->view('templates/header', $data);
+      $this->load->view('home/login');
+      $this->load->view('templates/footer');
+    } else {
+      $email = $this->input->post('email');
+      $password = $this->input->post('password');
+      $_SESSION['user'] = $this->user_model->get_main_user($email, $password);
+      if ($_SESSION['user'] == null)
+        show_error("Invalid Username/Password");
+      else redirect('member');
     }
   }
 
-  private function load_login_view() {
-    $data['login_title'] = 'Login';
-    $this->load->view('templates/header', $data);
-    $this->load->view('home/login');
-    $this->load->view('templates/footer');
-  }
-
-  private function load_member_view() {
-    $this->load->view('templates/header');
-    $this->load->view('home/member');
-    $this->load->view('templates/footer');
+  public function signup() {
+    $this->load->library('form_validation');
+    $this->load->model('user_model');
+    $this->form_validation->set_rules('username', 'Username', 'required');
+    $this->form_validation->set_rules('email', 'Email', 'required');
+    $this->form_validation->set_rules('scope', 'Scope', 'required');
+    $this->form_validation->set_rules('password', 'Password', 'required');
+    // check user details validity, before allowing access
+    if ($this->form_validation->run() === FALSE) {
+      $data['signup_title'] = 'Sign Up';
+      $this->load->view('templates/header', $data);
+      $this->load->view('home/signup');
+      $this->load->view('templates/footer');
+    } else {
+      $_SESSION['user'] = $this->user_model->set_and_get_user();
+      redirect('member');
+    }
   }
 
   public function logout() {
-    $this->load->helper('url');
     $_SESSION = array();
     $session_running = session_id() != "" || isset($_COOKIE[session_name()]);
     if ($session_running) {

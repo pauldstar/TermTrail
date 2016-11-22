@@ -5,7 +5,7 @@ class Database extends CI_Controller {
   public function __construct() {
     parent::__construct();
     $this->load->database();
-    // load the database config file with a separate config array 
+    // load the database config file, with a separately indexed 'database' config array 
     $this->load->config('database', TRUE);
   }
 
@@ -14,6 +14,7 @@ class Database extends CI_Controller {
     $this->load->view('templates/header.php');
     // if table_name not specified, then create all tables
     if (empty($table_name)) {
+      // load up db config array
       $db_tables = $this->config->item('database');
       foreach ($db_tables as $name => $structure)
         Database::create_table($name, $structure);

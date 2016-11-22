@@ -5,6 +5,7 @@ class User_Model extends CI_Model {
   public function __construct() {
     parent::__construct();
     $this->load->database();
+    require_once APPPATH.'objects/User.php';
   }
 
   public function get_main_user($u_email, $u_password) {
@@ -21,7 +22,7 @@ class User_Model extends CI_Model {
           "sign_up_time" => $row->sign_up_time, 
           "last_login_time" => $row->last_login_time, 
           "has_notification" => $row->has_notification, 
-          "this_is_main_user" => TRUE);
+          "is_main_user" => TRUE);
       return new User($user_params);
     }
     return null;
@@ -37,11 +38,11 @@ class User_Model extends CI_Model {
         "sign_up_time" => $row->sign_up_time, 
         "last_login_time" => $row->last_login_time, 
         "has_notification" => $row->has_notification, 
-        "this_is_main_user" => FALSE);
+        "is_main_user" => FALSE);
     return new User($user_params);
   }
 
-  public function set_and_get_new_user() {
+  public function set_and_get_user() {
     // collect POST data from form
     $u_username = $this->input->post('username');
     $u_email = $this->input->post('email');
@@ -61,7 +62,7 @@ class User_Model extends CI_Model {
     // return the new user if successfully inserted into DB
     if ($query_successful) {
       $user_params['user_id'] = $this->db->insert_id();
-      $user_params['this_is_main_user'] = TRUE;
+      $user_params['this_is_main_user'] = true;
       $user_params['has_notification'] = 'N';
       $user_params['account_balance'] = 0;
       return new User($user_params);
@@ -70,30 +71,4 @@ class User_Model extends CI_Model {
   }
 
   public function delete_user($username) {}
-}
-
-class User {
-  public $user_id, $account_balance, $email, $username, $scope;
-  public $sign_up_time, $last_login_time, $has_notification, $courses;
-
-  public function __construct($user_params) {
-    // this is an ancillary class, there4 used get_instance() to access course_model
-    $this_class = &get_instance();
-    $this_class->load->model('course_model');
-    // load up the user params
-    $this->user_id = $user_params['user_id'];
-    $this->username = $user_params['username'];
-    $this->account_balance = $user_params['account_balance'];
-    $this->sign_up_time = $user_params['sign_up_time'];
-    $this->last_login_time = $user_params['last_login_time'];
-    $this->has_notification = $user_params['has_notification'];
-    $this->this_is_main_user = $user_params['this_is_main_user'];
-    if ($this->this_is_main_user) {
-      $this->scope = $user_params['scope'];
-      $this->email = $user_params['email'];
-      // courses each contain trails, trails contain chapters, then terms, then term_comments
-      // loading the courses loads the rest of the user's work; for good offline behaviour
-      $this->courses = $this_class->course_model->get_user_courses($this->user_id);
-    }
-  }
 }

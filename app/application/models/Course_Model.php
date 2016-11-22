@@ -5,96 +5,51 @@ class Course_Model extends CI_Model {
   public function __construct() {
     parent::__construct();
     $this->load->database();
+    require_once APPPATH.'objects/Course.php';
   }
-  
-  public function get_user_courses($user_id) {
+
+  public function get_user_courses($user_id, $is_main_user) {
     // may need to check if user is offline before returning array of courses
-    return array();
-  }
-  
-/* 
-  public function get_main_user($u_email, $u_password) {
-    $query = $this->db->query("SELECT * FROM user WHERE email='$u_email'");
-    $row = $query->row();
-    // if the query returns data and the password is valid, return the user
-    if (isset($row) && password_verify($u_password, $row->password_hash)) {
-      $user_params = array(
-          "username" => $row->username,
-          "email" => $row->email,
-          "scope" => $row->scope,
-          "account_balance" => $row->account_balance,
-          "sign_up_time" => $row->sign_up_time,
-          "last_login_time" => $row->last_login_time,
-          "has_notification" => $row->has_notification,
-          "this_is_main_user" => TRUE);
-      return new User($user_params);
+    $query = $this->db->query("SELECT * FROM course WHERE owner_id='$user_id'");
+    $courses = array();
+    foreach ($query->result() as $row) {
+      $course_params = array(
+          "owner_id" => $user_id, 
+          "course_id" => $row->course_id, 
+          "course_title" => $row->course_title, 
+          "scope" => $row->scope, 
+          "time_added" => $row->time_added, 
+          "course_view_count" => $row->course_view_count, 
+          "course_type" => $row->course_type, 
+          "category" => $row->category, 
+          "education_level" => $row->education_level, 
+          "price" => $row->price,
+          "is_main_user" => $is_main_user);
+      $courses[] = new Course($course_params);
     }
-    return null;
+    return $courses;
   }
 
-  public function get_other_user($username) {
-    $query = $this->db->query("SELECT * FROM user WHERE username='$username'");
-    $row = $query->result();
-    $user_params = array(
-        "username" => $row->username,
-        "account_balance" => $row->account_balance,
-        "sign_up_time" => $row->sign_up_time,
-        "last_login_time" => $row->last_login_time,
-        "has_notification" => $row->has_notification,
-        "this_is_main_user" => FALSE);
-    return new User($user_params);
-  }
-
-  public function set_and_get_new_user() {
-    // collect POST data from form
-    $u_username = $this->input->post('username');
-    $u_email = $this->input->post('email');
-    $u_scope = $this->input->post('scope');
-    $u_password = $this->input->post('password');
-    $u_password_hash = password_hash($u_password, PASSWORD_BCRYPT);
+  public function set_and_get_course($user_id) {
     $current_time = date_timestamp_get(date_create());
-    // insert new user into database
-    $user_params = array(
-        'username' => $u_username,
-        'scope' => $u_scope,
-        'password_hash' => $u_password_hash,
-        'email' => $u_email,
-        'sign_up_time' => $current_time,
-        'last_login_time' => $current_time);
-    $query_successful = $this->db->insert('user', $user_params);
-    // return the new user if successfully inserted into DB
+    $course_params = array(
+        "owner_id" => $user_id, 
+        "course_title" => $this->input->post('title'), 
+        "scope" => $this->input->post('scope'), 
+        "course_type" => 'origin',
+        "category" => $this->input->post('category'), 
+        "education_level" => $this->input->post('education_level'), 
+        "time_added" => $current_time);
+    // insert user's new course into database
+    $query_successful = $this->db->insert('course', $course_params);
     if ($query_successful) {
-      $user_params['this_is_main_user'] = TRUE;
-      $user_params['has_notification'] = 'N';
-      $user_params['account_balance'] = 0;
-      return new User($user_params);
+      $course_params['course_id'] = $this->db->insert_id();
+      $course_params['course_view_count'] = 0;
+      $course_params['is_main_user'] = true;
+      $course_params['price'] = 0;
+      return new Course($course_params);
     }
     return null;
+    // may need to check if user is offline before returning array of courses
   }
-
-  public function delete_user($username) {} */
-}
-
-class Course {
-  
-  /* 
-  public $user_id, $account_balance, $email, $username, $scope;
-  public $sign_up_time, $last_login_time, $has_notification, $courses;
-
-  public function __construct($user_params) {
-    $user_class =& get_instance();
-    $this->user_class->load->model('course_model');
-    $this->user_id = $user_params['user_id'];
-    $this->username = $user_params['username'];
-    $this->account_balance = $user_params['account_balance'];
-    $this->sign_up_time = $user_params['sign_up_time'];
-    $this->last_login_time = $user_params['last_login_time'];
-    $this->has_notification = $user_params['has_notification'];
-    $this->this_is_main_user = $user_params['this_is_main_user'];
-    if ($this->this_is_main_user) {
-      $this->scope = $user_params['scope'];
-      $this->email = $user_params['email'];
-      $this->courses = $this->course_model->$get_user_courses($this->user_id);
-    } 
-  }*/
 }

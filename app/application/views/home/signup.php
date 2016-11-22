@@ -3,7 +3,7 @@
 $this->load->helper('form');
 echo validation_errors();
 $hidden = array('signup' => 'yes');
-echo form_open('home/index/signup', '', $hidden);
+echo form_open('home/signup', '', $hidden);
 ?>
 <label for="username">Username</label>
 <input type="text" name="username" />
