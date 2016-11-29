@@ -7,14 +7,6 @@ class Chapter_Model extends CI_Model {
     parent::__construct();
     $this->load->database();
     require_once APPPATH . 'objects/Chapter.php';
-    // object classes are needed to serialise the objects stored in session
-    require_once APPPATH . 'objects/User.php';
-    require_once APPPATH . 'objects/Course.php';
-    require_once APPPATH . 'objects/Trail.php';
-    $this->load->library('session');
-    if (isset($_SESSION['user']))
-      $this->user = $_SESSION['user'];
-    else redirect('login');
   }
 
   public function get_user_chapters($user_id, $course_id, $trail_id, $is_main_user) {
@@ -42,16 +34,13 @@ class Chapter_Model extends CI_Model {
     return null;
   }
 
-  public function set_and_get_chapters($user_id, $course_id, $trail_id) {
-    // get the next chapter position
-    $chapters = $this->user->course[$course_id-1]->trails[$trail_id-1]->chapters;
-    $chapter_position = sizeof($chapters) + 1;
+  public function set_and_get_chapter($user_id, $course_id, $trail_id) {
     $chapter_params = array( 
         "owner_id" => $user_id, 
         "course_id" => $course_id, 
         "trail_id" => $trail_id, 
-        "chapter_title" => $this->input->post('title'), 
-        "chapter_position" => $chapter_position );
+        "chapter_title" => $this->input->post('chapter_title'), 
+        "chapter_position" => 1 );
     // insert user's new chapter into database
     $query_successful = $this->db->insert('chapter', $chapter_params);
     if ($query_successful) {

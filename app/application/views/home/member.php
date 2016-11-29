@@ -1,6 +1,5 @@
 <h1>
   <?php
-  $this->load->model('user_model');
   $user = $_SESSION["user"];
   echo "Hi $user->username";
   ?>

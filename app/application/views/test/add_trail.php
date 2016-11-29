@@ -2,6 +2,7 @@
 <?php
 $this->load->helper('form');
 echo validation_errors();
+echo form_open('add_trail');
 ?>
 <label for="trail_title">Title</label>
 <input type="text" name="trail_title" />

@@ -23,9 +23,9 @@ class Home extends CI_Controller {
       $email = $this->input->post('email');
       $password = $this->input->post('password');
       $_SESSION['user'] = $this->user_model->get_main_user($email, $password);
-      if ($_SESSION['user'] == null)
-        show_error("Invalid Username/Password");
-      else redirect('member');
+      if (isset($_SESSION['user']))
+        redirect('member');
+      else show_error("Invalid Username/Password");
     }
   }
 

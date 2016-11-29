@@ -54,7 +54,7 @@ class Test extends CI_Controller {
           $course_id, 
           'origin');
       if ($trail == null)
-        show_error("Couldn't save new course in database");
+        show_error("Couldn't save new trail in database");
       else $this->user->courses[$course_id - 1]->trails[] = $trail;
       redirect('member');
     }
@@ -62,8 +62,9 @@ class Test extends CI_Controller {
 
   public function add_chapter() {
     $this->load->model('chapter_model');
-    $this->form_validation->set_rules('trail_title', 'Title', 'required');
+    $this->form_validation->set_rules('chapter_title', 'Title', 'required');
     $this->form_validation->set_rules('trail_id', 'Trail_ID', 'required');
+    $this->form_validation->set_rules('course_id', 'Course_ID', 'required');
     // check if course form was filled
     if ($this->form_validation->run() === FALSE) {
       $this->load->view('templates/header');
@@ -77,7 +78,7 @@ class Test extends CI_Controller {
           $course_id, 
           $trail_id);
       if ($chapter == null)
-        show_error("Couldn't save new course in database");
+        show_error("Couldn't save new chapter in database");
       else $this->user->courses[$course_id-1]->trails[$trail_id]->chapters[] = $chapter;
       redirect('member');
     }
