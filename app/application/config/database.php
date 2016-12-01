@@ -95,12 +95,13 @@ $db['default'] = array(
     'save_queries' => TRUE );
 
 /*
- * Table names and structure
- * The tables are ordered in a steadily ascending order of foreign key references
+ * Table names and structure. The tables are ordered in a steadily 
+ * ascending order of foreign key references
  * $config[table_name] = "structure";
- * 
- * Before some tables, there's written the options for some of it's variables
- * 
+ *
+ * For some tables, the options 
+ * for some of it's variables are written.
+ *
  * USER TABLE
  * scope: public/private
  * has_notification: Y/N
@@ -134,11 +135,11 @@ $config['activity'] = "active_user INT UNSIGNED NOT NULL,
         FOREIGN KEY(passive_user) REFERENCES user(user_id),
         PRIMARY KEY(active_user, passive_user, time_added)";
 /*
-* COURSE TABLE
-* scope: public/private
-* course_type: origin/import
-* education_level: primary/secondary/tertiary
-*/
+ * COURSE TABLE
+ * scope: public/private
+ * course_type: origin/import
+ * education_level: primary/secondary/tertiary
+ */
 $config['course'] = "owner_id INT UNSIGNED NOT NULL,
         course_id SMALLINT UNSIGNED AUTO_INCREMENT NOT NULL,
         course_title VARCHAR(50) NOT NULL,
@@ -249,7 +250,8 @@ $config['session'] = "trail_owner_id INT UNSIGNED NOT NULL,
 		FOREIGN KEY(trail_owner_id) REFERENCES trail(owner_id),
         FOREIGN KEY(trail_course_id) REFERENCES trail(course_id),
         FOREIGN KEY(trail_id) REFERENCES trail(trail_id),
-        PRIMARY KEY(session_id, trail_id, trail_course_id, trail_owner_id)";
+        PRIMARY KEY(session_id, trail_id, 
+                    trail_course_id, trail_owner_id)";
 
 $config['chapter'] = "owner_id INT UNSIGNED NOT NULL,
         course_id SMALLINT UNSIGNED NOT NULL,
@@ -282,7 +284,8 @@ $config['term'] = "owner_id INT UNSIGNED NOT NULL,
         FOREIGN KEY(course_id) REFERENCES chapter(course_id),
         FOREIGN KEY(trail_id) REFERENCES chapter(trail_id),
         FOREIGN KEY(chapter_id) REFERENCES chapter(chapter_id),
-        PRIMARY KEY(term_id, chapter_id, trail_id, course_id, owner_id)";
+        PRIMARY KEY(term_id, chapter_id, trail_id, 
+                    course_id, owner_id)";
 /*
  * TERM_COMMENT TABLE
  * resolved: Y/N
@@ -302,4 +305,5 @@ $config['term_comment'] = "author_id INT UNSIGNED NOT NULL,
         FOREIGN KEY(trail_id) REFERENCES term(trail_id),
         FOREIGN KEY(chapter_id) REFERENCES term(chapter_id),
         FOREIGN KEY(term_id) REFERENCES term(term_id),
-        PRIMARY KEY(author_id, term_id, chapter_id, trail_id, course_id, term_owner_id)";
+        PRIMARY KEY(author_id, term_id, chapter_id, trail_id, 
+                    course_id, term_owner_id)";

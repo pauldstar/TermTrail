@@ -1,6 +1,6 @@
 <?php
 
-class Chapter_Model extends CI_Model {
+class Chapter_model extends CI_Model {
   public $user = null;
 
   public function __construct() {

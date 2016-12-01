@@ -2,11 +2,14 @@
 
 class Trail {
   // variables for origin trail
-  public $trail_id, $course_id, $owner_id, $trail_type, $trail_title, $scope, $mode;
-  public $price, $trail_view_count, $preview_length_time, $time_added;
-  /* // variables for import trail
-  public $import_id, $importers_course_id, $importers_id;
-  public , $date_imported, $purchase_price; */
+  public $trail_id, $course_id, $owner_id, $trail_type, $trail_title; 
+  public $scope, $mode, $price, $trail_view_count;
+  public $preview_length_time, $time_added;
+  /*
+   * // variables for import trail
+   * public $import_id, $importers_course_id, $importers_id;
+   * public , $date_imported, $purchase_price;
+   */
   // and finally...
   public $chapters;
 
@@ -16,7 +19,7 @@ class Trail {
     // origin trails
     $this->owner_id = $trail_params['owner_id'];
     $this->course_id = $trail_params['course_id'];
-    $this->trail_id =  $trail_params['trail_id'];
+    $this->trail_id = $trail_params['trail_id'];
     $this->trail_title = $trail_params['trail_title'];
     $this->scope = $trail_params['scope'];
     $this->mode = $trail_params['mode'];
@@ -29,16 +32,18 @@ class Trail {
     if ($this_is_main_user) {
       // load chapters
       $this->chapters = $this_class->chapter_model->get_user_chapters(
-          $this->owner_id,
-          $this->course_id,
-          $this->trail_id,
+          $this->owner_id, 
+          $this->course_id, 
+          $this->trail_id, 
           true);
     }
-    /* // for import trails
-     if (strcmp($this->trail_type, "import") == 0) {
-     $this->origin_course_id = $trail_params['origin_course_id'];
-     $this->origin_owner_id = $trail_params['origin_owner_id'];
-     $this->cost = $trail_params['purchase_price'];
-     } */
+    /*
+     * // for import trails
+     * if (strcmp($this->trail_type, "import") == 0) {
+     * $this->origin_course_id = $trail_params['origin_course_id'];
+     * $this->origin_owner_id = $trail_params['origin_owner_id'];
+     * $this->cost = $trail_params['purchase_price'];
+     * }
+     */
   }
 }
