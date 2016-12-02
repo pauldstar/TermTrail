@@ -1,7 +1,6 @@
 <?php
 
 class Chapter_model extends CI_Model {
-  public $user = null;
 
   public function __construct() {
     parent::__construct();

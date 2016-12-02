@@ -1,15 +1,18 @@
 <?php
-
 class Trail_model extends CI_Model {
 
-  public function __construct() {
+  public function __construct()
+  {
     parent::__construct();
     $this->load->database();
     require_once APPPATH . 'objects/Trail.php';
   }
 
-  public function get_user_trails($user_id, $course_id, $is_main_user) {
-    $full_course_id = array( "owner_id" => $user_id, "course_id" => $course_id );
+  public function get_user_trails($user_id, $course_id, $is_main_user)
+  {
+    $full_course_id = array( 
+        "owner_id" => $user_id, 
+        "course_id" => $course_id );
     $query = $this->db->get_where('trail', $full_course_id);
     if ($query != null) {
       $trails = array();
@@ -34,7 +37,8 @@ class Trail_model extends CI_Model {
     return null;
   }
 
-  public function set_and_get_trail($user_id, $course_id, $trail_type) {
+  public function set_and_get_trail($user_id, $course_id, $trail_type)
+  {
     $current_time = date_timestamp_get(date_create());
     $trail_params = array( 
         "owner_id" => $user_id, 
