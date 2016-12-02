@@ -17,7 +17,9 @@ class Chapter {
     $this_is_main_user = $trail_params['is_main_user'];
     if ($this_is_main_user) {
       // load terms
-      $this->terms = $this_class->term_model->get_user_terms();
+      $this->terms = $this_class->term_model->get_user_terms(
+          $this->owner_id, $this->course_id, $this->trail_id, 
+          $this->chapter_id, true);
     }
   }
 }

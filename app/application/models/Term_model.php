@@ -29,6 +29,7 @@ class Term_model extends CI_Model {
             'term_id' => $row->term_id, 
             'author_id' => $row->author_id, 
             'term_position' => $row->term_position, 
+            'content' => $row->content, 
             'answer' => $row->answer, 
             'hint' => $row->hint, 
             'session_state' => $row->session_state, 
@@ -42,24 +43,25 @@ class Term_model extends CI_Model {
     return null;
   }
 
-  public function set_and_get_term($user_id, $course_id, $trail_id, 
-      $chapter_id)
+  public function set_and_get_term($user_id)
   {
     $current_time = date_timestamp_get(date_create());
     $term_params = array( 
         'owner_id' => $user_id, 
-        'course_id' => $course_id, 
-        'trail_id' => $trail_id, 
-        'chapter_id' => $chapter_id, 
+        'course_id' => $this->input->post('course_id'), 
+        'trail_id' => $this->input->post('trail_id'), 
+        'chapter_id' => $this->input->post('chapter_id'), 
         'author_id' => $user_id, 
         'term_position' => $this->input->post('term_position'), 
+        'content' => $this->input->post('content'),
         'answer' => $this->input->post('answer'), 
         'hint' => $this->input->post('hint'), 
-        'confidence_score' => $this->input->post('confidence_score'), 
         'last_edit_time' => $current_time );
     $query_successful = $this->db->insert('term', $term_params);
     if ($query_successful) {
       $term_params['term_id'] = $this->db->insert_id();
+      $term_params['session_state'] = 'pending';
+      $term_params['confidence_score'] = 0;
       return new Term($term_params);
     }
     return null;

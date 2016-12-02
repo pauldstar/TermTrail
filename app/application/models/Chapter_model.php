@@ -33,11 +33,11 @@ class Chapter_model extends CI_Model {
     return null;
   }
 
-  public function set_and_get_chapter($user_id, $course_id, $trail_id) {
+  public function set_and_get_chapter($user_id) {
     $chapter_params = array( 
         "owner_id" => $user_id, 
-        "course_id" => $course_id, 
-        "trail_id" => $trail_id, 
+        'course_id' => $this->input->post('course_id'), 
+        'trail_id' => $this->input->post('trail_id'), 
         "chapter_title" => $this->input->post('chapter_title'), 
         "chapter_position" => 1 );
     // insert user's new chapter into database

@@ -37,12 +37,12 @@ class Trail_model extends CI_Model {
     return null;
   }
 
-  public function set_and_get_trail($user_id, $course_id, $trail_type)
+  public function set_and_get_trail($user_id, $trail_type)
   {
     $current_time = date_timestamp_get(date_create());
     $trail_params = array( 
         "owner_id" => $user_id, 
-        "course_id" => $course_id, 
+        'course_id' => $this->input->post('course_id'), 
         "trail_title" => $this->input->post('trail_title'), 
         "scope" => $this->input->post('scope'), 
         "time_added" => $current_time, 
