@@ -1,11 +1,11 @@
 <?php
-
 class Course {
   public $owner_id, $course_id, $course_title, $scope, $time_added;
   public $course_view_count, $course_type, $category, $education_level, $price;
   public $trails;
 
-  public function __construct($course_params) {
+  public function __construct($course_params)
+  {
     $this_class = & get_instance();
     $this_class->load->model('trail_model');
     $this->owner_id = $course_params['owner_id'];
@@ -20,10 +20,8 @@ class Course {
     $this->price = $course_params['price'];
     $this_is_main_user = $course_params['is_main_user'];
     if ($this_is_main_user) {
-      $this->trails = $this_class->trail_model->get_user_trails(
-          $this->owner_id,
-          $this->course_id,
-          true);
+      $this->trails = $this_class->trail_model->get_user_trails($this->owner_id, 
+          $this->course_id, true);
     }
   }
 }

@@ -1,15 +1,20 @@
 <?php
-
 class Course_model extends CI_Model {
+  public $user;
 
-  public function __construct() {
+  public function __construct()
+  {
     parent::__construct();
     $this->load->database();
     require_once APPPATH . 'objects/Course.php';
+    // object classes are needed to serialise the objects stored in session
+    require_once APPPATH . 'objects/User.php';
+    $this->load->library('session');
+    $this->user = isset($_SESSION['user']) ? $_SESSION['user'] : null;
   }
 
-  public function get_user_courses($user_id, $is_main_user) {
-    // may need to check if user is offline before returning array of courses
+  public function get_user_courses($user_id, $is_main_user)
+  {
     $query = $this->db->query("SELECT * FROM course WHERE owner_id='$user_id'");
     if ($query != null) {
       $courses = array();
@@ -33,26 +38,27 @@ class Course_model extends CI_Model {
     return null;
   }
 
-  public function set_and_get_course($user_id, $course_type) {
+  public function set_and_get_course($course_type)
+  {
+    $course_id = sizeof($this->user->courses) + 1;
     $current_time = date_timestamp_get(date_create());
     $course_params = array( 
-        "owner_id" => $user_id, 
-        "course_title" => $this->input->post('title'), 
-        "scope" => $this->input->post('scope'), 
-        "course_type" => 'origin', 
-        "category" => $this->input->post('category'), 
-        "education_level" => $this->input->post('education_level'), 
-        "time_added" => $current_time );
+        'owner_id' => $this->user->user_id, 
+        'course_id' => $course_id, 
+        'course_title' => $this->input->post('course_title'), 
+        'scope' => $this->input->post('scope'), 
+        'course_type' => $course_type, 
+        'category' => $this->input->post('category'), 
+        'education_level' => $this->input->post('education_level'), 
+        'time_added' => $current_time );
     // insert user's new course into database
     $query_successful = $this->db->insert('course', $course_params);
     if ($query_successful) {
-      $course_params['course_id'] = $this->db->insert_id();
       $course_params['course_view_count'] = 0;
       $course_params['is_main_user'] = true;
       $course_params['price'] = 0;
       return new Course($course_params);
     }
     return null;
-    // may need to check if user is offline before returning array of courses
   }
 }
