@@ -11,6 +11,9 @@ class Test extends CI_Controller {
     require_once APPPATH . 'objects/User.php';
     require_once APPPATH . 'objects/Course.php';
     require_once APPPATH . 'objects/Trail.php';
+    require_once APPPATH . 'objects/Chapter.php';
+    require_once APPPATH . 'objects/Term.php';
+    //require_once APPPATH . 'objects/Term_comment.php';
     $this->load->library('session');
     if (isset($_SESSION['user'])) $this->user = $_SESSION['user'];
     else redirect('login');
@@ -96,12 +99,16 @@ class Test extends CI_Controller {
       $this->load->view('templates/footer');
     }
     else {
-      $term = $this->term_model->set_and_get_term($this->user->user_id);
-      if ($term == null) {
-        show_error("Couldn't save new term in database");
+      $course_id = $this->input->post('course_id');
+      $trail_id = $this->input->post('trail_id');
+      $chapter_id = $this->input->post('chapter_id');
+      $term = $this->term_model->set_and_get_term($this->user->user_id, $course_id, 
+          $trail_id, $chapter_id);
+      if ($term == null) show_error("Couldn't save new term in database");
+      else {
+        $trail =& $this->user->courses[$course_id - 1]->trails[$trail_id - 1];
+        $trail->chapters[$chapter_id - 1]->terms[] = $term;
       }
-      else
-        $this->user->courses[$course_id - 1]->trails[$trail_id - 1]->chapters[$chapter_id - 1]->terms[] = $term;
       redirect('member');
     }
   }

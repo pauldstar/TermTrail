@@ -14,7 +14,6 @@ class Chapter_model extends CI_Model {
         "owner_id" => $user_id, 
         "course_id" => $course_id, 
         "trail_id" => $trail_id );
-    $this->db->order_by('chapter_position', 'ASC');
     $query = $this->db->get_where('chapter', $full_trail_id);
     if ($query != null) {
       $chapters = array();
@@ -49,6 +48,5 @@ class Chapter_model extends CI_Model {
     $query_successful = $this->db->insert('chapter', $chapter_params);
     if ($query_successful) return new Chapter($chapter_params);
     return null;
-    // may need to check if user is offline before returning array of chapters
   }
 }

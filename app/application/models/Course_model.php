@@ -1,16 +1,11 @@
 <?php
 class Course_model extends CI_Model {
-  public $user;
 
   public function __construct()
   {
     parent::__construct();
     $this->load->database();
     require_once APPPATH . 'objects/Course.php';
-    // object classes are needed to serialise the objects stored in session
-    require_once APPPATH . 'objects/User.php';
-    $this->load->library('session');
-    $this->user = isset($_SESSION['user']) ? $_SESSION['user'] : null;
   }
 
   public function get_user_courses($user_id, $is_main_user)

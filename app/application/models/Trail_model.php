@@ -1,17 +1,11 @@
 <?php
 class Trail_model extends CI_Model {
-  public $user;
 
   public function __construct()
   {
     parent::__construct();
     $this->load->database();
     require_once APPPATH . 'objects/Trail.php';
-    // object classes are needed to serialise the objects stored in session
-    require_once APPPATH . 'objects/Course.php';
-    require_once APPPATH . 'objects/User.php';
-    $this->load->library('session');
-    $this->user = isset($_SESSION['user']) ? $_SESSION['user'] : null;
   }
 
   public function get_user_trails($user_id, $course_id, $is_main_user)
@@ -64,6 +58,5 @@ class Trail_model extends CI_Model {
       return new Trail($trail_params);
     }
     return null;
-    // may need to check if user is offline before returning array of trails
   }
 }

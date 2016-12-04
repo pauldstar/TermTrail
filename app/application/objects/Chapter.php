@@ -14,8 +14,8 @@ class Chapter {
     $this->chapter_id = $trail_params['chapter_id'];
     $this->chapter_title = $trail_params['chapter_title'];
     $this->chapter_position = $trail_params['chapter_position'];
-    $this_is_main_user = $trail_params['is_main_user'];
-    if ($this_is_main_user) {
+    $is_main_user = $trail_params['is_main_user'];
+    if ($is_main_user) {
       // load terms
       $this->terms = $this_class->term_model->get_user_terms(
           $this->owner_id, $this->course_id, $this->trail_id, 
