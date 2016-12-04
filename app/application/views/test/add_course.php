@@ -2,11 +2,10 @@
 <?php
 $this->load->helper('form');
 echo validation_errors();
-$hidden = array( 'course_form' => 'yes' );
-echo form_open('member', '', $hidden);
+echo form_open('add_course');
 ?>
-<label for="title">Title</label>
-<input type="text" name="title" />
+<label for="course_title">Title</label>
+<input type="text" name="course_title" />
 <br />
 <label for="scope">Scope</label>
 <?php

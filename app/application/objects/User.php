@@ -16,8 +16,8 @@ class User {
     $this->sign_up_time = $user_params['sign_up_time'];
     $this->last_login_time = $user_params['last_login_time'];
     $this->has_notification = $user_params['has_notification'];
-    $this_is_main_user = $user_params['is_main_user'];
-    if ($this_is_main_user) {
+    $is_main_user = $user_params['is_main_user'];
+    if ($is_main_user) {
       $this->scope = $user_params['scope'];
       $this->email = $user_params['email'];
       // courses each contain trails, trails contain chapters, then terms, then term_comments
