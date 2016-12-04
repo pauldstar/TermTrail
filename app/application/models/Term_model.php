@@ -45,6 +45,7 @@ class Term_model extends CI_Model {
 
   public function set_and_get_term($user_id)
   {
+    
     $current_time = date_timestamp_get(date_create());
     $term_params = array( 
         'owner_id' => $user_id, 

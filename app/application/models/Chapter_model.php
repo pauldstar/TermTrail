@@ -1,14 +1,15 @@
 <?php
-
 class Chapter_model extends CI_Model {
 
-  public function __construct() {
+  public function __construct()
+  {
     parent::__construct();
     $this->load->database();
     require_once APPPATH . 'objects/Chapter.php';
   }
 
-  public function get_user_chapters($user_id, $course_id, $trail_id, $is_main_user) {
+  public function get_user_chapters($user_id, $course_id, $trail_id, $is_main_user)
+  {
     $full_trail_id = array( 
         "owner_id" => $user_id, 
         "course_id" => $course_id, 
@@ -33,19 +34,20 @@ class Chapter_model extends CI_Model {
     return null;
   }
 
-  public function set_and_get_chapter($user_id) {
+  public function set_and_get_chapter($user_id, $course_id, $trail_id)
+  {
+    $chapter_id = sizeof(
+        $this->user->courses[$course_id - 1]->trails[$trail_id - 1]->chapters) + 1;
     $chapter_params = array( 
         "owner_id" => $user_id, 
         'course_id' => $this->input->post('course_id'), 
         'trail_id' => $this->input->post('trail_id'), 
+        'chapter_id' => $chapter_id, 
         "chapter_title" => $this->input->post('chapter_title'), 
         "chapter_position" => 1 );
     // insert user's new chapter into database
     $query_successful = $this->db->insert('chapter', $chapter_params);
-    if ($query_successful) {
-      $chapter_params['chapter_id'] = $this->db->insert_id();
-      return new Chapter($chapter_params);
-    }
+    if ($query_successful) return new Chapter($chapter_params);
     return null;
     // may need to check if user is offline before returning array of chapters
   }

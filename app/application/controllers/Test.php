@@ -1,6 +1,6 @@
 <?php
 class Test extends CI_Controller {
-  public $user = null;
+  public $user;
 
   public function __construct()
   {
@@ -50,7 +50,8 @@ class Test extends CI_Controller {
       $this->load->view('templates/footer');
     }
     else {
-      $trail = $this->trail_model->set_and_get_trail($this->user->user_id, 'origin');
+      $course_id = $this->input->post('course_id');
+      $trail = $this->trail_model->set_and_get_trail($course_id, 'origin');
       if ($trail == null) show_error("Couldn't save new trail in database");
       else $this->user->courses[$course_id - 1]->trails[] = $trail;
       redirect('member');
@@ -70,7 +71,10 @@ class Test extends CI_Controller {
       $this->load->view('templates/footer');
     }
     else {
-      $chapter = $this->chapter_model->set_and_get_chapter($this->user->user_id);
+      $course_id = $this->input->post('course_id');
+      $trail_id = $this->input->post('trail_id');
+      $chapter = $this->chapter_model->set_and_get_chapter($this->user->user_id, $course_id, 
+          $trail_id);
       if ($chapter == null) show_error("Couldn't save new chapter in database");
       else $this->user->courses[$course_id - 1]->trails[$trail_id - 1]->chapters[] = $chapter;
       redirect('member');
