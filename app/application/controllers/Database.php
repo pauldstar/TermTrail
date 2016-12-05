@@ -6,7 +6,7 @@ class Database extends CI_Controller {
     parent::__construct();
     $this->load->database();
     // load the database config file, with a separately indexed 'database' config array 
-    $this->load->config('database', TRUE);
+    $this->load->config('db_tables', TRUE);
   }
 
   public function create($table_name = '') {
@@ -15,7 +15,7 @@ class Database extends CI_Controller {
     // if table_name not specified, then create all tables
     if (empty($table_name)) {
       // load up db config array
-      $db_tables = $this->config->item('database');
+      $db_tables = $this->config->item('db_tables');
       foreach ($db_tables as $name => $structure)
         Database::create_table($name, $structure);
     } else
@@ -30,7 +30,7 @@ class Database extends CI_Controller {
       // retrieve array of table names and their structure in reverse order
       // so we drop tables in descending order of foreign key references
       // can't delete a table while it's referenced by another
-      $db_tables = array_reverse($this->config->item('database'));
+      $db_tables = array_reverse($this->config->item('db_tables'));
       foreach ($db_tables as $name => $structure)
         Database::drop_table($name);
     } else
