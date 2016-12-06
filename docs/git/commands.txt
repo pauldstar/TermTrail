@@ -1,0 +1,17 @@
+log
+reset --hard [commit_id]
+add [filename]
+commit -m [message]
+pull [op: remote] [op: branch]
+push [op: remote] [op: branch]
+push --set-upstream [branch] [origin/branch]
+branch
+branch [branch_name] [op: src. branch]
+checkout [branch]
+checkout -b [branch] [src. branch]
+merge [op: dest. branch] [src. branch]
+merge --no-ff [...branches]
+stash
+stash pop
+stash list
+stash drop [stash_name]
