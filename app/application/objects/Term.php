@@ -22,13 +22,9 @@ class Term {
     $this->confidence_score = $params['confidence_score'];
     $this->last_edit_time = $params['last_edit_time'];
     $this_is_main_user = $params['is_main_user'];
-    /*
-     * if ($this_is_main_user) {
-     * $this->term_comments = $this_class->term_comment_model->get_user_term_comments(
-     * $this->owner_id,
-     * $this->course_id,
-     * true);
-     * }
-     */
+    if ($this_is_main_user) {
+      $this->term_comments = $this_class->term_comment_model->get_term_comments(
+          $this->owner_id, $this->course_id, true);
+    }
   }
 }

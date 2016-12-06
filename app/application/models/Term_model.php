@@ -10,12 +10,12 @@ class Term_model extends CI_Model {
 
   public function get_user_terms($user_id, $course_id, $trail_id, $chapter_id, $is_main_user)
   {
-    $full_term_id = array( 
+    $full_chapter_id = array( 
         "owner_id" => $user_id, 
         "course_id" => $course_id, 
         "trail_id" => $trail_id, 
         "chapter_id" => $chapter_id );
-    $query = $this->db->get_where('term', $full_term_id);
+    $query = $this->db->get_where('term', $full_chapter_id);
     if ($query != null) {
       $terms = array();
       foreach ($query->result() as $row) {
@@ -61,6 +61,7 @@ class Term_model extends CI_Model {
     if ($query_successful) {
       $term_params['session_state'] = 'pending';
       $term_params['confidence_score'] = 0;
+      $term_params['is_main_user'] = true;
       return new Term($term_params);
     }
     return null;
