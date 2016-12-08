@@ -45,15 +45,4 @@ class Home extends CI_Controller {
       redirect('member');
     }
   }
-
-  public function logout() {
-    $_SESSION = array();
-    $session_running = session_id() != "" || isset($_COOKIE[session_name()]);
-    if ($session_running) {
-      setcookie(session_name(), '', time() - 2592000, '/');
-      session_destroy();
-      header("Location: " . base_url('index.php/login'));
-    } else
-      show_error("You aren't logged in anyway mate!");
-  }
 }

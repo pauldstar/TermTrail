@@ -1,7 +1,7 @@
 <?php
 
 class Member extends CI_Controller {
-  public $user = null;
+  public $user;
 
   public function __construct() {
     parent::__construct();
@@ -23,5 +23,16 @@ class Member extends CI_Controller {
     $this->load->view('templates/header');
     $this->load->view('home/member');
     $this->load->view('templates/footer');
+  }
+  
+  public function logout() {
+    $_SESSION = array();
+    $session_running = session_id() != "" || isset($_COOKIE[session_name()]);
+    if ($session_running) {
+      setcookie(session_name(), '', time() - 2592000, '/');
+      session_destroy();
+      header("Location: " . base_url('index.php/login'));
+    } else
+      show_error("You aren't logged in anyway mate!");
   }
 }
