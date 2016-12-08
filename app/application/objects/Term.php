@@ -8,7 +8,7 @@ class Term {
   public function __construct($params)
   {
     $this_class = & get_instance();
-    // $this_class->load->model('term_comment_model');
+    $this_class->load->model('term_comment_model');
     $this->owner_id = $params['owner_id'];
     $this->course_id = $params['course_id'];
     $this->trail_id = $params['trail_id'];
@@ -16,6 +16,7 @@ class Term {
     $this->term_id = $params['term_id'];
     $this->author_id = $params['author_id'];
     $this->term_position = $params['term_position'];
+    $this->content = $params['content'];
     $this->answer = $params['answer'];
     $this->hint = $params['hint'];
     $this->session_state = $params['session_state'];
@@ -24,7 +25,8 @@ class Term {
     $this_is_main_user = $params['is_main_user'];
     if ($this_is_main_user) {
       $this->term_comments = $this_class->term_comment_model->get_term_comments(
-          $this->owner_id, $this->course_id, true);
+          $this->author_id, $this->owner_id, $this->course_id, $this->trail_id, 
+          $this->chapter_id, $this->term_id);
     }
   }
 }

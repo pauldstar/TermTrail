@@ -116,7 +116,7 @@ class Test extends CI_Controller {
   public function add_term_comment()
   {
     $this->load->model('term_comment_model');
-    $this->form_validation->set_rules('owner_id', 'Owner_ID', 'required');
+    $this->form_validation->set_rules('term_owner_id', 'Owner_ID', 'required');
     $this->form_validation->set_rules('course_id', 'Course_ID', 'required');
     $this->form_validation->set_rules('trail_id', 'Trail_ID', 'required');
     $this->form_validation->set_rules('chapter_id', 'Chapter_ID', 'required');
@@ -129,13 +129,13 @@ class Test extends CI_Controller {
       $this->load->view('templates/footer');
     }
     else {
-      $owner_id = $this->input->post('owner_id');
+      $owner_id = $this->input->post('term_owner_id');
       $course_id = $this->input->post('course_id');
       $trail_id = $this->input->post('trail_id');
       $chapter_id = $this->input->post('chapter_id');
       $term_id = $this->input->post('term_id');
       $term_comment = $this->term_comment_model->set_and_get_term_comment(
-          $this->user->user_id, $course_id, $trail_id, $chapter_id, $term_id);
+          $this->user->user_id, $owner_id, $course_id, $trail_id, $chapter_id, $term_id);
       if ($term_comment == null) show_error("Couldn't save new term in database");
       else {
         if ($owner_id == $this->user->user_id) {

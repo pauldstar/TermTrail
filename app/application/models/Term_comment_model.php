@@ -8,10 +8,10 @@ class Term_comment_model extends CI_Model {
     require_once APPPATH . 'objects/Term_comment.php';
   }
 
-  public function get_term_comments($author_id, $user_id, $course_id, $trail_id, $chapter_id, $term_id)
+  public function get_term_comments($author_id, $term_owner_id, $course_id, $trail_id, $chapter_id, $term_id)
   {
     $full_term_id = array( 
-        "term_owner_id" => $user_id, 
+        "term_owner_id" => $term_owner_id, 
         "course_id" => $course_id, 
         "trail_id" => $trail_id, 
         "chapter_id" => $chapter_id, 
@@ -22,7 +22,7 @@ class Term_comment_model extends CI_Model {
       foreach ($query->result() as $row) {
         $term_comment_params = array( 
             'author_id' => $row->author_id, 
-            'term_owner_id' => $user_id, 
+            'term_owner_id' => $term_owner_id, 
             'course_id' => $course_id, 
             'trail_id' => $trail_id, 
             'chapter_id' => $chapter_id, 
