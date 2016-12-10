@@ -8,12 +8,13 @@ class Test extends CI_Controller {
     $this->load->helper('url');
     $this->load->library('form_validation');
     // object classes are needed to serialise the objects stored in session
-    require_once APPPATH . 'objects/User.php';
-    require_once APPPATH . 'objects/Course.php';
-    require_once APPPATH . 'objects/Trail.php';
-    require_once APPPATH . 'objects/Chapter.php';
-    require_once APPPATH . 'objects/Term.php';
-    // require_once APPPATH . 'objects/Term_comment.php';
+    $this->load->file(APPPATH . 'objects/User.php'); 
+    $this->load->file(APPPATH . 'objects/Course.php');
+    $this->load->file(APPPATH . 'objects/Trail.php');
+    $this->load->file(APPPATH . 'objects/Chapter.php');
+    $this->load->file(APPPATH . 'objects/Term.php');
+    $this->load->file(APPPATH . 'objects/Term_Comment.php');
+    //require_once APPPATH . 'objects/Term_comment.php';
     $this->load->library('session');
     if (isset($_SESSION['user'])) $this->user = $_SESSION['user'];
     else redirect('login');

@@ -43,7 +43,8 @@ class Term_model extends CI_Model {
 
   public function set_and_get_term($user_id, $course_id, $trail_id, $chapter_id)
   {
-    $term_id = sizeof($this->user->courses[$course_id - 1]->trails[$trail_id - 1]->chapters[$chapter_id - 1]->terms) + 1;
+    $trails = $this->user->courses[$course_id - 1]->trails[$trail_id - 1];
+    $term_id = sizeof($trails->chapters[$chapter_id - 1]->terms) + 1;
     $current_time = date_timestamp_get(date_create());
     $term_params = array( 
         'owner_id' => $user_id, 
