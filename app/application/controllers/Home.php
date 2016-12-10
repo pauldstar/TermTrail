@@ -10,7 +10,6 @@ class Home extends CI_Controller {
 
   public function login() {
     $this->load->library('form_validation');
-    $this->load->model('user_model');
     $this->form_validation->set_rules('email', 'Email', 'required');
     $this->form_validation->set_rules('password', 'Password', 'required');
     // check user details validity, before allowing access
@@ -20,6 +19,7 @@ class Home extends CI_Controller {
       $this->load->view('home/login');
       $this->load->view('templates/footer');
     } else {
+      $this->load->model('user_model');
       $_SESSION['user'] = $this->user_model->get_main_user();
       if (isset($_SESSION['user']))
         redirect('member');

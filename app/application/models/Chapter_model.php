@@ -5,10 +5,22 @@ class Chapter_model extends CI_Model {
   {
     parent::__construct();
     $this->load->database();
-    require_once APPPATH . 'objects/Chapter.php';
+    $this->load->file(APPPATH . 'objects/Chapter.php');
   }
 
-  public function get_user_chapters($user_id, $course_id, $trail_id, $is_main_user)
+  public function get_user_chapters($user_id)
+  {
+    $query = $this->db->query("SELECT * FROM chapter WHERE owner_id='$user_id'");
+    if (isset($query)) {
+      $chapters = array();
+      foreach ($query->result_array() as $row)
+        $chapters[] = new Chapter($row);
+      return $chapters;
+    }
+    return null;
+  }
+
+  public function get_trail_chapters($user_id, $course_id, $trail_id, $is_main_user)
   {
     $full_trail_id = array( 
         "owner_id" => $user_id, 

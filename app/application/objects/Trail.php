@@ -14,8 +14,6 @@ class Trail {
   public $chapters;
 
   public function __construct($trail_params) {
-    $this_class = & get_instance();
-    $this_class->load->model('chapter_model');
     // origin trails
     $this->owner_id = $trail_params['owner_id'];
     $this->course_id = $trail_params['course_id'];
@@ -28,15 +26,7 @@ class Trail {
     $this->trail_view_count = $trail_params['trail_view_count'];
     $this->preview_length_time = $trail_params['preview_length_time'];
     $this->price = $trail_params['price'];
-    $this_is_main_user = $trail_params['is_main_user'];
-    if ($this_is_main_user) {
-      // load chapters
-      $this->chapters = $this_class->chapter_model->get_user_chapters(
-          $this->owner_id, 
-          $this->course_id, 
-          $this->trail_id, 
-          true);
-    }
+    $this->chapters = array();
     /*
      * // for import trails
      * if (strcmp($this->trail_type, "import") == 0) {

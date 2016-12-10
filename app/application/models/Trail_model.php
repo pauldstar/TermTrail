@@ -5,10 +5,22 @@ class Trail_model extends CI_Model {
   {
     parent::__construct();
     $this->load->database();
-    require_once APPPATH . 'objects/Trail.php';
+    $this->load->file(APPPATH . 'objects/Trail.php');
   }
 
-  public function get_user_trails($user_id, $course_id, $is_main_user)
+  public function get_user_trails($user_id)
+  {
+    $query = $this->db->query("SELECT * FROM trail WHERE owner_id='$user_id'");
+    if (isset($query)) {
+      $trails = array();
+      foreach ($query->result_array() as $row)
+        $trails[] = new Trail($row);
+      return $trails;
+    }
+    return null;
+  }
+
+  public function get_course_trails($user_id, $course_id, $is_main_user)
   {
     $full_course_id = array( "owner_id" => $user_id, "course_id" => $course_id );
     $query = $this->db->get_where('trail', $full_course_id);

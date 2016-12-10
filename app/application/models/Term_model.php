@@ -5,10 +5,23 @@ class Term_model extends CI_Model {
   {
     parent::__construct();
     $this->load->database();
-    require_once APPPATH . 'objects/Term.php';
+    $this->load->file(APPPATH . 'objects/Term.php');
   }
 
-  public function get_user_terms($user_id, $course_id, $trail_id, $chapter_id, $is_main_user)
+  public function get_user_terms($user_id)
+  {
+    $query = $this->db->query("SELECT * FROM term WHERE owner_id='$user_id'");
+    if (isset($query)) {
+      $terms = array();
+      foreach ($query->result_array() as $row)
+        $terms[] = new Term($row);
+      return $terms;
+    }
+    return null;
+  }
+
+  public function get_chapter_terms($user_id, $course_id, $trail_id, $chapter_id, 
+      $is_main_user)
   {
     $full_chapter_id = array( 
         "owner_id" => $user_id, 
