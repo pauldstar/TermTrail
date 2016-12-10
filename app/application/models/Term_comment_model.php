@@ -5,9 +5,21 @@ class Term_comment_model extends CI_Model {
   {
     parent::__construct();
     $this->load->database();
-    require_once APPPATH . 'objects/Term_comment.php';
+    $this->load->file(APPPATH . 'objects/Term_comment.php');
   }
 
+  public function get_user_term_comments($user_id)
+  {
+    $query = $this->db->query("SELECT * FROM term_comment WHERE term_owner_id='$user_id'");
+    if (isset($query)) {
+      $term_comments = array();
+      foreach ($query->result_array() as $row)
+        $term_comments[] = new Term_comment($row);
+        return $term_comments;
+    }
+    return null;
+  }
+  
   public function get_term_comments($author_id, $term_owner_id, $course_id, $trail_id, $chapter_id, $term_id)
   {
     $full_term_id = array( 

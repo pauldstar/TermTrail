@@ -5,10 +5,10 @@ class Course_model extends CI_Model {
   {
     parent::__construct();
     $this->load->database();
-    require_once APPPATH . 'objects/Course.php';
+    $this->load->file(APPPATH . 'objects/Course.php');
   }
 
-  public function get_user_courses($user_id, $is_main_user)
+  public function get_user_courses($user_id)
   {
     $query = $this->db->query("SELECT * FROM course WHERE owner_id='$user_id'");
     if ($query != null) {
@@ -24,8 +24,7 @@ class Course_model extends CI_Model {
             "course_type" => $row->course_type, 
             "category" => $row->category, 
             "education_level" => $row->education_level, 
-            "price" => $row->price, 
-            "is_main_user" => $is_main_user );
+            "price" => $row->price );
         $courses[] = new Course($course_params);
       }
       return $courses;

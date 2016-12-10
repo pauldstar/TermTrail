@@ -5,7 +5,7 @@ class User_model extends CI_Model {
   {
     parent::__construct();
     $this->load->database();
-    require_once APPPATH . 'objects/User.php';
+    $this->load->file(APPPATH . 'objects/User.php');
   }
 
   public function get_main_user()
@@ -13,20 +13,23 @@ class User_model extends CI_Model {
     $email = $this->input->post('email');
     $password = $this->input->post('password');
     $query = $this->db->query("SELECT * FROM user WHERE email='$email'");
-    $row = $query->row();
+    $row = $query->row_array();
     // if the query returns data and the password is valid, return the user
-    if (isset($row) && password_verify($password, $row->password_hash)) {
-      $user_params = array( 
-          "user_id" => $row->user_id, 
-          "username" => $row->username, 
-          "email" => $row->email, 
-          "scope" => $row->scope, 
-          "account_balance" => $row->account_balance, 
-          "sign_up_time" => $row->sign_up_time, 
-          "last_login_time" => $row->last_login_time, 
-          "has_notification" => $row->has_notification, 
-          "is_main_user" => TRUE );
-      return new User($user_params);
+    if (isset($row) && password_verify($password, $row['password_hash'])) {
+      $user = new User($row);
+      // get user components
+      $has_courses = User_model::get_user_courses($user);
+      if ($has_courses) {
+        $has_trails = User_model::get_user_trails($user);
+        if ($has_trails) {
+          $has_chapters = User_model::get_user_chapters($user);
+          if ($has_chapters) {
+            $has_terms = User_model::get_user_terms($user);
+            if ($has_terms) User_model::get_user_term_comments($user);
+          }
+        }
+      }
+      return $user;
     }
     return null;
   }
@@ -34,16 +37,8 @@ class User_model extends CI_Model {
   public function get_other_user($username)
   {
     $query = $this->db->query("SELECT * FROM user WHERE username='$username'");
-    $row = $query->result();
-    $user_params = array( 
-        "user_id" => $row->user_id, 
-        "username" => $row->username, 
-        "account_balance" => $row->account_balance, 
-        "sign_up_time" => $row->sign_up_time, 
-        "last_login_time" => $row->last_login_time, 
-        "has_notification" => $row->has_notification, 
-        "is_main_user" => FALSE );
-    return new User($user_params);
+    $row = $query->row_array();
+    return new User($row);
   }
 
   public function set_and_get_user()
@@ -69,6 +64,79 @@ class User_model extends CI_Model {
       return new User($user_params);
     }
     return null;
+  }
+
+  private function get_user_courses(&$user)
+  {
+    $this->load->model('course_model');
+    $user->courses = $this->course_model->get_user_courses($user->user_id);
+    if (isset($user->courses)) return true;
+    return false;
+  }
+
+  private function get_user_trails(&$user)
+  {
+    $courses = & $user->courses;
+    $this->load->model('trail_model');
+    $trails = $this->trail_model->get_user_trails($user->user_id);
+    if (isset($trails)) {
+      foreach ($trails as $trail) {
+        $course_id = $trail->course_id;
+        $courses[$course_id - 1]->trails[] = $trail;
+      }
+      return true;
+    }
+    return false;
+  }
+
+  private function get_user_chapters(&$user)
+  {
+    $courses = & $user->courses;
+    $this->load->model('chapter_model');
+    $chapters = $this->chapter_model->get_user_chapters($user->user_id);
+    if (isset($chapters)) {
+      foreach ($chapters as $chapter) {
+        $course_id = $chapter->course_id;
+        $trail_id = $chapter->trail_id;
+        $courses[$course_id - 1]->trails[$trail_id - 1]->chapters[] = $chapter;
+      }
+      return true;
+    }
+    return false;
+  }
+
+  private function get_user_terms(&$user)
+  {
+    $courses = & $user->courses;
+    $this->load->model('term_model');
+    $terms = $this->term_model->get_user_terms($user->user_id);
+    if (isset($terms)) {
+      foreach ($terms as $term) {
+        $course_id = $term->course_id;
+        $trail_id = $term->trail_id;
+        $chapter_id = $term->chapter_id;
+        $courses[$course_id - 1]->trails[$trail_id - 1]->chapters[$chapter_id - 1]->terms[] = $term;
+      }
+      return true;
+    }
+    return false;
+  }
+
+  private function get_user_term_comments(&$user)
+  {
+    $courses = & $user->courses;
+    $this->load->model('term_comment_model');
+    $term_comments = $this->term_comment_model->get_user_term_comments($user->user_id);
+    if (isset($term_comments)) {
+      foreach ($term_comments as $term_comment) {
+        $course_id = $term_comment->course_id;
+        $trail_id = $term_comment->trail_id;
+        $chapter_id = $term_comment->chapter_id;
+        $term_id = $term_comment->term_id;
+        $chapter = & $courses[$course_id - 1]->trails[$trail_id - 1]->chapters[$chapter_id - 1];
+        $chapter->terms[$term_id - 1]->term_comments[] = $term_comment;
+      }
+    }
   }
 
   public function delete_user($username)

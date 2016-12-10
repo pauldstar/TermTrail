@@ -18,10 +18,6 @@ class Course {
     $this->category = $course_params['category'];
     $this->education_level = $course_params['education_level'];
     $this->price = $course_params['price'];
-    $this_is_main_user = $course_params['is_main_user'];
-    if ($this_is_main_user) {
-      $this->trails = $this_class->trail_model->get_user_trails($this->owner_id, 
-          $this->course_id, true);
-    }
+    $this->trails = array();
   }
 }

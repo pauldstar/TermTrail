@@ -5,10 +5,23 @@ class Term_model extends CI_Model {
   {
     parent::__construct();
     $this->load->database();
-    require_once APPPATH . 'objects/Term.php';
+    $this->load->file(APPPATH . 'objects/Term.php');
   }
 
-  public function get_user_terms($user_id, $course_id, $trail_id, $chapter_id, $is_main_user)
+  public function get_user_terms($user_id)
+  {
+    $query = $this->db->query("SELECT * FROM term WHERE owner_id='$user_id'");
+    if (isset($query)) {
+      $terms = array();
+      foreach ($query->result_array() as $row)
+        $terms[] = new Term($row);
+      return $terms;
+    }
+    return null;
+  }
+
+  public function get_chapter_terms($user_id, $course_id, $trail_id, $chapter_id, 
+      $is_main_user)
   {
     $full_chapter_id = array( 
         "owner_id" => $user_id, 
@@ -43,7 +56,9 @@ class Term_model extends CI_Model {
 
   public function set_and_get_term($user_id, $course_id, $trail_id, $chapter_id)
   {
-    $term_id = sizeof($this->user->courses[$course_id - 1]->trails[$trail_id - 1]->chapters[$chapter_id - 1]->terms) + 1;
+    $term_id = sizeof(
+        $this->user->courses[$course_id - 1]->trails[$trail_id - 1]->chapters[$chapter_id - 1]->terms) +
+               1;
     $current_time = date_timestamp_get(date_create());
     $term_params = array( 
         'owner_id' => $user_id, 
