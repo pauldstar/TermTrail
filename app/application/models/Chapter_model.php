@@ -29,17 +29,8 @@ class Chapter_model extends CI_Model {
     $query = $this->db->get_where('chapter', $full_trail_id);
     if ($query != null) {
       $chapters = array();
-      foreach ($query->result() as $row) {
-        $chapter_params = array( 
-            "owner_id" => $user_id, 
-            "course_id" => $course_id, 
-            "trail_id" => $row->trail_id, 
-            "chapter_id" => $row->chapter_id, 
-            "chapter_title" => $row->chapter_title, 
-            "chapter_position" => $row->chapter_position, 
-            "is_main_user" => $is_main_user );
-        $chapters[] = new Chapter($chapter_params);
-      }
+      foreach ($query->result_array() as $row)
+        $chapters[] = new Chapter($row);
       return $chapters;
     }
     return null;
