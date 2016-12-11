@@ -25,7 +25,7 @@ $config['user'] = "user_id INT UNSIGNED AUTO_INCREMENT NOT NULL,
         has_notification CHAR(1) DEFAULT 'N',
         INDEX(username),
         PRIMARY KEY(user_id)";
-
+/* 
 $config['subscription'] = "user INT UNSIGNED NOT NULL,
         start_date BIGINT UNSIGNED NOT NULL,
         end_date BIGINT UNSIGNED NOT NULL,
@@ -40,7 +40,7 @@ $config['activity'] = "active_user INT UNSIGNED NOT NULL,
         has_been_viewed CHAR(1) DEFAULT 'N',
         FOREIGN KEY(active_user) REFERENCES user(user_id),
         FOREIGN KEY(passive_user) REFERENCES user(user_id),
-        PRIMARY KEY(active_user, passive_user, time_added)";
+        PRIMARY KEY(active_user, passive_user, time_added)"; */
 /*
  * COURSE TABLE
  * scope: public/private
@@ -63,7 +63,7 @@ $config['course'] = "owner_id INT UNSIGNED NOT NULL,
 		INDEX(education_level),
         FOREIGN KEY(owner_id) REFERENCES user(user_id),
         PRIMARY KEY(course_id, owner_id)";
-
+/* 
 $config['course_import'] = "importer_id INT UNSIGNED NOT NULL,
         course_id SMALLINT UNSIGNED NOT NULL,
         origin_owner_id INT UNSIGNED NOT NULL,
@@ -73,13 +73,13 @@ $config['course_import'] = "importer_id INT UNSIGNED NOT NULL,
         FOREIGN KEY(course_id) REFERENCES course(course_id),
         FOREIGN KEY(origin_owner_id) REFERENCES course(owner_id),
         FOREIGN KEY(origin_course_id) REFERENCES course(course_id),
-        PRIMARY KEY(importer_id, course_id)";
+        PRIMARY KEY(importer_id, course_id)"; */
 /*
  * ACCESS COURSE TABLE
  * access_request_state: pending/accepted
  * permission: part/full
  */
-$config['access_course'] = "accessor_id INT UNSIGNED NOT NULL,
+/* $config['access_course'] = "accessor_id INT UNSIGNED NOT NULL,
 		course_owner_id INT UNSIGNED NOT NULL,
         course_id SMALLINT UNSIGNED NOT NULL,
 		access_request_state VARCHAR(8) DEFAULT 'pending',
@@ -87,7 +87,7 @@ $config['access_course'] = "accessor_id INT UNSIGNED NOT NULL,
         FOREIGN KEY(accessor_id) REFERENCES user(user_id),
         FOREIGN KEY(course_owner_id) REFERENCES course(owner_id),
         FOREIGN KEY(course_id) REFERENCES course(course_id),
-        PRIMARY KEY(accessor_id, course_id, course_owner_id)";
+        PRIMARY KEY(accessor_id, course_id, course_owner_id)"; */
 /*
  * TRAIL TABLE
  * scope: public/private
@@ -109,7 +109,7 @@ $config['trail'] = "owner_id INT UNSIGNED NOT NULL,
         FOREIGN KEY(course_id) REFERENCES course(course_id),
         PRIMARY KEY(trail_id, course_id, owner_id)";
 
-$config['trail_import'] = "importer_id INT UNSIGNED NOT NULL,
+/* $config['trail_import'] = "importer_id INT UNSIGNED NOT NULL,
 		course_id SMALLINT UNSIGNED NOT NULL,
         trail_id TINYINT UNSIGNED NOT NULL,
 		origin_owner_id INT UNSIGNED NOT NULL,
@@ -122,13 +122,13 @@ $config['trail_import'] = "importer_id INT UNSIGNED NOT NULL,
         FOREIGN KEY(origin_owner_id) REFERENCES trail(owner_id),
         FOREIGN KEY(origin_course_id) REFERENCES trail(course_id),
         FOREIGN KEY(origin_trail_id) REFERENCES trail(trail_id),
-        PRIMARY KEY(trail_id, course_id, importer_id)";
+        PRIMARY KEY(trail_id, course_id, importer_id)"; */
 /*
  * ACCESS TRAIL TABLE
  * access_request_state: pending/accepted
  * preview_finished: Y/N
  */
-$config['access_trail'] = "accessor_id INT UNSIGNED NOT NULL,
+/* $config['access_trail'] = "accessor_id INT UNSIGNED NOT NULL,
 		course_owner_id INT UNSIGNED NOT NULL,
         course_id SMALLINT UNSIGNED NOT NULL,
 		trail_id TINYINT UNSIGNED NOT NULL,
@@ -140,24 +140,24 @@ $config['access_trail'] = "accessor_id INT UNSIGNED NOT NULL,
         FOREIGN KEY(course_owner_id) REFERENCES trail(owner_id),
         FOREIGN KEY(course_id) REFERENCES trail(course_id),
         FOREIGN KEY(trail_id) REFERENCES trail(trail_id),
-        PRIMARY KEY(accessor_id, trail_id, course_id, course_owner_id)";
+        PRIMARY KEY(accessor_id, trail_id, course_id, course_owner_id)"; */
 /*
- * SESSION TABLE
+ * REVISION TABLE
  * mode: sequential/random
  */
-$config['session'] = "trail_owner_id INT UNSIGNED NOT NULL,
+$config['revision'] = "trail_owner_id INT UNSIGNED NOT NULL,
         trail_course_id SMALLINT UNSIGNED NOT NULL,
 		trail_id TINYINT UNSIGNED NOT NULL,
-		session_id SMALLINT UNSIGNED NOT NULL,
+		revision_id SMALLINT UNSIGNED NOT NULL,
 		start_time BIGINT UNSIGNED NOT NULL,
 		elapsed_time BIGINT UNSIGNED,
-		stop_time BIGINT UNSIGNED,
+		stop_time BIGINT UNSIGNED DEFAULT 0,
 		confidence_score INT UNSIGNED DEFAULT 0,
         mode VARCHAR(10) DEFAULT 'sequential',
 		FOREIGN KEY(trail_owner_id) REFERENCES trail(owner_id),
         FOREIGN KEY(trail_course_id) REFERENCES trail(course_id),
         FOREIGN KEY(trail_id) REFERENCES trail(trail_id),
-        PRIMARY KEY(session_id, trail_id, 
+        PRIMARY KEY(revision_id, trail_id, 
                     trail_course_id, trail_owner_id)";
 
 $config['chapter'] = "owner_id INT UNSIGNED NOT NULL,
@@ -172,7 +172,7 @@ $config['chapter'] = "owner_id INT UNSIGNED NOT NULL,
         PRIMARY KEY(chapter_id, trail_id, course_id, owner_id)";
 /*
  * TERM TABLE
- * session_state: pending/done
+ * revision_state: pending/done
  */
 $config['term'] = "owner_id INT UNSIGNED NOT NULL,
         course_id SMALLINT UNSIGNED NOT NULL,
@@ -184,7 +184,7 @@ $config['term'] = "owner_id INT UNSIGNED NOT NULL,
 		content TEXT NOT NULL,
 		answer TEXT,
 		hint TEXT,
-		session_state VARCHAR(7) DEFAULT 'pending',
+		revision_state VARCHAR(7) DEFAULT 'pending',
 		confidence_score INT UNSIGNED,
 		last_edit_time BIGINT UNSIGNED NOT NULL,
         FOREIGN KEY(owner_id) REFERENCES chapter(owner_id),

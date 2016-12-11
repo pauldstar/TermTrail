@@ -10,6 +10,7 @@ class Member extends CI_Controller {
     $this->load->file(APPPATH . 'objects/User.php'); 
     $this->load->file(APPPATH . 'objects/Course.php');
     $this->load->file(APPPATH . 'objects/Trail.php');
+    $this->load->file(APPPATH . 'objects/Revision.php');
     $this->load->file(APPPATH . 'objects/Chapter.php');
     $this->load->file(APPPATH . 'objects/Term.php');
     $this->load->file(APPPATH . 'objects/Term_Comment.php');

@@ -19,7 +19,7 @@ class Database extends CI_Controller {
       foreach ($db_tables as $name => $structure)
         Database::create_table($name, $structure);
     } else
-      Database::create_table($table_name, $this->config->item($table_name));
+      Database::create_table($table_name, $this->config->item($table_name, 'db_tables'));
     $this->load->view('templates/footer.php');
   }
 

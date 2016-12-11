@@ -25,7 +25,10 @@ class User_model extends CI_Model {
           $has_chapters = User_model::get_user_chapters($user);
           if ($has_chapters) {
             $has_terms = User_model::get_user_terms($user);
-            if ($has_terms) User_model::get_user_term_comments($user);
+            if ($has_terms) {
+              User_model::get_user_term_comments($user);
+              User_model::get_ongoing_user_revisions($user);
+            }
           }
         }
       }
@@ -135,6 +138,20 @@ class User_model extends CI_Model {
         $term_id = $term_comment->term_id;
         $chapter = & $courses[$course_id - 1]->trails[$trail_id - 1]->chapters[$chapter_id - 1];
         $chapter->terms[$term_id - 1]->term_comments[] = $term_comment;
+      }
+    }
+  }
+  
+  private function get_ongoing_user_revisions(&$user)
+  {
+    $courses = & $user->courses;
+    $this->load->model('revision_model');
+    $revisions = $this->revision_model->get_ongoing_user_revisions($user->user_id);
+    if (isset($revisions)) {
+      foreach ($revisions as $revision) {
+        $course_id = $revision->trail_course_id;
+        $trail_id = $revision->trail_id;
+        $courses[$course_id - 1]->trails[$trail_id - 1]->revision = $revision;
       }
     }
   }

@@ -2,7 +2,7 @@
 class Term {
   public $owner_id, $course_id, $trail_id, $chapter_id, $term_id;
   public $author_id, $term_position, $content, $answer, $hint;
-  public $session_state, $confidence_score, $last_edit_time;
+  public $revision_state, $confidence_score, $last_edit_time;
   public $term_comments;
 
   public function __construct($params)
@@ -17,7 +17,7 @@ class Term {
     $this->content = $params['content'];
     $this->answer = $params['answer'];
     $this->hint = $params['hint'];
-    $this->session_state = $params['session_state'];
+    $this->revision_state = $params['revision_state'];
     $this->confidence_score = $params['confidence_score'];
     $this->last_edit_time = $params['last_edit_time'];
     $this->term_comments = array();

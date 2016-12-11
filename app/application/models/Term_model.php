@@ -31,24 +31,8 @@ class Term_model extends CI_Model {
     $query = $this->db->get_where('term', $full_chapter_id);
     if ($query != null) {
       $terms = array();
-      foreach ($query->result() as $row) {
-        $term_params = array( 
-            'owner_id' => $user_id, 
-            'course_id' => $course_id, 
-            'trail_id' => $trail_id, 
-            'chapter_id' => $chapter_id, 
-            'term_id' => $row->term_id, 
-            'author_id' => $row->author_id, 
-            'term_position' => $row->term_position, 
-            'content' => $row->content, 
-            'answer' => $row->answer, 
-            'hint' => $row->hint, 
-            'session_state' => $row->session_state, 
-            'confidence_score' => $row->confidence_score, 
-            'last_edit_time' => $row->last_edit_time, 
-            "is_main_user" => $is_main_user );
-        $terms[] = new Term($term_params);
-      }
+      foreach ($query->result_array() as $row) 
+        $terms[] = new Term($row);
       return $terms;
     }
     return null;

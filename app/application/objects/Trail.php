@@ -11,7 +11,7 @@ class Trail {
    * public , $date_imported, $purchase_price;
    */
   // and finally...
-  public $chapters;
+  public $chapters, $revision;
 
   public function __construct($trail_params) {
     // origin trails
