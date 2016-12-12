@@ -27,7 +27,7 @@ class Trail {
     $this->preview_length_time = $trail_params['preview_length_time'];
     $this->price = $trail_params['price'];
     $this->chapters = array();
-    $this->$revisions = array();
+    $this->revisions = array();
     /*
      * // for import trails
      * if (strcmp($this->trail_type, "import") == 0) {
