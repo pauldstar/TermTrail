@@ -6,7 +6,7 @@ class Term_comment {
   public function __construct($params)
   {
     $this->author_id = $params['author_id'];
-    $this->term_owner_id = $params['owner_id'];
+    $this->term_owner_id = $params['term_owner_id'];
     $this->course_id = $params['course_id'];
     $this->trail_id = $params['trail_id'];
     $this->chapter_id = $params['chapter_id'];

@@ -11,7 +11,7 @@ class Trail {
    * public , $date_imported, $purchase_price;
    */
   // and finally...
-  public $chapters;
+  public $chapters, $revisions;
 
   public function __construct($trail_params) {
     // origin trails
@@ -27,6 +27,7 @@ class Trail {
     $this->preview_length_time = $trail_params['preview_length_time'];
     $this->price = $trail_params['price'];
     $this->chapters = array();
+    $this->revisions = array();
     /*
      * // for import trails
      * if (strcmp($this->trail_type, "import") == 0) {
