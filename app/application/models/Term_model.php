@@ -8,6 +8,26 @@ class Term_model extends CI_Model {
     $this->load->file(APPPATH . 'objects/Term.php');
   }
 
+  public function get_main_user_terms()
+  {
+    $user = $_SESSION['user'];
+    $query = $this->db->query("SELECT * FROM term WHERE owner_id='$user->user_id'");
+    if (isset($query))
+    {
+      foreach ($query->result_array() as $row)
+      {
+        $term = new Term($row);
+        $course_id = $term->course_id;
+        $trail_id = $term->trail_id;
+        $chapter_id = $term->chapter_id;
+        $trail = & $user->courses[$course_id - 1]->trails[$trail_id - 1];
+        $trail->chapters[$chapter_id - 1]->terms[] = $term;
+      }
+      return true;
+    }
+    return false;
+  }
+  
   public function get_user_terms($user_id)
   {
     $query = $this->db->query("SELECT * FROM term WHERE owner_id='$user_id'");

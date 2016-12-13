@@ -8,6 +8,21 @@ class Trail_model extends CI_Model {
     $this->load->file(APPPATH . 'objects/Trail.php');
   }
 
+  public function get_main_user_trails()
+  {
+    $user = $_SESSION['user'];
+    $query = $this->db->query("SELECT * FROM trail WHERE owner_id='$user->user_id'");
+    if (isset($query)) {
+      foreach ($query->result_array() as $row) {
+        $trail = new Trail($row);
+        $course_id = $trail->course_id;
+        $user->courses[$course_id - 1]->trails[] = $trail;
+      }
+      return true;
+    }
+    return false;
+  }
+
   public function get_user_trails($user_id)
   {
     $query = $this->db->query("SELECT * FROM trail WHERE owner_id='$user_id'");
@@ -26,22 +41,8 @@ class Trail_model extends CI_Model {
     $query = $this->db->get_where('trail', $full_course_id);
     if ($query != null) {
       $trails = array();
-      foreach ($query->result() as $row) {
-        $trail_params = array( 
-            "owner_id" => $user_id, 
-            "course_id" => $course_id, 
-            "trail_id" => $row->trail_id, 
-            "trail_title" => $row->trail_title, 
-            "scope" => $row->scope, 
-            "time_added" => $row->time_added, 
-            "trail_view_count" => $row->trail_view_count, 
-            "trail_type" => $row->trail_type, 
-            "mode" => $row->mode, 
-            "preview_length_time" => $row->preview_length_time, 
-            "price" => $row->price, 
-            "is_main_user" => $is_main_user );
-        $trails[] = new Trail($trail_params);
-      }
+      foreach ($query->result() as $row) 
+        $trails[] = new Trail($row);
       return $trails;
     }
     return null;

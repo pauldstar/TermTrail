@@ -8,6 +8,22 @@ class Revision_model extends CI_Model {
     $this->load->file(APPPATH . 'objects/Revision.php');
   }
 
+  public function get_main_user_revisions()
+  {
+    $user = $_SESSION['user'];
+    $query = $this->db->query("SELECT * FROM revision WHERE trail_owner_id='$user->user_id'");
+    if (isset($query))
+    {
+      foreach ($query->result_array() as $row)
+      {
+        $revision = new Revision($row);
+        $course_id = $revision->trail_course_id;
+        $trail_id = $revision->trail_id;
+        $user->courses[$course_id - 1]->trails[$trail_id - 1]->revisions[] = $revision;
+      }
+    }
+  }
+  
   public function get_user_revisions($user_id)
   {
     $this->db->where('trail_owner_id', $user_id);

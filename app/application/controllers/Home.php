@@ -20,7 +20,7 @@ class Home extends CI_Controller {
       $this->load->view('templates/footer');
     } else {
       $this->load->model('user_model');
-      $_SESSION['user'] = $this->user_model->get_main_user();
+      $this->user_model->get_main_user();
       if (isset($_SESSION['user']))
         redirect('member');
       else show_error("Invalid Username/Password");

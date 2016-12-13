@@ -6,6 +6,21 @@ class Course_model extends CI_Model {
     parent::__construct();
     $this->load->database();
     $this->load->file(APPPATH . 'objects/Course.php');
+    $this->load->library('session');
+  }
+
+  public function get_main_user_courses()
+  {
+    $user = $_SESSION['user'];
+    $query = $this->db->query("SELECT * FROM course WHERE owner_id='$user->user_id'");
+    if ($query != null) {
+      $courses = array();
+      foreach ($query->result_array() as $row)
+        $courses[] = new Course($row);
+      $user->courses = $courses;
+      return true;
+    }
+    return false;
   }
 
   public function get_user_courses($user_id)
@@ -13,20 +28,8 @@ class Course_model extends CI_Model {
     $query = $this->db->query("SELECT * FROM course WHERE owner_id='$user_id'");
     if ($query != null) {
       $courses = array();
-      foreach ($query->result() as $row) {
-        $course_params = array( 
-            "owner_id" => $user_id, 
-            "course_id" => $row->course_id, 
-            "course_title" => $row->course_title, 
-            "scope" => $row->scope, 
-            "time_added" => $row->time_added, 
-            "course_view_count" => $row->course_view_count, 
-            "course_type" => $row->course_type, 
-            "category" => $row->category, 
-            "education_level" => $row->education_level, 
-            "price" => $row->price );
-        $courses[] = new Course($course_params);
-      }
+      foreach ($query->result_array() as $row) 
+        $courses[] = new Course($row);
       return $courses;
     }
     return null;

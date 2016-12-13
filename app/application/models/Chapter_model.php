@@ -8,10 +8,29 @@ class Chapter_model extends CI_Model {
     $this->load->file(APPPATH . 'objects/Chapter.php');
   }
 
+  public function get_main_user_chapters()
+  {
+    $user = $_SESSION['user'];
+    $query = $this->db->query("SELECT * FROM chapter WHERE owner_id='$user->user_id'");
+    if (isset($query))
+    {
+      foreach ($query->result_array() as $row)
+      {
+        $chapter = new Chapter($row);
+        $course_id = $chapter->course_id;
+        $trail_id = $chapter->trail_id;
+        $user->courses[$course_id - 1]->trails[$trail_id - 1]->chapters[] = $chapter;
+      }
+      return true;
+    }
+    return false;
+  }
+
   public function get_user_chapters($user_id)
   {
     $query = $this->db->query("SELECT * FROM chapter WHERE owner_id='$user_id'");
-    if (isset($query)) {
+    if (isset($query))
+    {
       $chapters = array();
       foreach ($query->result_array() as $row)
         $chapters[] = new Chapter($row);
@@ -27,7 +46,8 @@ class Chapter_model extends CI_Model {
         "course_id" => $course_id, 
         "trail_id" => $trail_id );
     $query = $this->db->get_where('chapter', $full_trail_id);
-    if ($query != null) {
+    if ($query != null)
+    {
       $chapters = array();
       foreach ($query->result_array() as $row)
         $chapters[] = new Chapter($row);

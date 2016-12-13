@@ -6,8 +6,6 @@ class Course {
 
   public function __construct($course_params)
   {
-    $this_class = & get_instance();
-    $this_class->load->model('trail_model');
     $this->owner_id = $course_params['owner_id'];
     $this->course_id = $course_params['course_id'];
     $this->course_title = $course_params['course_title'];

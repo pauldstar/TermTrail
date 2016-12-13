@@ -8,6 +8,25 @@ class Term_comment_model extends CI_Model {
     $this->load->file(APPPATH . 'objects/Term_comment.php');
   }
 
+  public function get_main_user_term_comments()
+  {
+    $user = $_SESSION['user'];
+    $query = $this->db->query("SELECT * FROM term_comment WHERE term_owner_id='$user->user_id'");
+    if (isset($query))
+    {
+      foreach ($query->result_array() as $row)
+      {
+        $term_comment = new Term_comment($row);
+        $course_id = $term_comment->course_id;
+        $trail_id = $term_comment->trail_id;
+        $chapter_id = $term_comment->chapter_id;
+        $term_id = $term_comment->term_id;
+        $trail = & $user->courses[$course_id - 1]->trails[$trail_id - 1];
+        $trail->chapters[$chapter_id - 1]->terms[$term_id - 1]->term_comments[] = $term_comment;
+      }
+    }
+  }
+  
   public function get_user_term_comments($user_id)
   {
     $query = $this->db->query("SELECT * FROM term_comment WHERE term_owner_id='$user_id'");
