@@ -5,7 +5,13 @@ class Term_comment_model extends CI_Model {
   {
     parent::__construct();
     $this->load->database();
-    $this->load->file(APPPATH . 'objects/Term_comment.php');
+    require_once APPPATH . 'objects/User.php';
+    require_once APPPATH . 'objects/Course.php';
+    require_once APPPATH . 'objects/Trail.php';
+    require_once APPPATH . 'objects/Chapter.php';
+    require_once APPPATH . 'objects/Term.php';
+    require_once APPPATH . 'objects/Term_comment.php';
+    $this->load->library('session');
   }
 
   public function get_main_user_term_comments()

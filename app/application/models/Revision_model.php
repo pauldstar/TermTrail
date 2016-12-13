@@ -5,13 +5,18 @@ class Revision_model extends CI_Model {
   {
     parent::__construct();
     $this->load->database();
-    $this->load->file(APPPATH . 'objects/Revision.php');
+    require_once APPPATH . 'objects/User.php';
+    require_once APPPATH . 'objects/Course.php';
+    require_once APPPATH . 'objects/Trail.php';
+    require_once APPPATH . 'objects/Revision.php';
+    $this->load->library('session');
   }
 
   public function get_main_user_revisions()
   {
     $user = $_SESSION['user'];
-    $query = $this->db->query("SELECT * FROM revision WHERE trail_owner_id='$user->user_id'");
+    $query = $this->db->query(
+        "SELECT * FROM revision WHERE trail_owner_id='$user->user_id'");
     if (isset($query))
     {
       foreach ($query->result_array() as $row)
@@ -23,12 +28,13 @@ class Revision_model extends CI_Model {
       }
     }
   }
-  
+
   public function get_user_revisions($user_id)
   {
     $this->db->where('trail_owner_id', $user_id);
     $query = $this->db->get('revision');
-    if (isset($query)) {
+    if (isset($query))
+    {
       $revisions = array();
       foreach ($query->result_array() as $row)
         $revisions[] = new Revision($row);
@@ -50,7 +56,8 @@ class Revision_model extends CI_Model {
         'start_time' => $current_time, 
         'mode' => $mode );
     $query_successful = $this->db->insert('revision', $rev_params);
-    if ($query_successful) {
+    if ($query_successful)
+    {
       $rev_params['elapsed_time'] = 0;
       $rev_params['stop_time'] = null;
       $rev_params['confidence_score'] = 0;
@@ -96,10 +103,10 @@ class Revision_model extends CI_Model {
    * if (isset($query)) {
    * $revisions = array();
    * foreach ($query->result_array() as $row)
-     * $revisions[] = new Revision($row);
-     * return $revisions;
-     * }
-     * return null;
-     * }
-     */
+   * $revisions[] = new Revision($row);
+   * return $revisions;
+   * }
+   * return null;
+   * }
+   */
 }

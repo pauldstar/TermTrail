@@ -7,13 +7,13 @@ class Member extends CI_Controller {
     parent::__construct();
     $this->load->helper('url');
     // object classes are needed to serialise the objects stored in session
-    $this->load->file(APPPATH . 'objects/User.php'); 
-    $this->load->file(APPPATH . 'objects/Course.php');
-    $this->load->file(APPPATH . 'objects/Trail.php');
-    $this->load->file(APPPATH . 'objects/Revision.php');
-    $this->load->file(APPPATH . 'objects/Chapter.php');
-    $this->load->file(APPPATH . 'objects/Term.php');
-    $this->load->file(APPPATH . 'objects/Term_Comment.php');
+    require_once APPPATH . 'objects/User.php';
+    require_once APPPATH . 'objects/Course.php';
+    require_once APPPATH . 'objects/Trail.php';
+    require_once APPPATH . 'objects/Revision.php';
+    require_once APPPATH . 'objects/Chapter.php';
+    require_once APPPATH . 'objects/Term.php';
+    require_once APPPATH . 'objects/Term_comment.php';
     $this->load->library('session');
     if (isset($_SESSION['user']))
       $this->user = $_SESSION['user'];

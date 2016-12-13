@@ -5,7 +5,7 @@ class User_model extends CI_Model {
   {
     parent::__construct();
     $this->load->database();
-    $this->load->file(APPPATH . 'objects/User.php');
+    require_once APPPATH . 'objects/User.php';
     $this->load->library('session');
   }
 
