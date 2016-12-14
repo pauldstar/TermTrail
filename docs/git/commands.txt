@@ -11,6 +11,8 @@ checkout [branch]
 checkout -b [branch] [src. branch]
 merge [op: dest. branch] [src. branch]
 merge --no-ff [...branches]
+branch -d [branch_name]
+push origin --delete [branch_name]
 stash
 stash pop
 stash list
