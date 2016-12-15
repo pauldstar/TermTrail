@@ -6,7 +6,7 @@ $hidden = array('login' => 'yes');
 echo form_open('login', '', $hidden);
 ?>
 <label for="email">Email</label>
-<input type="text" name="email" />
+<input type="text" name="email" class='form-control'/>
 <br />
 <label for="password">Password</label>
 <input type='password' name='password' class='form-control'>
