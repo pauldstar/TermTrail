@@ -24,7 +24,7 @@
       // bootstrap css
       echo link_tag('bootstrap3/css/bootstrap.min.css', 'stylesheet');
       // my css
-      echo link_tag('application/css/my_style.css', 'stylesheet');
+      echo link_tag('application/tt_style.css', 'stylesheet');
       ?>
     <!-- HT5 shim and Respond.js for IE8 support of HT5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
