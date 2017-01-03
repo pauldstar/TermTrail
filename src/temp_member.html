@@ -25,5 +25,43 @@
     <script src='jquery3/jquery-3.1.1.min.js'></script>
   </head>
   <body>
+    <div class='navbar navbar-default navbar-fixed-top navbar-inverse'>
+      <div class='container'>
+        <!-- navbar-header holds the main logo -->
+        <div class='navbar-header'>
+          <!-- important that the navbar toggle is set before the logo -->
+          <button type='button' class='navbar-toggle' data-toggle='collapse' data-target='#menu'>
+          <span class='icon-bar'></span>
+          <span class='icon-bar'></span>
+          <span class='icon-bar'></span>
+          </button>
+          <img src='application/images/tt_logo_text_white.png' class='center-block' alt='termtrail'>
+        </div>
+        <div class='collapse navbar-collapse navbar-right' id='menu'>
+          <ul class='nav navbar-nav'>
+            <li class='active ML'><a href='newsfeed.php' id='newsfeedMI'>
+              <span title='Newsfeed' class='glyphicon glyphicon-th-list'></span> NewsFeed</a>
+            </li>
+            <li class='ML'><a href='own_profile.php' id='profileMI'>
+              <span title='Profile' class='glyphicon glyphicon-file'></span> Profile</a>
+            </li>
+            <li class='ML'><a href='browse_users.php' id='browseUsersMI'>
+              <span title='Browse-Users' class='glyphicon glyphicon-search'></span> Users</a> 
+            </li>
+            <li class='ML'><a href='changeBalance.php' id='balanceMI'>
+              <span title='withdraw' class='glyphicon glyphicon-arrow-down'></span> Withdraw</a>
+            </li>
+            <li class='ML'><a href='refer.php' id='referMI'>
+              <span title='refer' class='glyphicon glyphicon-share-alt'></span> Refer</a>
+            </li>
+            <li class='ML'><a href='logout.php' id='logOutMI'>
+              <span title='Log-Out' class='glyphicon glyphicon-off'></span> LogOut</a>
+            </li>
+          </ul>
+        </div> <!-- navbar collapse -->
+      </div> <!-- container -->
+    </div> <!-- navbar -->
+    <!--navbar shadow (hangs behind the navbar)-->
+    <div style='height:50px'></div>
   </body>
 </html>
