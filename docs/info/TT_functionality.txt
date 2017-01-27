@@ -28,6 +28,7 @@ TRAIL REVISION
 - timer for how fast user can recall answer for term. The timer should have a colour; the timer should gradually change colour as follows: bright green (2 secs), pale green (4), yellow (6), orange (8), red.
 - press space (or click) to stop timer when answer has been recalled, and give user time to construct full answer; press space (or click) again to reveal answer (if any) along with colour code. The colour selected by timer should be the biggest. press space (or click) to select chosen colour, or number keys to choose different colour.
 - option to disable timer
+- colour code trails after a revision session: red (low confidence) - green (high confidence).
 
 TRAIL SALE
 - add 10% to the selling price of any termtrail; commission for termtrail.
