@@ -1,1 +1,1 @@
-logo font: genoa
+logo font: lato (google fonts)

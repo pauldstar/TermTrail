@@ -1,26 +1,18 @@
 <!DOCTYPE html>
 <html lang='en'>
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <!-- The above 3 meta tags *must* come first in the head -->
-    <!-- any other head content must come *after* these tags -->
-    <title>TermTrail
-      <?php
-        if (isset($_SESSION['user']))
-        {
-          $user = $_SESSION['user'];
-          echo "($user->username)";
-        }
-        ?>
-    </title>
+<head>
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<!-- The above 3 meta tags *must* come first in the head -->
+<!-- any other head content must come *after* these tags -->
+<title>TermTrail</title>
     <?php
       $this->load->helper('html');
       echo link_tag('favicon.ico', 'shortcut icon', 'image/ico');
       // fonts
-      echo link_tag('https://fonts.googleapis.com/css?family=Montserrat:400,700', 'stylesheet', 
-          'text/css');
+      echo link_tag('https://fonts.googleapis.com/css?family=Montserrat:400,700', 
+          'stylesheet', 'text/css');
       // bootstrap css
       echo link_tag('bootstrap3/css/bootstrap.min.css', 'stylesheet');
       // my css
@@ -32,12 +24,12 @@
     <script src='https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js'></script>
     <script src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js'></script>
     <![endif]-->
-    <?php 
+    <?php
       $this->load->helper('url');
       // jquery (necessary for bootstrap's javascript plugins)
-      echo "<script src=".base_url('jquery3/jquery-3.1.1.min.js')."></script>";
+      echo "<script src=" . base_url('jquery3/jquery-3.1.1.min.js') . "></script>";
       // include all compiled plugins (below), or include individual files as needed
-      echo "<script src=".base_url('bootstrap3/js/bootstrap.min.js')."></script>";
+      echo "<script src=" . base_url('bootstrap3/js/bootstrap.min.js') . "></script>";
       ?>
   </head>
   <body>
