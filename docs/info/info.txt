@@ -1,1 +1,1 @@
-logo font: hill house
+logo font: lato (google fonts)

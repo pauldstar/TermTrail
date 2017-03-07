@@ -1,6 +1,6 @@
 <?php
 
-class Member extends CI_Controller {
+class Dashboard extends CI_Controller {
   public $user;
 
   public function __construct()
@@ -30,7 +30,7 @@ class Member extends CI_Controller {
   public function dashboard()
   {
     $this->load->view('dashboard/header_db');
-    $this->load->view('dashboard/member');
+    $this->load->view('dashboard/body');
     $this->load->view('dashboard/footer_db');
   }
 
