@@ -1,22 +1,50 @@
 @CHARSET "ISO-8859-1";
 /*************************** PALETTE ***************************/
+.bg-black-colour {
+	background-color: #000000 !important;
+}
+.black-colour {
+	color: #000000 !important;
+	border-color: #000000 !important;
+	font-family: 'Lato', sans-serif;
+}
 .bg-dark-colour {
 	background-color: #000 !important;
 }
-.tx-dark-colour {
+.dark-colour,
+.sidebar-menu > li > a,
+.sidebar-submenu > li > a:hover {
 	color: #000 !important;
+	border-color: #000 !important;
+	font-family: 'Lato', sans-serif;
 }
-.bg-mid-colour {
+.bg-mid-colour,
+.grid-box {
 	background-color: #cecece !important;
 }
-.tx-mid-colour {
+.mid-colour {
 	color: #cecece !important;
+	border-color: #cecece !important;
+	font-family: 'Lato', sans-serif;
 }
-.bg-light-colour {
+.bg-light-colour,
+.sidebar-menu li a:hover {
 	background-color: #e7e7e7 !important;
 }
-.tx-light-colour {
+.light-colour,
+.sidebar-submenu > li > a {
 	color: #e7e7e7 !important;
+	border-color: #e7e7e7 !important;
+	font-family: 'Lato', sans-serif;
+}
+.bg-white-colour,
+.grid-box {
+	background-color: #ffffff !important;
+}
+.white-colour {
+	color: #ffffff !important;
+	border-color: #ffffff !important;
+	font-family: 'Lato', sans-serif;
 }
 /*************************** DASHBOARD NAVBAR ***************************/
 #navbar-shadow {
@@ -60,5 +88,118 @@ nav .active > a {
 	text-decoration: none;
 	margin-right:20px;
 }
-/*************************** DASHBOARD BODY ***************************/
-s
+/*************************** SIDE-BAR WRAPPER ***************************/
+#page-content-wrapper {
+    width: 100%;
+    /* position: absolute; */
+    /* -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease; */
+}
+#sidebar-wrapper {
+	display: none;
+	/* -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease; */
+}
+#wrapper.toggled #sidebar-wrapper {
+	position: fixed;
+    width: 15%;
+    height: 100%;
+    display: block;
+    /* -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease; */
+}
+#wrapper.toggled #page-content-wrapper {
+    width: 85%;
+    float: right;
+    /* -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease; */
+}
+/*************************** SIDEBAR ***************************/
+.sidebar-menu {
+	margin-top: 14px;
+}
+.sidebar-menu,
+.sidebar-submenu {
+    padding: 0; 
+    list-style: none;
+}
+.sidebar-menu > li {
+    text-indent: 40px;
+    line-height: 70px;
+}
+.sidebar-menu li a {
+    display: block;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+    position: relative;
+}
+.sidebar-menu li a:hover {
+    text-decoration: none;
+}
+.sidebar-menu li a:active,
+.sidebar-menu li a:focus {
+    text-decoration: none;
+}
+#collapse-plus ul {
+	display:none;
+}
+#collapse-plus #icon,
+#collapse-minus #icon {
+	width: 21px;
+	position: absolute;
+	right: 20px;
+	top: 25px;
+}
+/*************************** PAGE CONTENT WRAPPER ***************************/
+#page-content-wrapper {
+	/* padding:  */
+}
+.grid-box-wrapper {
+	padding: 5px;
+}
+.grid-box {
+	display: block;
+	padding: 5px;
+}
+.grid-box .settings-icon {
+	width: 21px;
+	position: absolute;
+	right: 20px;
+	top: 5px;
+}
+.grid-box .share-icon {
+	width: 21px;
+	position: absolute;
+	right: 20px;
+	bottom: 5px;
+}
+.grid-header {
+	font-family: 'Montserrat', sans-serif;
+	font-size: 20px;
+	font-weight: 400px;
+	position: relative;
+}
+.grid-footer {
+	font-family: 'Lato', sans-serif;
+	font-weight: 400px;
+	position: relative;
+}
+.grid-header div,
+.grid-footer div {
+	text-indent: 5px;
+}
+.grid-box-trail-data-list {
+	list-style: none;
+	padding: 5px;
+	margin-top: 14px;
+	margin-bottom: 14px;
+}

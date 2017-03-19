@@ -51,6 +51,7 @@ OPERATIONS
 - users can search their courses, and trails.
 - users can arrange courses into different folders.
 - create an affiliate marketing program.
+- on sign up ask the student if they're part of an organisation and suggests to them trails from their organisation.
 
 Advice
 - as you revise, try to relate the points you locate in your notes with the terms on the trail

@@ -41,12 +41,12 @@
       echo "<script src=" . base_url('bootstrap3/js/bootstrap.min.js') . "></script>";
       ?>
   </head>
-  <body>
-    <nav class="navbar navbar-default light-colour navbar-fixed-top">
+  <body class='bg-light-colour'>
+    <nav class="navbar navbar-default bg-light-colour navbar-fixed-top">
       <div class="container-fluid">
         <ul class="nav navbar-nav">
           <li class="active">
-            <a href="#">
+            <a id='side-menu-toggle' href="#">
             <?php echo '<img src='.base_url('images/menu_icon.png').' alt="Menu"/>'; ?>
             </a>
           </li>
@@ -56,9 +56,9 @@
             </a>
           </li>
         </ul>
-        <a id='navbar-logo' class='tx-dark-colour' href="#">TermTrail</a>
+        <a id='navbar-logo' class='dark-colour' href="#">TermTrail</a>
         <div id='navbar-search-bar-div'>
-          <a class='tx-dark-colour' href="#"><span class='glyphicon glyphicon-search'></span></a>
+          <a class='dark-colour' href="#"><span class='glyphicon glyphicon-search'></span></a>
           <!-- <img src='<?php echo base_url('images/search_icon.png'); ?>' alt="search"/> -->
         </div>
       </div>

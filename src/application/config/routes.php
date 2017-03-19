@@ -54,10 +54,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['(:any)'] = 'index/user/$1'; */
-$route['logout'] = 'member/logout';
+$route['logout'] = 'dashboard/logout';
 $route['drop'] = 'database/drop';
 $route['create'] = 'database/create';
-$route['dashboard'] = 'member/dashboard';
+$route['dashboard'] = 'dashboard/dashboard';
 $route['add_term_comment'] = 'test/add_term_comment';
 $route['add_term'] = 'test/add_term';
 $route['add_course'] = 'test/add_course';
