@@ -29,8 +29,11 @@ class Dashboard extends CI_Controller {
 
   public function dashboard()
   {
+    // get list of trails from user object
+    $this->load->model('trail_model');
+    $data['trails'] = $this->trail_model->get_main_user_trails_from_object();
     $this->load->view('dashboard/header_db');
-    $this->load->view('dashboard/body');
+    $this->load->view('dashboard/body', $data);
     $this->load->view('dashboard/footer_db');
   }
 

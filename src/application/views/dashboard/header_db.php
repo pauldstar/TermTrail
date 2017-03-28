@@ -19,15 +19,13 @@
         }
         ?>
     </title>
-    <?php
-      echo link_tag('favicon.ico', 'shortcut icon', 'image/ico');
-      // fonts
-      echo link_tag('https://fonts.googleapis.com/css?family=Montserrat:400,700', 'stylesheet', 'text/css');
-      echo link_tag('https://fonts.googleapis.com/css?family=Lato:400,700,900', 'stylesheet', 'text/css');
-      // css
-      echo link_tag('bootstrap3/css/bootstrap.min.css', 'stylesheet');
-      echo link_tag('tt_style.css', 'stylesheet');
-      ?>
+    <?=link_tag('favicon.ico', 'shortcut icon', 'image/ico')?>
+    <!-- fonts -->
+    <?=link_tag('https://fonts.googleapis.com/css?family=Montserrat:400,700', 'stylesheet', 'text/css')?>
+    <?=link_tag('https://fonts.googleapis.com/css?family=Lato:400,700,900', 'stylesheet', 'text/css')?>
+    <!-- css -->
+    <?=link_tag('bootstrap3/css/bootstrap.min.css', 'stylesheet')?>
+    <?=link_tag('tt_style.css', 'stylesheet')?>
     <!-- HT5 shim and Respond.js for IE8 support of HT5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>

@@ -1,4 +1,5 @@
 <?php
+
 class Test extends CI_Controller {
   public $user;
 
@@ -8,16 +9,32 @@ class Test extends CI_Controller {
     $this->load->helper('url');
     $this->load->library('form_validation');
     // object classes are needed to serialise the objects stored in session
-    $this->load->file(APPPATH . 'objects/User.php'); 
+    $this->load->file(APPPATH . 'objects/User.php');
     $this->load->file(APPPATH . 'objects/Course.php');
     $this->load->file(APPPATH . 'objects/Trail.php');
     $this->load->file(APPPATH . 'objects/Chapter.php');
     $this->load->file(APPPATH . 'objects/Term.php');
     $this->load->file(APPPATH . 'objects/Term_Comment.php');
-    //require_once APPPATH . 'objects/Term_comment.php';
+    // require_once APPPATH . 'objects/Term_comment.php';
     $this->load->library('session');
     if (isset($_SESSION['user'])) $this->user = $_SESSION['user'];
     else redirect('login');
+  }
+
+  public function test_body()
+  {
+    $this->load->view('dashboard/header_db');
+    $this->load->view('test/test_user');
+    $this->load->view('dashboard/footer_db');
+  }
+  
+  public function test_trails()
+  {
+    $this->load->model('trail_model');
+    $data['trails'] = $this->trail_model->get_main_user_trails_from_object();
+    $this->load->view('dashboard/header_db');
+    $this->load->view('test/test_trails', $data);
+    $this->load->view('dashboard/footer_db');
   }
 
   public function add_course()
@@ -28,12 +45,14 @@ class Test extends CI_Controller {
     $this->form_validation->set_rules('category', 'Category', 'required');
     $this->form_validation->set_rules('education_level', 'Education_level', 'required');
     // check if course form was filled
-    if ($this->form_validation->run() === false) {
+    if ($this->form_validation->run() === false)
+    {
       $this->load->view('templates/header');
       $this->load->view('test/add_course');
       $this->load->view('templates/footer');
     }
-    else {
+    else
+    {
       $course = $this->course_model->set_and_get_course('origin');
       if ($course === null) show_error("Couldn't save new course in database");
       else $this->user->courses[] = $course;
@@ -48,12 +67,14 @@ class Test extends CI_Controller {
     $this->form_validation->set_rules('scope', 'Scope', 'required');
     $this->form_validation->set_rules('course_id', 'Course_ID', 'required');
     // check if course form was filled
-    if ($this->form_validation->run() === false) {
+    if ($this->form_validation->run() === false)
+    {
       $this->load->view('templates/header');
       $this->load->view('test/add_trail');
       $this->load->view('templates/footer');
     }
-    else {
+    else
+    {
       $course_id = $this->input->post('course_id');
       $trail = $this->trail_model->set_and_get_trail($course_id, 'origin');
       if ($trail == null) show_error("Couldn't save new trail in database");
@@ -69,12 +90,14 @@ class Test extends CI_Controller {
     $this->form_validation->set_rules('trail_id', 'Trail_ID', 'required');
     $this->form_validation->set_rules('course_id', 'Course_ID', 'required');
     // check if course form was filled
-    if ($this->form_validation->run() === false) {
+    if ($this->form_validation->run() === false)
+    {
       $this->load->view('templates/header');
       $this->load->view('test/add_chapter');
       $this->load->view('templates/footer');
     }
-    else {
+    else
+    {
       $course_id = $this->input->post('course_id');
       $trail_id = $this->input->post('trail_id');
       $chapter = $this->chapter_model->set_and_get_chapter($this->user->user_id, $course_id, 
@@ -94,19 +117,22 @@ class Test extends CI_Controller {
     $this->form_validation->set_rules('trail_id', 'Trail_ID', 'required');
     $this->form_validation->set_rules('course_id', 'Course_ID', 'required');
     // check if course form was filled
-    if ($this->form_validation->run() === false) {
+    if ($this->form_validation->run() === false)
+    {
       $this->load->view('templates/header');
       $this->load->view('test/add_term');
       $this->load->view('templates/footer');
     }
-    else {
+    else
+    {
       $course_id = $this->input->post('course_id');
       $trail_id = $this->input->post('trail_id');
       $chapter_id = $this->input->post('chapter_id');
       $term = $this->term_model->set_and_get_term($this->user->user_id, $course_id, 
           $trail_id, $chapter_id);
       if ($term == null) show_error("Couldn't save new term in database");
-      else {
+      else
+      {
         $trail = & $this->user->courses[$course_id - 1]->trails[$trail_id - 1];
         $trail->chapters[$chapter_id - 1]->terms[] = $term;
       }
@@ -124,12 +150,14 @@ class Test extends CI_Controller {
     $this->form_validation->set_rules('term_id', 'Term_ID', 'required');
     $this->form_validation->set_rules('comment', 'Comment', 'required');
     // check if course form was filled
-    if ($this->form_validation->run() === false) {
+    if ($this->form_validation->run() === false)
+    {
       $this->load->view('templates/header');
       $this->load->view('test/add_term_comment');
       $this->load->view('templates/footer');
     }
-    else {
+    else
+    {
       $owner_id = $this->input->post('term_owner_id');
       $course_id = $this->input->post('course_id');
       $trail_id = $this->input->post('trail_id');
@@ -138,8 +166,10 @@ class Test extends CI_Controller {
       $term_comment = $this->term_comment_model->set_and_get_term_comment(
           $this->user->user_id, $owner_id, $course_id, $trail_id, $chapter_id, $term_id);
       if ($term_comment == null) show_error("Couldn't save new term in database");
-      else {
-        if ($owner_id == $this->user->user_id) {
+      else
+      {
+        if ($owner_id == $this->user->user_id)
+        {
           $trail = & $this->user->courses[$course_id - 1]->trails[$trail_id - 1];
           $trail->chapters[$chapter_id - 1]->terms[$term_id - 1]->term_comments[] = $term_comment;
         }

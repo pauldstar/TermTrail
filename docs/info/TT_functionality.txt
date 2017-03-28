@@ -8,6 +8,7 @@ TRAIL CREATION
 - adv_func: revert to previous versions of a trail
 - keep trail for 1 month after deletion in case user wants it back.
 - users can add images to their trails
+- terms can be crowd-sourced from a group of people
 
 TRAIL ACCESS
 - can export/import termtrails to/from other users (possibly for a fee).
@@ -18,6 +19,7 @@ TRAIL ACCESS
 - trail preview access grants user rights to view your trail for specified period of time; useful to give them taster of trail before they get to buy it.
 - trail session access grants another user the right to have a session on your trail.
 - users can have full or partial access to a course. full access means they can see all trails in a course. part access means they can only see some trails in the course.
+- can import individual terms into trails.
 
 TRAIL REVISION
 - provide feedback on how ready the user is for exam; have two modes: building (note-taking), and revision (for exam) mode.
@@ -37,7 +39,7 @@ TRAIL SALE
 - there are no refunds for buying another user's termtrail
 
 OPERATIONS
-- take £1 from users a year after they use them. give them warnings so they're not caught unaware.
+- give it out for free. make them pay for importing trails, and collect commissions.
 - tt should backup the users information on a daily basis until it becomes infeasible due to data load.
 - software to create timetable automatically or manually.
 - provide a hints/tips/advice section
@@ -53,6 +55,7 @@ OPERATIONS
 - create an affiliate marketing program.
 - on sign up ask the student if they're part of an organisation and suggests to them trails from their organisation.
 
+
 Advice
 - as you revise, try to relate the points you locate in your notes with the terms on the trail
 - enter terms in the form of questions or commands.
@@ -66,6 +69,7 @@ Advice
 - when working through the termtrail after the first time, if you can't properly remember how to answer a green term, then don't hesitate to change the colour of the term to a less favourable one.
 - on your first revision run of the trail, if you can't remember the answer to a term in more than 20 secs, then you have to colour it, and move on to another. ONLY FOR FIRST RUN.
 - this doesn't guarantee a great result, it just makes reading and remembering important parts of your course easier.
+- tt may be overkill for mcqs
 
 TRAIL PROPOSALS
 - allow users to place proposals requesting trails to be made for their course material.
@@ -84,7 +88,3 @@ cond: TT Only releases cash after the buyer has received and is satisfied with t
 
 RATING
 - create a rating system that's based on the quality/traits of the user. e.g. if there are 10 traits a tm should have, the tm would get rated by their customer on each trait. If the tm recieve full score on each trait, then the tm gets a 10 star rating.
-
-
-
-

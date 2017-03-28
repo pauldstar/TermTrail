@@ -3,8 +3,10 @@
     <div id='sidebar-wrapper' class='bg-mid-colour'>
       <ul class='sidebar-menu'>
         <li><a href="#">Trails</a></li>
-        <li id="collapse-plus"><a class='sidebar-collapsible' href="#">Courses
-          <?php echo '<img id="icon" src='.base_url('images/plus.png').' alt="+"/>'; ?>
+        <li id="collapse-plus">
+          <a class='sidebar-collapsible' href="#">
+            Courses
+            <img id="icon" src='<?=base_url('images/plus.png')?>' alt="+"/>
           </a>
           <ul class="sidebar-submenu bg-dark-colour">
             <li><a href="#">Maths</a></li>
@@ -21,302 +23,38 @@
     <div id='page-content-wrapper' class='container-fluid'>
       <div class="row">
         <div class="col-xs-12">
-          <h1>Add trail</h1>
+          <h3>Recent Trails</h3>
         </div>
-        <div class="grid-box-wrapper col-sm-3 col-lg-2">
-          <div class="grid-box container-fluid">
+        <?php foreach ($trails as $trail): ?>
+        <div class='grid-box-wrapper col-sm-4 col-lg-3'>
+          <div class='grid-box container-fluid'>
             <div class='grid-header row'>
               <div class='col-xs-12'>
-                Trail Title <a href='#'><?php echo '<img class="settings-icon" src='.base_url('images/settings.png').' alt="Settings"/>'; ?></a>
+                <?=ucwords($trail->trail_title)?>
+                <a href='#'><img class='settings-icon' src='<?=base_url('images/settings.png')?>' alt='Settings'/></a>
               </div>
             </div>
             <div class='row'>
               <div class='col-xs-12'>
-                <ul class="grid-box-trail-data-list">
-                  <li>Trail Data</li>
-                  <li>Trail Data</li>
-                  <li>Trail Data</li>
+                <ul class='grid-box-trail-data-list'>
+                  <li><?=$trail->course_id?></li>
                 </ul>
               </div>
             </div>
             <div class='grid-footer row'>
               <div class='col-xs-12'>
-                By Trail Author <a href='#'><?php echo '<img class="share-icon" src='.base_url('images/share.png').' alt="Share"/>'; ?></a>
+                <?=$trail->owner_id?> 
+                <a href='#'><img class='share-icon' src='<?=base_url('images/share.png')?>' alt='Settings'/></a>
               </div>
             </div>
           </div>
-          <!-- /.grid-box -->
         </div>
-        <div class="grid-box-wrapper col-sm-3 col-lg-2">
-          <div class="grid-box container-fluid">
-            <div class='grid-header row'>
-              <div class='col-xs-12'>
-                Trail Title <a href='#'><?php echo '<img class="settings-icon" src='.base_url('images/settings.png').' alt="Settings"/>'; ?></a>
-              </div>
-            </div>
-            <div class='row'>
-              <div class='col-xs-12'>
-                <ul class="grid-box-trail-data-list">
-                  <li>Trail Data</li>
-                  <li>Trail Data</li>
-                  <li>Trail Data</li>
-                </ul>
-              </div>
-            </div>
-            <div class='grid-footer row'>
-              <div class='col-xs-12'>
-                By Trail Author <a href='#'><?php echo '<img class="share-icon" src='.base_url('images/share.png').' alt="Share"/>'; ?></a>
-              </div>
-            </div>
-          </div>
-          <!-- /.grid-box -->
-        </div>
-        <div class="grid-box-wrapper col-sm-3 col-lg-2">
-          <div class="grid-box container-fluid">
-            <div class='grid-header row'>
-              <div class='col-xs-12'>
-                Trail Title <a href='#'><?php echo '<img class="settings-icon" src='.base_url('images/settings.png').' alt="Settings"/>'; ?></a>
-              </div>
-            </div>
-            <div class='row'>
-              <div class='col-xs-12'>
-                <ul class="grid-box-trail-data-list">
-                  <li>Trail Data</li>
-                  <li>Trail Data</li>
-                  <li>Trail Data</li>
-                </ul>
-              </div>
-            </div>
-            <div class='grid-footer row'>
-              <div class='col-xs-12'>
-                By Trail Author <a href='#'><?php echo '<img class="share-icon" src='.base_url('images/share.png').' alt="Share"/>'; ?></a>
-              </div>
-            </div>
-          </div>
-          <!-- /.grid-box -->
-        </div>
-        <div class="grid-box-wrapper col-sm-3 col-lg-2">
-          <div class="grid-box container-fluid">
-            <div class='grid-header row'>
-              <div class='col-xs-12'>
-                Trail Title <a href='#'><?php echo '<img class="settings-icon" src='.base_url('images/settings.png').' alt="Settings"/>'; ?></a>
-              </div>
-            </div>
-            <div class='row'>
-              <div class='col-xs-12'>
-                <ul class="grid-box-trail-data-list">
-                  <li>Trail Data</li>
-                  <li>Trail Data</li>
-                  <li>Trail Data</li>
-                </ul>
-              </div>
-            </div>
-            <div class='grid-footer row'>
-              <div class='col-xs-12'>
-                By Trail Author <a href='#'><?php echo '<img class="share-icon" src='.base_url('images/share.png').' alt="Share"/>'; ?></a>
-              </div>
-            </div>
-          </div>
-          <!-- /.grid-box -->
-        </div>
-        <div class="grid-box-wrapper col-sm-3 col-lg-2">
-          <div class="grid-box container-fluid">
-            <div class='grid-header row'>
-              <div class='col-xs-12'>
-                Trail Title <a href='#'><?php echo '<img class="settings-icon" src='.base_url('images/settings.png').' alt="Settings"/>'; ?></a>
-              </div>
-            </div>
-            <div class='row'>
-              <div class='col-xs-12'>
-                <ul class="grid-box-trail-data-list">
-                  <li>Trail Data</li>
-                  <li>Trail Data</li>
-                  <li>Trail Data</li>
-                </ul>
-              </div>
-            </div>
-            <div class='grid-footer row'>
-              <div class='col-xs-12'>
-                By Trail Author <a href='#'><?php echo '<img class="share-icon" src='.base_url('images/share.png').' alt="Share"/>'; ?></a>
-              </div>
-            </div>
-          </div>
-          <!-- /.grid-box -->
-        </div>
-        <div class="grid-box-wrapper col-sm-3 col-lg-2">
-          <div class="grid-box container-fluid">
-            <div class='grid-header row'>
-              <div class='col-xs-12'>
-                Trail Title <a href='#'><?php echo '<img class="settings-icon" src='.base_url('images/settings.png').' alt="Settings"/>'; ?></a>
-              </div>
-            </div>
-            <div class='row'>
-              <div class='col-xs-12'>
-                <ul class="grid-box-trail-data-list">
-                  <li>Trail Data</li>
-                  <li>Trail Data</li>
-                  <li>Trail Data</li>
-                </ul>
-              </div>
-            </div>
-            <div class='grid-footer row'>
-              <div class='col-xs-12'>
-                By Trail Author <a href='#'><?php echo '<img class="share-icon" src='.base_url('images/share.png').' alt="Share"/>'; ?></a>
-              </div>
-            </div>
-          </div>
-          <!-- /.grid-box -->
-        </div>
-        <div class="grid-box-wrapper col-sm-3 col-lg-2">
-          <div class="grid-box container-fluid">
-            <div class='grid-header row'>
-              <div class='col-xs-12'>
-                Trail Title <a href='#'><?php echo '<img class="settings-icon" src='.base_url('images/settings.png').' alt="Settings"/>'; ?></a>
-              </div>
-            </div>
-            <div class='row'>
-              <div class='col-xs-12'>
-                <ul class="grid-box-trail-data-list">
-                  <li>Trail Data</li>
-                  <li>Trail Data</li>
-                  <li>Trail Data</li>
-                </ul>
-              </div>
-            </div>
-            <div class='grid-footer row'>
-              <div class='col-xs-12'>
-                By Trail Author <a href='#'><?php echo '<img class="share-icon" src='.base_url('images/share.png').' alt="Share"/>'; ?></a>
-              </div>
-            </div>
-          </div>
-          <!-- /.grid-box -->
-        </div>
-        <div class="grid-box-wrapper col-sm-3 col-lg-2">
-          <div class="grid-box container-fluid">
-            <div class='grid-header row'>
-              <div class='col-xs-12'>
-                Trail Title <a href='#'><?php echo '<img class="settings-icon" src='.base_url('images/settings.png').' alt="Settings"/>'; ?></a>
-              </div>
-            </div>
-            <div class='row'>
-              <div class='col-xs-12'>
-                <ul class="grid-box-trail-data-list">
-                  <li>Trail Data</li>
-                  <li>Trail Data</li>
-                  <li>Trail Data</li>
-                </ul>
-              </div>
-            </div>
-            <div class='grid-footer row'>
-              <div class='col-xs-12'>
-                By Trail Author <a href='#'><?php echo '<img class="share-icon" src='.base_url('images/share.png').' alt="Share"/>'; ?></a>
-              </div>
-            </div>
-          </div>
-          <!-- /.grid-box -->
-        </div>
-        <div class="grid-box-wrapper col-sm-3 col-lg-2">
-          <div class="grid-box container-fluid">
-            <div class='grid-header row'>
-              <div class='col-xs-12'>
-                Trail Title <a href='#'><?php echo '<img class="settings-icon" src='.base_url('images/settings.png').' alt="Settings"/>'; ?></a>
-              </div>
-            </div>
-            <div class='row'>
-              <div class='col-xs-12'>
-                <ul class="grid-box-trail-data-list">
-                  <li>Trail Data</li>
-                  <li>Trail Data</li>
-                  <li>Trail Data</li>
-                </ul>
-              </div>
-            </div>
-            <div class='grid-footer row'>
-              <div class='col-xs-12'>
-                By Trail Author <a href='#'><?php echo '<img class="share-icon" src='.base_url('images/share.png').' alt="Share"/>'; ?></a>
-              </div>
-            </div>
-          </div>
-          <!-- /.grid-box -->
-        </div>
-        <div class="grid-box-wrapper col-sm-3 col-lg-2">
-          <div class="grid-box container-fluid">
-            <div class='grid-header row'>
-              <div class='col-xs-12'>
-                Trail Title <a href='#'><?php echo '<img class="settings-icon" src='.base_url('images/settings.png').' alt="Settings"/>'; ?></a>
-              </div>
-            </div>
-            <div class='row'>
-              <div class='col-xs-12'>
-                <ul class="grid-box-trail-data-list">
-                  <li>Trail Data</li>
-                  <li>Trail Data</li>
-                  <li>Trail Data</li>
-                </ul>
-              </div>
-            </div>
-            <div class='grid-footer row'>
-              <div class='col-xs-12'>
-                By Trail Author <a href='#'><?php echo '<img class="share-icon" src='.base_url('images/share.png').' alt="Share"/>'; ?></a>
-              </div>
-            </div>
-          </div>
-          <!-- /.grid-box -->
-        </div>
-        <div class="grid-box-wrapper col-sm-3 col-lg-2">
-          <div class="grid-box container-fluid">
-            <div class='grid-header row'>
-              <div class='col-xs-12'>
-                Trail Title <a href='#'><?php echo '<img class="settings-icon" src='.base_url('images/settings.png').' alt="Settings"/>'; ?></a>
-              </div>
-            </div>
-            <div class='row'>
-              <div class='col-xs-12'>
-                <ul class="grid-box-trail-data-list">
-                  <li>Trail Data</li>
-                  <li>Trail Data</li>
-                  <li>Trail Data</li>
-                </ul>
-              </div>
-            </div>
-            <div class='grid-footer row'>
-              <div class='col-xs-12'>
-                By Trail Author <a href='#'><?php echo '<img class="share-icon" src='.base_url('images/share.png').' alt="Share"/>'; ?></a>
-              </div>
-            </div>
-          </div>
-          <!-- /.grid-box -->
-        </div>
-        <div class="grid-box-wrapper col-sm-3 col-lg-2">
-          <div class="grid-box container-fluid">
-            <div class='grid-header row'>
-              <div class='col-xs-12'>
-                Trail Title <a href='#'><?php echo '<img class="settings-icon" src='.base_url('images/settings.png').' alt="Settings"/>'; ?></a>
-              </div>
-            </div>
-            <div class='row'>
-              <div class='col-xs-12'>
-                <ul class="grid-box-trail-data-list">
-                  <li>Trail Data</li>
-                  <li>Trail Data</li>
-                  <li>Trail Data</li>
-                </ul>
-              </div>
-            </div>
-            <div class='grid-footer row'>
-              <div class='col-xs-12'>
-                By Trail Author <a href='#'><?php echo '<img class="share-icon" src='.base_url('images/share.png').' alt="Share"/>'; ?></a>
-              </div>
-            </div>
-          </div>
-          <!-- /.grid-box -->
-        </div>
-        <!-- /.grid-box wrapper -->
+        <?php endforeach; ?>
       </div>
     </div>
   </div>
 </div>
-<script> 
+<script>
   // toggle the side-navbar
   $('#side-menu-toggle').click(function(event) {
     event.preventDefault();
@@ -343,46 +81,48 @@
     }
   });
 </script>
-<!-- <script>
-  $(document).ready(function(){
+<!-- 
+  <script>
+    $(document).ready(function(){
+      $('.indexTopDiv').hide();
+      $('#clientSignUpDiv').fadeIn();
+      $('.navbar li').removeClass('active');
+      $('#signUpMI').parent().addClass('active');
+      $('.myError').fadeIn();
+    });
+    $(document).ready(function(){
+    // loads home page div and change active navbar item
+    $('#homeMI').click(function(){
     $('.indexTopDiv').hide();
-    $('#clientSignUpDiv').fadeIn();
+    $('#homeDiv').fadeIn('slow');
+    $('.myError').hide();
     $('.navbar li').removeClass('active');
-    $('#signUpMI').parent().addClass('active');
-    $('.myError').fadeIn();
-  })
-  $(document).ready(function(){
-  // loads home page div and change active navbar item
-  $('#homeMI').click(function(){
-  $('.indexTopDiv').hide();
-  $('#homeDiv').fadeIn('slow');
-  $('.myError').hide();
-  $('.navbar li').removeClass('active');
-  $('#homeMI').parent().addClass('active');
-  });
-  // loads login page
-  $('#loginMI').click(function(){
-  $('.indexTopDiv').hide();
-  $('#loginDiv').fadeIn('slow');
-  $('.myError').hide();
-  $('.navbar li').removeClass('active');
-  $('#loginMI').parent().addClass('active');
-  });
-  // loads client sign up page, and change active navbar item
-  $('.clientSignUpBtn').click(function(){
-  $('.indexTopDiv').hide();
-  $('#clientSignUpDiv').fadeIn('slow');
-  $('.myError').hide();
-  $('.navbar li').removeClass('active');
-  $('#signUpMI').addClass('active');
-  });
-  // loads explorer sign up page, and change active navbar item
-  $('.explorerSignUpBtn').click(function(){
-  $('.indexTopDiv').hide();
-  $('#explorerSignUpDiv').fadeIn('slow');
-  $('.myError').hide();
-  $('.navbar li').removeClass('active');
-  $('#signUpMI').addClass('active');
-  });
-  });
-  </script> -->
+    $('#homeMI').parent().addClass('active');
+    });
+    // loads login page
+    $('#loginMI').click(function(){
+    $('.indexTopDiv').hide();
+    $('#loginDiv').fadeIn('slow');
+    $('.myError').hide();
+    $('.navbar li').removeClass('active');
+    $('#loginMI').parent().addClass('active');
+    });
+    // loads client sign up page, and change active navbar item
+    $('.clientSignUpBtn').click(function(){
+    $('.indexTopDiv').hide();
+    $('#clientSignUpDiv').fadeIn('slow');
+    $('.myError').hide();
+    $('.navbar li').removeClass('active');
+    $('#signUpMI').addClass('active');
+    });
+    // loads explorer sign up page, and change active navbar item
+    $('.explorerSignUpBtn').click(function(){
+    $('.indexTopDiv').hide();
+    $('#explorerSignUpDiv').fadeIn('slow');
+    $('.myError').hide();
+    $('.navbar li').removeClass('active');
+    $('#signUpMI').addClass('active');
+    });
+    });
+  </script>
+  -->

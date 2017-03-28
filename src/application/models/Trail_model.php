@@ -1,4 +1,5 @@
 <?php
+
 class Trail_model extends CI_Model {
 
   public function __construct()
@@ -15,8 +16,10 @@ class Trail_model extends CI_Model {
   {
     $user = $_SESSION['user'];
     $query = $this->db->query("SELECT * FROM trail WHERE owner_id='$user->user_id'");
-    if (isset($query)) {
-      foreach ($query->result_array() as $row) {
+    if (isset($query))
+    {
+      foreach ($query->result_array() as $row)
+      {
         $trail = new Trail($row);
         $course_id = $trail->course_id;
         $user->courses[$course_id - 1]->trails[] = $trail;
@@ -26,25 +29,30 @@ class Trail_model extends CI_Model {
     return false;
   }
 
-  public function get_user_trails($user_id)
+  public function get_main_user_trails_from_object()
   {
-    $query = $this->db->query("SELECT * FROM trail WHERE owner_id='$user_id'");
-    if (isset($query)) {
-      $trails = array();
-      foreach ($query->result_array() as $row)
-        $trails[] = new Trail($row);
-      return $trails;
+    $user = $_SESSION['user'];
+    $trails_to_return = array();
+    foreach ($user->courses as $course)
+    {
+      foreach ($course->trails as $trail)
+      {
+        $trails_to_return[] = $trail;
+      }
     }
-    return null;
+    if (empty($trails_to_return)) return false;
+    return $trails_to_return;
   }
 
   public function get_course_trails($user_id, $course_id, $is_main_user)
   {
-    $full_course_id = array( "owner_id" => $user_id, "course_id" => $course_id );
+    $full_course_id = array( "owner_id" => $user_id, "course_id" => $course_id 
+    );
     $query = $this->db->get_where('trail', $full_course_id);
-    if ($query != null) {
+    if ($query != null)
+    {
       $trails = array();
-      foreach ($query->result() as $row) 
+      foreach ($query->result() as $row)
         $trails[] = new Trail($row);
       return $trails;
     }
@@ -62,10 +70,12 @@ class Trail_model extends CI_Model {
         "trail_title" => $this->input->post('trail_title'), 
         "scope" => $this->input->post('scope'), 
         "time_added" => $current_time, 
-        "trail_type" => $trail_type );
+        "trail_type" => $trail_type 
+    );
     // insert user's new trail into database
     $query_successful = $this->db->insert('trail', $trail_params);
-    if ($query_successful) {
+    if ($query_successful)
+    {
       $trail_params['mode'] = 'building';
       $trail_params['trail_view_count'] = 0;
       $trail_params['preview_length_time'] = 1800;

@@ -54,6 +54,7 @@ nav > .container-fluid {
 	padding-right: 0px !important;
 	padding-left: 0px !important;
 	text-align: center;
+    box-shadow: 0px 1px 5px #888888;
 }
 .navbar-default {
 	background-color: #e7e7e7 !important;
@@ -88,7 +89,7 @@ nav .active > a {
 	text-decoration: none;
 	margin-right:20px;
 }
-/*************************** SIDE-BAR WRAPPER ***************************/
+/*************************** SIDE-BAR TOGGLE ***************************/
 #page-content-wrapper {
     width: 100%;
     /* position: absolute; */
@@ -115,7 +116,7 @@ nav .active > a {
     transition: all 0.5s ease; */
 }
 #wrapper.toggled #page-content-wrapper {
-    width: 85%;
+    width: 84%;
     float: right;
     /* -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
@@ -124,7 +125,7 @@ nav .active > a {
 }
 /*************************** SIDEBAR ***************************/
 .sidebar-menu {
-	margin-top: 14px;
+	margin-top: 0px;
 }
 .sidebar-menu,
 .sidebar-submenu {
@@ -139,7 +140,7 @@ nav .active > a {
     display: block;
     text-decoration: none;
     font-size: 13px;
-    font-weight: 700;
+    /* font-weight: 700; */
     position: relative;
 }
 .sidebar-menu li a:hover {
@@ -169,6 +170,7 @@ nav .active > a {
 .grid-box {
 	display: block;
 	padding: 5px;
+	border-radius: 5px;
 }
 .grid-box .settings-icon {
 	width: 21px;
