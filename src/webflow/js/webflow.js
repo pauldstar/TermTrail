@@ -2916,61 +2916,6 @@ Webflow.require('ix').init([
   }
 },
 {
-  "slug": "chapter-icons-appear",
-  "name": "chapter-icons-appear",
-  "value":
-  {
-    "style":
-    {},
-    "triggers": [
-    {
-      "type": "hover",
-      "selector": ".img-edit-chapter",
-      "descend": true,
-      "stepsA": [
-      {
-        "opacity": 1,
-        "transition": "opacity  ease 0"
-      }],
-      "stepsB": [
-      {
-        "opacity": 0,
-        "transition": "opacity  ease 0"
-      }]
-    },
-    {
-      "type": "hover",
-      "selector": ".div-selection-checkbox",
-      "descend": true,
-      "stepsA": [
-      {
-        "opacity": 1,
-        "transition": "opacity 200 ease 0"
-      }],
-      "stepsB": [
-      {
-        "opacity": 0,
-        "transition": "opacity 200 ease 0"
-      }]
-    },
-    {
-      "type": "hover",
-      "selector": ".img-chapter-info",
-      "descend": true,
-      "stepsA": [
-      {
-        "opacity": 1,
-        "transition": "opacity 200 ease 0"
-      }],
-      "stepsB": [
-      {
-        "opacity": 0,
-        "transition": "opacity 200 ease 0"
-      }]
-    }]
-  }
-},
-{
   "slug": "gridbox-settings-appear",
   "name": "gridbox-settings-appear",
   "value":
@@ -3111,30 +3056,6 @@ Webflow.require('ix').init([
       "stepsB": [
       {
         "opacity": 0,
-        "transition": "opacity 200 ease 0"
-      }]
-    }]
-  }
-},
-{
-  "slug": "tutorial-disable",
-  "name": "tutorial-disable",
-  "value":
-  {
-    "style":
-    {},
-    "triggers": [
-    {
-      "type": "click",
-      "selector": ".div-revision-tutorial-alert",
-      "stepsA": [
-      {
-        "opacity": 0,
-        "transition": "opacity 200 ease 0"
-      }],
-      "stepsB": [
-      {
-        "opacity": 1,
         "transition": "opacity 200 ease 0"
       }]
     }]

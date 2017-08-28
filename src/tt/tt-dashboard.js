@@ -12,18 +12,36 @@ $(document).ready(function()
 		if (dataToolToggle == "1") $(this).toggleClass('pressed');
 	});
 	// GRID ICONS APPEAR
-	$('.div-grid-box').mouseenter(function(event)
+	$('.div-gridbox').mouseenter(function(event)
 	{
 		$(this).find('.div-gridbox-footer-buttons').fadeTo(200, 1);
 		$(this).find('.div-selection-checkbox').fadeTo(200, 1);
 	});
 	// GRID ICONS DISAPPEAR
-	$('.div-grid-box').mouseleave(function(event)
+	$('.div-gridbox').mouseleave(function(event)
 	{
-		// only fadeout if gridbox hasn't been selected
+		// only fadeout if grid-box hasn't been selected
 		if (!$(this).hasClass('selected'))
 		{
 			$(this).find('.div-gridbox-footer-buttons').fadeTo(200, 0);
+			$(this).find('.div-selection-checkbox').fadeTo(200, 0);
+		}
+	});
+	// CHAPTER BOX ICONS APPEAR
+	$('.a-chapter-item').mouseenter(function(event)
+	{
+		$(this).find('.img-chapter-info').fadeIn(200);
+		$(this).find('.img-edit-chapter').fadeIn(200);
+		$(this).find('.div-selection-checkbox').fadeTo(200, 1);
+	});
+	// GRID ICONS DISAPPEAR
+	$('.a-chapter-item').mouseleave(function(event)
+	{
+		// only fadeout if grid-box hasn't been selected
+		if (!$(this).hasClass('selected'))
+		{
+			$(this).find('.img-chapter-info').fadeOut(200);
+			$(this).find('.img-edit-chapter').fadeOut(200);
 			$(this).find('.div-selection-checkbox').fadeTo(200, 0);
 		}
 	});
