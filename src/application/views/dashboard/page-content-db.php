@@ -16,7 +16,7 @@
             </li>
           </ul>
         </div>
-        <div class="div-selection-checkbox"><img class="img-selection-tick" src='<?=base_url("webflow/images/tick.png")?>'></div>
+        <div class="div-selection-checkbox"><span class="icon-selection-tick glyphicon glyphicon-ok" aria-hidden="true"></span></div>
         <div class="div-grid-box-footer w-clearfix">
           <div class="div-gridbox-footer-buttons">
             <div class="w-dropdown" data-delay="0">
@@ -54,7 +54,7 @@
             </li>
           </ul>
         </div>
-        <div class="div-selection-checkbox"><img class="img-selection-tick" src='<?=base_url("webflow/images/tick.png")?>'></div>
+        <div class="div-selection-checkbox"><span class="icon-selection-tick glyphicon glyphicon-ok" aria-hidden="true"></span></div>
         <div class="div-grid-box-footer w-clearfix">
           <div class="div-gridbox-footer-buttons">
             <div class="w-dropdown" data-delay="0">
@@ -92,7 +92,9 @@
             </li>
           </ul>
         </div>
-        <div class="div-selection-checkbox"><img class="img-selection-tick" src='<?=base_url("webflow/images/tick.png")?>'></div>
+        <div class="div-selection-checkbox">
+					<span class="icon-selection-tick glyphicon glyphicon-ok" aria-hidden="true"></span>
+				</div>
         <div class="div-grid-box-footer w-clearfix">
           <div class="div-gridbox-footer-buttons">
             <div class="w-dropdown" data-delay="0">
@@ -114,7 +116,7 @@
     <div class="div-grid-box-wrapper w-col w-col-2">
       <div class="div-grid-box okay" data-ix="grid-icons-appear">
         <div class="text-gridbox-numbering">4</div>
-        <div class="div-selection-checkbox"><img class="img-selection-tick" src='<?=base_url("webflow/images/tick.png")?>'></div>
+        <div class="div-selection-checkbox"><span class="icon-selection-tick glyphicon glyphicon-ok" aria-hidden="true"></span></div>
         <div class="div-grid-box-header">
           <h5 class="h-grid-box-question">When are LTS's strongly bisimilar?</h5>
         </div>
@@ -161,7 +163,7 @@
     <div class="div-grid-box-wrapper w-col w-col-2">
       <div class="div-grid-box" data-ix="grid-icons-appear">
         <div class="text-gridbox-numbering">4</div>
-        <div class="div-selection-checkbox"><img class="img-selection-tick" src='<?=base_url("webflow/images/tick.png")?>'></div>
+        <div class="div-selection-checkbox"><span class="icon-selection-tick glyphicon glyphicon-ok" aria-hidden="true"></span></div>
         <div class="div-grid-box-header">
           <h5 class="h-grid-box-question">When are LTS's strongly bisimilar?</h5>
         </div>
@@ -205,7 +207,7 @@
     <div class="div-grid-box-wrapper w-col w-col-2">
       <div class="div-grid-box poor" data-ix="grid-icons-appear">
         <div class="text-gridbox-numbering">4</div>
-        <div class="div-selection-checkbox"><img class="img-selection-tick" src='<?=base_url("webflow/images/tick.png")?>'></div>
+        <div class="div-selection-checkbox"><span class="icon-selection-tick glyphicon glyphicon-ok" aria-hidden="true"></span></div>
         <div class="div-grid-box-header">
           <h5 class="h-grid-box-question">Qualities of a good compiler</h5>
         </div>
@@ -253,7 +255,7 @@
           </ul>
         </div>
         <div class="div-selection-checkbox"></div>
-        <div class="div-selection-checkbox selected"><img class="img-selection-tick" src='<?=base_url("webflow/images/tick.png")?>'></div>
+        <div class="div-selection-checkbox selected"><span class="icon-selection-tick glyphicon glyphicon-ok" aria-hidden="true"></span></div>
         <div class="div-grid-box-footer selected w-clearfix">
           <div class="div-gridbox-footer-buttons">
             <div class="w-dropdown" data-delay="0">
@@ -274,7 +276,7 @@
     </div>
     <div class="div-grid-box-wrapper w-col w-col-2">
       <div class="div-grid-box good" data-ix="grid-icons-appear">
-        <div class="div-selection-checkbox"><img class="img-selection-tick" src='<?=base_url("webflow/images/tick.png")?>'></div>
+        <div class="div-selection-checkbox"><span class="icon-selection-tick glyphicon glyphicon-ok" aria-hidden="true"></span></div>
         <div class="div-grid-box-header">
           <h5 class="h-grid-box-question">Qualities of a good compiler</h5>
         </div>

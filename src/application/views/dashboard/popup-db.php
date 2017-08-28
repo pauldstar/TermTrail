@@ -260,7 +260,7 @@
         <form class="form-name-resource w-clearfix" data-name="Email Form" id="email-form" name="email-form">
           <div class="div-resource-form-input-wrapper"><label class="text-resource-field-label" for="name-3">Words per minute</label><input class="text-field-resource w-input" data-name="Name 3" id="name-3" maxlength="256" name="name-3" placeholder="200" required="required" type="text"></div>
           <div class="div-resource-form-input-wrapper subgroup">
-            <label class="text-input-group-title" for="name-4">Scoring Timing</label>
+            <label class="text-settings-input-group-title" for="name-4">Scoring Timing</label>
             <div class="div-resource-form-input-wrapper"><label class="good text-resource-field-label" for="user-settings-good-score">Good</label><input class="text-field-resource w-input" data-name="user-settings-good-score" id="user-settings-good-score" maxlength="256" name="user-settings-good-score" placeholder="2.00" type="text"></div>
             <div class="div-resource-form-input-wrapper"><label class="okay text-resource-field-label" for="user-settings-okay-score">Okay</label><input class="text-field-resource w-input" data-name="user-settings-okay-score" id="user-settings-okay-score" maxlength="256" name="user-settings-okay-score" placeholder="6.00" type="text"></div>
             <div class="div-resource-form-input-wrapper"><label class="poor text-resource-field-label" for="user-settings-poor-score">Poor</label><input class="text-field-resource w-input" data-name="user-settings-poor-score" id="user-settings-poor-score" maxlength="256" name="user-settings-poor-score" placeholder="12.00" type="text"></div>

@@ -176,16 +176,16 @@
               <div class="text-numbering">1</div>
               <div class="text-chapter-title">Introduction to Compilers</div>
               <img class="img-chapter-info" src='<?=base_url("webflow/images/exclamation_1.png")?>'>
-              <div class="div-selection-checkbox"><img class="img-selection-tick" src='<?=base_url("webflow/images/tick.png")?>'></div>
+              <div class="div-selection-checkbox"><span class="icon-selection-tick glyphicon glyphicon-ok" aria-hidden="true"></span></div>
               <img class="img-edit-chapter" src='<?=base_url("webflow/images/edit-black_1.png")?>'>
             </a>
           </li>
           <li class="li-sidebar-menu">
             <a class="a-chapter-item excellent w-inline-block" data-ix="chapter-icons-appear" href="#">
               <div class="text-numbering">2</div>
-              <div class="text-chapter-title">Introduction to Compilers</div>
+              <div class="text-chapter-title">Introduction to Compilers. This is one chapter that happens to be unusually long, for the sake of testing.</div>
               <img class="img-chapter-info" src='<?=base_url("webflow/images/exclamation_1.png")?>'>
-              <div class="div-selection-checkbox"><img class="img-selection-tick" src='<?=base_url("webflow/images/tick.png")?>'></div>
+              <div class="div-selection-checkbox"><span class="icon-selection-tick glyphicon glyphicon-ok" aria-hidden="true"></span></div>
               <img class="img-edit-chapter" src='<?=base_url("webflow/images/edit-black_1.png")?>'>
             </a>
           </li>
@@ -194,7 +194,7 @@
               <div class="text-numbering">3</div>
               <div class="text-chapter-title">Introduction to Compilers</div>
               <img class="img-chapter-info" src='<?=base_url("webflow/images/exclamation_1.png")?>'>
-              <div class="div-selection-checkbox"><img class="img-selection-tick" src='<?=base_url("webflow/images/tick.png")?>'></div>
+              <div class="div-selection-checkbox"><span class="icon-selection-tick glyphicon glyphicon-ok" aria-hidden="true"></span></div>
               <img class="img-edit-chapter" src='<?=base_url("webflow/images/edit-black_1.png")?>'>
             </a>
           </li>
@@ -203,7 +203,7 @@
               <div class="text-numbering">4</div>
               <div class="text-chapter-title">Introduction to Compilers</div>
               <img class="img-chapter-info" src='<?=base_url("webflow/images/exclamation_1.png")?>'>
-              <div class="div-selection-checkbox"><img class="img-selection-tick" src='<?=base_url("webflow/images/tick.png")?>'></div>
+              <div class="div-selection-checkbox"><span class="icon-selection-tick glyphicon glyphicon-ok" aria-hidden="true"></span></div>
               <img class="img-edit-chapter" src='<?=base_url("webflow/images/edit-black_1.png")?>'>
             </a>
           </li>
@@ -212,7 +212,7 @@
               <div class="text-numbering">5</div>
               <div class="text-chapter-title">Introduction to Compilers</div>
               <img class="img-chapter-info" src='<?=base_url("webflow/images/exclamation_1.png")?>'>
-              <div class="div-selection-checkbox"><img class="img-selection-tick" src='<?=base_url("webflow/images/tick.png")?>'></div>
+              <div class="div-selection-checkbox"><span class="icon-selection-tick glyphicon glyphicon-ok" aria-hidden="true"></span></div>
               <img class="img-edit-chapter" src='<?=base_url("webflow/images/edit-black_1.png")?>'>
             </a>
           </li>
@@ -221,7 +221,7 @@
               <div class="text-numbering">6</div>
               <div class="text-chapter-title">Introduction to Compilers</div>
               <img class="img-chapter-info" src='<?=base_url("webflow/images/exclamation_1.png")?>'>
-              <div class="div-selection-checkbox"><img class="img-selection-tick" src='<?=base_url("webflow/images/tick.png")?>'></div>
+              <div class="div-selection-checkbox"><span class="icon-selection-tick glyphicon glyphicon-ok" aria-hidden="true"></span></div>
               <img class="img-edit-chapter" src='<?=base_url("webflow/images/edit-black_1.png")?>'>
             </a>
           </li>
@@ -230,7 +230,7 @@
               <div class="text-numbering">7</div>
               <div class="text-chapter-title">Introduction to Compilers</div>
               <img class="img-chapter-info" src='<?=base_url("webflow/images/exclamation_1.png")?>'>
-              <div class="div-selection-checkbox selected"><img class="img-selection-tick" src='<?=base_url("webflow/images/tick.png")?>'></div>
+              <div class="div-selection-checkbox selected"><span class="icon-selection-tick glyphicon glyphicon-ok" aria-hidden="true"></span></div>
               <img class="img-edit-chapter" src='<?=base_url("webflow/images/edit-black_1.png")?>'>
             </a>
           </li>
