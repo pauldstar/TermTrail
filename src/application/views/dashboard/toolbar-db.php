@@ -59,6 +59,10 @@
 			<a class="a-toolbar-dropdown-li w-dropdown-link" href="#">Green</a>
 		</nav>
   </div>
+	<div class="div-tool-dropdown-wrapper w-dropdown" data-delay="0" id="toolbar-grid-format">
+    <div class="div-tool-dropdown-toggle w-dropdown-toggle" data-tool-toggle="1"><img src='<?=base_url("images/grey/grid.png")?>'></div>
+    <nav class="div-tool-dropdown-list w-dropdown-list"></nav>
+  </div>
   <div class="div-tool-dropdown-wrapper w-dropdown" data-delay="0" id="toolbar-info">
     <div class="div-tool-dropdown-toggle w-dropdown-toggle"><img src='<?=base_url("webflow/dashboard/images/exclamation.png")?>'></div>
     <nav class="div-tool-dropdown-list w-dropdown-list"></nav>

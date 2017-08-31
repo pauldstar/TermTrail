@@ -1,5 +1,18 @@
 <div class="div-sidebar">
-	<div class="div-sidebar-navbar w-clearfix"><a class="a-navbar-toggle-buttons active w-inline-block" data-ix="sidebar-nav-appear" href="#" id="button-sidebar-menu"><img src='<?=base_url("webflow/dashboard/images/menu-s.png")?>'></a><a class="a-navbar-toggle-buttons w-inline-block" data-ix="sidebar-messages-appear" href="#" id="button-sidebar-inbox"><img src='<?=base_url("webflow/dashboard/images/inbox-no-notification-s.png")?>'></a><a class="a-navbar-toggle-buttons w-inline-block" data-ix="sidebar-search-appear" href="#" id="button-sidebar-search"><img src='<?=base_url("webflow/dashboard/images/search-folder-gold.png")?>'></a><a class="a-navbar-toggle-buttons w-inline-block" data-ix="chapters-appear" href="#" id="button-sidebar-chapter"><img src='<?=base_url("webflow/dashboard/images/chapter-s.png")?>'></a></div>
+	<div class="div-sidebar-navbar w-clearfix">
+		<a class="a-navbar-toggle-buttons active w-inline-block" data-ix="sidebar-menu-appear" href="#" id="button-sidebar-menu">
+			<img src='<?=base_url("webflow/dashboard/images/menu-s.png")?>'>
+		</a>
+		<a class="a-navbar-toggle-buttons w-inline-block" data-ix="sidebar-messages-appear" href="#" id="button-sidebar-inbox">
+			<img src='<?=base_url("webflow/dashboard/images/inbox-no-notification-s.png")?>'>
+		</a>
+		<a class="a-navbar-toggle-buttons w-inline-block" data-ix="sidebar-search-appear" href="#" id="button-sidebar-search">
+			<img src='<?=base_url("webflow/dashboard/images/search-folder-gold.png")?>'>
+		</a>
+		<a class="a-navbar-toggle-buttons w-inline-block" data-ix="sidebar-questions-appear" href="#" id="button-sidebar-question-finder">
+			<img src='<?=base_url("webflow/dashboard/images/chapter-s.png")?>'>
+		</a>
+	</div>
 	<div class="div-sidebar-content">
 		<div class="div-sidebar-menu">
 			<ul class="ul-sidebar-menu w-list-unstyled">
@@ -168,62 +181,42 @@
 				</li>
 			</ul>
 		</div>
-		<div class="div-sidebar-chapters">
-			<ul class="chapters ul-sidebar-menu w-list-unstyled">
-				<li class="li-sidebar-menu">
-					<a class="a-chapter-item w-inline-block" data-ix="chapter-icons-appear" href="#">
-						<div class="text-numbering">1</div>
-						<div class="text-chapter-title">Introduction to Compilers</div>
-						<img class="icon-chapter-box img-chapter-info" src='<?=base_url("webflow/dashboard/images/exclamation_1.png")?>'>
-						<div class="div-selection-checkbox"><span class="icon-selection-tick glyphicon glyphicon-ok" aria-hidden="true"></span></div>
-						<img class="icon-chapter-box img-edit-chapter" src='<?=base_url("webflow/dashboard/images/edit-black_1.png")?>'>
-					</a>
-				</li>
-				<li class="li-sidebar-menu">
-					<a class="a-chapter-item excellent w-inline-block" data-ix="chapter-icons-appear" href="#">
-						<div class="text-numbering">2</div>
-						<div class="text-chapter-title">Introduction to Compilers. This is one chapter that happens to be unusually long, for the sake of testing.</div>
-						<img class="icon-chapter-box img-chapter-info" src='<?=base_url("webflow/dashboard/images/exclamation_1.png")?>'>
-						<div class="div-selection-checkbox"><span class="icon-selection-tick glyphicon glyphicon-ok" aria-hidden="true"></span></div>
-						<img class="icon-chapter-box img-edit-chapter" src='<?=base_url("webflow/dashboard/images/edit-black_1.png")?>'>
-					</a>
-				</li>
-				<li class="li-sidebar-menu">
-					<a class="a-chapter-item good w-inline-block" data-ix="chapter-icons-appear" href="#">
-						<div class="text-numbering">3</div>
-						<div class="text-chapter-title">Introduction to Compilers</div>
-						<img class="icon-chapter-box img-chapter-info" src='<?=base_url("webflow/dashboard/images/exclamation_1.png")?>'>
-						<div class="div-selection-checkbox"><span class="icon-selection-tick glyphicon glyphicon-ok" aria-hidden="true"></span></div>
-						<img class="icon-chapter-box img-edit-chapter" src='<?=base_url("webflow/dashboard/images/edit-black_1.png")?>'>
-					</a>
-				</li>
-				<li class="li-sidebar-menu">
-					<a class="a-chapter-item okay w-inline-block" data-ix="chapter-icons-appear" href="#">
-						<div class="text-numbering">4</div>
-						<div class="text-chapter-title">Introduction to Compilers</div>
-						<img class="icon-chapter-box img-chapter-info" src='<?=base_url("webflow/dashboard/images/exclamation_1.png")?>'>
-						<div class="div-selection-checkbox"><span class="icon-selection-tick glyphicon glyphicon-ok" aria-hidden="true"></span></div>
-						<img class="icon-chapter-box img-edit-chapter" src='<?=base_url("webflow/dashboard/images/edit-black_1.png")?>'>
-					</a>
-				</li>
-				<li class="li-sidebar-menu">
-					<a class="a-chapter-item poor w-inline-block" data-ix="chapter-icons-appear" href="#">
-						<div class="text-numbering">5</div>
-						<div class="text-chapter-title">Introduction to Compilers</div>
-						<img class="icon-chapter-box img-chapter-info" src='<?=base_url("webflow/dashboard/images/exclamation_1.png")?>'>
-						<div class="div-selection-checkbox"><span class="icon-selection-tick glyphicon glyphicon-ok" aria-hidden="true"></span></div>
-						<img class="icon-chapter-box img-edit-chapter" src='<?=base_url("webflow/dashboard/images/edit-black_1.png")?>'>
-					</a>
-				</li>
-				<li class="li-sidebar-menu">
-					<a class="a-chapter-item fail w-inline-block" data-ix="chapter-icons-appear" href="#">
-						<div class="text-numbering">6</div>
-						<div class="text-chapter-title">Introduction to Compilers</div>
-						<img class="icon-chapter-box img-chapter-info" src='<?=base_url("webflow/dashboard/images/exclamation_1.png")?>'>
-						<div class="div-selection-checkbox"><span class="icon-selection-tick glyphicon glyphicon-ok" aria-hidden="true"></span></div>
-						<img class="icon-chapter-box img-edit-chapter" src='<?=base_url("webflow/dashboard/images/edit-black_1.png")?>'>
-					</a>
-				</li>
+		<div class="div-sidebar-questions">
+			<ul class="ul-sidebar-questions-list w-clearfix">
+				<li class="li-sidebar-question">1</li>
+				<li class="li-sidebar-question">2</li>
+				<li class="li-sidebar-question">3</li>
+				<li class="li-sidebar-question">4</li>
+				<li class="li-sidebar-question">5</li>
+				<li class="li-sidebar-question">6</li>
+				<li class="li-sidebar-question">7</li>
+				<li class="li-sidebar-question">8</li>
+				<li class="li-sidebar-question">9</li>
+				<li class="li-sidebar-question">10</li>
+				<li class="li-sidebar-question">11</li>
+				<li class="li-sidebar-question">12</li>
+				<li class="li-sidebar-question">13</li>
+				<li class="li-sidebar-question">14</li>
+				<li class="li-sidebar-question">15</li>
+				<li class="li-sidebar-question">16</li>
+				<li class="li-sidebar-question">17</li>
+				<li class="li-sidebar-question">18</li>
+				<li class="li-sidebar-question">19</li>
+				<li class="li-sidebar-question">20</li>
+				<li class="li-sidebar-question">21</li>
+				<li class="li-sidebar-question">22</li>
+				<li class="li-sidebar-question">23</li>
+				<li class="li-sidebar-question">24</li>
+				<li class="li-sidebar-question">25</li>
+				<li class="li-sidebar-question">26</li>
+				<li class="li-sidebar-question">27</li>
+				<li class="li-sidebar-question">28</li>
+				<li class="li-sidebar-question">29</li>
+				<li class="li-sidebar-question">30</li>
+				<li class="li-sidebar-question">31</li>
+				<li class="li-sidebar-question">32</li>
+				<li class="li-sidebar-question">33</li>
+				<li class="li-sidebar-question">34</li>
 			</ul>
 		</div>
 	</div>

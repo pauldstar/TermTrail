@@ -72,10 +72,17 @@ $(document).ready(function()
 	// INITIALISE MASONRY FOR THE GRID
 	$('.grid').masonry(
 	{
+		// itemSelector specifies the child elements in the grid
 		itemSelector: '.grid-item',
+		// columnWidth of grid-sizer sets the max width of a column
 		columnWidth: '.grid-sizer',
-		percentPosition: true
+		// set item width in percent values, rather than pixel values
+		percentPosition: true,
+		// lay out items to (mostly) maintain horizontal left-to-right order.
+		horizontalOrder: true
 	});
+	
+  //$('.ul-sidebar-questions-list').sortable();
 	
 	// GRID ICONS APPEAR
 	$('.div-gridbox').mouseenter(function(event)

@@ -46,8 +46,8 @@ Webflow.require('ix').init([
   }
 },
 {
-  "slug": "sidebar-nav-appear",
-  "name": "sidebar-nav-appear",
+  "slug": "sidebar-menu-appear",
+  "name": "sidebar-menu-appear",
   "value":
   {
     "style":
@@ -82,7 +82,7 @@ Webflow.require('ix').init([
     },
     {
       "type": "click",
-      "selector": ".div-sidebar-chapters",
+      "selector": ".div-sidebar-questions",
       "stepsA": [
       {
         "display": "none"
@@ -128,7 +128,7 @@ Webflow.require('ix').init([
     },
     {
       "type": "click",
-      "selector": ".div-sidebar-chapters",
+      "selector": ".div-sidebar-questions",
       "stepsA": [
       {
         "display": "none"
@@ -174,7 +174,53 @@ Webflow.require('ix').init([
     },
     {
       "type": "click",
-      "selector": ".div-sidebar-chapters",
+      "selector": ".div-sidebar-questions",
+      "stepsA": [
+      {
+        "display": "none"
+      }],
+      "stepsB": []
+    }]
+  }
+},
+{
+  "slug": "sidebar-questions-appear",
+  "name": "sidebar-questions-appear",
+  "value":
+  {
+    "style":
+    {},
+    "triggers": [
+    {
+      "type": "click",
+      "selector": ".div-sidebar-questions",
+      "stepsA": [
+      {
+        "display": "block"
+      }],
+      "stepsB": []
+    },
+    {
+      "type": "click",
+      "selector": ".div-sidebar-menu",
+      "stepsA": [
+      {
+        "display": "none"
+      }],
+      "stepsB": []
+    },
+    {
+      "type": "click",
+      "selector": ".div-sidebar-messages",
+      "stepsA": [
+      {
+        "display": "none"
+      }],
+      "stepsB": []
+    },
+    {
+      "type": "click",
+      "selector": ".div-sidebar-search",
       "stepsA": [
       {
         "display": "none"
@@ -239,16 +285,6 @@ Webflow.require('ix').init([
   }
 },
 {
-  "slug": "chapter-appear",
-  "name": "chapter-appear",
-  "value":
-  {
-    "style":
-    {},
-    "triggers": []
-  }
-},
-{
   "slug": "gridbox-settings-appear",
   "name": "gridbox-settings-appear",
   "value":
@@ -284,52 +320,6 @@ Webflow.require('ix').init([
       {
         "display": "none"
       }]
-    }]
-  }
-},
-{
-  "slug": "chapters-appear",
-  "name": "chapters-appear",
-  "value":
-  {
-    "style":
-    {},
-    "triggers": [
-    {
-      "type": "click",
-      "selector": ".div-sidebar-chapters",
-      "stepsA": [
-      {
-        "display": "block"
-      }],
-      "stepsB": []
-    },
-    {
-      "type": "click",
-      "selector": ".div-sidebar-menu",
-      "stepsA": [
-      {
-        "display": "none"
-      }],
-      "stepsB": []
-    },
-    {
-      "type": "click",
-      "selector": ".div-sidebar-messages",
-      "stepsA": [
-      {
-        "display": "none"
-      }],
-      "stepsB": []
-    },
-    {
-      "type": "click",
-      "selector": ".div-sidebar-search",
-      "stepsA": [
-      {
-        "display": "none"
-      }],
-      "stepsB": []
     }]
   }
 },
