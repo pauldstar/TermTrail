@@ -1,45 +1,45 @@
 <div class="popup-background">
   <div class="div-revision-popup">
     <div class="div-revision-tutorial-alert left">
-      <img class="img-tutorial-arrow left" src='<?=base_url("webflow/images/direction-tab-left.png")?>'>
+      <img class="img-tutorial-arrow left" src='<?=base_url("webflow/dashboard/images/direction-tab-left.png")?>'>
       <h5 class="text-tutorial">MAIN QUESTION [shift + left]</h5>
     </div>
     <div class="div-revision-main-content fail">
       <div class="div-revision-toolbar w-hidden-tiny">
         <div class="div-tool-dropdown-wrapper w-dropdown" data-delay="0" id="options-bar-sort">
-          <div class="div-tool-dropdown-toggle w-dropdown-toggle" id="options-bar-pause-revision"><img src='<?=base_url("webflow/images/pause.png")?>'></div>
+          <div class="div-tool-dropdown-toggle w-dropdown-toggle" id="options-bar-pause-revision"><img src='<?=base_url("webflow/dashboard/images/pause.png")?>'></div>
           <nav class="div-tool-dropdown-list w-dropdown-list"></nav>
         </div>
         <div class="div-tool-dropdown-wrapper w-dropdown" data-delay="0" id="options-bar-sort">
-          <div class="div-tool-dropdown-toggle w-dropdown-toggle" id="options-bar-stop-revision"><img src='<?=base_url("webflow/images/stop.png")?>'></div>
+          <div class="div-tool-dropdown-toggle w-dropdown-toggle" id="options-bar-stop-revision"><img src='<?=base_url("webflow/dashboard/images/stop.png")?>'></div>
           <nav class="div-tool-dropdown-list w-dropdown-list"></nav>
         </div>
         <div class="div-tool-dropdown-wrapper w-dropdown" data-delay="0" data-hover="1" id="options-bar-search">
-          <div class="div-tool-dropdown-toggle w-dropdown-toggle" id="options-bar-archive"><img src='<?=base_url("webflow/images/archive.png")?>'></div>
+          <div class="div-tool-dropdown-toggle w-dropdown-toggle" id="options-bar-archive"><img src='<?=base_url("webflow/dashboard/images/archive.png")?>'></div>
           <nav class="div-tool-dropdown-list w-dropdown-list"></nav>
         </div>
         <div class="div-tool-dropdown-wrapper w-dropdown" data-delay="0" data-hover="1" id="options-bar-sort">
-          <div class="div-tool-dropdown-toggle w-dropdown-toggle" id="options-bar-delete"><img src='<?=base_url("webflow/images/delete_1.png")?>'></div>
+          <div class="div-tool-dropdown-toggle w-dropdown-toggle" id="options-bar-delete"><img src='<?=base_url("webflow/dashboard/images/delete_1.png")?>'></div>
           <nav class="div-tool-dropdown-list w-dropdown-list"></nav>
         </div>
         <div class="div-tool-dropdown-wrapper w-dropdown" data-delay="0" data-hover="1" id="options-bar-sort">
-          <div class="div-tool-dropdown-toggle inactive w-dropdown-toggle" id="options-bar-edit"><img src='<?=base_url("webflow/images/edit.png")?>'></div>
+          <div class="div-tool-dropdown-toggle inactive w-dropdown-toggle" id="options-bar-edit"><img src='<?=base_url("webflow/dashboard/images/edit.png")?>'></div>
           <nav class="div-tool-dropdown-list w-dropdown-list"></nav>
         </div>
         <div class="div-tool-dropdown-wrapper w-dropdown" data-delay="0" data-hover="1" id="options-bar-randomise">
-          <div class="div-tool-dropdown-toggle enabled w-dropdown-toggle" id="options-bar-edit"><img src='<?=base_url("webflow/images/dice.png")?>'></div>
+          <div class="div-tool-dropdown-toggle enabled w-dropdown-toggle" id="options-bar-edit"><img src='<?=base_url("webflow/dashboard/images/dice.png")?>'></div>
           <nav class="div-tool-dropdown-list w-dropdown-list"></nav>
         </div>
         <div class="div-tool-dropdown-wrapper w-dropdown" data-delay="0" data-hover="1" id="options-bar-sort">
-          <div class="div-tool-dropdown-toggle w-dropdown-toggle" id="options-bar-settings"><img src='<?=base_url("webflow/images/settings.png")?>'></div>
+          <div class="div-tool-dropdown-toggle w-dropdown-toggle" id="options-bar-settings"><img src='<?=base_url("webflow/dashboard/images/settings.png")?>'></div>
           <nav class="div-tool-dropdown-list w-dropdown-list"></nav>
         </div>
         <div class="div-tool-dropdown-wrapper w-dropdown" data-delay="0" data-hover="1" id="options-bar-sort">
-          <div class="div-tool-dropdown-toggle w-dropdown-toggle" id="options-bar-shortcuts"><img src='<?=base_url("webflow/images/shortcut-arrow.png")?>'></div>
+          <div class="div-tool-dropdown-toggle w-dropdown-toggle" id="options-bar-shortcuts"><img src='<?=base_url("webflow/dashboard/images/shortcut-arrow.png")?>'></div>
           <nav class="div-tool-dropdown-list w-dropdown-list"></nav>
         </div>
         <div class="div-tool-dropdown-wrapper w-dropdown" data-delay="0" data-hover="1" data-ix="tutorial-disable" id="options-bar-sort">
-          <div class="div-tool-dropdown-toggle enabled w-dropdown-toggle" id="options-bar-info"><img src='<?=base_url("webflow/images/exclamation.png")?>'></div>
+          <div class="div-tool-dropdown-toggle enabled w-dropdown-toggle" id="options-bar-info"><img src='<?=base_url("webflow/dashboard/images/exclamation.png")?>'></div>
           <nav class="div-tool-dropdown-list w-dropdown-list"></nav>
         </div>
       </div>
@@ -50,13 +50,13 @@
       </div>
       <div class="button div-revision-text-section">
         <h3 class="h-question-section">Q</h3>
-        <div class="div-question-section-text"><img class="img-toggle-revision-question-text" src='<?=base_url("webflow/images/up-arrow.png")?>'></div>
+        <div class="div-question-section-text"><img class="img-toggle-revision-question-text" src='<?=base_url("webflow/dashboard/images/up-arrow.png")?>'></div>
       </div>
       <div class="answer div-revision-text-section">
         <h3 class="h-question-section">A</h3>
         <div class="div-question-section-text">
           <div class="text-revision-question">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi.&nbsp;Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi.&nbsp;</div>
-          <img src='<?=base_url("webflow/images/math-trig-diagram-DHD.gif")?>'>
+          <img src='<?=base_url("webflow/dashboard/images/math-trig-diagram-DHD.gif")?>'>
         </div>
       </div>
       <div class="div-revision-main-footer">
@@ -73,7 +73,7 @@
           <li class="li-question-score selected">5</li>
         </ul>
         <div class="div-revision-tutorial-alert roam" id="div-tutorial-alert-review-attempt">
-          <img class="img-tutorial-arrow left" src='<?=base_url("webflow/images/direction-tab-left.png")?>'>
+          <img class="img-tutorial-arrow left" src='<?=base_url("webflow/dashboard/images/direction-tab-left.png")?>'>
           <h5 class="text-tutorial">REVIEW ATTEMPT [number keys: 1-5]</h5>
         </div>
       </div>
@@ -83,18 +83,18 @@
     </div>
     <div class="div-revision-tutorial-alert right">
       <h5 class="text-tutorial">NEXT QUESTION [shift + enter]</h5>
-      <img class="img-tutorial-arrow right" src='<?=base_url("webflow/images/direction-tab-right.png")?>'>
+      <img class="img-tutorial-arrow right" src='<?=base_url("webflow/dashboard/images/direction-tab-right.png")?>'>
     </div>
   </div>
   <div class="div-generic-popup-wrapper">
     <div class="tabs-question w-tabs" data-duration-in="300" data-duration-out="100">
       <div class="div-question-tab-menu w-tab-menu">
         <a class="a-question-tab w--current w-inline-block w-tab-link" data-w-tab="question-tab">
-          <img class="img-tab" src='<?=base_url("webflow/images/question.png")?>'>
+          <img class="img-tab" src='<?=base_url("webflow/dashboard/images/question.png")?>'>
           <div>2</div>
         </a>
         <a class="a-question-tab w-inline-block w-tab-link" data-w-tab="comment-tab">
-          <img class="img-tab" src='<?=base_url("webflow/images/comment_1.png")?>'>
+          <img class="img-tab" src='<?=base_url("webflow/dashboard/images/comment_1.png")?>'>
           <div>5</div>
         </a>
       </div>
@@ -106,7 +106,7 @@
                 <div class="div-qna-title">
                   <h5 class="h-qna-title">5. Question</h5>
                 </div>
-                <div class="div-qna-toolbar question w-clearfix"><img class="img-qna-tool" id="add-bullet-point" src='<?=base_url("webflow/images/bullet-points-small.png")?>' width="20"><img class="img-qna-tool" id="add-image" src='<?=base_url("webflow/images/image-small.png")?>' width="20"><img class="img-qna-tool" id="delete-question" src='<?=base_url("webflow/images/delete-black.png")?>' width="20"><img class="img-qna-tool" id="add-sub-question" src='<?=base_url("webflow/images/plus-s.png")?>' width="20"></div>
+                <div class="div-qna-toolbar question w-clearfix"><img class="img-qna-tool" id="add-bullet-point" src='<?=base_url("webflow/dashboard/images/bullet-points-small.png")?>' width="20"><img class="img-qna-tool" id="add-image" src='<?=base_url("webflow/dashboard/images/image-small.png")?>' width="20"><img class="img-qna-tool" id="delete-question" src='<?=base_url("webflow/dashboard/images/delete-black.png")?>' width="20"><img class="img-qna-tool" id="add-sub-question" src='<?=base_url("webflow/dashboard/images/plus-s.png")?>' width="20"></div>
               </div>
               <div class="form-block-question w-form">
                 <form class="div-qna-form question" data-name="Email Form" id="email-form" name="email-form"><textarea class="question text-area-qna w-input" data-name="Question Text 10" id="question-text-10" maxlength="5000" name="question-text-10" placeholder="Enter question..."></textarea></form>
@@ -119,7 +119,7 @@
               </div>
             </div>
             <div class="div-answer-wrapper ready-answer">
-              <div class="answer div-qna-toolbar w-clearfix"><img class="img-qna-tool" id="add-bullet-point" src='<?=base_url("webflow/images/bullet-points-small.png")?>' width="20"><img class="img-qna-tool" id="add-image" src='<?=base_url("webflow/images/image-small.png")?>' width="20"><img class="img-qna-tool" id="delete-question" src='<?=base_url("webflow/images/delete-black.png")?>' width="20"></div>
+              <div class="answer div-qna-toolbar w-clearfix"><img class="img-qna-tool" id="add-bullet-point" src='<?=base_url("webflow/dashboard/images/bullet-points-small.png")?>' width="20"><img class="img-qna-tool" id="add-image" src='<?=base_url("webflow/dashboard/images/image-small.png")?>' width="20"><img class="img-qna-tool" id="delete-question" src='<?=base_url("webflow/dashboard/images/delete-black.png")?>' width="20"></div>
               <div class="div-qna-header ready-answer" data-ix="answer-text-area-expand">
                 <div class="div-qna-title">
                   <h5 class="h-qna-title">5. Answer</h5>
@@ -142,7 +142,7 @@
                 <div class="div-qna-title">
                   <h5 class="h-qna-title">5.1. Question</h5>
                 </div>
-                <div class="div-qna-toolbar question w-clearfix"><img class="img-qna-tool" id="add-bullet-point" src='<?=base_url("webflow/images/bullet-points-small.png")?>' width="20"><img class="img-qna-tool" id="add-image" src='<?=base_url("webflow/images/image-small.png")?>' width="20"><img class="img-qna-tool" id="delete-question" src='<?=base_url("webflow/images/delete-black.png")?>' width="20"><img class="img-qna-tool" id="add-sub-question" src='<?=base_url("webflow/images/plus-s.png")?>' width="20"></div>
+                <div class="div-qna-toolbar question w-clearfix"><img class="img-qna-tool" id="add-bullet-point" src='<?=base_url("webflow/dashboard/images/bullet-points-small.png")?>' width="20"><img class="img-qna-tool" id="add-image" src='<?=base_url("webflow/dashboard/images/image-small.png")?>' width="20"><img class="img-qna-tool" id="delete-question" src='<?=base_url("webflow/dashboard/images/delete-black.png")?>' width="20"><img class="img-qna-tool" id="add-sub-question" src='<?=base_url("webflow/dashboard/images/plus-s.png")?>' width="20"></div>
               </div>
               <div class="form-block-question w-form">
                 <form class="div-qna-form question" data-name="Email Form" id="email-form" name="email-form"><textarea class="question text-area-qna w-input" data-name="Question Text 2" id="question-text-2" maxlength="5000" name="question-text-2" placeholder="Enter question..."></textarea></form>
@@ -155,7 +155,7 @@
               </div>
             </div>
             <div class="div-answer-wrapper">
-              <div class="answer div-qna-toolbar w-clearfix"><img class="img-qna-tool" id="add-bullet-point" src='<?=base_url("webflow/images/bullet-points-small.png")?>' width="20"><img class="img-qna-tool" id="add-image" src='<?=base_url("webflow/images/image-small.png")?>' width="20"><img class="img-qna-tool" id="delete-question" src='<?=base_url("webflow/images/delete-black.png")?>' width="20"></div>
+              <div class="answer div-qna-toolbar w-clearfix"><img class="img-qna-tool" id="add-bullet-point" src='<?=base_url("webflow/dashboard/images/bullet-points-small.png")?>' width="20"><img class="img-qna-tool" id="add-image" src='<?=base_url("webflow/dashboard/images/image-small.png")?>' width="20"><img class="img-qna-tool" id="delete-question" src='<?=base_url("webflow/dashboard/images/delete-black.png")?>' width="20"></div>
               <div class="div-qna-header enter-answer" data-ix="answer-text-area-expand">
                 <div class="div-qna-title">
                   <h5 class="h-qna-title">5.1. Answer</h5>
@@ -204,15 +204,15 @@
           <div class="div-questioln-comment-wrapper">
             <div class="div-qna-header">
               <div class="text-question-comment-author">pauldstar</div>
-              <div class="div-qna-toolbar question w-clearfix"><img class="img-qna-tool" src='<?=base_url("webflow/images/edit-black.png")?>'><img class="img-qna-tool" id="delete-question" src='<?=base_url("webflow/images/delete-black.png")?>' width="20"></div>
+              <div class="div-qna-toolbar question w-clearfix"><img class="img-qna-tool" src='<?=base_url("webflow/dashboard/images/edit-black.png")?>'><img class="img-qna-tool" id="delete-question" src='<?=base_url("webflow/dashboard/images/delete-black.png")?>' width="20"></div>
               <div class="div-vote-count-wrapper">
                 <div class="div-vote-click-wrapper">
                   <div class="text-vote-count" id="upvote-count">122846</div>
-                  <img class="img-vote-count" src='<?=base_url("webflow/images/up-arrow.png")?>'>
+                  <img class="img-vote-count" src='<?=base_url("webflow/dashboard/images/up-arrow.png")?>'>
                 </div>
                 <div class="div-vote-click-wrapper">
                   <div class="text-vote-count" id="upvote-count">4543</div>
-                  <img class="img-vote-count" src='<?=base_url("webflow/images/down-arrow-black.png")?>'>
+                  <img class="img-vote-count" src='<?=base_url("webflow/dashboard/images/down-arrow-black.png")?>'>
                 </div>
               </div>
             </div>
@@ -229,15 +229,15 @@
           <div class="div-questioln-comment-wrapper">
             <div class="div-qna-header">
               <div class="text-question-comment-author">jinn</div>
-              <div class="div-qna-toolbar question w-clearfix"><img class="img-qna-tool" src='<?=base_url("webflow/images/edit-black.png")?>'><img class="img-qna-tool" id="delete-question" src='<?=base_url("webflow/images/delete-black.png")?>' width="20"></div>
+              <div class="div-qna-toolbar question w-clearfix"><img class="img-qna-tool" src='<?=base_url("webflow/dashboard/images/edit-black.png")?>'><img class="img-qna-tool" id="delete-question" src='<?=base_url("webflow/dashboard/images/delete-black.png")?>' width="20"></div>
               <div class="div-vote-count-wrapper">
                 <div class="div-vote-click-wrapper">
                   <div class="text-vote-count" id="upvote-count">325</div>
-                  <img class="img-vote-count" src='<?=base_url("webflow/images/up-arrow.png")?>'>
+                  <img class="img-vote-count" src='<?=base_url("webflow/dashboard/images/up-arrow.png")?>'>
                 </div>
                 <div class="div-vote-click-wrapper">
                   <div class="text-vote-count" id="upvote-count">4543</div>
-                  <img class="img-vote-count" src='<?=base_url("webflow/images/down-arrow-black.png")?>'>
+                  <img class="img-vote-count" src='<?=base_url("webflow/dashboard/images/down-arrow-black.png")?>'>
                 </div>
               </div>
             </div>
@@ -300,7 +300,7 @@
       <h3 class="h-resource-main">Add Course</h3>
       <div class="div-resource-parent">
         <h4 class="h-resource-parent">Schools</h4>
-        <img class="forward img-toggle-resource-parent-history" src='<?=base_url("webflow/images/toggle-right-arrow-black.png")?>'><img class="backward img-toggle-resource-parent-history" src='<?=base_url("webflow/images/toggle-left-arrow-black.png")?>'>
+        <img class="forward img-toggle-resource-parent-history" src='<?=base_url("webflow/dashboard/images/toggle-right-arrow-black.png")?>'><img class="backward img-toggle-resource-parent-history" src='<?=base_url("webflow/dashboard/images/toggle-left-arrow-black.png")?>'>
       </div>
       <ul class="ul-resource-parent">
         <li class="li-resource-parent">University of Manchester</li>

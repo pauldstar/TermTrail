@@ -1,7 +1,7 @@
 <?php
   $this->load->helper('html');
   $this->load->helper('url');
-  ?>
+?>
 <!DOCTYPE html>
 <!--  This site was created in Webflow. http://www.webflow.com -->
 <!--  Last Published: Fri Aug 25 2017 16:28:30 GMT+0000 (UTC)  -->
@@ -16,15 +16,15 @@
 	<link href="<?=base_url('favicon.ico')?>" rel="shortcut icon" type="image/x-icon">
   <title>TermTrail
     <?php
-        $user = $_SESSION['user'];
-        echo "($user->username)";
+			$user = $_SESSION['user'];
+			echo "($user->username)";
     ?>
   </title>
   <!-- css -->
 	<link href="<?=base_url('tt/tt-dashboard.css')?>" rel="stylesheet" type="text/css">
 	<link href="<?=base_url('bootstrap3/css/bootstrap.min.css')?>" rel="stylesheet" type="text/css">
-	<link href="<?=base_url('webflow/css/normalize.css')?>" rel="stylesheet" type="text/css">
-	<link href="<?=base_url('webflow/css/webflow.css')?>" rel="stylesheet" type="text/css">
-	<link href="<?=base_url('webflow/css/tt-webflow.css')?>" rel="stylesheet" type="text/css">
+	<link href="<?=base_url('webflow/dashboard/css/normalize.css')?>" rel="stylesheet" type="text/css">
+	<link href="<?=base_url('webflow/dashboard/css/webflow.css')?>" rel="stylesheet" type="text/css">
+	<link href="<?=base_url('webflow/dashboard/css/tt-webflow.css')?>" rel="stylesheet" type="text/css">
 </head>
 <body class="body">
