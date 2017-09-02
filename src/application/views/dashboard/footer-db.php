@@ -34,7 +34,9 @@
 			$(function() {
 				$('.ul-sidebar-questions-list').sortable({ 
 					scroll: false,
-					distance: 20
+					distance: 20,
+					containment: "parent", // bounding box that the sortable items are constrained to while dragging.
+					cursor: "move"
 				});
 			});
 		</script>

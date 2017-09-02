@@ -48,7 +48,7 @@
         <h4 class="h-revision-alert">FAIL! REVIEW ANSWER</h4>
         <h4 class="h-number-revision" id="number-revision-timer">4</h4>
       </div>
-      <div class="button div-revision-text-section">
+      <div class="btn div-revision-text-section">
         <h3 class="h-question-section">Q</h3>
         <div class="div-question-section-text"><img class="img-toggle-revision-question-text" src='<?=base_url("webflow/dashboard/images/up-arrow.png")?>'></div>
       </div>
@@ -267,7 +267,7 @@
             <div class="div-resource-form-input-wrapper"><label class="fail text-resource-field-label" for="user-settings-fail-score">Failure</label><input class="text-field-resource w-input" data-name="user-settings-fail-score" id="user-settings-fail-score" maxlength="256" name="user-settings-fail-score" placeholder="20.00" type="text"></div>
           </div>
           <div class="div-resource-form-input-wrapper"><label class="text-resource-field-label" for="user-settings-file-storage">File Storage Backup</label><input class="text-field-resource w-input" data-name="user-settings-file-storage" id="user-settings-file-storage" maxlength="256" name="user-settings-file-storage" placeholder="C:\xampp\htdocs\TermTrail" required="required" type="text"></div>
-          <input class="btn-save-resource w-button" data-wait="Please wait..." type="submit" value="Save">
+          <input class="btn-save-resource w-btn" data-wait="Please wait..." type="submit" value="Save">
         </form>
         <div class="w-form-done">
           <div>Thank you! Your submission has been received!</div>
@@ -286,7 +286,7 @@
         <form class="form-name-resource w-clearfix" data-name="Email Form" id="email-form" name="email-form">
           <div class="div-resource-form-input-wrapper"><label class="text-field-label" for="name-4">Name</label><input class="text-field-resource w-input" data-name="Name 3" id="name-3" maxlength="256" name="name-3" required="required" type="text"></div>
           <div class="div-resource-form-input-wrapper"><label class="text-field-label" for="name-4">Address</label><input class="text-field-resource w-input" data-name="Name 2" id="name-2" maxlength="256" name="name-2" type="text"></div>
-          <input class="btn-save-resource w-button" data-wait="Please wait..." type="submit" value="Save">
+          <input class="btn-save-resource w-btn" data-wait="Please wait..." type="submit" value="Save">
         </form>
         <div class="w-form-done">
           <div>Thank you! Your submission has been received!</div>

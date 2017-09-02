@@ -60,7 +60,10 @@
 		</nav>
   </div>
 	<div class="div-tool-dropdown-wrapper w-dropdown" data-delay="0" id="toolbar-grid-format">
-    <div class="div-tool-dropdown-toggle w-dropdown-toggle" data-tool-toggle="1"><img src='<?=base_url("images/grey/grid.png")?>'></div>
+    <div class="div-tool-dropdown-toggle w-dropdown-toggle">
+			<img id='icon-grid-rows' src='<?=base_url("images/grey/grid-rows.png")?>'>
+			<img id='icon-grid-cascade' src='<?=base_url("images/grey/grid-cascade.png")?>'>
+		</div>
     <nav class="div-tool-dropdown-list w-dropdown-list"></nav>
   </div>
   <div class="div-tool-dropdown-wrapper w-dropdown" data-delay="0" id="toolbar-info">
