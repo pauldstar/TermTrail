@@ -27,20 +27,11 @@
 				n.className += t + "js", ("ontouchstart" in o || o.DocumentTouch && c instanceof DocumentTouch) && (n.className += t + "touch")
 			}(window, document);
 		</script>
+		<script src="<?=base_url('muuri/hammer.min.js')?>"></script>
+		<script src="<?=base_url('muuri/velocity.min.js')?>"></script>
+		<script src="<?=base_url('muuri/muuri.min.js')?>"></script>
+		<script src="<?=base_url('jquery/jquery-ui-1.12.1.custom/jquery-ui.min.js')?>"></script>
 		<script src="<?=base_url('tt/tt-dashboard.js')?>" type="text/javascript"></script>
-		<script src="<?=base_url('masonry/masonry.pkgd.min.js')?>" type="text/javascript"></script>
-		<script src="<?=base_url('jquery/jquery-ui-1.12.1.sortable/jquery-ui.min.js')?>"></script>
-		<script type="text/javascript">
-			$(function() {
-				$('.ul-sidebar-questions-list').sortable({ 
-					scroll: false,
-					distance: 20,
-					containment: 'parent', // bounding box that the sortable items are constrained to while dragging.
-					cursor: 'move',
-					helper: 'clone'
-				});
-			}); 
-		</script>
 		<!-- For webflow -->
 		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>-->
     <script src="<?=base_url('webflow/dashboard/js/webflow.js')?>" type="text/javascript"></script>

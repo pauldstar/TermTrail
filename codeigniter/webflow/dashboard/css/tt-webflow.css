@@ -541,7 +541,6 @@ img {
   position: relative;
   z-index: 8;
 	height: calc(100% - 50px);
-	/* overflow: auto; */
 	top: 50px;
 }
 
@@ -551,9 +550,13 @@ img {
 
 .div-page-content-wrapper {
   position: absolute;
-  top: 105px;
+  bottom: 0px;
+	height: -webkit-calc(100% - 105px);
+  height: -moz-calc(100% - 105px);
+  height: calc(100% - 105px);
 	padding-left: 214px;
 	padding-right: 5px;
+	overflow: auto;
   /* -webkit-box-orient: vertical;
   z-index: 0;
   display: block;
@@ -565,10 +568,10 @@ img {
   width: -moz-calc(100% - 207px);
   width: calc(100% - 207px); */
 	width: 100%;
-	-webkit-transition: padding-left 300ms ease-in-out;
-  -moz-transition: padding-left 300ms ease-in-out;
-  -o-transition: padding-left 300ms ease-in-out;
-  transition: padding-left 300ms ease-in-out;
+	-webkit-transition: padding-left 200ms ease-in-out;
+  -moz-transition: padding-left 200ms ease-in-out;
+  -o-transition: padding-left 200ms ease-in-out;
+  transition: padding-left 200ms ease-in-out;
 }
 
 .div-page-content-wrapper.stretch {
@@ -576,6 +579,7 @@ img {
 }
 
 .div-page-content-grid {
+	position: relative;
 	max-width: 1500px;
 	margin-right: auto;
   margin-left: auto;
@@ -620,7 +624,22 @@ img {
 }
 
 .div-gridbox-wrapper {
+	position: absolute;
+	width: 250px;
   padding: 5px;
+  z-index: 1;
+}
+
+.div-gridbox-wrapper.muuri-item-dragging {
+  z-index: 3;
+}
+
+.div-gridbox-wrapper.muuri-releasing {
+  z-index: 2;
+}
+
+.div-gridbox-wrapper.muuri-hidden {
+  z-index: 0;
 }
 
 /* .div-page-content-row {
@@ -725,7 +744,6 @@ img {
 
 .div-gridbox {
   position: relative;
-  z-index: 5;
   padding-top: 17px;
   padding-bottom: 10px;
   border-radius: 3px;
@@ -738,10 +756,6 @@ img {
 
 .div-gridbox:hover {
   box-shadow: 0 0 23px -1px #707070;
-}
-
-.div-gridbox:active {
-  cursor: move;
 }
 
 .outline-div-gridbox {
@@ -1995,6 +2009,14 @@ img {
 
 .li-sidebar-question:active {
   cursor: -webkit-grabbing;
+}
+
+.visible-lg-block, .visible-md-block, .visible-sm-block, .visible-xs-block {
+  position: relative;
+}
+
+.grid-clear {
+  /* clear: both; */
 }
 
 @media (max-width: 991px) {

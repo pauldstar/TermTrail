@@ -1,9 +1,9 @@
 <div class="div-page-content-wrapper">
   <div class='div-page-content-grid'>
-		<!-- an empty .grid-sizer element to specify max number of masonry columns --> 
-		<div class="grid-sizer col-xs-6 col-sm-4 col-md-3 col-lg-2"></div>
+		<!-- an empty .grid-sizer element to specify max number of masonry columns 
+		<div class="grid-sizer"></div>--> 
 		<!-- .div-gridbox-wrapper width specifies its masonry element size -->
-		<div class="div-gridbox-wrapper col-xs-6 col-sm-4 col-md-3 col-lg-2">
+		<div class="div-gridbox-wrapper">
 			<div class="div-gridbox fail">
 				<div class="div-gridbox-header">
 					<div class="text-gridbox-numbering">1</div>
@@ -38,7 +38,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="div-gridbox-wrapper col-xs-6 col-sm-4 col-md-3 col-lg-2">
+		<div class="div-gridbox-wrapper">
 			<div class="div-gridbox excellent">
 				<div class="text-gridbox-numbering">2</div>
 				<div class="div-gridbox-header">
@@ -76,8 +76,8 @@
 				</div>
 			</div>
 		</div>
-		<div class="clearfix visible-xs-block"></div>
-		<div class="div-gridbox-wrapper col-xs-6 col-sm-4 col-md-3 col-lg-2">
+		<!-- <div class="clearfix visible-xs-block"></div> --->
+		<div class="div-gridbox-wrapper">
 			<div class="archived div-gridbox">
 				<div class="text-gridbox-numbering">3</div>
 				<div class="div-gridbox-header">
@@ -117,9 +117,9 @@
 				</div>
 			</div>
 		</div>
-		<div class="clearfix visible-sm-block"></div>
-		<div class="clearfix visible-sm-block"></div>
-		<div class="div-gridbox-wrapper col-xs-6 col-sm-4 col-md-3 col-lg-2">
+		<!-- <div class="clearfix visible-sm-block"></div> --->
+		<!-- <div class="clearfix visible-sm-block"></div> --->
+		<div class="div-gridbox-wrapper">
 			<div class="div-gridbox okay">
 				<div class="text-gridbox-numbering">4</div>
 				<div class="div-selection-checkbox"><span class="icon-selection-tick glyphicon glyphicon-ok" aria-hidden="true"></span></div>
@@ -166,9 +166,9 @@
 				</div>
 			</div>
 		</div>
-		<div class="clearfix visible-xs-block"></div>
-		<div class="clearfix visible-md-block"></div>
-		<div class="div-gridbox-wrapper col-xs-6 col-sm-4 col-md-3 col-lg-2">
+		<!-- <div class="clearfix visible-xs-block"></div> --->
+		<!-- <div class="clearfix visible-md-block"></div> --->
+		<div class="div-gridbox-wrapper">
 			<div class="div-gridbox good">
 				<div class="text-gridbox-numbering">5</div>
 				<div class="div-selection-checkbox"><span class="icon-selection-tick glyphicon glyphicon-ok" aria-hidden="true"></span></div>
@@ -206,7 +206,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="div-gridbox-wrapper col-xs-6 col-sm-4 col-md-3 col-lg-2">
+		<div class="div-gridbox-wrapper">
 			<div class="div-gridbox">
 				<div class="text-gridbox-numbering">6</div>
 				<div class="div-selection-checkbox"><span class="icon-selection-tick glyphicon glyphicon-ok" aria-hidden="true"></span></div>
@@ -250,10 +250,10 @@
 				</div>
 			</div>
 		</div>
-		<div class="clearfix visible-xs-block"></div>
-		<div class="clearfix visible-sm-block"></div>
-		<div class="clearfix visible-lg-block"></div>
-		<div class="div-gridbox-wrapper col-xs-6 col-sm-4 col-md-3 col-lg-2">
+		<!-- <div class="clearfix visible-xs-block"></div> --->
+		<!-- <div class="clearfix visible-sm-block"></div> --->
+		<!-- <div class="clearfix visible-lg-block"></div> --->
+		<div class="div-gridbox-wrapper">
 			<div class="div-gridbox poor">
 				<div class="text-gridbox-numbering">7</div>
 				<div class="div-selection-checkbox"><span class="icon-selection-tick glyphicon glyphicon-ok" aria-hidden="true"></span></div>
@@ -285,7 +285,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="div-gridbox-wrapper col-xs-6 col-sm-4 col-md-3 col-lg-2">
+		<div class="div-gridbox-wrapper">
 			<div class="div-gridbox">
 				<div class="text-gridbox-numbering">8</div>
 				<div class="div-gridbox-header">
@@ -321,9 +321,9 @@
 				</div>
 			</div>
 		</div>
-		<div class="clearfix visible-xs-block"></div>
-		<div class="clearfix visible-md-block"></div>
-		<div class="div-gridbox-wrapper col-xs-6 col-sm-4 col-md-3 col-lg-2">
+		<!-- <div class="clearfix visible-xs-block"></div> --->
+		<!-- <div class="clearfix visible-md-block"></div> --->
+		<div class="div-gridbox-wrapper">
 			<div class="div-gridbox good">
 				<div class="div-selection-checkbox"><span class="icon-selection-tick glyphicon glyphicon-ok" aria-hidden="true"></span></div>
 				<div class="div-gridbox-header">
@@ -355,8 +355,8 @@
 				</div>
 			</div>
 		</div>
-		<div class="clearfix visible-sm-block"></div>
-		<div class="div-gridbox-wrapper col-xs-6 col-sm-4 col-md-3 col-lg-2">
+		<!-- <div class="clearfix visible-sm-block"></div> --->
+		<div class="div-gridbox-wrapper">
 			<div class="div-gridbox fail">
 				<div class="div-gridbox-header">
 					<div class="text-gridbox-numbering">10</div>
@@ -391,8 +391,8 @@
 				</div>
 			</div>
 		</div>
-		<div class="clearfix visible-xs-block"></div>
-		<div class="div-gridbox-wrapper col-xs-6 col-sm-4 col-md-3 col-lg-2">
+		<!-- <div class="clearfix visible-xs-block"></div> --->
+		<div class="div-gridbox-wrapper">
 			<div class="div-gridbox excellent">
 				<div class="text-gridbox-numbering">11</div>
 				<div class="div-gridbox-header">
@@ -430,7 +430,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="div-gridbox-wrapper col-xs-6 col-sm-4 col-md-3 col-lg-2">
+		<div class="div-gridbox-wrapper">
 			<div class="archived div-gridbox">
 				<div class="text-gridbox-numbering">12</div>
 				<div class="div-gridbox-header">
@@ -470,10 +470,10 @@
 				</div>
 			</div>
 		</div>
-		<div class="clearfix visible-xs-block"></div>
-		<div class="clearfix visible-md-block"></div>
-		<div class="clearfix visible-lg-block"></div>
-		<div class="div-gridbox-wrapper col-xs-6 col-sm-4 col-md-3 col-lg-2">
+		<!-- <div class="clearfix visible-xs-block"></div> --->
+		<!-- <div class="clearfix visible-md-block"></div> --->
+		<!-- <div class="clearfix visible-lg-block"></div> --->
+		<div class="div-gridbox-wrapper">
 			<div class="div-gridbox okay">
 				<div class="text-gridbox-numbering">13</div>
 				<div class="div-selection-checkbox"><span class="icon-selection-tick glyphicon glyphicon-ok" aria-hidden="true"></span></div>
@@ -520,7 +520,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="div-gridbox-wrapper col-xs-6 col-sm-4 col-md-3 col-lg-2">
+		<div class="div-gridbox-wrapper">
 			<div class="div-gridbox">
 				<div class="text-gridbox-numbering">14</div>
 				<div class="div-selection-checkbox"><span class="icon-selection-tick glyphicon glyphicon-ok" aria-hidden="true"></span></div>
@@ -564,8 +564,8 @@
 				</div>
 			</div>
 		</div>
-		<div class="clearfix visible-xs-block"></div>
-		<div class="div-gridbox-wrapper col-xs-6 col-sm-4 col-md-3 col-lg-2">
+		<!-- <div class="clearfix visible-xs-block"></div> --->
+		<div class="div-gridbox-wrapper">
 			<div class="div-gridbox poor">
 				<div class="text-gridbox-numbering">15</div>
 				<div class="div-selection-checkbox"><span class="icon-selection-tick glyphicon glyphicon-ok" aria-hidden="true"></span></div>
@@ -597,8 +597,8 @@
 				</div>
 			</div>
 		</div>
-		<div class="clearfix visible-sm-block"></div>
-		<div class="div-gridbox-wrapper col-xs-6 col-sm-4 col-md-3 col-lg-2">
+		<!-- <div class="clearfix visible-sm-block"></div> --->
+		<div class="div-gridbox-wrapper">
 			<div class="div-gridbox">
 				<div class="text-gridbox-numbering">16</div>
 				<div class="div-gridbox-header">
@@ -634,9 +634,9 @@
 				</div>
 			</div>
 		</div>
-		<div class="clearfix visible-xs-block"></div>
-		<div class="clearfix visible-md-block"></div>
-		<div class="div-gridbox-wrapper col-xs-6 col-sm-4 col-md-3 col-lg-2">
+		<!-- <div class="clearfix visible-xs-block"></div> --->
+		<!-- <div class="clearfix visible-md-block"></div> --->
+		<div class="div-gridbox-wrapper">
 			<div class="div-gridbox good">
 				<div class="div-selection-checkbox"><span class="icon-selection-tick glyphicon glyphicon-ok" aria-hidden="true"></span></div>
 				<div class="div-gridbox-header">
@@ -668,7 +668,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="div-gridbox-wrapper col-xs-6 col-sm-4 col-md-3 col-lg-2">
+		<div class="div-gridbox-wrapper">
 			<div class="div-gridbox fail">
 				<div class="div-gridbox-header">
 					<div class="text-gridbox-numbering">18</div>
@@ -703,10 +703,10 @@
 				</div>
 			</div>
 		</div>
-		<div class="clearfix visible-xs-block"></div>
-		<div class="clearfix visible-sm-block"></div>
-		<div class="clearfix visible-lg-block"></div>
-		<div class="div-gridbox-wrapper col-xs-6 col-sm-4 col-md-3 col-lg-2">
+		<!-- <div class="clearfix visible-xs-block"></div> --->
+		<!-- <div class="clearfix visible-sm-block"></div> --->
+		<!-- <div class="clearfix visible-lg-block"></div> --->
+		<div class="div-gridbox-wrapper">
 			<div class="div-gridbox excellent">
 				<div class="text-gridbox-numbering">19</div>
 				<div class="div-gridbox-header">
@@ -744,7 +744,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="div-gridbox-wrapper col-xs-6 col-sm-4 col-md-3 col-lg-2">
+		<div class="div-gridbox-wrapper">
 			<div class="archived div-gridbox">
 				<div class="text-gridbox-numbering">20</div>
 				<div class="div-gridbox-header">
@@ -784,9 +784,9 @@
 				</div>
 			</div>
 		</div>
-		<div class="clearfix visible-xs-block"></div>
-		<div class="clearfix visible-md-block"></div>
-		<div class="div-gridbox-wrapper col-xs-6 col-sm-4 col-md-3 col-lg-2">
+		<!-- <div class="clearfix visible-xs-block"></div> --->
+		<!-- <div class="clearfix visible-md-block"></div> --->
+		<div class="div-gridbox-wrapper">
 			<div class="div-gridbox okay">
 				<div class="text-gridbox-numbering">21</div>
 				<div class="div-selection-checkbox"><span class="icon-selection-tick glyphicon glyphicon-ok" aria-hidden="true"></span></div>
@@ -833,8 +833,8 @@
 				</div>
 			</div>
 		</div>
-		<div class="clearfix visible-sm-block"></div>
-		<div class="div-gridbox-wrapper col-xs-6 col-sm-4 col-md-3 col-lg-2">
+		<!-- <div class="clearfix visible-sm-block"></div> --->
+		<div class="div-gridbox-wrapper">
 			<div class="div-gridbox good">
 				<div class="text-gridbox-numbering">22</div>
 				<div class="div-selection-checkbox"><span class="icon-selection-tick glyphicon glyphicon-ok" aria-hidden="true"></span></div>
@@ -872,8 +872,8 @@
 				</div>
 			</div>
 		</div>
-		<div class="clearfix visible-xs-block"></div>
-		<div class="div-gridbox-wrapper col-xs-6 col-sm-4 col-md-3 col-lg-2">
+		<!-- <div class="clearfix visible-xs-block"></div> --->
+		<div class="div-gridbox-wrapper">
 			<div class="div-gridbox">
 				<div class="text-gridbox-numbering">23</div>
 				<div class="div-selection-checkbox"><span class="icon-selection-tick glyphicon glyphicon-ok" aria-hidden="true"></span></div>
@@ -917,7 +917,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="div-gridbox-wrapper col-xs-6 col-sm-4 col-md-3 col-lg-2">
+		<div class="div-gridbox-wrapper">
 			<div class="div-gridbox poor">
 				<div class="text-gridbox-numbering">24</div>
 				<div class="div-selection-checkbox"><span class="icon-selection-tick glyphicon glyphicon-ok" aria-hidden="true"></span></div>

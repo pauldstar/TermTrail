@@ -111,7 +111,7 @@
 					</li>
 					<li class="li-sidebar-menu">
 						<a class="a-sidebar-menu-li w-inline-block" href="#">
-							<img src='<?=base_url("webflow/dashboard/images/donate.png")?>'>
+							<img src='<?=base_url("images/grey/donate.png")?>'>
 							<div class="text-sidebar-menu">Donate</div>
 						</a>
 					</li>
