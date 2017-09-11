@@ -11,6 +11,11 @@ $(document).ready(function()
 	gridPageContent = new Muuri('.div-page-content-grid', 
 	{
 		dragEnabled: true,
+		items: '.div-gridbox-wrapper',
+    layout: {
+      fillGaps: true,
+			rounding: true
+    }
 	});
 	
 	/* SORTABLE GRID COUNTER */

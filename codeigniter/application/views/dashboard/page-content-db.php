@@ -1,8 +1,5 @@
-<div class="div-page-content-wrapper">
-  <div class='div-page-content-grid'>
-		<!-- an empty .grid-sizer element to specify max number of masonry columns 
-		<div class="grid-sizer"></div>--> 
-		<!-- .div-gridbox-wrapper width specifies its masonry element size -->
+<div class='div-page-content-wrapper'>
+	<div class='div-page-content-grid'>
 		<div class="div-gridbox-wrapper">
 			<div class="div-gridbox fail">
 				<div class="div-gridbox-header">
@@ -949,5 +946,5 @@
 				</div>
 			</div>
 		</div>
-  </div>
+	</div>
 </div>
