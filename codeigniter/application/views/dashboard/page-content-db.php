@@ -73,7 +73,6 @@
 				</div>
 			</div>
 		</div>
-		<!-- <div class="clearfix visible-xs-block"></div> --->
 		<div class="div-gridbox-wrapper">
 			<div class="archived div-gridbox">
 				<div class="text-gridbox-numbering">3</div>
@@ -114,8 +113,6 @@
 				</div>
 			</div>
 		</div>
-		<!-- <div class="clearfix visible-sm-block"></div> --->
-		<!-- <div class="clearfix visible-sm-block"></div> --->
 		<div class="div-gridbox-wrapper">
 			<div class="div-gridbox okay">
 				<div class="text-gridbox-numbering">4</div>
@@ -163,8 +160,6 @@
 				</div>
 			</div>
 		</div>
-		<!-- <div class="clearfix visible-xs-block"></div> --->
-		<!-- <div class="clearfix visible-md-block"></div> --->
 		<div class="div-gridbox-wrapper">
 			<div class="div-gridbox good">
 				<div class="text-gridbox-numbering">5</div>
@@ -247,9 +242,6 @@
 				</div>
 			</div>
 		</div>
-		<!-- <div class="clearfix visible-xs-block"></div> --->
-		<!-- <div class="clearfix visible-sm-block"></div> --->
-		<!-- <div class="clearfix visible-lg-block"></div> --->
 		<div class="div-gridbox-wrapper">
 			<div class="div-gridbox poor">
 				<div class="text-gridbox-numbering">7</div>
@@ -318,8 +310,6 @@
 				</div>
 			</div>
 		</div>
-		<!-- <div class="clearfix visible-xs-block"></div> --->
-		<!-- <div class="clearfix visible-md-block"></div> --->
 		<div class="div-gridbox-wrapper">
 			<div class="div-gridbox good">
 				<div class="div-selection-checkbox"><span class="icon-selection-tick glyphicon glyphicon-ok" aria-hidden="true"></span></div>
@@ -352,7 +342,6 @@
 				</div>
 			</div>
 		</div>
-		<!-- <div class="clearfix visible-sm-block"></div> --->
 		<div class="div-gridbox-wrapper">
 			<div class="div-gridbox fail">
 				<div class="div-gridbox-header">
@@ -388,7 +377,6 @@
 				</div>
 			</div>
 		</div>
-		<!-- <div class="clearfix visible-xs-block"></div> --->
 		<div class="div-gridbox-wrapper">
 			<div class="div-gridbox excellent">
 				<div class="text-gridbox-numbering">11</div>
@@ -467,9 +455,6 @@
 				</div>
 			</div>
 		</div>
-		<!-- <div class="clearfix visible-xs-block"></div> --->
-		<!-- <div class="clearfix visible-md-block"></div> --->
-		<!-- <div class="clearfix visible-lg-block"></div> --->
 		<div class="div-gridbox-wrapper">
 			<div class="div-gridbox okay">
 				<div class="text-gridbox-numbering">13</div>
@@ -561,7 +546,6 @@
 				</div>
 			</div>
 		</div>
-		<!-- <div class="clearfix visible-xs-block"></div> --->
 		<div class="div-gridbox-wrapper">
 			<div class="div-gridbox poor">
 				<div class="text-gridbox-numbering">15</div>
@@ -594,7 +578,6 @@
 				</div>
 			</div>
 		</div>
-		<!-- <div class="clearfix visible-sm-block"></div> --->
 		<div class="div-gridbox-wrapper">
 			<div class="div-gridbox">
 				<div class="text-gridbox-numbering">16</div>
@@ -631,8 +614,6 @@
 				</div>
 			</div>
 		</div>
-		<!-- <div class="clearfix visible-xs-block"></div> --->
-		<!-- <div class="clearfix visible-md-block"></div> --->
 		<div class="div-gridbox-wrapper">
 			<div class="div-gridbox good">
 				<div class="div-selection-checkbox"><span class="icon-selection-tick glyphicon glyphicon-ok" aria-hidden="true"></span></div>
@@ -700,9 +681,6 @@
 				</div>
 			</div>
 		</div>
-		<!-- <div class="clearfix visible-xs-block"></div> --->
-		<!-- <div class="clearfix visible-sm-block"></div> --->
-		<!-- <div class="clearfix visible-lg-block"></div> --->
 		<div class="div-gridbox-wrapper">
 			<div class="div-gridbox excellent">
 				<div class="text-gridbox-numbering">19</div>
@@ -781,8 +759,6 @@
 				</div>
 			</div>
 		</div>
-		<!-- <div class="clearfix visible-xs-block"></div> --->
-		<!-- <div class="clearfix visible-md-block"></div> --->
 		<div class="div-gridbox-wrapper">
 			<div class="div-gridbox okay">
 				<div class="text-gridbox-numbering">21</div>
@@ -830,7 +806,6 @@
 				</div>
 			</div>
 		</div>
-		<!-- <div class="clearfix visible-sm-block"></div> --->
 		<div class="div-gridbox-wrapper">
 			<div class="div-gridbox good">
 				<div class="text-gridbox-numbering">22</div>
@@ -869,7 +844,6 @@
 				</div>
 			</div>
 		</div>
-		<!-- <div class="clearfix visible-xs-block"></div> --->
 		<div class="div-gridbox-wrapper">
 			<div class="div-gridbox">
 				<div class="text-gridbox-numbering">23</div>

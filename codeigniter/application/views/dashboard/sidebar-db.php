@@ -185,30 +185,30 @@
 			</div>
 			<div class="div-sidebar-questions">
 				<ul class="ul-sidebar-questions-list w-clearfix">
-					<li class="li-sidebar-question">1</li>
-					<li class="li-sidebar-question">2</li>
-					<li class="li-sidebar-question">3</li>
-					<li class="li-sidebar-question">4</li>
-					<li class="li-sidebar-question">5</li>
-					<li class="li-sidebar-question">6</li>
-					<li class="li-sidebar-question">7</li>
-					<li class="li-sidebar-question">8</li>
-					<li class="li-sidebar-question">9</li>
-					<li class="li-sidebar-question">10</li>
-					<li class="li-sidebar-question">11</li>
-					<li class="li-sidebar-question">12</li>
-					<li class="li-sidebar-question">13</li>
-					<li class="li-sidebar-question">14</li>
-					<li class="li-sidebar-question">15</li>
-					<li class="li-sidebar-question">16</li>
-					<li class="li-sidebar-question">17</li>
-					<li class="li-sidebar-question">18</li>
-					<li class="li-sidebar-question">19</li>
-					<li class="li-sidebar-question">20</li>
-					<li class="li-sidebar-question">21</li>
-					<li class="li-sidebar-question">22</li>
-					<li class="li-sidebar-question">23</li>
-					<li class="li-sidebar-question">24</li>
+					<li class="li-sidebar-question" data-gc-id="1">1</li>
+					<li class="li-sidebar-question" data-gc-id="2">2</li>
+					<li class="li-sidebar-question" data-gc-id="3">3</li>
+					<li class="li-sidebar-question" data-gc-id="4">4</li>
+					<li class="li-sidebar-question" data-gc-id="5">5</li>
+					<li class="li-sidebar-question" data-gc-id="6">6</li>
+					<li class="li-sidebar-question" data-gc-id="7">7</li>
+					<li class="li-sidebar-question" data-gc-id="8">8</li>
+					<li class="li-sidebar-question" data-gc-id="9">9</li>
+					<li class="li-sidebar-question" data-gc-id="10">10</li>
+					<li class="li-sidebar-question" data-gc-id="11">11</li>
+					<li class="li-sidebar-question" data-gc-id="12">12</li>
+					<li class="li-sidebar-question" data-gc-id="13">13</li>
+					<li class="li-sidebar-question" data-gc-id="14">14</li>
+					<li class="li-sidebar-question" data-gc-id="15">15</li>
+					<li class="li-sidebar-question" data-gc-id="16">16</li>
+					<li class="li-sidebar-question" data-gc-id="17">17</li>
+					<li class="li-sidebar-question" data-gc-id="18">18</li>
+					<li class="li-sidebar-question" data-gc-id="19">19</li>
+					<li class="li-sidebar-question" data-gc-id="20">20</li>
+					<li class="li-sidebar-question" data-gc-id="21">21</li>
+					<li class="li-sidebar-question" data-gc-id="22">22</li>
+					<li class="li-sidebar-question" data-gc-id="23">23</li>
+					<li class="li-sidebar-question" data-gc-id="24">24</li>
 				</ul>
 			</div>
 		</div>

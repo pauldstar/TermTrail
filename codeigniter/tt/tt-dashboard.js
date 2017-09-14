@@ -3,31 +3,86 @@ $(document).ready(function()
 	/* ----------------------------------------------------------------------------------------------
 	 * INTERACTIONS
 	 * ------------------------------------------------------------------------------------------- */
-	 
-	var gridPageContent, 
-			gridActive = true;
+		
+	var gridPageContent;
+	var	gridMasonryActive = true;
+	var gridBox2Highlight = '';
 			
 	/* MUURI GRID */
-	gridPageContent = new Muuri('.div-page-content-grid', 
+	gridPageContent = new Muuri('.div-page-content-grid',  
 	{
 		dragEnabled: true,
 		items: '.div-gridbox-wrapper',
-    layout: {
-      fillGaps: true,
-			rounding: true
-    }
+		sortData: 
+		{
+			gridboxNumber: function (item, element)
+			{
+				var gridboxNumber = itemGridNumberElement(item).html();
+				return parseInt(gridboxNumber);
+			}
+		}
+	})
+	.on('move', function (data) 
+	{ // update indices after item move
+		var fromIndex = data.fromIndex;
+		var toIndex = data.toIndex;
+		var gridPageContentItems = gridPageContent.getItems();
+		var gridboxNumberClass;
+		while (fromIndex < toIndex)
+		{ // dragged down the order
+			gridboxNumberClass = itemGridNumberElement(gridPageContentItems[fromIndex]);
+			fromIndex++;
+			gridboxNumberClass.html(fromIndex);
+		}
+		while (fromIndex > toIndex)
+		{ // dragged up the order
+			gridboxNumberClass = itemGridNumberElement(gridPageContentItems[fromIndex]);
+			gridboxNumberClass.html(fromIndex+1);
+			fromIndex--;
+		}
+		itemGridNumberElement(data.item).html(toIndex+1);
+		gridPageContent.refreshSortData();
+		gridPageContent.synchronize();
 	});
 	
-	/* SORTABLE GRID COUNTER */
+	/* GRID COUNTER SORTABLE */
 	$('.ul-sidebar-questions-list').sortable(
 	{ 
 		scroll: false,
-		distance: 20,
-		// containment: 'parent', // box constraining the sortable items
+		update: function (event, ui)
+		{ // update indices after sort and DOM change
+			var gridCounterNumbers = 
+				$('.ul-sidebar-questions-list').sortable('toArray', {attribute: 'data-gc-id'});
+			var movedGridCounterElement = ui.item;
+			var gridCounterNumber = parseInt(movedGridCounterElement.html());
+			var fromIndex = toIndex = gridCounterNumber - 1;
+			var currentGridCounterElement, newGridCounterNumber;
+			while (gridCounterNumber < gridCounterNumbers[toIndex])
+			{ // item dragged down the order
+				currentGridCounterElement = 
+					$('.ul-sidebar-questions-list').children('.li-sidebar-question').eq(toIndex);
+				newGridCounterNumber = parseInt(currentGridCounterElement.html()) - 1;
+				currentGridCounterElement.html(newGridCounterNumber);
+				currentGridCounterElement.attr('data-gc-id', newGridCounterNumber);
+				toIndex++;
+			}
+			while (gridCounterNumber > gridCounterNumbers[toIndex])
+			{ // item dragged up the order
+				currentGridCounterElement = 
+					$('.ul-sidebar-questions-list').children('.li-sidebar-question').eq(toIndex);
+				newGridCounterNumber = parseInt(currentGridCounterElement.html()) + 1;
+				currentGridCounterElement.html(newGridCounterNumber);
+				currentGridCounterElement.attr('data-gc-id', newGridCounterNumber);
+				toIndex--;
+			}
+			movedGridCounterElement.html(toIndex+1);
+			movedGridCounterElement.attr('data-gc-id', toIndex+1);
+			gridPageContent.move(fromIndex, toIndex);
+			movedGridCounterElement.trigger("click");
+		}
 	});
 	
 	/* HIGHLIGHT GRIDBOX WHEN CLICKING GRID COUNTER */
-	var gridBox2Highlight = '';
 	$('.li-sidebar-question').on('click mouseleave', function(event)
 	{
 		switch (event.type)
@@ -170,6 +225,11 @@ $(document).ready(function()
    * FUNCTIONS FOR INTERACTIONS
    * ------------------------------------------------------------------------------------------- */
 	
+	function itemGridNumberElement(item)
+	{
+		return $(item.getElement()).find('.text-gridbox-numbering');
+	}
+	
 	function clearSearchBar()
 	{
 		$('.form-sidebar-tt-search-text-field').val('');
@@ -186,10 +246,6 @@ $(document).ready(function()
     var out = '';
     for (var i in obj) out += i + ": " + obj[i] + "\n";
     console.log(out);
-		/* // or, if you wanted to avoid alerts...
-    var pre = document.createElement('pre');
-    pre.innerHTML = out;
-    document.body.appendChild(pre) */
 	}
 });
 	
@@ -213,104 +269,22 @@ $(document).ready(function()
 		}
 	}); */
 	
-	/* SORTABLE GRID */
-	/* $('.div-page-content-grid').sortable(
-	{ 
-		items: '.div-gridbox-wrapper',
-		distance: 5,
-		cursor: 'move',
-		start: function ()
-		{
-			gridPageContent.masonry('destroy'); // destroy
-			$('.div-gridbox-header').nextAll().css('display', 'none');
-			$('.div-gridbox').css('height', '200px');
-		},
-		stop: function ()
-		{
-			$('.div-gridbox-header').nextAll().css('display', 'block');
-			$('.div-gridbox').css('height', '');
-			gridPageContent.masonry(pageContentMasonryOptions); // re-initialize
-		}
-	}); */
-	
-	/* TOGGLE GRID FORMAT */
+	/* GRID FORMAT TOGGLE */
 	/* $('#toolbar-grid-format').click(function(event)
 	{
-		toggleGridFormat(gridActive);
-		gridActive = !gridActive;
-	}); */
-	
-	/* DROPPABLE GRIDBOX */
-	/* $('.div-gridbox-wrapper').droppable({
-		accept: '.div-gridbox-wrapper',
-		over: function ()
+		if (gridMasonryActive) 
 		{
-		  $(this).children('.div-gridbox').addClass('accepting');
-		},
-		out: function ()
-		{
-			$(this).children('.div-gridbox').removeClass('accepting');
-		},
-		drop: function ()
-		{
-			$(this).children('.div-gridbox').removeClass('accepting');
-			var elems = gridPageContent.masonry('getItemElements');
-			dump(elems);
-			gridPageContent.masonry('remove', elems);
-			//gridPageContent.masonry( 'addItems', elems );
-			gridPageContent.prepend(elems).masonry('prepended', elems);
-		}
-	}); */
-	
-	/* DRAGGABLE GRIDBOX */
-	/* $('.div-gridbox-wrapper').draggable({
-		containment: 'parent',
-		cancel: '.div-selection-checkbox, .div-gridbox-footer',
-		revert: 'invalid',
-		revertDuration: 200,
-		zIndex: 6,
-		opacity: 0.7,
-		start: function ()
-		{}
-			
-	}); */
-	
-	/* ISOTOPE INITIALISE */
-	/* $('.div-page-content-grid').isotope({
-		itemSelector: '.div-gridbox-wrapper', 
-		percentPosition: true,
-		masonry: {
-			columnWidth: '.grid-sizer',
-			horizontalOrder: true
-		}
-	}); */
-	
-	/* MASONRY OPTIONS FOR THE GRID */
-	/* var pageContentMasonryOptions = { 
-		// specify the child elements in the grid
-		itemSelector: '.div-gridbox-wrapper', 
-		// width of grid-sizer sets the max width of a column
-		columnWidth: '.grid-sizer', 
-		// item width in percent, instead of pixel values
-		percentPosition: true, 
-		// (mostly) maintain horizontal left-to-right order.
-		horizontalOrder: true 
-	};
-	gridPageContent = $('.div-page-content-grid').masonry(pageContentMasonryOptions);
-	gridPageContent.masonry(pageContentMasonryOptions); */
-	
-	/* function toggleGridFormat(gridActive)
-	{
-		if (gridActive) 
-		{
-			gridPageContent.masonry('destroy'); // destroy
+			gridPageContent._settings.layout.horizontal = true;
+			gridPageContent.layout();
 			$('#icon-grid-cascade').css('display', 'inline-block');
 			$('#icon-grid-rows').css('display', 'none');
 		}
 		else 
 		{
-			gridPageContent.masonry(pageContentMasonryOptions); // re-initialize
+			gridPageContent._settings.layout.horizontal = false;
+			gridPageContent.layout();
 			$('#icon-grid-cascade').css('display', 'none');
 			$('#icon-grid-rows').css('display', 'inline-block');
 		}
-	} */
+		gridMasonryActive = !gridMasonryActive;
+	}); */
