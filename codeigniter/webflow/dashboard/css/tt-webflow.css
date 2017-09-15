@@ -284,13 +284,12 @@ img {
 .div-sidebar-search {
   display: none;
 }
-.form-sidebar-tt-search-text-field {
+.text-field-tt-search {
   margin-bottom: 0px;
   -webkit-box-flex: 1;
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
-  border-style: none;
   font-family: 'Open Sans', sans-serif;
   color: #767676;
   font-size: 13px;

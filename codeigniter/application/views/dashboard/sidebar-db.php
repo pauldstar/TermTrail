@@ -146,15 +146,11 @@
 				</ul>
 			</div>
 			<div class="div-sidebar-search" id="search-side-bar">
-				<div class="div-tt-search-bar-wrapper w-clearfix w-form">
-					<form data-name="Email Form" id="tt-search-form" method="post" name="email-form"><input class="form-sidebar-tt-search-text-field w-input" data-name="tt-search" id="tt-search" maxlength="256" name="tt-search" placeholder="Current Section" type="text"></form>
+				<div class="div-tt-search-bar-wrapper">
+					<form id="tt-search-form" name="email-form">
+						<input class="text-field-tt-search w-input" data-name="tt-search" id="tt-search-input" maxlength="256" name="tt-search" placeholder="Current Section" type="text">
+					</form>
 					<img class="img-clear-tt-sidebar-search" src='<?=base_url("webflow/dashboard/images/cross-diag-grey.png")?>'>
-					<div class="w-form-done">
-						<div>Thank you! Your submission has been received!</div>
-					</div>
-					<div class="w-form-fail">
-						<div>Oops! Something went wrong while submitting the form</div>
-					</div>
 				</div>
 				<ul class="ul-sidebar-search-categories">
 					<li class="li-sidebar-search-category">

@@ -1,28 +1,69 @@
+var gridPageContent;
+var gridBox2Highlight = '';
+var defaultGridStatusText = '';
+var selectedGridboxCount = 0;
+
+/* ----------------------------------------------------------------------------------------------
+ * INTERACTIONS
+ * ------------------------------------------------------------------------------------------- */
+	 
+/* MUURI GRID */
+gridPageContent = new Muuri('.div-page-content-grid',  
+{
+	dragEnabled: true,
+	items: '.div-gridbox-wrapper',
+	sortData: 
+	{
+		gridboxNumber: function(item, element) 
+		{
+			var gridboxNumber = itemGridNumberElement(item).html();
+			return parseInt(gridboxNumber);
+		}
+	},
+	layout: function(items, containerWidth, containerHeight) 
+	{ // custom strict horizontal left-to-right order
+		if (!items.length) return layout;
+		var layout = {
+			slots: {},
+			height: 0,
+			setHeight: true
+		}; // container width is always perfectly divisible by item width (210px)
+		var colCount = containerWidth / items[0]._width;
+		var rowCount = 1 + parseInt(items.length / colCount);
+		var slotDimensions = array2D(rowCount);
+		var newSlot, topSlot, leftSlot, slotRow, slotCol;
+		items.forEach(function(item, index)
+		{
+			newSlot = {
+				left: 0, 
+				top: 0, 
+				height: item._height, 
+				width: item._width
+			};
+			slotCol = index % colCount;
+			slotRow = parseInt(index / colCount);
+			if (topRowExists(slotRow))
+			{ // add slot to row below
+				topSlot = slotDimensions[slotRow-1][slotCol];
+				newSlot.top = topSlot.top + topSlot.height;
+			}
+			if (leftColExists(slotCol))
+			{ // add slot to rightward col
+				leftSlot = slotDimensions[slotRow][slotCol-1];
+				newSlot.left = leftSlot.left + leftSlot.width;
+			}
+			slotDimensions[slotRow][slotCol] = newSlot;
+			layout.slots[item._id] = newSlot;
+			layout.height = Math.max(layout.height, newSlot.top + newSlot.height);
+		});
+		return layout;
+	}
+});
+
 $(document).ready(function()
 {
-	/* ----------------------------------------------------------------------------------------------
-	 * INTERACTIONS
-	 * ------------------------------------------------------------------------------------------- */
-		
-	var gridPageContent;
-	var	gridMasonryActive = true;
-	var gridBox2Highlight = '';
-			
-	/* MUURI GRID */
-	gridPageContent = new Muuri('.div-page-content-grid',  
-	{
-		dragEnabled: true,
-		items: '.div-gridbox-wrapper',
-		sortData: 
-		{
-			gridboxNumber: function (item, element)
-			{
-				var gridboxNumber = itemGridNumberElement(item).html();
-				return parseInt(gridboxNumber);
-			}
-		}
-	})
-	.on('move', function (data) 
+	/* MOVE MUURI ITEM */
+	gridPageContent.on('move', function(data)
 	{ // update indices after item move
 		var fromIndex = data.fromIndex;
 		var toIndex = data.toIndex;
@@ -44,12 +85,11 @@ $(document).ready(function()
 		gridPageContent.refreshSortData();
 		gridPageContent.synchronize();
 	});
-	
 	/* GRID COUNTER SORTABLE */
 	$('.ul-sidebar-questions-list').sortable(
 	{ 
 		scroll: false,
-		update: function (event, ui)
+		update: function(event, ui)
 		{ // update indices after sort and DOM change
 			var gridCounterNumbers = 
 				$('.ul-sidebar-questions-list').sortable('toArray', {attribute: 'data-gc-id'});
@@ -81,9 +121,8 @@ $(document).ready(function()
 			movedGridCounterElement.trigger("click");
 		}
 	});
-	
 	/* HIGHLIGHT GRIDBOX WHEN CLICKING GRID COUNTER */
-	$('.li-sidebar-question').on('click mouseleave', function(event)
+	$('.li-sidebar-question').on('click mouseleave dblclick', function(event)
 	{
 		switch (event.type)
 		{
@@ -101,112 +140,42 @@ $(document).ready(function()
 					gridBox2Highlight.removeClass('outline-div-gridbox');
 					gridBox2Highlight = '';
 				}
+				break;
+			case 'dblclick':
+				gridBox2Highlight.children('.div-selection-checkbox').trigger('click');
+				$(this).trigger('mouseleave');
 		}
 	});
-		
 	/* SIDEBAR MENU ITEM ACTIVATE */
 	$('.a-sidebar-menu-li').click(function(event)
 	{
-		// only activate if not a collapsible
 		if (!$(this).hasClass('collapsible')) 
-		{
+		{ // only activate if not a collapsible
 			$('.a-sidebar-menu-li').removeClass('active');
 			$(this).addClass('active');
 		}
 	});
-	
 	/* SIDEBAR NAVBAR ITEM ACTIVATION */
 	$('.a-navbar-toggle-buttons').click(function(event)
 	{
 		$('.a-navbar-toggle-buttons').removeClass('active');
 		$(this).addClass('active');
 	});
-	
 	/* TOGGLE SIDEBAR AND STRETCH PAGE CONTENT */
 	$('.btn-navbar-menu').click(function(event)
 	{
-		$('.div-sidebar-scroll').toggleClass('sidebar-close');
-		$('.div-page-content-wrapper').toggleClass('stretch');
+		toggleSidebar();
 	});
-	
 	/* CLEAR TT SEARCHBAR WITH SEARCH BAR 'X' */
 	$('.img-clear-tt-sidebar-search').click(function(event) 
 	{ 
 		clearSearchBar();
 	});
-	
 	/* TRIGGER TT SEARCH BAR FROM SIDEBAR NAV */
 	$('#btn-sidebar-search').click(function(event)
 	{
 		clearSearchBar();
 	});
-		
-	/* TRIGGER TT SEARCH BAR FROM TOOLBAR */
-	$('#toolbar-search').click(function(event)
-	{
-		if ($('.div-sidebar-scroll').hasClass('sidebar-close')) 
-		{
-			$('.div-sidebar-scroll').removeClass('sidebar-close');
-			$('.div-page-content-wrapper').toggleClass('stretch');
-		}
-		$('.div-sidebar-content').children().css('display', 'none');
-		$('.div-sidebar-navbar').children().removeClass('active');
-		$('#btn-sidebar-search').addClass('active');		
-		$('.div-sidebar-search').css('display', 'block');
-		// select to search 'current section' category
-		$('.a-sidebar-search-category').removeClass('checked');
-		$('.div-tt-search-category-checkbox').removeClass('checked');
-		$('#current-section-search-category').addClass('checked');
-		$('#current-section-search-category').children('.div-tt-search-category-checkbox').addClass('checked');
-		$('.form-sidebar-tt-search-text-field').select();
-		updateSearchBarPlaceholder('Current Section');
-	});
-	
-	/* TOGGLE TOOLBAR BUTTONS WITH 'DATA-TOOL-TOGGLE' ATTRIBUTES */
-	$('.div-tool-dropdown-toggle').click(function(event)
-	{
-		var dataToolToggle = $(this).attr('data-tool-toggle');
-		if (dataToolToggle == "1") $(this).toggleClass('pressed');
-	});
-	
-	/* TOGGLE GRID ICONS OPACITY */
-	$('.div-gridbox').mouseenter(function(event)
-	{
-		$(this).find('.div-gridbox-footer-buttons').fadeTo(200, 1);
-		$(this).find('.div-selection-checkbox').fadeTo(200, 1);
-	});
-	$('.div-gridbox').mouseleave(function(event)
-	{
-		// only fadeout if grid-box hasn't been selected
-		if (!$(this).hasClass('selected'))
-		{
-			$(this).find('.div-gridbox-footer-buttons').fadeTo(200, 0);
-			$(this).find('.div-selection-checkbox').fadeTo(200, 0);
-		}
-	});
-	
-	/* SELECT GRID/CHAPTER BOX AND UPDATE STATUS TEXT */
-	defaultGridStatus = '';
-	selectedGridboxCount = 0;
-	$('.div-selection-checkbox').click(function(event)
-	{
-		if ($(this).hasClass('selected')) 
-		{
-			selectedGridboxCount--;
-			if (selectedGridboxCount == 0) $('.text-grid-status').html(defaultGridStatus);
-			else $('.text-grid-status').html(selectedGridboxCount + ' Selected');
-		} 
-		else 
-		{
-		  selectedGridboxCount++;
-			if (selectedGridboxCount == 1) defaultGridStatus = $('.text-grid-status').html();
-			$('.text-grid-status').html(selectedGridboxCount + ' Selected');
-		}
-		$(this).toggleClass('selected');
-		$(this).parent().toggleClass('selected');
-		$(this).siblings('.div-gridbox-footer').toggleClass('selected');
-	});
-	
 	/* SELECT TT SEARCH CATEGORY */
 	$('.a-sidebar-search-category').click(function(event)
 	{
@@ -220,35 +189,127 @@ $(document).ready(function()
 		clearSearchBar();
 		updateSearchBarPlaceholder(newPlaceholder);
 	});
-	
-  /* ----------------------------------------------------------------------------------------------
-   * FUNCTIONS FOR INTERACTIONS
-   * ------------------------------------------------------------------------------------------- */
-	
-	function itemGridNumberElement(item)
+	/* TRIGGER TT SEARCH BAR FROM TOOLBAR */
+	$('#toolbar-search').click(function(event)
 	{
-		return $(item.getElement()).find('.text-gridbox-numbering');
-	}
-	
-	function clearSearchBar()
+		if ($('.div-sidebar-scroll').hasClass('sidebar-close')) toggleSidebar();
+		$('.div-sidebar-content').children().css('display', 'none');
+		$('.div-sidebar-navbar').children().removeClass('active');
+		$('#btn-sidebar-search').addClass('active');		
+		$('.div-sidebar-search').css('display', 'block');
+		// select to search 'current section' category
+		$('.a-sidebar-search-category').removeClass('checked');
+		$('.div-tt-search-category-checkbox').removeClass('checked');
+		$('#current-section-search-category').addClass('checked');
+		$('#current-section-search-category').children('.div-tt-search-category-checkbox').addClass('checked');
+		$('.text-field-tt-search').select();
+		updateSearchBarPlaceholder('Current Section');
+	});
+	/* TOGGLE TOOLBAR BUTTONS WITH 'DATA-TOOL-TOGGLE' ATTRIBUTES */
+	$('.div-tool-dropdown-toggle').click(function(event)
 	{
-		$('.form-sidebar-tt-search-text-field').val('');
-		$('.form-sidebar-tt-search-text-field').select();
-	}
-	
-	function updateSearchBarPlaceholder(text)
+		var dataToolToggle = $(this).attr('data-tool-toggle');
+		if (dataToolToggle == "1") $(this).toggleClass('pressed');
+	});
+	/* TOGGLE GRID ICONS OPACITY */
+	$('.div-gridbox').on('mouseenter mouseleave', function(event)
 	{
-		$('.form-sidebar-tt-search-text-field').attr('placeholder', text);
-	}
-	
-	function dump(obj) 
+		switch (event.type)
+		{
+			case 'mouseenter':
+				$(this).find('.div-gridbox-footer-buttons').fadeTo(200, 1);
+				$(this).find('.div-selection-checkbox').fadeTo(200, 1);
+				break;
+			case 'mouseleave':
+				if (!$(this).hasClass('selected'))
+				{ // only fadeout if grid-box hasn't been selected
+					$(this).find('.div-gridbox-footer-buttons').fadeTo(200, 0);
+					$(this).find('.div-selection-checkbox').fadeTo(200, 0);
+				}
+		}
+	});
+	/* SELECT GRID/CHAPTER BOX AND UPDATE STATUS TEXT */
+	$('.div-selection-checkbox').click(function(event)
 	{
-    var out = '';
-    for (var i in obj) out += i + ": " + obj[i] + "\n";
-    console.log(out);
-	}
+		if ($(this).hasClass('selected')) 
+		{
+			selectedGridboxCount--;
+			if (selectedGridboxCount == 0) $('.text-grid-status').html(defaultGridStatusText);
+			else $('.text-grid-status').html(selectedGridboxCount + ' Selected');
+		} 
+		else 
+		{
+		  selectedGridboxCount++;
+			if (selectedGridboxCount == 1) defaultGridStatusText = $('.text-grid-status').html();
+			$('.text-grid-status').html(selectedGridboxCount + ' Selected');
+		}
+		$(this).toggleClass('selected');
+		$(this).parent().toggleClass('selected');
+		$(this).siblings('.div-gridbox-footer').toggleClass('selected');
+	});
 });
-	
+
+/* ----------------------------------------------------------------------------------------------
+ * FUNCTIONS (PRODUCTION) FOR INTERACTIONS
+ * ------------------------------------------------------------------------------------------- */
+ 
+function leftColExists(slotCol)
+{
+	if (slotCol-1 == -1) return false;
+	return true;
+}
+
+function topRowExists(slotRow)
+{
+	if (slotRow-1 == -1) return false;
+	return true;
+}
+
+function array2D(rows)
+{
+	var array = [];
+	for (var i = 0; i < rows; i++) array[i] = [];
+	return array;
+}
+
+function itemGridNumberElement(item)
+{
+	return $(item.getElement()).find('.text-gridbox-numbering');
+}
+
+function clearSearchBar()
+{
+	$('.text-field-tt-search').val('');
+	$('.text-field-tt-search').select();
+}
+
+function updateSearchBarPlaceholder(text)
+{
+	$('.text-field-tt-search').attr('placeholder', text);
+}
+
+function toggleSidebar()
+{
+	$('.div-sidebar-scroll').toggleClass('sidebar-close');
+	$('.div-page-content-wrapper').toggleClass('stretch');
+}
+
+/* ----------------------------------------------------------------------------------------------
+ * FUNCTIONS (DEVELOPMENT) FOR INTERACTIONS
+ * ------------------------------------------------------------------------------------------- */
+
+function dump(obj) 
+{
+	var out = '';
+	for (var i in obj) out += i + ": " + obj[i] + "\n";
+	console.log(out);
+}
+
+function log(out) 
+{
+	console.log(out);
+}
+
 /* 	// CHAPTER BOX ICONS APPEAR
 	$('.a-chapter-item').mouseenter(function(event)
 	{

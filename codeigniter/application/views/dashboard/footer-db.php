@@ -29,7 +29,7 @@
 		</script>
 		<script src="<?=base_url('muuri/hammer.min.js')?>"></script>
 		<script src="<?=base_url('muuri/velocity.min.js')?>"></script>
-		<script src="<?=base_url('muuri/muuri.js')?>"></script>
+		<script src="<?=base_url('muuri/muuri.min.js')?>"></script>
 		<script src="<?=base_url('jquery/jquery-ui-1.12.1.custom/jquery-ui.min.js')?>"></script>
 		<script src="<?=base_url('tt/tt-dashboard.js')?>" type="text/javascript"></script>
 		<!-- For webflow -->
