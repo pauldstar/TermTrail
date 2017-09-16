@@ -889,8 +889,14 @@ img {
   -webkit-align-items: center;
   -ms-flex-align: center;
   align-items: center;
-  background-image: -webkit-linear-gradient(270deg, rgba(0, 0, 0, .91), rgba(0, 0, 0, .91));
-  background-image: linear-gradient(180deg, rgba(0, 0, 0, .91), rgba(0, 0, 0, .91));
+  background-color: rgba(0, 0, 0, .91);
+}
+.popup-background.appear,
+.div-revision-popup.appear {
+	display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
 }
 .div-generic-popup-wrapper {
   display: -webkit-box;
@@ -1187,7 +1193,7 @@ img {
 }
 .img-toggle-resource-parent-history {
   position: absolute;
-  top: 13px;
+  top: 1px;
   width: 15px;
   opacity: 0.59;
   cursor: pointer;
@@ -1283,6 +1289,13 @@ img {
   display: none;
   width: 500px;
   background-color: #fff;
+}
+.tabs-question.appear,
+.div-user-settings.appear,
+.div-name-resource.appear,
+.div-add-resource.appear,
+.div-generic-popup-wrapper.appear {
+  display: block;
 }
 .div-revision-main-content {
   position: relative;

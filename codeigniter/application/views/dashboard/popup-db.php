@@ -299,8 +299,9 @@
     <div class="div-add-resource">
       <h3 class="h-resource-main">Add Course</h3>
       <div class="div-resource-parent">
+				<img class="backward img-toggle-resource-parent-history" src='<?=base_url("webflow/dashboard/images/toggle-left-arrow-black.png")?>'>
         <h4 class="h-resource-parent">Schools</h4>
-        <img class="forward img-toggle-resource-parent-history" src='<?=base_url("webflow/dashboard/images/toggle-right-arrow-black.png")?>'><img class="backward img-toggle-resource-parent-history" src='<?=base_url("webflow/dashboard/images/toggle-left-arrow-black.png")?>'>
+        <img class="forward img-toggle-resource-parent-history" src='<?=base_url("webflow/dashboard/images/toggle-right-arrow-black.png")?>'>
       </div>
       <ul class="ul-resource-parent">
         <li class="li-resource-parent">University of Manchester</li>

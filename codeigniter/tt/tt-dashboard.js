@@ -1,69 +1,108 @@
-var gridPageContent;
-var gridBox2Highlight = '';
-var defaultGridStatusText = '';
-var selectedGridboxCount = 0;
-
-/* ----------------------------------------------------------------------------------------------
- * INTERACTIONS
- * ------------------------------------------------------------------------------------------- */
-	 
-/* MUURI GRID */
-gridPageContent = new Muuri('.div-page-content-grid',  
-{
-	dragEnabled: true,
-	items: '.div-gridbox-wrapper',
-	sortData: 
-	{
-		gridboxNumber: function(item, element) 
-		{
-			var gridboxNumber = itemGridNumberElement(item).html();
-			return parseInt(gridboxNumber);
-		}
-	},
-	layout: function(items, containerWidth, containerHeight) 
-	{ // custom strict horizontal left-to-right order
-		if (!items.length) return layout;
-		var layout = {
-			slots: {},
-			height: 0,
-			setHeight: true
-		}; // container width is always perfectly divisible by item width (210px)
-		var colCount = containerWidth / items[0]._width;
-		var rowCount = 1 + parseInt(items.length / colCount);
-		var slotDimensions = array2D(rowCount);
-		var newSlot, topSlot, leftSlot, slotRow, slotCol;
-		items.forEach(function(item, index)
-		{
-			newSlot = {
-				left: 0, 
-				top: 0, 
-				height: item._height, 
-				width: item._width
-			};
-			slotCol = index % colCount;
-			slotRow = parseInt(index / colCount);
-			if (topRowExists(slotRow))
-			{ // add slot to row below
-				topSlot = slotDimensions[slotRow-1][slotCol];
-				newSlot.top = topSlot.top + topSlot.height;
-			}
-			if (leftColExists(slotCol))
-			{ // add slot to rightward col
-				leftSlot = slotDimensions[slotRow][slotCol-1];
-				newSlot.left = leftSlot.left + leftSlot.width;
-			}
-			slotDimensions[slotRow][slotCol] = newSlot;
-			layout.slots[item._id] = newSlot;
-			layout.height = Math.max(layout.height, newSlot.top + newSlot.height);
-		});
-		return layout;
-	}
-});
-
 $(document).ready(function()
 {
-	/* MOVE MUURI ITEM */
-	gridPageContent.on('move', function(data)
+	var gridPageContent;
+	var gridBox2Highlight = '';
+	var defaultGridStatusText = '';
+	var selectedGridboxCount = 0;
+	var ttSearchValue = '';
+	var visiblePopups = [];
+	var 
+	log(
+	
+	/* ----------------------------------------------------------------------------------------------
+	 * INTERACTIONS
+	 * ------------------------------------------------------------------------------------------- */
+	 
+	/* ADD RESOURCE POP-UP */
+	$('.a-sidebar-submenu').click(function(event)
+	{
+		visiblePopups.push($('.popup-background'));
+		visiblePopups.push($('.div-add-resource'));
+		visiblePopups.push($('.div-generic-popup-wrapper'));
+		togglePopupAppear();
+		log(visiblePopups);
+		var elementID = $(this).attr('id');
+		switch (elementID)
+		{
+			case 'sidebar-submenu-add-question':
+				$('.h-resource-main').html('Add Question');
+				break;
+			case 'sidebar-submenu-add-chapter':
+				$('.h-resource-main').html('Add Chapter');
+				break;
+			case 'sidebar-submenu-add-bank':
+				$('.h-resource-main').html('Add Bank');
+				break;
+			case 'sidebar-submenu-add-course':
+				$('.h-resource-main').html('Add Course');
+				break;
+			case 'sidebar-submenu-add-school':
+				$('.h-resource-main').html('Add School');
+		}
+	});
+	$('.popup-background').click(function(event)
+	{
+		if (event.target == this) 
+		{
+			togglePopupAppear();
+			visiblePopups = [];
+		}
+		log(visiblePopups);
+	});
+	
+	/* MUURI GRID */
+	gridPageContent = new Muuri('.div-page-content-grid',  
+	{
+		dragEnabled: true,
+		items: '.div-gridbox-wrapper',
+		sortData: 
+		{
+			gridboxNumber: function(item, element) 
+			{
+				var gridboxNumber = itemGridNumberElement(item).html();
+				return parseInt(gridboxNumber);
+			}
+		},
+		layout: function(items, containerWidth, containerHeight) 
+		{ // custom strict horizontal left-to-right order
+			if (!items.length) return layout;
+			var layout = {
+				slots: {},
+				height: 0,
+				setHeight: true
+			}; // container width is always perfectly divisible by item width (210px)
+			var colCount = containerWidth / items[0]._width;
+			var rowCount = 1 + parseInt(items.length / colCount);
+			var slotDimensions = array2D(rowCount);
+			var newSlot, topSlot, leftSlot, slotRow, slotCol;
+			items.forEach(function(item, index)
+			{
+				newSlot = {
+					left: 0, 
+					top: 0, 
+					height: item._height, 
+					width: item._width
+				};
+				slotCol = index % colCount;
+				slotRow = parseInt(index / colCount);
+				if (topRowExists(slotRow))
+				{ // add slot to row below
+					topSlot = slotDimensions[slotRow-1][slotCol];
+					newSlot.top = topSlot.top + topSlot.height;
+				}
+				if (leftColExists(slotCol))
+				{ // add slot to rightward col
+					leftSlot = slotDimensions[slotRow][slotCol-1];
+					newSlot.left = leftSlot.left + leftSlot.width;
+				}
+				slotDimensions[slotRow][slotCol] = newSlot;
+				layout.slots[item._id] = newSlot;
+				layout.height = Math.max(layout.height, newSlot.top + newSlot.height);
+			});
+			return layout;
+		}
+	})
+	.on('move', function(data)
 	{ // update indices after item move
 		var fromIndex = data.fromIndex;
 		var toIndex = data.toIndex;
@@ -85,6 +124,7 @@ $(document).ready(function()
 		gridPageContent.refreshSortData();
 		gridPageContent.synchronize();
 	});
+	
 	/* GRID COUNTER SORTABLE */
 	$('.ul-sidebar-questions-list').sortable(
 	{ 
@@ -121,6 +161,7 @@ $(document).ready(function()
 			movedGridCounterElement.trigger("click");
 		}
 	});
+	
 	/* HIGHLIGHT GRIDBOX WHEN CLICKING GRID COUNTER */
 	$('.li-sidebar-question').on('click mouseleave dblclick', function(event)
 	{
@@ -146,6 +187,7 @@ $(document).ready(function()
 				$(this).trigger('mouseleave');
 		}
 	});
+	
 	/* SIDEBAR MENU ITEM ACTIVATE */
 	$('.a-sidebar-menu-li').click(function(event)
 	{
@@ -155,27 +197,23 @@ $(document).ready(function()
 			$(this).addClass('active');
 		}
 	});
+	
 	/* SIDEBAR NAVBAR ITEM ACTIVATION */
 	$('.a-navbar-toggle-buttons').click(function(event)
 	{
 		$('.a-navbar-toggle-buttons').removeClass('active');
 		$(this).addClass('active');
 	});
+	
 	/* TOGGLE SIDEBAR AND STRETCH PAGE CONTENT */
-	$('.btn-navbar-menu').click(function(event)
-	{
-		toggleSidebar();
-	});
+	$('.btn-navbar-menu').click(toggleSidebar);
+	
 	/* CLEAR TT SEARCHBAR WITH SEARCH BAR 'X' */
-	$('.img-clear-tt-sidebar-search').click(function(event) 
-	{ 
-		clearSearchBar();
-	});
+	$('.img-clear-tt-sidebar-search').click(clearSearchBar);
+	
 	/* TRIGGER TT SEARCH BAR FROM SIDEBAR NAV */
-	$('#btn-sidebar-search').click(function(event)
-	{
-		clearSearchBar();
-	});
+	$('#btn-sidebar-search').click(clearSearchBar);
+	
 	/* SELECT TT SEARCH CATEGORY */
 	$('.a-sidebar-search-category').click(function(event)
 	{
@@ -189,6 +227,7 @@ $(document).ready(function()
 		clearSearchBar();
 		updateSearchBarPlaceholder(newPlaceholder);
 	});
+	
 	/* TRIGGER TT SEARCH BAR FROM TOOLBAR */
 	$('#toolbar-search').click(function(event)
 	{
@@ -205,12 +244,14 @@ $(document).ready(function()
 		$('.text-field-tt-search').select();
 		updateSearchBarPlaceholder('Current Section');
 	});
+	
 	/* TOGGLE TOOLBAR BUTTONS WITH 'DATA-TOOL-TOGGLE' ATTRIBUTES */
 	$('.div-tool-dropdown-toggle').click(function(event)
 	{
 		var dataToolToggle = $(this).attr('data-tool-toggle');
 		if (dataToolToggle == "1") $(this).toggleClass('pressed');
 	});
+	
 	/* TOGGLE GRID ICONS OPACITY */
 	$('.div-gridbox').on('mouseenter mouseleave', function(event)
 	{
@@ -228,6 +269,7 @@ $(document).ready(function()
 				}
 		}
 	});
+	
 	/* SELECT GRID/CHAPTER BOX AND UPDATE STATUS TEXT */
 	$('.div-selection-checkbox').click(function(event)
 	{
@@ -247,69 +289,96 @@ $(document).ready(function()
 		$(this).parent().toggleClass('selected');
 		$(this).siblings('.div-gridbox-footer').toggleClass('selected');
 	});
+
+	/* ----------------------------------------------------------------------------------------------
+	 * FUNCTIONS (PRODUCTION) FOR INTERACTIONS
+	 * ------------------------------------------------------------------------------------------- */
+	 
+	function filter()
+	{
+		//filterFieldValue = filterField.value;
+		grid.filter(function(item) 
+		{
+			var element = item.getElement();
+			var isSearchMatch = !ttSearchValue ? true : (element.getAttribute('data-title') || '').toLowerCase().indexOf(searchFieldValue) > -1;
+			var isFilterMatch = !filterFieldValue ? true : (element.getAttribute('data-color') || '') === filterFieldValue;
+			return isSearchMatch && isFilterMatch;
+		});
+	}
+
+	function leftColExists(slotCol)
+	{
+		if (slotCol-1 == -1) return false;
+		return true;
+	}
+
+	function topRowExists(slotRow)
+	{
+		if (slotRow-1 == -1) return false;
+		return true;
+	}
+
+	function array2D(rows)
+	{
+		var array = [];
+		for (var i = 0; i < rows; i++) array[i] = [];
+		return array;
+	}
+
+	function itemGridNumberElement(item)
+	{
+		return $(item.getElement()).find('.text-gridbox-numbering');
+	}
+
+	function clearSearchBar()
+	{
+		$('.text-field-tt-search').val('');
+		$('.text-field-tt-search').select();
+	}
+
+	function updateSearchBarPlaceholder(text)
+	{
+		$('.text-field-tt-search').attr('placeholder', text);
+	}
+
+	function toggleSidebar()
+	{
+		$('.div-sidebar-scroll').toggleClass('sidebar-close');
+		$('.div-page-content-wrapper').toggleClass('stretch');
+	}
+
+	function togglePopupAppear()
+	{
+		visiblePopups.forEach(function(popup) 
+		{
+			popup.toggleClass('appear');
+		});
+	}
+
+	/* ----------------------------------------------------------------------------------------------
+	 * FUNCTIONS (DEVELOPMENT) FOR INTERACTIONS
+	 * ------------------------------------------------------------------------------------------- */
+
+	function log(out) 
+	{
+		console.log(out);
+	}
 });
-
-/* ----------------------------------------------------------------------------------------------
- * FUNCTIONS (PRODUCTION) FOR INTERACTIONS
- * ------------------------------------------------------------------------------------------- */
- 
-function leftColExists(slotCol)
-{
-	if (slotCol-1 == -1) return false;
-	return true;
-}
-
-function topRowExists(slotRow)
-{
-	if (slotRow-1 == -1) return false;
-	return true;
-}
-
-function array2D(rows)
-{
-	var array = [];
-	for (var i = 0; i < rows; i++) array[i] = [];
-	return array;
-}
-
-function itemGridNumberElement(item)
-{
-	return $(item.getElement()).find('.text-gridbox-numbering');
-}
-
-function clearSearchBar()
-{
-	$('.text-field-tt-search').val('');
-	$('.text-field-tt-search').select();
-}
-
-function updateSearchBarPlaceholder(text)
-{
-	$('.text-field-tt-search').attr('placeholder', text);
-}
-
-function toggleSidebar()
-{
-	$('.div-sidebar-scroll').toggleClass('sidebar-close');
-	$('.div-page-content-wrapper').toggleClass('stretch');
-}
-
-/* ----------------------------------------------------------------------------------------------
- * FUNCTIONS (DEVELOPMENT) FOR INTERACTIONS
- * ------------------------------------------------------------------------------------------- */
-
-function dump(obj) 
-{
-	var out = '';
-	for (var i in obj) out += i + ": " + obj[i] + "\n";
-	console.log(out);
-}
-
-function log(out) 
-{
-	console.log(out);
-}
-
+/* TT SEARCH INPUT */
+	/* $('.text-field-tt-search').keypress(function(event)
+	{
+		if (event.which == 13) 
+		{ // pressed ENTER key
+			event.preventDefault();
+			var newSearch = $(this).val();
+			if (ttSearchValue !== newSearch)
+			{
+				ttSearchValue = newSearch;
+				console.log(ttSearchValue);
+				filter();
+			}
+		}
+	}); */
 /* 	// CHAPTER BOX ICONS APPEAR
 	$('.a-chapter-item').mouseenter(function(event)
 	{

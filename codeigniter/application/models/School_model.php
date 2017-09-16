@@ -1,5 +1,5 @@
 <?php
-class Course_model extends CI_Model {
+class School_model extends CI_Model {
 
   public function __construct()
   {
@@ -7,7 +7,6 @@ class Course_model extends CI_Model {
     $this->load->database();
     require_once APPPATH . 'objects/User.php';
     require_once APPPATH . 'objects/School.php';
-    require_once APPPATH . 'objects/Course.php';
     $this->load->library('session');
   }
 

@@ -1,6 +1,7 @@
 <?php
   $this->load->helper('html');
   $this->load->helper('url');
+	$user = $_SESSION['user'];
 ?>
 <!DOCTYPE html>
 <!--  This site was created in Webflow. http://www.webflow.com -->
@@ -19,11 +20,6 @@
 	<link href="<?=base_url('webflow/dashboard/css/webflow.css')?>" rel="stylesheet" type="text/css">
 	<link href="<?=base_url('webflow/dashboard/css/normalize.css')?>" rel="stylesheet" type="text/css">
 	<link href="<?=base_url('webflow/dashboard/css/tt-webflow.css')?>" rel="stylesheet" type="text/css">
-  <title>TermTrail
-    <?php
-			$user = $_SESSION['user'];
-			echo "($user->username)";
-    ?>
-  </title>
+  <title>TermTrail (<?=$user->username?>)</title>
 </head>
 <body class="body">

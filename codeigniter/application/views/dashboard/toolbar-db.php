@@ -52,6 +52,7 @@
   <div class="div-tool-dropdown-wrapper w-dropdown" data-delay="0" data-hover="1" id="toolbar-filter">
     <div class="div-tool-dropdown-toggle w-dropdown-toggle" data-dropdown-toggle=="1"><img src='<?=base_url("webflow/dashboard/images/filter-grey.png")?>'></div>
     <nav class="div-tool-dropdown-list w-dropdown-list">
+			<a class="a-toolbar-dropdown-li w-dropdown-link" href="#">All</a>
 			<a class="a-toolbar-dropdown-li w-dropdown-link" href="#">Private</a>
 			<a class="a-toolbar-dropdown-li w-dropdown-link" href="#">Public</a>
 			<a class="a-toolbar-dropdown-li w-dropdown-link" href="#">Imported</a>
@@ -74,5 +75,5 @@
     <div class="div-tool-dropdown-toggle w-dropdown-toggle"><img src='<?=base_url("webflow/dashboard/images/search-grey.png")?>'></div>
     <nav class="div-tool-dropdown-list w-dropdown-list"></nav>
   </div>
-  <div class="text-grid-status">Recently Modified</div>
+  <div class="text-grid-status">Recently Modified | All</div>
 </div>

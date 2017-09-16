@@ -19,13 +19,13 @@
 			<div class="div-sidebar-menu">
 				<ul class="ul-sidebar-menu w-list-unstyled">
 					<li class="li-sidebar-menu">
-						<a class="a-sidebar-menu-li w-inline-block" data-ix="banks-content-appear" href="#">
+						<a class="a-sidebar-menu-li active w-inline-block" data-ix="banks-content-appear" href="#">
 							<img src='<?=base_url("webflow/dashboard/images/bank.png")?>'>
 							<div class="text-sidebar-menu" data-ix="sidebar-active-menu-item">Banks</div>
 						</a>
 					</li>
 					<li class="li-sidebar-menu">
-						<a class="a-sidebar-menu-li active w-inline-block" href="#">
+						<a class="a-sidebar-menu-li w-inline-block" href="#">
 							<img src='<?=base_url("webflow/dashboard/images/course.png")?>'>
 							<div class="a-sidebar-collapsible text-sidebar-menu">Courses</div>
 						</a>
@@ -46,31 +46,31 @@
 						</a>
 						<ul class="div-sidebar-submenu w-list-unstyled">
 							<li class="li-sidebar-submenu">
-								<a class="a-sidebar-submenu w-inline-block" href="#">
+								<a class="a-sidebar-submenu w-inline-block" id="sidebar-submenu-add-question" href="#">
 									<img class="img-sidebar-menu-li" src='<?=base_url("webflow/dashboard/images/minus-s_1.png")?>'>
 									<div class="text-sidebar-submenu" data-ix="hide-submenu">Question</div>
 								</a>
 							</li>
 							<li class="li-sidebar-submenu">
-								<a class="a-sidebar-submenu w-inline-block" href="#">
+								<a class="a-sidebar-submenu w-inline-block" id="sidebar-submenu-add-chapter" href="#">
 									<img class="img-sidebar-menu-li" src='<?=base_url("webflow/dashboard/images/minus-s_1.png")?>'>
 									<div class="text-sidebar-submenu" data-ix="hide-submenu">Chapter</div>
 								</a>
 							</li>
 							<li class="li-sidebar-submenu">
-								<a class="a-sidebar-submenu w-inline-block" href="#">
+								<a class="a-sidebar-submenu w-inline-block" id="sidebar-submenu-add-bank" href="#">
 									<img class="img-sidebar-menu-li" src='<?=base_url("webflow/dashboard/images/minus-s_1.png")?>'>
 									<div class="text-sidebar-submenu" data-ix="hide-submenu">Bank</div>
 								</a>
 							</li>
 							<li class="li-sidebar-submenu">
-								<a class="a-sidebar-submenu w-inline-block" href="#">
+								<a class="a-sidebar-submenu w-inline-block" id="sidebar-submenu-add-course" href="#">
 									<img class="img-sidebar-menu-li" src='<?=base_url("webflow/dashboard/images/minus-s_1.png")?>'>
 									<div class="text-sidebar-submenu" data-ix="hide-submenu">Course</div>
 								</a>
 							</li>
 							<li class="li-sidebar-submenu">
-								<a class="a-sidebar-submenu w-inline-block" href="#">
+								<a class="a-sidebar-submenu w-inline-block" id="sidebar-submenu-add-school" href="#">
 									<img class="img-sidebar-menu-li" src='<?=base_url("webflow/dashboard/images/minus-s_1.png")?>'>
 									<div class="text-sidebar-submenu" data-ix="hide-submenu">School</div>
 								</a>
@@ -162,19 +162,31 @@
 					<li class="li-sidebar-search-category">
 						<a class="a-sidebar-search-category w-inline-block" href="#">
 							<div class="div-tt-search-category-checkbox"></div>
-							<div class="text-tt-search-category">Users</div>
-						</a>
-					</li>
-					<li class="li-sidebar-search-category">
-						<a class="a-sidebar-search-category w-inline-block" href="#">
-							<div class="div-tt-search-category-checkbox"></div>
 							<div class="text-tt-search-category">Schools</div>
 						</a>
 					</li>
 					<li class="li-sidebar-search-category">
 						<a class="a-sidebar-search-category w-inline-block" href="#">
 							<div class="div-tt-search-category-checkbox"></div>
-							<div class="text-tt-search-category">Direct Code</div>
+							<div class="text-tt-search-category">Courses</div>
+						</a>
+					</li>
+					<li class="li-sidebar-search-category">
+						<a class="a-sidebar-search-category w-inline-block" href="#">
+							<div class="div-tt-search-category-checkbox"></div>
+							<div class="text-tt-search-category">Banks</div>
+						</a>
+					</li>
+					<li class="li-sidebar-search-category">
+						<a class="a-sidebar-search-category w-inline-block" href="#">
+							<div class="div-tt-search-category-checkbox"></div>
+							<div class="text-tt-search-category">Chapters</div>
+						</a>
+					</li>
+					<li class="li-sidebar-search-category">
+						<a class="a-sidebar-search-category w-inline-block" href="#">
+							<div class="div-tt-search-category-checkbox"></div>
+							<div class="text-tt-search-category">Questions</div>
 						</a>
 					</li>
 				</ul>

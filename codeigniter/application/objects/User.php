@@ -2,7 +2,7 @@
 class User {
   public $user_id, $account_balance, $email, $username, $scope;
   public $sign_up_time, $last_login_time, $has_notification;
-  public $courses;
+  public $schools;
 
   public function __construct($user_params)
   {
@@ -12,7 +12,7 @@ class User {
     $this->sign_up_time = $user_params['sign_up_time'];
     $this->last_login_time = $user_params['last_login_time'];
     $this->has_notification = $user_params['has_notification'];
-    $this->courses = array();
+    $this->schools = array();
     /*
      * if ($is_main_user) {
      * $this->scope = $user_params['scope'];
