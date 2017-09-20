@@ -1,6 +1,8 @@
 <?php
-class School_model extends CI_Model {
-
+class School_model extends CI_Model 
+{
+	private static $user;
+	
   public function __construct()
   {
     parent::__construct();
@@ -8,55 +10,35 @@ class School_model extends CI_Model {
     require_once APPPATH . 'objects/User.php';
     require_once APPPATH . 'objects/School.php';
     $this->load->library('session');
+    self::$user = $_SESSION['user'];
   }
 
-  public function get_main_user_courses()
+  public function get_user_schools_db($user_id = '')
   {
-    $user = $_SESSION['user'];
-    $query = $this->db->query("SELECT * FROM course WHERE owner_id='$user->user_id'");
-    if ($query != null) {
-      $courses = array();
-      foreach ($query->result_array() as $row)
-        $courses[] = new Course($row);
-      $user->courses = $courses;
-      return true;
-    }
-    return false;
+		if (empty($user_id)) $user_id = self::$user->user_id;
+    $query = $this->db->query("SELECT * FROM school WHERE owner_id='$user_id'");
+    if ($query == null) return null;
+		$schools = array();
+		foreach ($query->result_array() as $row) $schools[] = new School($row);
+		return $schools;
   }
 
-  public function get_user_courses($user_id)
+  public function set_and_get_school($school_type)
   {
-    $query = $this->db->query("SELECT * FROM course WHERE owner_id='$user_id'");
-    if ($query != null) {
-      $courses = array();
-      foreach ($query->result_array() as $row) 
-        $courses[] = new Course($row);
-      return $courses;
-    }
-    return null;
-  }
-
-  public function set_and_get_course($course_type)
-  {
-    $course_id = sizeof($this->user->courses) + 1;
+    $school_id = sizeof(self::$user->schools) + 1;
     $current_time = date_timestamp_get(date_create());
-    $course_params = array( 
-        'owner_id' => $this->user->user_id, 
-        'course_id' => $course_id, 
-        'course_title' => $this->input->post('course_title'), 
-        'scope' => $this->input->post('scope'), 
-        'course_type' => $course_type, 
-        'category' => $this->input->post('category'), 
-        'education_level' => $this->input->post('education_level'), 
-        'time_added' => $current_time );
-    // insert user's new course into database
-    $query_successful = $this->db->insert('course', $course_params);
-    if ($query_successful) {
-      $course_params['course_view_count'] = 0;
-      $course_params['is_main_user'] = true;
-      $course_params['price'] = 0;
-      return new Course($course_params);
-    }
-    return null;
+    $school_params = array( 
+			'owner_id' => self::$user->user_id, 
+			'school_id' => $school_id, 
+			'school_title' => $this->input->post('school_title'), 
+			'scope' => $this->input->post('scope'), 
+			'school_type' => $school_type, 
+			'education_level' => $this->input->post('education_level'), 
+			'time_added' => $current_time );
+    $query_successful = $this->db->insert('school', $school_params);
+    if (!$query_successful) return null;
+		$school_params['school_view_count'] = 0;
+		$school_params['is_main_user'] = true;
+		return new School($school_params);
   }
 }

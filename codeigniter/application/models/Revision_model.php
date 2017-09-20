@@ -16,7 +16,7 @@ class Revision_model extends CI_Model {
   {
     $user = $_SESSION['user'];
     $query = $this->db->query(
-        "SELECT * FROM revision WHERE trail_owner_id='$user->user_id'");
+        "SELECT * FROM revision WHERE trail_owner_id='self::$user->user_id'");
     if (isset($query))
     {
       foreach ($query->result_array() as $row)
@@ -46,7 +46,7 @@ class Revision_model extends CI_Model {
   public function begin_revision($user_id, $course_id, $trail_id, $mode)
   {
     $revision_id = sizeof(
-        $this->user->courses[$course_id - 1]->trails[$trail_id - 1]->revisions) + 1;
+        self::$user->courses[$course_id - 1]->trails[$trail_id - 1]->revisions) + 1;
     $current_time = date_timestamp_get(date_create());
     $rev_params = array( 
         'trail_owner_id' => $user_id, 

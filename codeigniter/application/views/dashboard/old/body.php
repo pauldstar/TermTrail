@@ -64,7 +64,7 @@ $('.sidebar-collapsible').click(function(event)
   var li_id = $(li).attr('id');
   if (li_id == 'collapse-plus')
   {
-    var src = '<?php echo base_url("images/minus.png")?>';
+    var src = "<?php echo base_url('images/minus.png')?>";
     $(img).attr('src', src);
     $(li).attr('id', 'collapse-minus');
   }

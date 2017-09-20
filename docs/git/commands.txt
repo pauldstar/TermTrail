@@ -11,6 +11,7 @@ checkout [branch]
 checkout -b [branch] [src. branch]
 merge [op: dest. branch] [src. branch]
 merge --no-ff [...branches]
+reset HEAD // to unstage merge conflicts
 branch -d [branch_name]
 push origin --delete [branch_name]
 stash

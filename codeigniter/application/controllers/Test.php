@@ -1,180 +1,204 @@
 <?php
-
-class Test extends CI_Controller {
-  public $user;
+class Test extends CI_Controller 
+{
+  private static $user;
+	public $view_data = array();
 
   public function __construct()
   {
-    parent::__construct();
+    parent::__construct()
     $this->load->helper('url');
     $this->load->library('form_validation');
     // object classes are needed to serialise the objects stored in session
     $this->load->file(APPPATH . 'objects/User.php');
+    $this->load->file(APPPATH . 'objects/School.php');
     $this->load->file(APPPATH . 'objects/Course.php');
-    $this->load->file(APPPATH . 'objects/Trail.php');
+    $this->load->file(APPPATH . 'objects/Bank.php');
     $this->load->file(APPPATH . 'objects/Chapter.php');
-    $this->load->file(APPPATH . 'objects/Term.php');
-    $this->load->file(APPPATH . 'objects/Term_Comment.php');
-    // require_once APPPATH . 'objects/Term_comment.php';
+    $this->load->file(APPPATH . 'objects/Question.php');
+    $this->load->file(APPPATH . 'objects/Question_Comment.php');
+    // require_once APPPATH . 'objects/Question_comment.php';
     $this->load->library('session');
-    if (isset($_SESSION['user'])) $this->user = $_SESSION['user'];
+    if (isset($_SESSION['user'])) self::$user = $_SESSION['user'];
     else redirect('login');
+		$this->view_data['formsuccess'] = '';
   }
 
   public function test_body()
   {
-    $this->load->view('dashboard/header_db');
+    $this->load->view('templates/header');
     $this->load->view('test/test_user');
-    $this->load->view('dashboard/footer_db');
+    $this->load->view('templates/footer');
   }
   
-  public function test_trails()
+  public function test_banks()
   {
-    $this->load->model('trail_model');
-    $data['trails'] = $this->trail_model->get_main_user_trails_from_object();
+    $this->load->model('bank_model');
+    $data['banks'] = $this->bank_model->get_main_user_banks_session();
     $this->load->view('dashboard/header_db');
-    $this->load->view('test/test_trails', $data);
+    $this->load->view('test/test_banks', $data);
     $this->load->view('dashboard/footer_db');
+  }
+	
+	public function add_school()
+  {
+		$this->load->model('school_model');
+    $this->form_validation->set_rules('school_title', 'Title', 'required');
+    $this->form_validation->set_rules('scope', 'Scope', 'required');
+    $this->form_validation->set_rules('education_level', 'Education Level', 'required');
+    if ($this->form_validation->run() === true)
+    {
+      $school = $this->school_model->set_and_get_school('origin');
+      if ($school === null) show_error("Couldn't save new school in database");
+      else 
+			{
+				self::$user->schools[] = $school;
+				$this->view_data['formsuccess'] = 
+					"<h3>Successfully added school: ".$school->school_title."</h3><br/>";
+			}
+    }
+		$this->load->view('templates/header');
+		$this->load->view('test/add_school', $this->view_data);
+    $this->load->view('templates/footer');
   }
 
   public function add_course()
   {
-    $this->load->model('course_model');
+		$this->load->model('course_model');
     $this->form_validation->set_rules('course_title', 'Title', 'required');
     $this->form_validation->set_rules('scope', 'Scope', 'required');
+    $this->form_validation->set_rules('school_id', 'School_ID', 'required');
     $this->form_validation->set_rules('category', 'Category', 'required');
-    $this->form_validation->set_rules('education_level', 'Education_level', 'required');
-    // check if course form was filled
-    if ($this->form_validation->run() === false)
+		if ($this->form_validation->run() === true)
     {
-      $this->load->view('templates/header');
-      $this->load->view('test/add_course');
-      $this->load->view('templates/footer');
-    }
-    else
-    {
-      $course = $this->course_model->set_and_get_course('origin');
+      $school_id = $this->input->post('school_id');
+			$course = $this->course_model->set_and_get_course($school_id, 'origin');
       if ($course === null) show_error("Couldn't save new course in database");
-      else $this->user->courses[] = $course;
-      redirect('member');
+      else 
+			{
+				self::$user->schools[$school_id-1]->courses[] = $course;
+				$this->view_data['formsuccess'] = 
+					"<h3>Successfully added course: ".$course->course_title."</h3><br/>";
+			}
     }
+		$this->load->view('templates/header');
+		$this->load->view('test/add_course', $this->view_data);
+    $this->load->view('templates/footer');
   }
 
-  public function add_trail()
+  public function add_bank()
   {
-    $this->load->model('trail_model');
-    $this->form_validation->set_rules('trail_title', 'Title', 'required');
+    $this->load->model('bank_model');
+    $this->form_validation->set_rules('bank_title', 'Title', 'required');
     $this->form_validation->set_rules('scope', 'Scope', 'required');
+    $this->form_validation->set_rules('school_id', 'School_ID', 'required');
     $this->form_validation->set_rules('course_id', 'Course_ID', 'required');
-    // check if course form was filled
-    if ($this->form_validation->run() === false)
+		if ($this->form_validation->run() === true)
     {
-      $this->load->view('templates/header');
-      $this->load->view('test/add_trail');
-      $this->load->view('templates/footer');
-    }
-    else
-    {
+      $school_id = $this->input->post('school_id');
       $course_id = $this->input->post('course_id');
-      $trail = $this->trail_model->set_and_get_trail($course_id, 'origin');
-      if ($trail == null) show_error("Couldn't save new trail in database");
-      else $this->user->courses[$course_id - 1]->trails[] = $trail;
-      redirect('member');
+      $bank = $this->bank_model->set_and_get_bank($school_id, $course_id, 'origin');
+      if ($bank === null) show_error("Couldn't save new bank in database");
+      else 
+			{
+				self::$user->schools[$school_id-1]->courses[$course_id-1]->banks[] = $bank;
+				$this->view_data['formsuccess'] = 
+					"<h3>Successfully added Bank: ".$bank->bank_title."</h3><br/>";
+			}
     }
+		$this->load->view('templates/header');
+		$this->load->view('test/add_bank', $this->view_data);
+    $this->load->view('templates/footer');
   }
 
   public function add_chapter()
   {
     $this->load->model('chapter_model');
-    $this->form_validation->set_rules('chapter_title', 'Title', 'required');
-    $this->form_validation->set_rules('trail_id', 'Trail_ID', 'required');
+		$this->form_validation->set_rules('chapter_title', 'Title', 'required');
+    $this->form_validation->set_rules('school_id', 'School_ID', 'required');
     $this->form_validation->set_rules('course_id', 'Course_ID', 'required');
-    // check if course form was filled
-    if ($this->form_validation->run() === false)
+    $this->form_validation->set_rules('bank_id', 'Bank_ID', 'required');
+		if ($this->form_validation->run() === true)
     {
-      $this->load->view('templates/header');
-      $this->load->view('test/add_chapter');
-      $this->load->view('templates/footer');
-    }
-    else
-    {
+      $school_id = $this->input->post('school_id');
       $course_id = $this->input->post('course_id');
-      $trail_id = $this->input->post('trail_id');
-      $chapter = $this->chapter_model->set_and_get_chapter($this->user->user_id, $course_id, 
-          $trail_id);
-      if ($chapter == null) show_error("Couldn't save new chapter in database");
-      else $this->user->courses[$course_id - 1]->trails[$trail_id - 1]->chapters[] = $chapter;
-      redirect('member');
+      $bank_id = $this->input->post('bank_id');
+			$chapter = $this->chapter_model->set_and_get_chapter($school_id, $course_id, $bank_id);
+      if ($chapter === null) show_error("Couldn't save new chapter in database");
+      else 
+			{
+				self::$user->schools[$school_id-1]->courses[$course_id-1]->
+					banks[$bank_id-1]->chapters[] = $chapter;
+				$this->view_data['formsuccess'] = 
+					"<h3>Successfully added Chapter: ".$chapter->chapter_title."</h3><br/>";
+			}
     }
+		$this->load->view('templates/header');
+		$this->load->view('test/add_chapter', $this->view_data);
+    $this->load->view('templates/footer');
   }
 
-  public function add_term()
+  public function add_question()
   {
-    $this->load->model('term_model');
-    $this->form_validation->set_rules('term_position', 'Position', 'required');
+    $this->load->model('question_model');
+    $this->form_validation->set_rules('question_position', 'Position', 'required');
     $this->form_validation->set_rules('content', 'Content', 'required');
-    $this->form_validation->set_rules('chapter_id', 'Chapter_ID', 'required');
-    $this->form_validation->set_rules('trail_id', 'Trail_ID', 'required');
+    $this->form_validation->set_rules('school_id', 'School_ID', 'required');
     $this->form_validation->set_rules('course_id', 'Course_ID', 'required');
-    // check if course form was filled
-    if ($this->form_validation->run() === false)
+    $this->form_validation->set_rules('bank_id', 'Bank_ID', 'required');
+    $this->form_validation->set_rules('chapter_id', 'Chapter_ID', 'required');
+		if ($this->form_validation->run() === true)
     {
-      $this->load->view('templates/header');
-      $this->load->view('test/add_term');
-      $this->load->view('templates/footer');
-    }
-    else
-    {
+      $school_id = $this->input->post('school_id');
       $course_id = $this->input->post('course_id');
-      $trail_id = $this->input->post('trail_id');
+      $bank_id = $this->input->post('bank_id');
       $chapter_id = $this->input->post('chapter_id');
-      $term = $this->term_model->set_and_get_term($this->user->user_id, $course_id, 
-          $trail_id, $chapter_id);
-      if ($term == null) show_error("Couldn't save new term in database");
-      else
-      {
-        $trail = & $this->user->courses[$course_id - 1]->trails[$trail_id - 1];
-        $trail->chapters[$chapter_id - 1]->terms[] = $term;
-      }
-      redirect('member');
+			$question = $this->question_model->set_and_get_question(
+				self::$user->user_id, $school_id, $course_id, $bank_id, $chapter_id);
+      if ($question === null) show_error("Couldn't save new question in database");
+      else 
+			{
+				self::$user->schools[$school_id-1]->courses[$course_id-1]->
+					banks[$bank_id-1]->chapters[$chapter_id-1]->questions[] = $question;
+				$this->view_data['formsuccess'] = 
+					"<h3>Successfully added Question: ".$question->content."</h3><br/>";
+			}
     }
+		$this->load->view('templates/header');
+		$this->load->view('test/add_question', $this->view_data);
+    $this->load->view('templates/footer');
   }
-
-  public function add_term_comment()
+	
+	/*public function add_question_comment()
   {
-    $this->load->model('term_comment_model');
-    $this->form_validation->set_rules('term_owner_id', 'Owner_ID', 'required');
+    $this->load->model('question_comment_model');
+    $this->form_validation->set_rules('question_owner_id', 'Owner_ID', 'required');
+    $this->form_validation->set_rules('school_id', 'School_ID', 'required');
     $this->form_validation->set_rules('course_id', 'Course_ID', 'required');
-    $this->form_validation->set_rules('trail_id', 'Trail_ID', 'required');
+    $this->form_validation->set_rules('bank_id', 'Bank_ID', 'required');
     $this->form_validation->set_rules('chapter_id', 'Chapter_ID', 'required');
-    $this->form_validation->set_rules('term_id', 'Term_ID', 'required');
+    $this->form_validation->set_rules('question_id', 'Question_ID', 'required');
     $this->form_validation->set_rules('comment', 'Comment', 'required');
-    // check if course form was filled
-    if ($this->form_validation->run() === false)
+		if ($this->form_validation->run() === true)
     {
-      $this->load->view('templates/header');
-      $this->load->view('test/add_term_comment');
-      $this->load->view('templates/footer');
-    }
-    else
-    {
-      $owner_id = $this->input->post('term_owner_id');
+      $school_id = $this->input->post('school_id');
       $course_id = $this->input->post('course_id');
-      $trail_id = $this->input->post('trail_id');
+      $bank_id = $this->input->post('bank_id');
       $chapter_id = $this->input->post('chapter_id');
-      $term_id = $this->input->post('term_id');
-      $term_comment = $this->term_comment_model->set_and_get_term_comment(
-          $this->user->user_id, $owner_id, $course_id, $trail_id, $chapter_id, $term_id);
-      if ($term_comment == null) show_error("Couldn't save new term in database");
-      else
-      {
-        if ($owner_id == $this->user->user_id)
-        {
-          $trail = & $this->user->courses[$course_id - 1]->trails[$trail_id - 1];
-          $trail->chapters[$chapter_id - 1]->terms[$term_id - 1]->term_comments[] = $term_comment;
-        }
-      }
-      redirect('member');
+      $question_id = $this->input->post('question_id');
+      $question_comment = $this->question_comment_model->set_and_get_question_comment(
+          self::$user->user_id, $owner_id, $course_id, $bank_id, $chapter_id, $question_id);
+      if ($question_comment === null) show_error("Couldn't save new bank in database");
+      else 
+			{
+				$bank =& self::$user->schools[$school_id-1]->courses[$course_id-1]->bank[$bank_id - 1];
+				$bank->chapters[$chapter_id-1]->questions[] = $question;
+				$this->view_data['formsuccess'] = 
+					"<h3>Successfully added Comment: ".$question_comment['comment']."</h3><br/>";
+			}
     }
-  }
+		$this->load->view('templates/header');
+		$this->load->view('test/add_question_comment',$this->view_data);
+    $this->load->view('templates/footer');
+  }*/
 }

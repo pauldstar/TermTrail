@@ -6,8 +6,6 @@ $(document).ready(function()
 	var selectedGridboxCount = 0;
 	var ttSearchValue = '';
 	var visiblePopups = [];
-	var 
-	log(
 	
 	/* ----------------------------------------------------------------------------------------------
 	 * INTERACTIONS
@@ -47,7 +45,6 @@ $(document).ready(function()
 			togglePopupAppear();
 			visiblePopups = [];
 		}
-		log(visiblePopups);
 	});
 	
 	/* MUURI GRID */
@@ -66,23 +63,15 @@ $(document).ready(function()
 		layout: function(items, containerWidth, containerHeight) 
 		{ // custom strict horizontal left-to-right order
 			if (!items.length) return layout;
-			var layout = {
-				slots: {},
-				height: 0,
-				setHeight: true
-			}; // container width is always perfectly divisible by item width (210px)
+			var layout = { slots: {}, height: 0, setHeight: true }; 
+			// container width is always perfectly divisible by item width (210px)
 			var colCount = containerWidth / items[0]._width;
 			var rowCount = 1 + parseInt(items.length / colCount);
 			var slotDimensions = array2D(rowCount);
 			var newSlot, topSlot, leftSlot, slotRow, slotCol;
 			items.forEach(function(item, index)
 			{
-				newSlot = {
-					left: 0, 
-					top: 0, 
-					height: item._height, 
-					width: item._width
-				};
+				newSlot = { left: 0, top: 0, height: item._height, width: item._width };
 				slotCol = index % colCount;
 				slotRow = parseInt(index / colCount);
 				if (topRowExists(slotRow))

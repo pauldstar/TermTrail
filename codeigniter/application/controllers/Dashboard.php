@@ -1,7 +1,8 @@
 <?php
 
-class Dashboard extends CI_Controller {
-  public $user;
+class Dashboard extends CI_Controller 
+{
+  private static $user;
 
   public function __construct()
   {
@@ -10,13 +11,13 @@ class Dashboard extends CI_Controller {
     // object classes are needed to serialise the objects stored in session
     require_once APPPATH . 'objects/User.php';
     require_once APPPATH . 'objects/Course.php';
-    require_once APPPATH . 'objects/Trail.php';
+    require_once APPPATH . 'objects/Bank.php';
     require_once APPPATH . 'objects/Revision.php';
     require_once APPPATH . 'objects/Chapter.php';
-    require_once APPPATH . 'objects/Term.php';
-    require_once APPPATH . 'objects/Term_comment.php';
+    require_once APPPATH . 'objects/Question.php';
+    require_once APPPATH . 'objects/Question_comment.php';
     $this->load->library('session');
-    if (isset($_SESSION['user'])) $this->user = $_SESSION['user'];
+    if (isset($_SESSION['user'])) self::$user = $_SESSION['user'];
     else redirect('login');
   }
 
@@ -28,10 +29,9 @@ class Dashboard extends CI_Controller {
   }
 
   public function dashboard()
-  {
-    // get list of trails from user object
-    $this->load->model('trail_model');
-    $data['trails'] = $this->trail_model->get_main_user_trails_from_object();
+  {	// get list of banks from user object
+    $this->load->model('bank_model');
+    $data['banks'] = $this->bank_model->get_user_banks_session();
     $this->load->view('dashboard/header-db', $data);
     $this->load->view('dashboard/navbar-db');
     $this->load->view('dashboard/sidebar-db');

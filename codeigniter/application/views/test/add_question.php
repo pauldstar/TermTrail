@@ -1,11 +1,12 @@
-<h2>Add Term</h2>
+<h2>Add Question</h2>
 <?php
 $this->load->helper('form');
+echo $formsuccess;
 echo validation_errors();
-echo form_open('add_term');
+echo form_open('add_question');
 ?>
-<label for="term_position">Position</label>
-<input type="number" name="term_position" />
+<label for="question_position">Position</label>
+<input type="number" name="question_position" />
 <br />
 <label for="content">Content</label>
 <input type="text" name="content" />
@@ -19,11 +20,14 @@ echo form_open('add_term');
 <label for="chapter_id">Chapter_ID</label>
 <input type="number" name="chapter_id" />
 <br />
-<label for="trail_id">Trail_ID</label>
-<input type="number" name="trail_id" />
+<label for="bank_id">Bank_ID</label>
+<input type="number" name="bank_id" />
 <br />
 <label for="course_id">Course_ID</label>
 <input type="number" name="course_id" />
 <br />
-<input type="submit" name="submit" value="Add Term" />
+<label for="school_id">School_ID</label>
+<input type="number" name="school_id" />
+<br />
+<input type="submit" name="submit" value="Add Question" />
 <?php echo form_close(); ?>
