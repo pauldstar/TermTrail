@@ -4,7 +4,7 @@ class Landing extends CI_Controller {
 
   public function __construct()
   {
-    parent::__construct();
+    parent::__construct()
     $this->load->helper('url');
     $this->load->library('session');
   }
@@ -25,8 +25,8 @@ class Landing extends CI_Controller {
     else
     {
       $this->load->model('user_model');
-      $this->user_model->get_main_user();
-      if (isset($_SESSION['user'])) redirect('dashboard');
+      self::$user_model->setup_user_session();
+      if (isset($_SESSION['user'])) redirect('test_body');
       else show_error("Invalid Username/Password");
     }
   }
@@ -49,7 +49,7 @@ class Landing extends CI_Controller {
     }
     else
     {
-      $_SESSION['user'] = $this->user_model->set_and_get_user();
+      $_SESSION['user'] = self::$user_model->set_and_get_user();
       redirect('dashboard');
     }
   }

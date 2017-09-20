@@ -1,17 +1,19 @@
 <?php
-class Chapter {
-  public $owner_id, $course_id, $trail_id;
+class Chapter 
+{
+  public $owner_id, $school_id, $course_id, $bank_id;
   public $chapter_id, $chapter_title, $chapter_position;
-  public $terms;
+  public $questions;
 
-  public function __construct($trail_params)
+  public function __construct($params)
   {
-    $this->owner_id = $trail_params['owner_id'];
-    $this->course_id = $trail_params['course_id'];
-    $this->trail_id = $trail_params['trail_id'];
-    $this->chapter_id = $trail_params['chapter_id'];
-    $this->chapter_title = $trail_params['chapter_title'];
-    $this->chapter_position = $trail_params['chapter_position'];
-    $this->terms = array();
+    $this->owner_id = $params['owner_id'];
+    $this->school_id = $params['school_id'];
+    $this->course_id = $params['course_id'];
+    $this->bank_id = $params['bank_id'];
+    $this->chapter_id = $params['chapter_id'];
+    $this->chapter_title = $params['chapter_title'];
+    $this->chapter_position = $params['chapter_position'];
+    $this->questions = array();
   }
 }
