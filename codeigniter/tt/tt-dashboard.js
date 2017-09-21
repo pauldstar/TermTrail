@@ -12,23 +12,24 @@ $(document).ready(function()
 	var $toolbarSearch = $('#toolbar-search');
 	var $toolDropdownToggle = $('.div-tool-dropdown-toggle');
 	// SIDEBAR
-	var ttSearchValue = '';
 	var $addResource = $('.a-sidebar-submenu');
+	var $currentSidebarMenuLi = $('.a-sidebar-menu-li').eq(0);
 	var $gridCounter = $('.ul-sidebar-questions-list');
 	var $gridCounterLi = $('.li-sidebar-question');
-	var $sidebarMenuLi = $('.a-sidebar-menu-li');
 	var $sidebarNavButton = $('.a-navbar-toggle-buttons');
-	var $ttSearchCross = $('.img-clear-tt-sidebar-search');
-	var $ttSearchNavButton = $('#btn-sidebar-search');
+	var $sidebarMenuLi = $('.a-sidebar-menu-li');
 	var $searchCategory = $('.a-sidebar-search-category');
+	var $searchCross = $('.img-clear-tt-sidebar-search');
+	var $searchNavButton = $('#btn-sidebar-search');
+	var searchValue = '';
 	// PAGE CONTENT
-	var $gridPageContent;
 	var $focusedGridbox = '';
-	var $gridboxSelectionCheckbox = $('.div-selection-checkbox');
 	var $gridbox = $('.div-gridbox');
+	var $gridboxSelectionCheckbox = $('.div-selection-checkbox');
+	var $pageGrid;
 	// POPUP
-	var visiblePopups = [];
 	var $popupBackground = $('.popup-background');
+	var visiblePopups = [];
 	
 	/*
 	EVENTS
@@ -42,12 +43,12 @@ $(document).ready(function()
 	// SIDEBAR
 	initGridCounter();
 	$gridCounterLi.click(gridboxFocus);
+	$gridCounterLi.dblclick(selectGridbox);
 	$gridCounterLi.mouseleave(gridboxUnfocus);
-	$gridCounterLi.dblclick(gridboxSelect);
 	$sidebarMenuLi.click(switchActiveSidebarMenu);
 	$sidebarNavButton.click(switchActiveSidebarNav);
-	$ttSearchCross.click(selectClearSearchBar);
-	$ttSearchNavButton.click(selectClearSearchBar);
+	$searchCross.click(selectClearSearchBar);
+	$searchNavButton.click(selectClearSearchBar);
 	$searchCategory.click(selectSearchCategory);
 	// PAGE CONTENT
 	initPageContentGrid();
@@ -64,9 +65,9 @@ $(document).ready(function()
 	
 	function initPageContentGrid()
 	{
-		$gridPageContent = new Muuri('.div-page-content-grid',  
+		$pageGrid = new Muuri('.div-page-content-grid',  
 		{
-			dragEnabled: true,
+			dragEnabled: false,
 			items: '.div-gridbox-wrapper',
 			sortData: 
 			{
@@ -111,23 +112,23 @@ $(document).ready(function()
 		{ // update indices after item move
 			var fromIndex = data.fromIndex;
 			var toIndex = data.toIndex;
-			var $gridPageContentItems = $gridPageContent.getItems();
+			var $pageGridItems = $pageGrid.getItems();
 			var gridboxNumberClass;
 			while (fromIndex < toIndex)
 			{ // dragged down the order
-				gridboxNumberClass = itemGridNumberElement($gridPageContentItems[fromIndex]);
+				gridboxNumberClass = itemGridNumberElement($pageGridItems[fromIndex]);
 				fromIndex++;
 				gridboxNumberClass.html(fromIndex);
 			}
 			while (fromIndex > toIndex)
 			{ // dragged up the order
-				gridboxNumberClass = itemGridNumberElement($gridPageContentItems[fromIndex]);
+				gridboxNumberClass = itemGridNumberElement($pageGridItems[fromIndex]);
 				gridboxNumberClass.html(fromIndex+1);
 				fromIndex--;
 			}
 			itemGridNumberElement(data.item).html(toIndex+1);
-			$gridPageContent.refreshSortData();
-			$gridPageContent.synchronize();
+			$pageGrid.refreshSortData();
+			$pageGrid.synchronize();
 		});
 	}
 	
@@ -164,7 +165,7 @@ $(document).ready(function()
 				}
 				movedGridCounterElement.html(toIndex+1);
 				movedGridCounterElement.attr('data-gc-id', toIndex+1);
-				$gridPageContent.move(fromIndex, toIndex);
+				$pageGrid.move(fromIndex, toIndex);
 				movedGridCounterElement.trigger("click");
 			}
 		});
@@ -173,47 +174,45 @@ $(document).ready(function()
 	function gridboxFocus()
 	{ // scroll to highlighted gridbox
 		var gridIndex = $(this).html() - 1;
-		focusedGridbox = $('.div-gridbox').eq(gridIndex);
-		focusedGridbox.addClass('outline-div-gridbox');
-		var scrollOffset = $(focusedGridbox).offset().top - 350;
+		$focusedGridbox = $('.div-gridbox').eq(gridIndex);
+		$focusedGridbox.addClass('outline-div-gridbox');
+		var scrollOffset = $focusedGridbox.offset().top - 350;
 		$('html, body').animate({scrollTop: scrollOffset}, 500);
 	}
 	
 	function gridboxUnfocus()
 	{
-		if (focusedGridbox != '') 
+		if ($focusedGridbox != '') 
 		{
-			focusedGridbox.removeClass('outline-div-gridbox');
-			focusedGridbox = '';
+			$focusedGridbox.removeClass('outline-div-gridbox');
+			$focusedGridbox = '';
 		}
 	}
 	
 	function selectGridbox()
 	{
-		switch (event.target)
+		var $target = $(this);
+		if ($(event.target).is($gridCounterLi))
 		{
-			case $gridCounterLi: 
-				gridboxUnfocus();
-				event.target = focusedGridbox.children('.div-selection-checkbox');
-				// no break intended
-			case $gridboxSelectionCheckbox:
-			  if ($(this).hasClass('selected'))
-				{ // update status text
-					selectedGridboxCount--;
-					if (selectedGridboxCount == 0) $('.text-grid-status').html(defaultGridStatusText);
-					else $('.text-grid-status').html(selectedGridboxCount + ' Selected');
-				}
-				else 
-				{ // update status text
-					selectedGridboxCount++;
-					if (selectedGridboxCount == 1) defaultGridStatusText = $('.text-grid-status').html();
-					$('.text-grid-status').html(selectedGridboxCount + ' Selected');
-				}
-				$(this).toggleClass('selected');
-				$(this).parent().toggleClass('selected');
-				$(this).siblings('.div-gridbox-footer').toggleClass('selected');
+			$target = $focusedGridbox.children('.div-selection-checkbox');
+			gridboxUnfocus();
 		}
-	}
+	  if ($target.hasClass('selected'))
+		{ // update status text
+			selectedGridboxCount--;
+			if (selectedGridboxCount == 0) $('.text-grid-status').html(defaultGridStatusText);
+			else $('.text-grid-status').html(selectedGridboxCount + ' Selected');
+		}
+		else 
+		{ // update status text
+			selectedGridboxCount++;
+			if (selectedGridboxCount == 1) defaultGridStatusText = $('.text-grid-status').html();
+			$('.text-grid-status').html(selectedGridboxCount + ' Selected');
+		}
+		$target.toggleClass('selected');
+		$target.parent().toggleClass('selected');
+		$target.siblings('.div-gridbox-footer').toggleClass('selected');
+}
 	
 	function popupAddResource()
 	{
@@ -253,6 +252,28 @@ $(document).ready(function()
 		{ // only activate if not a collapsible
 			$('.a-sidebar-menu-li').removeClass('active');
 			$(this).addClass('active');
+			var liAttribute = $(this).attr('data-action');
+			if (liAttribute == 'refresh-grid' && !$(this).is($currentSidebarMenuLi))
+			{
+				var gridTitle = $(this).attr('data-title')
+				refreshPageGrid(gridTitle);
+				$currentSidebarMenuLi = $(this);
+			}
+		}
+	}
+	
+	function refreshPageGrid(gridTitle)
+	{
+		var pageGridItems = $pageGrid.getItems();
+		$pageGrid.remove(pageGridItems, {removeElements: true, layout: false});
+		switch (gridTitle)
+		{
+			case 'banks':
+				log(callController('dashboard/get_bank_grid'));
+				$.post(callController('dashboard/get_bank_grid'), function(bankElements) {
+					$pageGrid.add(bankElements);
+					log(bankElements);
+				});
 		}
 	}
 	
@@ -286,7 +307,8 @@ $(document).ready(function()
 		$('.a-sidebar-search-category').removeClass('checked');
 		$('.div-tt-search-category-checkbox').removeClass('checked');
 		$('#current-section-search-category').addClass('checked');
-		$('#current-section-search-category').children('.div-tt-search-category-checkbox').addClass('checked');
+		$('#current-section-search-category').
+			children('.div-tt-search-category-checkbox').addClass('checked');
 		$('.text-field-tt-search').select();
 		updateSearchBarPlaceholder('Current Section');
 	}
@@ -342,7 +364,7 @@ $(document).ready(function()
 		grid.filter(function(item) 
 		{
 			var element = item.getElement();
-			var isSearchMatch = !ttSearchValue ? true : (element.getAttribute('data-title') || '').toLowerCase().indexOf(searchFieldValue) > -1;
+			var isSearchMatch = !searchValue ? true : (element.getAttribute('data-title') || '').toLowerCase().indexOf(searchFieldValue) > -1;
 			var isFilterMatch = !filterFieldValue ? true : (element.getAttribute('data-color') || '') === filterFieldValue;
 			return isSearchMatch && isFilterMatch;
 		});
@@ -351,6 +373,11 @@ $(document).ready(function()
 	/* 
 	HELPERS
 	*/
+	
+	function callController(segments)
+	{
+		return siteUrl+'/'+segments;
+	}
 	
 	function leftColExists(slotCol)
 	{
@@ -388,10 +415,10 @@ $(document).ready(function()
 		{ // pressed ENTER key
 			event.preventDefault();
 			var newSearch = $(this).val();
-			if (ttSearchValue !== newSearch)
+			if (searchValue !== newSearch)
 			{
-				ttSearchValue = newSearch;
-				console.log(ttSearchValue);
+				searchValue = newSearch;
+				console.log(searchValue);
 				filter();
 			}
 		}
@@ -421,15 +448,15 @@ $(document).ready(function()
 	{
 		if (gridMasonryActive) 
 		{
-			$gridPageContent._settings.layout.horizontal = true;
-			$gridPageContent.layout();
+			$pageGrid._settings.layout.horizontal = true;
+			$pageGrid.layout();
 			$('#icon-grid-cascade').css('display', 'inline-block');
 			$('#icon-grid-rows').css('display', 'none');
 		}
 		else 
 		{
-			$gridPageContent._settings.layout.horizontal = false;
-			$gridPageContent.layout();
+			$pageGrid._settings.layout.horizontal = false;
+			$pageGrid.layout();
 			$('#icon-grid-cascade').css('display', 'none');
 			$('#icon-grid-rows').css('display', 'inline-block');
 		}

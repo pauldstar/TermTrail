@@ -8,10 +8,10 @@ class Bank_model extends CI_Model
   {
     parent::__construct();
     $this->load->database();
-    $this->load->file(APPPATH.'objects/User.php');
-    $this->load->file(APPPATH.'objects/School.php');
-    $this->load->file(APPPATH.'objects/Course.php');
-    $this->load->file(APPPATH.'objects/Bank.php');
+    require_once APPPATH.'objects/User.php';
+    require_once APPPATH.'objects/School.php';
+    require_once APPPATH.'objects/Course.php';
+    require_once APPPATH.'objects/Bank.php';
     $this->load->library('session');
 		self::$user = $_SESSION['user'];
   }
@@ -28,14 +28,15 @@ class Bank_model extends CI_Model
 
   public function get_user_banks_session()
   {
-    $banks_to_return = array();
-    /* foreach (self::$user->courses as $course)
-      foreach ($course->banks as $bank) 
-				$banks_to_return[] = $bank; */
-    return $banks_to_return;
+    $banks = array();
+    foreach (self::$user->schools as $school)
+      foreach ($school->courses as $course) 
+				foreach ($course->banks as $bank)
+					$banks[] = $bank;
+    return $banks;
   }
 
-  public function get_course_banks($user_id, $course_id, $is_main_user)
+  public function get_course_banks($course_id, $user_id = '')
   {
     $full_course_id = array('owner_id'=>$user_id, 'course_id'=>$course_id);
     $query = $this->db->get_where('bank', $full_course_id);

@@ -1,45 +1,70 @@
+<?php $user = $_SESSION['user']; ?>
 <div class='div-page-content-wrapper'>
 	<div class='div-page-content-grid'>
+		<?php foreach ($banks as $index => $bank): ?>
 		<div class="div-gridbox-wrapper">
-			<div class="div-gridbox fail">
+			<div class="div-gridbox">
 				<div class="div-gridbox-header">
-					<div class="text-gridbox-numbering">1</div>
-					<h4 class="h-qna-title">University of Manchester</h4>
+					<div class="text-gridbox-numbering"><?= $index + 1 ?></div>
+					<h4 class="h-gridbox-title"><?= $bank->bank_title ?></h4>
 				</div>
 				<div class="div-gridbox-middle">
 					<ul class="ul-grid-box-data w-list-unstyled">
 						<li class="li-grid-box-data">
-							<div class="text-grid-box-data-li"><strong>Courses<br></strong>5</div>
+							<div class="text-grid-box-data-li">
+								<strong>Course</strong><br>
+								<?= $user->schools[$bank->school_id - 1]->courses[$bank->course_id - 1]->course_title ?>
+							</div>
 						</li>
 						<li class="li-grid-box-data">
-							<h5 class="grid-box-author-text">pauldstar</h5>
+							<div class="text-grid-box-data-li">
+								<strong>Chapters</strong><br><?= sizeof($bank->chapters) ?>
+							</div>
+						</li>
+						<li class="li-grid-box-data">
+							<h5 class="grid-box-item-type"><?= $bank->bank_type ?></h5>
 						</li>
 					</ul>
 				</div>
-				<div class="div-selection-checkbox"><span class="icon-selection-tick glyphicon glyphicon-ok" aria-hidden="true"></span></div>
+				<div class="div-selection-checkbox">
+					<span class="icon-selection-tick glyphicon glyphicon-ok" aria-hidden="true"></span>
+				</div>
 				<div class="div-gridbox-footer w-clearfix">
 					<div class="div-gridbox-footer-buttons">
 						<div class="w-dropdown" data-delay="0">
-							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-share" src='<?=base_url("webflow/dashboard/images/share.png")?>'></div>
-							<nav class="div-gridbox-footer-dropdown-li w-dropdown-list"><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Twitter</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Facebook</a></nav>
+							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle">
+								<img class="img-gridbox-share" src="<?=base_url('webflow/dashboard/images/share.png')?>">
+							</div>
+							<nav class="div-gridbox-footer-dropdown-li w-dropdown-list">
+								<a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Twitter</a>
+								<a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Facebook</a>
+							</nav>
 						</div>
 						<div class="w-dropdown" data-delay="0">
-							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-settings" data-ix="gridbox-settings-appear" src='<?=base_url("webflow/dashboard/images/settings-black.png")?>'></div>
-							<nav class="div-gridbox-footer-dropdown-li w-dropdown-list"><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Duplicate</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Details</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Reset Score</a></nav>
+							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle">
+								<img class="img-gridbox-settings" data-ix="gridbox-settings-appear" src="<?=base_url('webflow/dashboard/images/settings-black.png')?>">
+							</div>
+							<nav class="div-gridbox-footer-dropdown-li w-dropdown-list">
+								<a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Duplicate</a>
+								<a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Delete</a>
+								<a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Details</a>
+								<a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Reset Score</a>
+							</nav>
 						</div>
 					</div>
 					<div class="div-gridbox-stat">
-						<img class="img-gridbox-comments" src='<?=base_url("webflow/dashboard/images/comment.png")?>'>
-						<div class="text-stats-number">5</div>
+						<img class="img-gridbox-comments" src="<?=base_url('webflow/dashboard/images/comment.png')?>">
+						<div class="text-stats-number">0</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="div-gridbox-wrapper">
+		<?php endforeach; ?>
+		<!-- <div class="div-gridbox-wrapper">
 			<div class="div-gridbox excellent">
 				<div class="text-gridbox-numbering">2</div>
 				<div class="div-gridbox-header">
-					<h4 class="h-qna-title">COMP36512</h4>
+					<h4 class="h-gridbox-title">COMP36512</h4>
 				</div>
 				<div class="div-gridbox-middle">
 					<ul class="ul-grid-box-data w-list-unstyled">
@@ -50,7 +75,7 @@
 							<div class="text-grid-box-data-li"><strong>Banks<br></strong>2</div>
 						</li>
 						<li class="li-grid-box-data">
-							<h5 class="grid-box-author-text">pauldstar</h5>
+							<h5 class="grid-box-item-type">pauldstar</h5>
 						</li>
 					</ul>
 				</div>
@@ -58,16 +83,16 @@
 				<div class="div-gridbox-footer w-clearfix">
 					<div class="div-gridbox-footer-buttons">
 						<div class="w-dropdown" data-delay="0">
-							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-share" src='<?=base_url("webflow/dashboard/images/share.png")?>'></div>
+							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-share" src="<?=base_url('webflow/dashboard/images/share.png')?>"></div>
 							<nav class="div-gridbox-footer-dropdown-li w-dropdown-list"><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Twitter</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Facebook</a></nav>
 						</div>
 						<div class="w-dropdown" data-delay="0">
-							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-settings" data-ix="gridbox-settings-appear" src='<?=base_url("webflow/dashboard/images/settings-black.png")?>'></div>
+							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-settings" data-ix="gridbox-settings-appear" src="<?=base_url('webflow/dashboard/images/settings-black.png')?>"></div>
 							<nav class="div-gridbox-footer-dropdown-li w-dropdown-list"><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Duplicate</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Details</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Reset Score</a></nav>
 						</div>
 					</div>
 					<div class="div-gridbox-stat">
-						<img class="img-gridbox-comments" src='<?=base_url("webflow/dashboard/images/comment.png")?>'>
+						<img class="img-gridbox-comments" src="<?=base_url('webflow/dashboard/images/comment.png')?>">
 						<div class="text-stats-number">5</div>
 					</div>
 				</div>
@@ -77,7 +102,7 @@
 			<div class="archived div-gridbox">
 				<div class="text-gridbox-numbering">3</div>
 				<div class="div-gridbox-header">
-					<h4 class="h-qna-title">Semester 2</h4>
+					<h4 class="h-gridbox-title">Semester 2</h4>
 				</div>
 				<div class="div-gridbox-middle">
 					<ul class="ul-grid-box-data w-list-unstyled">
@@ -88,7 +113,7 @@
 							<div class="text-grid-box-data-li"><strong>Chapters<br></strong>19</div>
 						</li>
 						<li class="li-grid-box-data">
-							<h5 class="grid-box-author-text">pauldstar</h5>
+							<h5 class="grid-box-item-type">pauldstar</h5>
 						</li>
 					</ul>
 				</div>
@@ -98,16 +123,16 @@
 				<div class="div-gridbox-footer w-clearfix">
 					<div class="div-gridbox-footer-buttons">
 						<div class="w-dropdown" data-delay="0">
-							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-share" src='<?=base_url("webflow/dashboard/images/share.png")?>'></div>
+							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-share" src="<?=base_url('webflow/dashboard/images/share.png')?>"></div>
 							<nav class="div-gridbox-footer-dropdown-li w-dropdown-list"><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Twitter</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Facebook</a></nav>
 						</div>
 						<div class="w-dropdown" data-delay="0">
-							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-settings" data-ix="gridbox-settings-appear" src='<?=base_url("webflow/dashboard/images/settings-black.png")?>'></div>
+							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-settings" data-ix="gridbox-settings-appear" src="<?=base_url('webflow/dashboard/images/settings-black.png')?>"></div>
 							<nav class="div-gridbox-footer-dropdown-li w-dropdown-list"><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Duplicate</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Details</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Reset Score</a></nav>
 						</div>
 					</div>
 					<div class="div-gridbox-stat">
-						<img class="img-gridbox-comments" src='<?=base_url("webflow/dashboard/images/comment.png")?>'>
+						<img class="img-gridbox-comments" src="<?=base_url('webflow/dashboard/images/comment.png')?>">
 						<div class="text-stats-number">5</div>
 					</div>
 				</div>
@@ -138,23 +163,23 @@
 							<div class="text-grid-box-data-li">What's a colouring?</div>
 						</li>
 						<li class="li-grid-box-data">
-							<h5 class="grid-box-author-text">pauldstar</h5>
+							<h5 class="grid-box-item-type">pauldstar</h5>
 						</li>
 					</ul>
 				</div>
 				<div class="div-gridbox-footer w-clearfix">
 					<div class="div-gridbox-footer-buttons">
 						<div class="w-dropdown" data-delay="0">
-							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-share" src='<?=base_url("webflow/dashboard/images/share.png")?>'></div>
+							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-share" src="<?=base_url('webflow/dashboard/images/share.png')?>"></div>
 							<nav class="div-gridbox-footer-dropdown-li w-dropdown-list"><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Twitter</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Facebook</a></nav>
 						</div>
 						<div class="w-dropdown" data-delay="0">
-							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-settings" data-ix="gridbox-settings-appear" src='<?=base_url("webflow/dashboard/images/settings-black.png")?>'></div>
+							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-settings" data-ix="gridbox-settings-appear" src="<?=base_url('webflow/dashboard/images/settings-black.png')?>"></div>
 							<nav class="div-gridbox-footer-dropdown-li w-dropdown-list"><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Duplicate</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Details</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Reset Score</a></nav>
 						</div>
 					</div>
 					<div class="div-gridbox-stat">
-						<img class="img-gridbox-comments" src='<?=base_url("webflow/dashboard/images/comment.png")?>'>
+						<img class="img-gridbox-comments" src="<?=base_url('webflow/dashboard/images/comment.png')?>">
 						<div class="text-stats-number">5</div>
 					</div>
 				</div>
@@ -176,23 +201,23 @@
 							<div class="text-grid-box-data-li">What's a colouring?</div>
 						</li>
 						<li class="li-grid-box-data">
-							<h5 class="grid-box-author-text">pauldstar</h5>
+							<h5 class="grid-box-item-type">pauldstar</h5>
 						</li>
 					</ul>
 				</div>
 				<div class="div-gridbox-footer w-clearfix">
 					<div class="div-gridbox-footer-buttons">
 						<div class="w-dropdown" data-delay="0">
-							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-share" src='<?=base_url("webflow/dashboard/images/share.png")?>'></div>
+							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-share" src="<?=base_url('webflow/dashboard/images/share.png')?>"></div>
 							<nav class="div-gridbox-footer-dropdown-li w-dropdown-list"><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Twitter</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Facebook</a></nav>
 						</div>
 						<div class="w-dropdown" data-delay="0">
-							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-settings" data-ix="gridbox-settings-appear" src='<?=base_url("webflow/dashboard/images/settings-black.png")?>'></div>
+							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-settings" data-ix="gridbox-settings-appear" src="<?=base_url('webflow/dashboard/images/settings-black.png')?>"></div>
 							<nav class="div-gridbox-footer-dropdown-li w-dropdown-list"><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Duplicate</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Details</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Reset Score</a></nav>
 						</div>
 					</div>
 					<div class="div-gridbox-stat">
-						<img class="img-gridbox-comments" src='<?=base_url("webflow/dashboard/images/comment.png")?>'>
+						<img class="img-gridbox-comments" src="<?=base_url('webflow/dashboard/images/comment.png')?>">
 						<div class="text-stats-number">5</div>
 					</div>
 				</div>
@@ -220,23 +245,23 @@
 							<div class="text-grid-box-data-li">What's a colouring?</div>
 						</li>
 						<li class="li-grid-box-data">
-							<h5 class="grid-box-author-text">pauldstar</h5>
+							<h5 class="grid-box-item-type">pauldstar</h5>
 						</li>
 					</ul>
 				</div>
 				<div class="div-gridbox-footer w-clearfix">
 					<div class="div-gridbox-footer-buttons">
 						<div class="w-dropdown" data-delay="0">
-							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-share" src='<?=base_url("webflow/dashboard/images/share.png")?>'></div>
+							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-share" src="<?=base_url('webflow/dashboard/images/share.png')?>"></div>
 							<nav class="div-gridbox-footer-dropdown-li w-dropdown-list"><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Twitter</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Facebook</a></nav>
 						</div>
 						<div class="w-dropdown" data-delay="0">
-							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-settings" data-ix="gridbox-settings-appear" src='<?=base_url("webflow/dashboard/images/settings-black.png")?>'></div>
+							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-settings" data-ix="gridbox-settings-appear" src="<?=base_url('webflow/dashboard/images/settings-black.png')?>"></div>
 							<nav class="div-gridbox-footer-dropdown-li w-dropdown-list"><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Duplicate</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Details</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Reset Score</a></nav>
 						</div>
 					</div>
 					<div class="div-gridbox-stat">
-						<img class="img-gridbox-comments" src='<?=base_url("webflow/dashboard/images/comment.png")?>'>
+						<img class="img-gridbox-comments" src="<?=base_url('webflow/dashboard/images/comment.png')?>">
 						<div class="text-stats-number">5</div>
 					</div>
 				</div>
@@ -252,23 +277,23 @@
 				<div class="div-gridbox-middle">
 					<ul class="ul-grid-box-data w-list-unstyled">
 						<li class="li-grid-box-data">
-							<h5 class="grid-box-author-text">pauldstar</h5>
+							<h5 class="grid-box-item-type">pauldstar</h5>
 						</li>
 					</ul>
 				</div>
 				<div class="div-gridbox-footer w-clearfix">
 					<div class="div-gridbox-footer-buttons">
 						<div class="w-dropdown" data-delay="0">
-							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-share" src='<?=base_url("webflow/dashboard/images/share.png")?>'></div>
+							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-share" src="<?=base_url('webflow/dashboard/images/share.png')?>"></div>
 							<nav class="div-gridbox-footer-dropdown-li w-dropdown-list"><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Twitter</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Facebook</a></nav>
 						</div>
 						<div class="w-dropdown" data-delay="0">
-							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-settings" data-ix="gridbox-settings-appear" src='<?=base_url("webflow/dashboard/images/settings-black.png")?>'></div>
+							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-settings" data-ix="gridbox-settings-appear" src="<?=base_url('webflow/dashboard/images/settings-black.png')?>"></div>
 							<nav class="div-gridbox-footer-dropdown-li w-dropdown-list"><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Duplicate</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Details</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Reset Score</a></nav>
 						</div>
 					</div>
 					<div class="div-gridbox-stat">
-						<img class="img-gridbox-comments" src='<?=base_url("webflow/dashboard/images/comment.png")?>'>
+						<img class="img-gridbox-comments" src="<?=base_url('webflow/dashboard/images/comment.png')?>">
 						<div class="text-stats-number">5</div>
 					</div>
 				</div>
@@ -278,7 +303,7 @@
 			<div class="div-gridbox">
 				<div class="text-gridbox-numbering">8</div>
 				<div class="div-gridbox-header">
-					<h4 class="h-qna-title">University of Manchester</h4>
+					<h4 class="h-gridbox-title">University of Manchester</h4>
 				</div>
 				<div class="div-gridbox-middle">
 					<ul class="ul-grid-box-data w-list-unstyled">
@@ -286,7 +311,7 @@
 							<div class="text-grid-box-data-li"><strong>Courses<br></strong>5</div>
 						</li>
 						<li class="li-grid-box-data w-clearfix">
-							<h5 class="grid-box-author-text">pauldstar</h5>
+							<h5 class="grid-box-item-type">pauldstar</h5>
 						</li>
 					</ul>
 				</div>
@@ -295,16 +320,16 @@
 				<div class="div-gridbox-footer w-clearfix">
 					<div class="div-gridbox-footer-buttons">
 						<div class="w-dropdown" data-delay="0">
-							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-share" src='<?=base_url("webflow/dashboard/images/share.png")?>'></div>
+							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-share" src="<?=base_url('webflow/dashboard/images/share.png')?>"></div>
 							<nav class="div-gridbox-footer-dropdown-li w-dropdown-list"><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Twitter</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Facebook</a></nav>
 						</div>
 						<div class="w-dropdown" data-delay="0">
-							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-settings" data-ix="gridbox-settings-appear" src='<?=base_url("webflow/dashboard/images/settings-black.png")?>'></div>
+							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-settings" data-ix="gridbox-settings-appear" src="<?=base_url('webflow/dashboard/images/settings-black.png')?>"></div>
 							<nav class="div-gridbox-footer-dropdown-li w-dropdown-list"><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Duplicate</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Details</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Reset Score</a></nav>
 						</div>
 					</div>
 					<div class="div-gridbox-stat">
-						<img class="img-gridbox-comments" src='<?=base_url("webflow/dashboard/images/comment.png")?>'>
+						<img class="img-gridbox-comments" src="<?=base_url('webflow/dashboard/images/comment.png')?>">
 						<div class="text-stats-number">5</div>
 					</div>
 				</div>
@@ -319,7 +344,7 @@
 				<div class="div-gridbox-middle">
 					<ul class="ul-grid-box-data w-list-unstyled">
 						<li class="li-grid-box-data">
-							<h5 class="grid-box-author-text">pauldstar</h5>
+							<h5 class="grid-box-item-type">pauldstar</h5>
 						</li>
 					</ul>
 				</div>
@@ -327,16 +352,16 @@
 				<div class="div-gridbox-footer w-clearfix">
 					<div class="div-gridbox-footer-buttons">
 						<div class="w-dropdown" data-delay="0">
-							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-share" src='<?=base_url("webflow/dashboard/images/share.png")?>'></div>
+							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-share" src="<?=base_url('webflow/dashboard/images/share.png')?>"></div>
 							<nav class="div-gridbox-footer-dropdown-li w-dropdown-list"><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Twitter</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Facebook</a></nav>
 						</div>
 						<div class="w-dropdown" data-delay="0">
-							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-settings" data-ix="gridbox-settings-appear" src='<?=base_url("webflow/dashboard/images/settings-black.png")?>'></div>
+							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-settings" data-ix="gridbox-settings-appear" src="<?=base_url('webflow/dashboard/images/settings-black.png')?>"></div>
 							<nav class="div-gridbox-footer-dropdown-li w-dropdown-list"><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Duplicate</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Details</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Reset Score</a></nav>
 						</div>
 					</div>
 					<div class="div-gridbox-stat">
-						<img class="img-gridbox-comments" src='<?=base_url("webflow/dashboard/images/comment.png")?>'>
+						<img class="img-gridbox-comments" src="<?=base_url('webflow/dashboard/images/comment.png')?>">
 						<div class="text-stats-number">5</div>
 					</div>
 				</div>
@@ -346,7 +371,7 @@
 			<div class="div-gridbox fail">
 				<div class="div-gridbox-header">
 					<div class="text-gridbox-numbering">10</div>
-					<h4 class="h-qna-title">University of Manchester</h4>
+					<h4 class="h-gridbox-title">University of Manchester</h4>
 				</div>
 				<div class="div-gridbox-middle">
 					<ul class="ul-grid-box-data w-list-unstyled">
@@ -354,7 +379,7 @@
 							<div class="text-grid-box-data-li"><strong>Courses<br></strong>5</div>
 						</li>
 						<li class="li-grid-box-data">
-							<h5 class="grid-box-author-text">pauldstar</h5>
+							<h5 class="grid-box-item-type">pauldstar</h5>
 						</li>
 					</ul>
 				</div>
@@ -362,16 +387,16 @@
 				<div class="div-gridbox-footer w-clearfix">
 					<div class="div-gridbox-footer-buttons">
 						<div class="w-dropdown" data-delay="0">
-							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-share" src='<?=base_url("webflow/dashboard/images/share.png")?>'></div>
+							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-share" src="<?=base_url('webflow/dashboard/images/share.png')?>"></div>
 							<nav class="div-gridbox-footer-dropdown-li w-dropdown-list"><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Twitter</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Facebook</a></nav>
 						</div>
 						<div class="w-dropdown" data-delay="0">
-							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-settings" data-ix="gridbox-settings-appear" src='<?=base_url("webflow/dashboard/images/settings-black.png")?>'></div>
+							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-settings" data-ix="gridbox-settings-appear" src="<?=base_url('webflow/dashboard/images/settings-black.png')?>"></div>
 							<nav class="div-gridbox-footer-dropdown-li w-dropdown-list"><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Duplicate</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Details</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Reset Score</a></nav>
 						</div>
 					</div>
 					<div class="div-gridbox-stat">
-						<img class="img-gridbox-comments" src='<?=base_url("webflow/dashboard/images/comment.png")?>'>
+						<img class="img-gridbox-comments" src="<?=base_url('webflow/dashboard/images/comment.png')?>">
 						<div class="text-stats-number">5</div>
 					</div>
 				</div>
@@ -381,7 +406,7 @@
 			<div class="div-gridbox excellent">
 				<div class="text-gridbox-numbering">11</div>
 				<div class="div-gridbox-header">
-					<h4 class="h-qna-title">COMP36512</h4>
+					<h4 class="h-gridbox-title">COMP36512</h4>
 				</div>
 				<div class="div-gridbox-middle">
 					<ul class="ul-grid-box-data w-list-unstyled">
@@ -392,7 +417,7 @@
 							<div class="text-grid-box-data-li"><strong>Banks<br></strong>2</div>
 						</li>
 						<li class="li-grid-box-data">
-							<h5 class="grid-box-author-text">pauldstar</h5>
+							<h5 class="grid-box-item-type">pauldstar</h5>
 						</li>
 					</ul>
 				</div>
@@ -400,16 +425,16 @@
 				<div class="div-gridbox-footer w-clearfix">
 					<div class="div-gridbox-footer-buttons">
 						<div class="w-dropdown" data-delay="0">
-							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-share" src='<?=base_url("webflow/dashboard/images/share.png")?>'></div>
+							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-share" src="<?=base_url('webflow/dashboard/images/share.png')?>"></div>
 							<nav class="div-gridbox-footer-dropdown-li w-dropdown-list"><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Twitter</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Facebook</a></nav>
 						</div>
 						<div class="w-dropdown" data-delay="0">
-							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-settings" data-ix="gridbox-settings-appear" src='<?=base_url("webflow/dashboard/images/settings-black.png")?>'></div>
+							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-settings" data-ix="gridbox-settings-appear" src="<?=base_url('webflow/dashboard/images/settings-black.png')?>"></div>
 							<nav class="div-gridbox-footer-dropdown-li w-dropdown-list"><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Duplicate</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Details</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Reset Score</a></nav>
 						</div>
 					</div>
 					<div class="div-gridbox-stat">
-						<img class="img-gridbox-comments" src='<?=base_url("webflow/dashboard/images/comment.png")?>'>
+						<img class="img-gridbox-comments" src="<?=base_url('webflow/dashboard/images/comment.png')?>">
 						<div class="text-stats-number">5</div>
 					</div>
 				</div>
@@ -419,7 +444,7 @@
 			<div class="archived div-gridbox">
 				<div class="text-gridbox-numbering">12</div>
 				<div class="div-gridbox-header">
-					<h4 class="h-qna-title">Semester 2</h4>
+					<h4 class="h-gridbox-title">Semester 2</h4>
 				</div>
 				<div class="div-gridbox-middle">
 					<ul class="ul-grid-box-data w-list-unstyled">
@@ -430,7 +455,7 @@
 							<div class="text-grid-box-data-li"><strong>Chapters<br></strong>19</div>
 						</li>
 						<li class="li-grid-box-data">
-							<h5 class="grid-box-author-text">pauldstar</h5>
+							<h5 class="grid-box-item-type">pauldstar</h5>
 						</li>
 					</ul>
 				</div>
@@ -440,16 +465,16 @@
 				<div class="div-gridbox-footer w-clearfix">
 					<div class="div-gridbox-footer-buttons">
 						<div class="w-dropdown" data-delay="0">
-							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-share" src='<?=base_url("webflow/dashboard/images/share.png")?>'></div>
+							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-share" src="<?=base_url('webflow/dashboard/images/share.png')?>"></div>
 							<nav class="div-gridbox-footer-dropdown-li w-dropdown-list"><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Twitter</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Facebook</a></nav>
 						</div>
 						<div class="w-dropdown" data-delay="0">
-							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-settings" data-ix="gridbox-settings-appear" src='<?=base_url("webflow/dashboard/images/settings-black.png")?>'></div>
+							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-settings" data-ix="gridbox-settings-appear" src="<?=base_url('webflow/dashboard/images/settings-black.png')?>"></div>
 							<nav class="div-gridbox-footer-dropdown-li w-dropdown-list"><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Duplicate</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Details</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Reset Score</a></nav>
 						</div>
 					</div>
 					<div class="div-gridbox-stat">
-						<img class="img-gridbox-comments" src='<?=base_url("webflow/dashboard/images/comment.png")?>'>
+						<img class="img-gridbox-comments" src="<?=base_url('webflow/dashboard/images/comment.png')?>">
 						<div class="text-stats-number">5</div>
 					</div>
 				</div>
@@ -480,23 +505,23 @@
 							<div class="text-grid-box-data-li">What's a colouring?</div>
 						</li>
 						<li class="li-grid-box-data">
-							<h5 class="grid-box-author-text">pauldstar</h5>
+							<h5 class="grid-box-item-type">pauldstar</h5>
 						</li>
 					</ul>
 				</div>
 				<div class="div-gridbox-footer w-clearfix">
 					<div class="div-gridbox-footer-buttons">
 						<div class="w-dropdown" data-delay="0">
-							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-share" src='<?=base_url("webflow/dashboard/images/share.png")?>'></div>
+							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-share" src="<?=base_url('webflow/dashboard/images/share.png')?>"></div>
 							<nav class="div-gridbox-footer-dropdown-li w-dropdown-list"><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Twitter</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Facebook</a></nav>
 						</div>
 						<div class="w-dropdown" data-delay="0">
-							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-settings" data-ix="gridbox-settings-appear" src='<?=base_url("webflow/dashboard/images/settings-black.png")?>'></div>
+							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-settings" data-ix="gridbox-settings-appear" src="<?=base_url('webflow/dashboard/images/settings-black.png')?>"></div>
 							<nav class="div-gridbox-footer-dropdown-li w-dropdown-list"><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Duplicate</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Details</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Reset Score</a></nav>
 						</div>
 					</div>
 					<div class="div-gridbox-stat">
-						<img class="img-gridbox-comments" src='<?=base_url("webflow/dashboard/images/comment.png")?>'>
+						<img class="img-gridbox-comments" src="<?=base_url('webflow/dashboard/images/comment.png')?>">
 						<div class="text-stats-number">5</div>
 					</div>
 				</div>
@@ -524,23 +549,23 @@
 							<div class="text-grid-box-data-li">What's a colouring?</div>
 						</li>
 						<li class="li-grid-box-data">
-							<h5 class="grid-box-author-text">pauldstar</h5>
+							<h5 class="grid-box-item-type">pauldstar</h5>
 						</li>
 					</ul>
 				</div>
 				<div class="div-gridbox-footer w-clearfix">
 					<div class="div-gridbox-footer-buttons">
 						<div class="w-dropdown" data-delay="0">
-							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-share" src='<?=base_url("webflow/dashboard/images/share.png")?>'></div>
+							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-share" src="<?=base_url('webflow/dashboard/images/share.png')?>"></div>
 							<nav class="div-gridbox-footer-dropdown-li w-dropdown-list"><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Twitter</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Facebook</a></nav>
 						</div>
 						<div class="w-dropdown" data-delay="0">
-							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-settings" data-ix="gridbox-settings-appear" src='<?=base_url("webflow/dashboard/images/settings-black.png")?>'></div>
+							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-settings" data-ix="gridbox-settings-appear" src="<?=base_url('webflow/dashboard/images/settings-black.png')?>"></div>
 							<nav class="div-gridbox-footer-dropdown-li w-dropdown-list"><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Duplicate</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Details</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Reset Score</a></nav>
 						</div>
 					</div>
 					<div class="div-gridbox-stat">
-						<img class="img-gridbox-comments" src='<?=base_url("webflow/dashboard/images/comment.png")?>'>
+						<img class="img-gridbox-comments" src="<?=base_url('webflow/dashboard/images/comment.png')?>">
 						<div class="text-stats-number">5</div>
 					</div>
 				</div>
@@ -556,23 +581,23 @@
 				<div class="div-gridbox-middle">
 					<ul class="ul-grid-box-data w-list-unstyled">
 						<li class="li-grid-box-data">
-							<h5 class="grid-box-author-text">pauldstar</h5>
+							<h5 class="grid-box-item-type">pauldstar</h5>
 						</li>
 					</ul>
 				</div>
 				<div class="div-gridbox-footer w-clearfix">
 					<div class="div-gridbox-footer-buttons">
 						<div class="w-dropdown" data-delay="0">
-							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-share" src='<?=base_url("webflow/dashboard/images/share.png")?>'></div>
+							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-share" src="<?=base_url('webflow/dashboard/images/share.png')?>"></div>
 							<nav class="div-gridbox-footer-dropdown-li w-dropdown-list"><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Twitter</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Facebook</a></nav>
 						</div>
 						<div class="w-dropdown" data-delay="0">
-							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-settings" data-ix="gridbox-settings-appear" src='<?=base_url("webflow/dashboard/images/settings-black.png")?>'></div>
+							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-settings" data-ix="gridbox-settings-appear" src="<?=base_url('webflow/dashboard/images/settings-black.png')?>"></div>
 							<nav class="div-gridbox-footer-dropdown-li w-dropdown-list"><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Duplicate</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Details</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Reset Score</a></nav>
 						</div>
 					</div>
 					<div class="div-gridbox-stat">
-						<img class="img-gridbox-comments" src='<?=base_url("webflow/dashboard/images/comment.png")?>'>
+						<img class="img-gridbox-comments" src="<?=base_url('webflow/dashboard/images/comment.png')?>">
 						<div class="text-stats-number">5</div>
 					</div>
 				</div>
@@ -582,7 +607,7 @@
 			<div class="div-gridbox">
 				<div class="text-gridbox-numbering">16</div>
 				<div class="div-gridbox-header">
-					<h4 class="h-qna-title">University of Manchester</h4>
+					<h4 class="h-gridbox-title">University of Manchester</h4>
 				</div>
 				<div class="div-gridbox-middle">
 					<ul class="ul-grid-box-data w-list-unstyled">
@@ -590,7 +615,7 @@
 							<div class="text-grid-box-data-li"><strong>Courses<br></strong>5</div>
 						</li>
 						<li class="li-grid-box-data w-clearfix">
-							<h5 class="grid-box-author-text">pauldstar</h5>
+							<h5 class="grid-box-item-type">pauldstar</h5>
 						</li>
 					</ul>
 				</div>
@@ -599,16 +624,16 @@
 				<div class="div-gridbox-footer w-clearfix">
 					<div class="div-gridbox-footer-buttons">
 						<div class="w-dropdown" data-delay="0">
-							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-share" src='<?=base_url("webflow/dashboard/images/share.png")?>'></div>
+							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-share" src="<?=base_url('webflow/dashboard/images/share.png')?>"></div>
 							<nav class="div-gridbox-footer-dropdown-li w-dropdown-list"><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Twitter</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Facebook</a></nav>
 						</div>
 						<div class="w-dropdown" data-delay="0">
-							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-settings" data-ix="gridbox-settings-appear" src='<?=base_url("webflow/dashboard/images/settings-black.png")?>'></div>
+							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-settings" data-ix="gridbox-settings-appear" src="<?=base_url('webflow/dashboard/images/settings-black.png')?>"></div>
 							<nav class="div-gridbox-footer-dropdown-li w-dropdown-list"><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Duplicate</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Details</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Reset Score</a></nav>
 						</div>
 					</div>
 					<div class="div-gridbox-stat">
-						<img class="img-gridbox-comments" src='<?=base_url("webflow/dashboard/images/comment.png")?>'>
+						<img class="img-gridbox-comments" src="<?=base_url('webflow/dashboard/images/comment.png')?>">
 						<div class="text-stats-number">5</div>
 					</div>
 				</div>
@@ -623,7 +648,7 @@
 				<div class="div-gridbox-middle">
 					<ul class="ul-grid-box-data w-list-unstyled">
 						<li class="li-grid-box-data">
-							<h5 class="grid-box-author-text">pauldstar</h5>
+							<h5 class="grid-box-item-type">pauldstar</h5>
 						</li>
 					</ul>
 				</div>
@@ -631,16 +656,16 @@
 				<div class="div-gridbox-footer w-clearfix">
 					<div class="div-gridbox-footer-buttons">
 						<div class="w-dropdown" data-delay="0">
-							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-share" src='<?=base_url("webflow/dashboard/images/share.png")?>'></div>
+							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-share" src="<?=base_url('webflow/dashboard/images/share.png')?>"></div>
 							<nav class="div-gridbox-footer-dropdown-li w-dropdown-list"><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Twitter</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Facebook</a></nav>
 						</div>
 						<div class="w-dropdown" data-delay="0">
-							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-settings" data-ix="gridbox-settings-appear" src='<?=base_url("webflow/dashboard/images/settings-black.png")?>'></div>
+							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-settings" data-ix="gridbox-settings-appear" src="<?=base_url('webflow/dashboard/images/settings-black.png')?>"></div>
 							<nav class="div-gridbox-footer-dropdown-li w-dropdown-list"><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Duplicate</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Details</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Reset Score</a></nav>
 						</div>
 					</div>
 					<div class="div-gridbox-stat">
-						<img class="img-gridbox-comments" src='<?=base_url("webflow/dashboard/images/comment.png")?>'>
+						<img class="img-gridbox-comments" src="<?=base_url('webflow/dashboard/images/comment.png')?>">
 						<div class="text-stats-number">5</div>
 					</div>
 				</div>
@@ -650,7 +675,7 @@
 			<div class="div-gridbox fail">
 				<div class="div-gridbox-header">
 					<div class="text-gridbox-numbering">18</div>
-					<h4 class="h-qna-title">University of Manchester</h4>
+					<h4 class="h-gridbox-title">University of Manchester</h4>
 				</div>
 				<div class="div-gridbox-middle">
 					<ul class="ul-grid-box-data w-list-unstyled">
@@ -658,7 +683,7 @@
 							<div class="text-grid-box-data-li"><strong>Courses<br></strong>5</div>
 						</li>
 						<li class="li-grid-box-data">
-							<h5 class="grid-box-author-text">pauldstar</h5>
+							<h5 class="grid-box-item-type">pauldstar</h5>
 						</li>
 					</ul>
 				</div>
@@ -666,16 +691,16 @@
 				<div class="div-gridbox-footer w-clearfix">
 					<div class="div-gridbox-footer-buttons">
 						<div class="w-dropdown" data-delay="0">
-							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-share" src='<?=base_url("webflow/dashboard/images/share.png")?>'></div>
+							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-share" src="<?=base_url('webflow/dashboard/images/share.png')?>"></div>
 							<nav class="div-gridbox-footer-dropdown-li w-dropdown-list"><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Twitter</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Facebook</a></nav>
 						</div>
 						<div class="w-dropdown" data-delay="0">
-							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-settings" data-ix="gridbox-settings-appear" src='<?=base_url("webflow/dashboard/images/settings-black.png")?>'></div>
+							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-settings" data-ix="gridbox-settings-appear" src="<?=base_url('webflow/dashboard/images/settings-black.png')?>"></div>
 							<nav class="div-gridbox-footer-dropdown-li w-dropdown-list"><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Duplicate</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Details</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Reset Score</a></nav>
 						</div>
 					</div>
 					<div class="div-gridbox-stat">
-						<img class="img-gridbox-comments" src='<?=base_url("webflow/dashboard/images/comment.png")?>'>
+						<img class="img-gridbox-comments" src="<?=base_url('webflow/dashboard/images/comment.png')?>">
 						<div class="text-stats-number">5</div>
 					</div>
 				</div>
@@ -685,7 +710,7 @@
 			<div class="div-gridbox excellent">
 				<div class="text-gridbox-numbering">19</div>
 				<div class="div-gridbox-header">
-					<h4 class="h-qna-title">COMP36512</h4>
+					<h4 class="h-gridbox-title">COMP36512</h4>
 				</div>
 				<div class="div-gridbox-middle">
 					<ul class="ul-grid-box-data w-list-unstyled">
@@ -696,7 +721,7 @@
 							<div class="text-grid-box-data-li"><strong>Banks<br></strong>2</div>
 						</li>
 						<li class="li-grid-box-data">
-							<h5 class="grid-box-author-text">pauldstar</h5>
+							<h5 class="grid-box-item-type">pauldstar</h5>
 						</li>
 					</ul>
 				</div>
@@ -704,16 +729,16 @@
 				<div class="div-gridbox-footer w-clearfix">
 					<div class="div-gridbox-footer-buttons">
 						<div class="w-dropdown" data-delay="0">
-							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-share" src='<?=base_url("webflow/dashboard/images/share.png")?>'></div>
+							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-share" src="<?=base_url('webflow/dashboard/images/share.png')?>"></div>
 							<nav class="div-gridbox-footer-dropdown-li w-dropdown-list"><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Twitter</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Facebook</a></nav>
 						</div>
 						<div class="w-dropdown" data-delay="0">
-							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-settings" data-ix="gridbox-settings-appear" src='<?=base_url("webflow/dashboard/images/settings-black.png")?>'></div>
+							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-settings" data-ix="gridbox-settings-appear" src="<?=base_url('webflow/dashboard/images/settings-black.png')?>"></div>
 							<nav class="div-gridbox-footer-dropdown-li w-dropdown-list"><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Duplicate</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Details</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Reset Score</a></nav>
 						</div>
 					</div>
 					<div class="div-gridbox-stat">
-						<img class="img-gridbox-comments" src='<?=base_url("webflow/dashboard/images/comment.png")?>'>
+						<img class="img-gridbox-comments" src="<?=base_url('webflow/dashboard/images/comment.png')?>">
 						<div class="text-stats-number">5</div>
 					</div>
 				</div>
@@ -723,7 +748,7 @@
 			<div class="archived div-gridbox">
 				<div class="text-gridbox-numbering">20</div>
 				<div class="div-gridbox-header">
-					<h4 class="h-qna-title">Semester 2</h4>
+					<h4 class="h-gridbox-title">Semester 2</h4>
 				</div>
 				<div class="div-gridbox-middle">
 					<ul class="ul-grid-box-data w-list-unstyled">
@@ -734,7 +759,7 @@
 							<div class="text-grid-box-data-li"><strong>Chapters<br></strong>19</div>
 						</li>
 						<li class="li-grid-box-data">
-							<h5 class="grid-box-author-text">pauldstar</h5>
+							<h5 class="grid-box-item-type">pauldstar</h5>
 						</li>
 					</ul>
 				</div>
@@ -744,16 +769,16 @@
 				<div class="div-gridbox-footer w-clearfix">
 					<div class="div-gridbox-footer-buttons">
 						<div class="w-dropdown" data-delay="0">
-							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-share" src='<?=base_url("webflow/dashboard/images/share.png")?>'></div>
+							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-share" src="<?=base_url('webflow/dashboard/images/share.png')?>"></div>
 							<nav class="div-gridbox-footer-dropdown-li w-dropdown-list"><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Twitter</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Facebook</a></nav>
 						</div>
 						<div class="w-dropdown" data-delay="0">
-							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-settings" data-ix="gridbox-settings-appear" src='<?=base_url("webflow/dashboard/images/settings-black.png")?>'></div>
+							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-settings" data-ix="gridbox-settings-appear" src="<?=base_url('webflow/dashboard/images/settings-black.png')?>"></div>
 							<nav class="div-gridbox-footer-dropdown-li w-dropdown-list"><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Duplicate</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Details</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Reset Score</a></nav>
 						</div>
 					</div>
 					<div class="div-gridbox-stat">
-						<img class="img-gridbox-comments" src='<?=base_url("webflow/dashboard/images/comment.png")?>'>
+						<img class="img-gridbox-comments" src="<?=base_url('webflow/dashboard/images/comment.png')?>">
 						<div class="text-stats-number">5</div>
 					</div>
 				</div>
@@ -784,23 +809,23 @@
 							<div class="text-grid-box-data-li">What's a colouring?</div>
 						</li>
 						<li class="li-grid-box-data">
-							<h5 class="grid-box-author-text">pauldstar</h5>
+							<h5 class="grid-box-item-type">pauldstar</h5>
 						</li>
 					</ul>
 				</div>
 				<div class="div-gridbox-footer w-clearfix">
 					<div class="div-gridbox-footer-buttons">
 						<div class="w-dropdown" data-delay="0">
-							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-share" src='<?=base_url("webflow/dashboard/images/share.png")?>'></div>
+							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-share" src="<?=base_url('webflow/dashboard/images/share.png')?>"></div>
 							<nav class="div-gridbox-footer-dropdown-li w-dropdown-list"><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Twitter</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Facebook</a></nav>
 						</div>
 						<div class="w-dropdown" data-delay="0">
-							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-settings" data-ix="gridbox-settings-appear" src='<?=base_url("webflow/dashboard/images/settings-black.png")?>'></div>
+							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-settings" data-ix="gridbox-settings-appear" src="<?=base_url('webflow/dashboard/images/settings-black.png')?>"></div>
 							<nav class="div-gridbox-footer-dropdown-li w-dropdown-list"><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Duplicate</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Details</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Reset Score</a></nav>
 						</div>
 					</div>
 					<div class="div-gridbox-stat">
-						<img class="img-gridbox-comments" src='<?=base_url("webflow/dashboard/images/comment.png")?>'>
+						<img class="img-gridbox-comments" src="<?=base_url('webflow/dashboard/images/comment.png')?>">
 						<div class="text-stats-number">5</div>
 					</div>
 				</div>
@@ -822,23 +847,23 @@
 							<div class="text-grid-box-data-li">What's a colouring?</div>
 						</li>
 						<li class="li-grid-box-data">
-							<h5 class="grid-box-author-text">pauldstar</h5>
+							<h5 class="grid-box-item-type">pauldstar</h5>
 						</li>
 					</ul>
 				</div>
 				<div class="div-gridbox-footer w-clearfix">
 					<div class="div-gridbox-footer-buttons">
 						<div class="w-dropdown" data-delay="0">
-							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-share" src='<?=base_url("webflow/dashboard/images/share.png")?>'></div>
+							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-share" src="<?=base_url('webflow/dashboard/images/share.png')?>"></div>
 							<nav class="div-gridbox-footer-dropdown-li w-dropdown-list"><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Twitter</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Facebook</a></nav>
 						</div>
 						<div class="w-dropdown" data-delay="0">
-							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-settings" data-ix="gridbox-settings-appear" src='<?=base_url("webflow/dashboard/images/settings-black.png")?>'></div>
+							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-settings" data-ix="gridbox-settings-appear" src="<?=base_url('webflow/dashboard/images/settings-black.png')?>"></div>
 							<nav class="div-gridbox-footer-dropdown-li w-dropdown-list"><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Duplicate</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Details</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Reset Score</a></nav>
 						</div>
 					</div>
 					<div class="div-gridbox-stat">
-						<img class="img-gridbox-comments" src='<?=base_url("webflow/dashboard/images/comment.png")?>'>
+						<img class="img-gridbox-comments" src="<?=base_url('webflow/dashboard/images/comment.png')?>">
 						<div class="text-stats-number">5</div>
 					</div>
 				</div>
@@ -866,23 +891,23 @@
 							<div class="text-grid-box-data-li">What's a colouring?</div>
 						</li>
 						<li class="li-grid-box-data">
-							<h5 class="grid-box-author-text">pauldstar</h5>
+							<h5 class="grid-box-item-type">pauldstar</h5>
 						</li>
 					</ul>
 				</div>
 				<div class="div-gridbox-footer w-clearfix">
 					<div class="div-gridbox-footer-buttons">
 						<div class="w-dropdown" data-delay="0">
-							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-share" src='<?=base_url("webflow/dashboard/images/share.png")?>'></div>
+							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-share" src="<?=base_url('webflow/dashboard/images/share.png')?>"></div>
 							<nav class="div-gridbox-footer-dropdown-li w-dropdown-list"><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Twitter</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Facebook</a></nav>
 						</div>
 						<div class="w-dropdown" data-delay="0">
-							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-settings" data-ix="gridbox-settings-appear" src='<?=base_url("webflow/dashboard/images/settings-black.png")?>'></div>
+							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-settings" data-ix="gridbox-settings-appear" src="<?=base_url('webflow/dashboard/images/settings-black.png')?>"></div>
 							<nav class="div-gridbox-footer-dropdown-li w-dropdown-list"><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Duplicate</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Details</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Reset Score</a></nav>
 						</div>
 					</div>
 					<div class="div-gridbox-stat">
-						<img class="img-gridbox-comments" src='<?=base_url("webflow/dashboard/images/comment.png")?>'>
+						<img class="img-gridbox-comments" src="<?=base_url('webflow/dashboard/images/comment.png')?>">
 						<div class="text-stats-number">5</div>
 					</div>
 				</div>
@@ -898,27 +923,27 @@
 				<div class="div-gridbox-middle">
 					<ul class="ul-grid-box-data w-list-unstyled">
 						<li class="li-grid-box-data">
-							<h5 class="grid-box-author-text">pauldstar</h5>
+							<h5 class="grid-box-item-type">pauldstar</h5>
 						</li>
 					</ul>
 				</div>
 				<div class="div-gridbox-footer w-clearfix">
 					<div class="div-gridbox-footer-buttons">
 						<div class="w-dropdown" data-delay="0">
-							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-share" src='<?=base_url("webflow/dashboard/images/share.png")?>'></div>
+							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-share" src="<?=base_url('webflow/dashboard/images/share.png')?>"></div>
 							<nav class="div-gridbox-footer-dropdown-li w-dropdown-list"><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Twitter</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Facebook</a></nav>
 						</div>
 						<div class="w-dropdown" data-delay="0">
-							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-settings" data-ix="gridbox-settings-appear" src='<?=base_url("webflow/dashboard/images/settings-black.png")?>'></div>
+							<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle"><img class="img-gridbox-settings" data-ix="gridbox-settings-appear" src="<?=base_url('webflow/dashboard/images/settings-black.png')?>"></div>
 							<nav class="div-gridbox-footer-dropdown-li w-dropdown-list"><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Duplicate</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Details</a><a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Reset Score</a></nav>
 						</div>
 					</div>
 					<div class="div-gridbox-stat">
-						<img class="img-gridbox-comments" src='<?=base_url("webflow/dashboard/images/comment.png")?>'>
+						<img class="img-gridbox-comments" src="<?=base_url('webflow/dashboard/images/comment.png')?>">
 						<div class="text-stats-number">5</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> -->
 	</div>
 </div>

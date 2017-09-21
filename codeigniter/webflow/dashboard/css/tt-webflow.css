@@ -706,7 +706,7 @@ img {
 .div-gridbox.good {
   background-color: #06d851;
 }
-.h-qna-title {
+.h-gridbox-title {
   display: inline-block;
   font-family: 'Open Sans', sans-serif;
   text-transform: capitalize;
@@ -771,7 +771,7 @@ img {
 .div-gridbox-footer-icon-wrapper:hover {
   opacity: 1;
 }
-.grid-box-author-text {
+.grid-box-item-type {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;

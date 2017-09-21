@@ -9,13 +9,14 @@ class Dashboard extends CI_Controller
     parent::__construct();
     $this->load->helper('url');
     // object classes are needed to serialise the objects stored in session
-    $this->load->file(APPPATH . 'objects/User.php';
-    $this->load->file(APPPATH . 'objects/Course.php';
-    $this->load->file(APPPATH . 'objects/Bank.php';
-    $this->load->file(APPPATH . 'objects/Revision.php';
-    $this->load->file(APPPATH . 'objects/Chapter.php';
-    $this->load->file(APPPATH . 'objects/Question.php';
-    $this->load->file(APPPATH . 'objects/Question_comment.php';
+    require_once APPPATH.'objects/User.php';
+    require_once APPPATH.'objects/School.php';
+    require_once APPPATH.'objects/Course.php';
+    require_once APPPATH.'objects/Bank.php';
+    require_once APPPATH.'objects/Revision.php';
+    require_once APPPATH.'objects/Chapter.php';
+    require_once APPPATH.'objects/Question.php';
+    require_once APPPATH.'objects/Question_comment.php';
     $this->load->library('session');
     if (isset($_SESSION['user'])) self::$user = $_SESSION['user'];
     else redirect('login');
@@ -30,17 +31,31 @@ class Dashboard extends CI_Controller
 
   public function dashboard()
   {	// get list of banks from user object
+		$this->load->helper('url');
+		$this->load->helper('html');
     $this->load->model('bank_model');
     $data['banks'] = $this->bank_model->get_user_banks_session();
-    $this->load->view('dashboard/header-db', $data);
+    $this->load->view('dashboard/header-db');
     $this->load->view('dashboard/navbar-db');
     $this->load->view('dashboard/sidebar-db');
     $this->load->view('dashboard/toolbar-db');
-    $this->load->view('dashboard/page-content-db');
+    $this->load->view('dashboard/page-content-db', $data);
     $this->load->view('dashboard/popup-db');
     $this->load->view('dashboard/footer-db');
   }
+	
+	public function get_bank_grid($course_id = '')
+	{
+		$this->load->model('bank_model');
+		$banks = $this->bank_model->get_user_banks_session();
+		echo json_encode($banks);
+	}
 
+	public function get_course_grid($course_id = '')
+	{
+		return;
+	}
+	
   public function logout()
   {
     $_SESSION = array();

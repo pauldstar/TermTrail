@@ -31,9 +31,8 @@
 		<script src="<?=base_url('muuri/velocity.min.js')?>"></script>
 		<script src="<?=base_url('muuri/muuri.min.js')?>"></script>
 		<script src="<?=base_url('jquery/jquery-ui-1.12.1.custom/jquery-ui.min.js')?>"></script>
+		<script type="text/javascript"> var siteUrl = "<?=site_url()?>" </script>
 		<script src="<?=base_url('tt/tt-dashboard.js')?>" type="text/javascript"></script>
-		<!-- For webflow -->
-		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>-->
     <script src="<?=base_url('webflow/dashboard/js/webflow.js')?>" type="text/javascript"></script>
     <!-- [if lte IE 9]><script src="<?=base_url('webflow/dashboard/js/placeholders.min.js')?>" type="text/javascript"></script> -->
   </body>

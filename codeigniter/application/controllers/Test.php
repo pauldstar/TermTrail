@@ -6,17 +6,17 @@ class Test extends CI_Controller
 
   public function __construct()
   {
-    parent::__construct()
+    parent::__construct();
     $this->load->helper('url');
     $this->load->library('form_validation');
     // object classes are needed to serialise the objects stored in session
-    $this->load->file(APPPATH . 'objects/User.php');
-    $this->load->file(APPPATH . 'objects/School.php');
-    $this->load->file(APPPATH . 'objects/Course.php');
-    $this->load->file(APPPATH . 'objects/Bank.php');
-    $this->load->file(APPPATH . 'objects/Chapter.php');
-    $this->load->file(APPPATH . 'objects/Question.php');
-    // $this->load->file(APPPATH . 'objects/Question_comment.php';
+    require_once APPPATH.'objects/User.php';
+    require_once APPPATH.'objects/School.php';
+    require_once APPPATH.'objects/Course.php';
+    require_once APPPATH.'objects/Bank.php';
+    require_once APPPATH.'objects/Chapter.php';
+    require_once APPPATH.'objects/Question.php';
+    // require_once APPPATH.'objects/Question_comment.php';
     $this->load->library('session');
     if (isset($_SESSION['user'])) self::$user = $_SESSION['user'];
     else redirect('login');

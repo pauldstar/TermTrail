@@ -19,19 +19,19 @@
 			<div class="div-sidebar-menu">
 				<ul class="ul-sidebar-menu w-list-unstyled">
 					<li class="li-sidebar-menu">
-						<a class="a-sidebar-menu-li active w-inline-block" data-ix="banks-content-appear" href="#">
+						<a class="a-sidebar-menu-li active w-inline-block"  data-action="refresh-grid" data-title="banks" href="#">
 							<img src='<?=base_url("webflow/dashboard/images/bank.png")?>'>
-							<div class="text-sidebar-menu" data-ix="sidebar-active-menu-item">Banks</div>
+							<div class="text-sidebar-menu">Banks</div>
 						</a>
 					</li>
 					<li class="li-sidebar-menu">
-						<a class="a-sidebar-menu-li w-inline-block" href="#">
+						<a class="a-sidebar-menu-li w-inline-block" data-action="refresh-grid" data-title="courses" href="#">
 							<img src='<?=base_url("webflow/dashboard/images/course.png")?>'>
-							<div class="a-sidebar-collapsible text-sidebar-menu">Courses</div>
+							<div class="text-sidebar-menu">Courses</div>
 						</a>
 					</li>
 					<li class="li-sidebar-menu">
-						<a class="a-sidebar-menu-li w-inline-block" href="#">
+						<a class="a-sidebar-menu-li w-inline-block" data-action="refresh-grid" data-title="schools" href="#">
 							<img src='<?=base_url("webflow/dashboard/images/school-bag.png")?>'>
 							<div class="text-sidebar-menu">Schools</div>
 						</a>
@@ -42,7 +42,8 @@
 						<a class="a-sidebar-menu-li collapsible w-clearfix w-inline-block" data-ix="submenu-expand" href="#">
 							<img src='<?=base_url("webflow/dashboard/images/resource.png")?>'>
 							<div class="a-sidebar-collapsible text-sidebar-menu">Add Resource</div>
-							<img class="img-sidebar-li-expand" fill="#b3b3b3" src='<?=base_url("webflow/dashboard/images/plus-s_1.png")?>' width="25"><img class="img-sidebar-li-collapse" data-ix="submenu-vanish" fill="#b3b3b3" src='<?=base_url("webflow/dashboard/images/minus-thin.png")?>'>
+							<img class="img-sidebar-li-expand" fill="#b3b3b3" src='<?=base_url("webflow/dashboard/images/plus-s_1.png")?>' width="25">
+							<img class="img-sidebar-li-collapse" data-ix="submenu-vanish" fill="#b3b3b3" src='<?=base_url("webflow/dashboard/images/minus-thin.png")?>'>
 						</a>
 						<ul class="div-sidebar-submenu w-list-unstyled">
 							<li class="li-sidebar-submenu">

@@ -1,11 +1,12 @@
+<?php $user = $_SESSION['user']; ?>
 <div class="div-navbar w-nav" data-animation="over-left" data-collapse="all" data-duration="200">
   <div class="btn-navbar-menu" data-ix="sidebar-appear-toggle">
 		<span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
 	</div>
   <h3 class="h-logo">TermTrail</h3>
   <div class="div-navbar-container w-container">
-    <h3 class="h-main-topic-heading">Digital Networks</h3>
-    <h4 class="h-sub-topic-heading">Chapter 4</h4>
+    <h3 class="h-main-topic-heading">Banks</h3>
+    <h4 class="h-sub-topic-heading"></h4>
   </div>
   <div class="div-navbar-username-toggle" data-ix="user-account-banner-toggle">
     <div class="text-navbar-username">

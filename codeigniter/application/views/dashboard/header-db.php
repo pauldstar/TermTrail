@@ -1,8 +1,4 @@
-<?php
-  $this->load->helper('html');
-  $this->load->helper('url');
-	$user = $_SESSION['user'];
-?>
+<?php $user = $_SESSION['user']; ?>
 <!DOCTYPE html>
 <!--  This site was created in Webflow. http://www.webflow.com -->
 <!--  Last Published: Fri Aug 25 2017 16:28:30 GMT+0000 (UTC)  -->
