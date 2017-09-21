@@ -7,7 +7,7 @@ class User_model extends CI_Model
   {
     parent::__construct();
     $this->load->database();
-    require_once APPPATH . 'objects/User.php';
+    $this->load->file(APPPATH.'objects/User.php');
     $this->load->library('session');
   }
 
@@ -59,7 +59,6 @@ class User_model extends CI_Model
 			case 'schools':
 				foreach ($array as $school) self::$user->schools[] = $school;
 				break;
-				
 			case 'courses':
 				foreach ($array as $course)
 				{
@@ -67,7 +66,6 @@ class User_model extends CI_Model
 					self::$user->schools[$school_id-1]->courses[] = $course;
 				}
 				break;
-				
 			case 'banks':
 				foreach ($array as $bank)
 				{
@@ -77,7 +75,6 @@ class User_model extends CI_Model
 						courses[$course_id-1]->banks[] = $bank;
 				}
 				break;
-				
 			case 'chapters':
 				foreach ($array as $chapter)
 				{
@@ -88,7 +85,6 @@ class User_model extends CI_Model
 						courses[$course_id-1]->banks[$bank_id-1]->chapters[] = $chapter;
 				}
 				break;
-				
 			case 'questions':
 			  foreach ($array as $question)
 				{

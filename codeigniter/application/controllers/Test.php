@@ -2,7 +2,7 @@
 class Test extends CI_Controller 
 {
   private static $user;
-	public $view_data = array();
+	private static $view_data = array();
 
   public function __construct()
   {
@@ -16,12 +16,11 @@ class Test extends CI_Controller
     $this->load->file(APPPATH . 'objects/Bank.php');
     $this->load->file(APPPATH . 'objects/Chapter.php');
     $this->load->file(APPPATH . 'objects/Question.php');
-    $this->load->file(APPPATH . 'objects/Question_Comment.php');
-    // require_once APPPATH . 'objects/Question_comment.php';
+    // $this->load->file(APPPATH . 'objects/Question_comment.php';
     $this->load->library('session');
     if (isset($_SESSION['user'])) self::$user = $_SESSION['user'];
     else redirect('login');
-		$this->view_data['formsuccess'] = '';
+		self::$view_data['formsuccess'] = '';
   }
 
   public function test_body()
@@ -53,12 +52,12 @@ class Test extends CI_Controller
       else 
 			{
 				self::$user->schools[] = $school;
-				$this->view_data['formsuccess'] = 
+				self::$view_data['formsuccess'] = 
 					"<h3>Successfully added school: ".$school->school_title."</h3><br/>";
 			}
     }
 		$this->load->view('templates/header');
-		$this->load->view('test/add_school', $this->view_data);
+		$this->load->view('test/add_school', self::$view_data);
     $this->load->view('templates/footer');
   }
 
@@ -77,12 +76,12 @@ class Test extends CI_Controller
       else 
 			{
 				self::$user->schools[$school_id-1]->courses[] = $course;
-				$this->view_data['formsuccess'] = 
+				self::$view_data['formsuccess'] = 
 					"<h3>Successfully added course: ".$course->course_title."</h3><br/>";
 			}
     }
 		$this->load->view('templates/header');
-		$this->load->view('test/add_course', $this->view_data);
+		$this->load->view('test/add_course', self::$view_data);
     $this->load->view('templates/footer');
   }
 
@@ -102,12 +101,12 @@ class Test extends CI_Controller
       else 
 			{
 				self::$user->schools[$school_id-1]->courses[$course_id-1]->banks[] = $bank;
-				$this->view_data['formsuccess'] = 
+				self::$view_data['formsuccess'] = 
 					"<h3>Successfully added Bank: ".$bank->bank_title."</h3><br/>";
 			}
     }
 		$this->load->view('templates/header');
-		$this->load->view('test/add_bank', $this->view_data);
+		$this->load->view('test/add_bank', self::$view_data);
     $this->load->view('templates/footer');
   }
 
@@ -129,12 +128,12 @@ class Test extends CI_Controller
 			{
 				self::$user->schools[$school_id-1]->courses[$course_id-1]->
 					banks[$bank_id-1]->chapters[] = $chapter;
-				$this->view_data['formsuccess'] = 
+				self::$view_data['formsuccess'] = 
 					"<h3>Successfully added Chapter: ".$chapter->chapter_title."</h3><br/>";
 			}
     }
 		$this->load->view('templates/header');
-		$this->load->view('test/add_chapter', $this->view_data);
+		$this->load->view('test/add_chapter', self::$view_data);
     $this->load->view('templates/footer');
   }
 
@@ -160,12 +159,12 @@ class Test extends CI_Controller
 			{
 				self::$user->schools[$school_id-1]->courses[$course_id-1]->
 					banks[$bank_id-1]->chapters[$chapter_id-1]->questions[] = $question;
-				$this->view_data['formsuccess'] = 
+				self::$view_data['formsuccess'] = 
 					"<h3>Successfully added Question: ".$question->content."</h3><br/>";
 			}
     }
 		$this->load->view('templates/header');
-		$this->load->view('test/add_question', $this->view_data);
+		$this->load->view('test/add_question', self::$view_data);
     $this->load->view('templates/footer');
   }
 	
@@ -193,12 +192,12 @@ class Test extends CI_Controller
 			{
 				$bank =& self::$user->schools[$school_id-1]->courses[$course_id-1]->bank[$bank_id - 1];
 				$bank->chapters[$chapter_id-1]->questions[] = $question;
-				$this->view_data['formsuccess'] = 
+				self::$view_data['formsuccess'] = 
 					"<h3>Successfully added Comment: ".$question_comment['comment']."</h3><br/>";
 			}
     }
 		$this->load->view('templates/header');
-		$this->load->view('test/add_question_comment',$this->view_data);
+		$this->load->view('test/add_question_comment',self::$view_data);
     $this->load->view('templates/footer');
   }*/
 }

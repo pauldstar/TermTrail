@@ -5,10 +5,10 @@ class Revision_model extends CI_Model {
   {
     parent::__construct();
     $this->load->database();
-    require_once APPPATH . 'objects/User.php';
-    require_once APPPATH . 'objects/Course.php';
-    require_once APPPATH . 'objects/Trail.php';
-    require_once APPPATH . 'objects/Revision.php';
+    $this->load->file(APPPATH.'objects/User.php');
+    $this->load->file(APPPATH.'objects/Course.php');
+    $this->load->file(APPPATH.'objects/Trail.php');
+    $this->load->file(APPPATH.'objects/Revision.php');
     $this->load->library('session');
   }
 

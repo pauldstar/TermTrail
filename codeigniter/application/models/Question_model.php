@@ -7,12 +7,12 @@ class Question_model extends CI_Model
   {
     parent::__construct();
     $this->load->database();
-    require_once APPPATH . 'objects/User.php';
-    require_once APPPATH . 'objects/School.php';
-    require_once APPPATH . 'objects/Course.php';
-    require_once APPPATH . 'objects/Bank.php';
-    require_once APPPATH . 'objects/Chapter.php';
-    require_once APPPATH . 'objects/Question.php';
+    $this->load->file(APPPATH.'objects/User.php');
+    $this->load->file(APPPATH.'objects/School.php');
+    $this->load->file(APPPATH.'objects/Course.php');
+    $this->load->file(APPPATH.'objects/Bank.php');
+    $this->load->file(APPPATH.'objects/Chapter.php');
+    $this->load->file(APPPATH.'objects/Question.php');
     $this->load->library('session');
 		self::$user = $_SESSION['user'];
   }

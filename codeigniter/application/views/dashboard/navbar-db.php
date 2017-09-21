@@ -9,12 +9,7 @@
   </div>
   <div class="div-navbar-username-toggle" data-ix="user-account-banner-toggle">
     <div class="text-navbar-username">
-			<strong>
-				<?php 
-					$user = $_SESSION['user'];
-					echo "$user->username";
-				?>
-			</strong>
+			<strong><?=$user->username?></strong>
 		</div>
 		<span class="icon-user-banner-expand glyphicon glyphicon-plus"  id="toggle-expand" aria-hidden="true"></span>
 		<span class="icon-user-banner-collapse glyphicon glyphicon-minus" id="toggle-collapse" aria-hidden="true"></span>

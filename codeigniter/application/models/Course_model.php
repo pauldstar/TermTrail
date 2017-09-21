@@ -7,9 +7,9 @@ class Course_model extends CI_Model
   {
     parent::__construct();
     $this->load->database();
-    require_once APPPATH . 'objects/User.php';
-    require_once APPPATH . 'objects/School.php';
-    require_once APPPATH . 'objects/Course.php';
+    $this->load->file(APPPATH.'objects/User.php');
+    $this->load->file(APPPATH.'objects/School.php');
+    $this->load->file(APPPATH.'objects/Course.php');
     $this->load->library('session');
 		self::$user = $_SESSION['user'];
   }

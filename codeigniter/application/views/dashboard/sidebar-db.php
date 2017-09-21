@@ -46,31 +46,31 @@
 						</a>
 						<ul class="div-sidebar-submenu w-list-unstyled">
 							<li class="li-sidebar-submenu">
-								<a class="a-sidebar-submenu w-inline-block" id="sidebar-submenu-add-question" href="#">
+								<a class="a-sidebar-submenu add-resource w-inline-block" id="sidebar-submenu-add-question" href="#">
 									<img class="img-sidebar-menu-li" src='<?=base_url("webflow/dashboard/images/minus-s_1.png")?>'>
 									<div class="text-sidebar-submenu" data-ix="hide-submenu">Question</div>
 								</a>
 							</li>
 							<li class="li-sidebar-submenu">
-								<a class="a-sidebar-submenu w-inline-block" id="sidebar-submenu-add-chapter" href="#">
+								<a class="a-sidebar-submenu add-resource w-inline-block" id="sidebar-submenu-add-chapter" href="#">
 									<img class="img-sidebar-menu-li" src='<?=base_url("webflow/dashboard/images/minus-s_1.png")?>'>
 									<div class="text-sidebar-submenu" data-ix="hide-submenu">Chapter</div>
 								</a>
 							</li>
 							<li class="li-sidebar-submenu">
-								<a class="a-sidebar-submenu w-inline-block" id="sidebar-submenu-add-bank" href="#">
+								<a class="a-sidebar-submenu add-resource w-inline-block" id="sidebar-submenu-add-bank" href="#">
 									<img class="img-sidebar-menu-li" src='<?=base_url("webflow/dashboard/images/minus-s_1.png")?>'>
 									<div class="text-sidebar-submenu" data-ix="hide-submenu">Bank</div>
 								</a>
 							</li>
 							<li class="li-sidebar-submenu">
-								<a class="a-sidebar-submenu w-inline-block" id="sidebar-submenu-add-course" href="#">
+								<a class="a-sidebar-submenu add-resource w-inline-block" id="sidebar-submenu-add-course" href="#">
 									<img class="img-sidebar-menu-li" src='<?=base_url("webflow/dashboard/images/minus-s_1.png")?>'>
 									<div class="text-sidebar-submenu" data-ix="hide-submenu">Course</div>
 								</a>
 							</li>
 							<li class="li-sidebar-submenu">
-								<a class="a-sidebar-submenu w-inline-block" id="sidebar-submenu-add-school" href="#">
+								<a class="a-sidebar-submenu add-resource w-inline-block" id="sidebar-submenu-add-school" href="#">
 									<img class="img-sidebar-menu-li" src='<?=base_url("webflow/dashboard/images/minus-s_1.png")?>'>
 									<div class="text-sidebar-submenu" data-ix="hide-submenu">School</div>
 								</a>
