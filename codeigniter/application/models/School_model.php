@@ -22,7 +22,7 @@ class School_model extends CI_Model
 		foreach ($query->result_array() as $row) $schools[] = new School($row);
 		return $schools;
   }
-
+	
   public function set_and_get_school($school_type)
   {
     $school_id = sizeof(self::$user->schools) + 1;

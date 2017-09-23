@@ -1,6 +1,6 @@
-/*! jQuery UI - v1.12.1 - 2017-09-06
+/*! jQuery UI - v1.12.1 - 2017-09-22
 * http://jqueryui.com
-* Includes: draggable.css, sortable.css
+* Includes: sortable.css
 * Copyright jQuery Foundation and other contributors; Licensed MIT */
 
-.ui-draggable-handle{-ms-touch-action:none;touch-action:none}.ui-sortable-handle{-ms-touch-action:none;touch-action:none}
+.ui-sortable-handle{-ms-touch-action:none;touch-action:none}

@@ -52,13 +52,14 @@ $(document).ready(function()
 	$searchCategory.click(selectSearchCategory);
 	// PAGE CONTENT
 	initPageContentGrid();
-	$gridboxSelectionCheckbox.click(selectGridbox);
-	$gridbox.mouseenter(displayGridIcons);
-	$gridbox.mouseleave(hideGridIcons);
+	refreshPageGrid('banks');
+	$tt(document).on('click', '.div-selection-checkbox', selectGridbox);
+	$tt(document).on('mouseenter', '.div-gridbox', displayGridIcons);
+	$tt(document).on('mouseleave', '.div-gridbox', hideGridIcons);
 	// POPUP
 	$addResource.click(popupAddResource);
 	$popupBackground.click(removePopup);
-	
+
 	/*
 	INTERACTIONS
 	*/
@@ -140,7 +141,7 @@ $(document).ready(function()
 			update: function(event, ui)
 			{ // update indices after sort and DOM change
 				var gridCounterNumbers = 
-					$('.ul-sidebar-questions-list').sortable('toArray', {attribute: 'data-gc-id'});
+					$tt('.ul-sidebar-questions-list').sortable('toArray', {attribute: 'data-gc-id'});
 				var movedGridCounterElement = ui.item;
 				var gridCounterNumber = parseInt(movedGridCounterElement.html());
 				var fromIndex = toIndex = gridCounterNumber - 1;
@@ -148,7 +149,7 @@ $(document).ready(function()
 				while (gridCounterNumber < gridCounterNumbers[toIndex])
 				{ // item dragged down the order
 					currentGridCounterElement = 
-						$('.ul-sidebar-questions-list').children('.li-sidebar-question').eq(toIndex);
+						$tt('.ul-sidebar-questions-list').children('.li-sidebar-question').eq(toIndex);
 					newGridCounterNumber = parseInt(currentGridCounterElement.html()) - 1;
 					currentGridCounterElement.html(newGridCounterNumber);
 					currentGridCounterElement.attr('data-gc-id', newGridCounterNumber);
@@ -157,7 +158,7 @@ $(document).ready(function()
 				while (gridCounterNumber > gridCounterNumbers[toIndex])
 				{ // item dragged up the order
 					currentGridCounterElement = 
-						$('.ul-sidebar-questions-list').children('.li-sidebar-question').eq(toIndex);
+						$tt('.ul-sidebar-questions-list').children('.li-sidebar-question').eq(toIndex);
 					newGridCounterNumber = parseInt(currentGridCounterElement.html()) + 1;
 					currentGridCounterElement.html(newGridCounterNumber);
 					currentGridCounterElement.attr('data-gc-id', newGridCounterNumber);
@@ -174,10 +175,10 @@ $(document).ready(function()
 	function gridboxFocus()
 	{ // scroll to highlighted gridbox
 		var gridIndex = $(this).html() - 1;
-		$focusedGridbox = $('.div-gridbox').eq(gridIndex);
+		$focusedGridbox = $tt('.div-gridbox').eq(gridIndex);
 		$focusedGridbox.addClass('outline-div-gridbox');
 		var scrollOffset = $focusedGridbox.offset().top - 350;
-		$('html, body').animate({scrollTop: scrollOffset}, 500);
+		$tt('html, body').animate({scrollTop: scrollOffset}, 500);
 	}
 	
 	function gridboxUnfocus()
@@ -200,44 +201,44 @@ $(document).ready(function()
 	  if ($target.hasClass('selected'))
 		{ // update status text
 			selectedGridboxCount--;
-			if (selectedGridboxCount == 0) $('.text-grid-status').html(defaultGridStatusText);
-			else $('.text-grid-status').html(selectedGridboxCount + ' Selected');
+			if (selectedGridboxCount == 0) $tt('.text-grid-status').html(defaultGridStatusText);
+			else $tt('.text-grid-status').html(selectedGridboxCount + ' Selected');
 		}
 		else 
 		{ // update status text
 			selectedGridboxCount++;
-			if (selectedGridboxCount == 1) defaultGridStatusText = $('.text-grid-status').html();
-			$('.text-grid-status').html(selectedGridboxCount + ' Selected');
+			if (selectedGridboxCount == 1) defaultGridStatusText = $tt('.text-grid-status').html();
+			$tt('.text-grid-status').html(selectedGridboxCount + ' Selected');
 		}
 		$target.toggleClass('selected');
-		$target.parent().toggleClass('selected');
+		$target.parents('.div-gridbox').toggleClass('selected');
 		$target.siblings('.div-gridbox-footer').toggleClass('selected');
-}
+	}
 	
 	function popupAddResource()
 	{
 		var popups = [];
-		popups.push($('.popup-background'));
-		popups.push($('.div-add-resource'));
-		popups.push($('.div-generic-popup-wrapper'));
+		popups.push($tt('.popup-background'));
+		popups.push($tt('.div-add-resource'));
+		popups.push($tt('.div-generic-popup-wrapper'));
 		togglePopupAppear(popups);
 		var elementID = $(this).attr('id');
 		switch (elementID)
 		{
 			case 'sidebar-submenu-add-question':
-				$('.h-resource-main').html('Add Question');
+				$tt('.h-resource-main').html('Add Question');
 				break;
 			case 'sidebar-submenu-add-chapter':
-				$('.h-resource-main').html('Add Chapter');
+				$tt('.h-resource-main').html('Add Chapter');
 				break;
 			case 'sidebar-submenu-add-bank':
-				$('.h-resource-main').html('Add Bank');
+				$tt('.h-resource-main').html('Add Bank');
 				break;
 			case 'sidebar-submenu-add-course':
-				$('.h-resource-main').html('Add Course');
+				$tt('.h-resource-main').html('Add Course');
 				break;
 			case 'sidebar-submenu-add-school':
-				$('.h-resource-main').html('Add School');
+				$tt('.h-resource-main').html('Add School');
 		}
 	}
 	
@@ -250,13 +251,15 @@ $(document).ready(function()
 	{
 		if (!$(this).hasClass('collapsible')) 
 		{ // only activate if not a collapsible
-			$('.a-sidebar-menu-li').removeClass('active');
+			$tt('.a-sidebar-menu-li').removeClass('active');
 			$(this).addClass('active');
 			var liAttribute = $(this).attr('data-action');
-			if (liAttribute == 'refresh-grid' && !$(this).is($currentSidebarMenuLi))
+			var alreadyActive = $(this).is($currentSidebarMenuLi);
+			if (liAttribute == 'refresh-grid' && !alreadyActive)
 			{
-				var gridTitle = $(this).attr('data-title')
+				var gridTitle = $(this).attr('data-title');
 				refreshPageGrid(gridTitle);
+				updateMainTopicHeading(gridTitle);
 				$currentSidebarMenuLi = $(this);
 			}
 		}
@@ -264,29 +267,56 @@ $(document).ready(function()
 	
 	function refreshPageGrid(gridTitle)
 	{
-		var pageGridItems = $pageGrid.getItems();
-		$pageGrid.remove(pageGridItems, {removeElements: true, layout: false});
+		var gridItems = $pageGrid.getItems();
+		$pageGrid.remove(gridItems, {removeElements: true, layout: false});
+		
+		var gridPost;
 		switch (gridTitle)
 		{
 			case 'banks':
-				log(callController('dashboard/get_bank_grid'));
-				$.post(callController('dashboard/get_bank_grid'), function(bankElements) {
-					$pageGrid.add(bankElements);
-					log(bankElements);
-				});
+				gridPost = $.post(callController('dashboard/ajax_get_bank_grid'));
+				break;
+			
+			case 'courses':
+				gridPost = $.post(callController('dashboard/ajax_get_course_grid'));
+				break;
+			
+			case 'schools':
+				gridPost = $.post(callController('dashboard/ajax_get_school_grid'));
 		}
+		
+		gridPost.done(function(data) 
+		{ 
+			var gridData = JSON.parse(data);
+			gridItems = getGridItems(gridData);
+			$pageGrid.add(gridItems);
+		});
+	}
+	
+	function getGridItems(gridData)
+	{
+		var gridItems = [];
+		
+		gridData.forEach(function(content)
+		{
+			element = document.createElement('div');
+			element.innerHTML = content;
+			gridItems.push(element.firstChild);
+		});
+		
+		return gridItems;
 	}
 	
 	function switchActiveSidebarNav()
 	{
-		$('.a-navbar-toggle-buttons').removeClass('active');
+		$tt('.a-navbar-toggle-buttons').removeClass('active');
 		$(this).addClass('active');
 	}
 	
 	function selectSearchCategory()
 	{
-		$('.a-sidebar-search-category').removeClass('checked');
-		$('.div-tt-search-category-checkbox').removeClass('checked');
+		$tt('.a-sidebar-search-category').removeClass('checked');
+		$tt('.div-tt-search-category-checkbox').removeClass('checked');
 		$(this).addClass('checked');
 		$(this).children('.div-tt-search-category-checkbox').addClass('checked');
 		// update search bar placeholder
@@ -298,18 +328,18 @@ $(document).ready(function()
 	
 	function launchSidebarSearch()
 	{
-		if ($('.div-sidebar-scroll').hasClass('sidebar-close')) toggleSidebar();
-		$('.div-sidebar-content').children().css('display', 'none');
-		$('.div-sidebar-navbar').children().removeClass('active');
-		$('#btn-sidebar-search').addClass('active');		
-		$('.div-sidebar-search').css('display', 'block');
+		if ($tt('.div-sidebar-scroll').hasClass('sidebar-close')) toggleSidebar();
+		$tt('.div-sidebar-content').children().css('display', 'none');
+		$tt('.div-sidebar-navbar').children().removeClass('active');
+		$tt('#btn-sidebar-search').addClass('active');		
+		$tt('.div-sidebar-search').css('display', 'block');
 		// select to search 'current section' category
-		$('.a-sidebar-search-category').removeClass('checked');
-		$('.div-tt-search-category-checkbox').removeClass('checked');
-		$('#current-section-search-category').addClass('checked');
-		$('#current-section-search-category').
+		$tt('.a-sidebar-search-category').removeClass('checked');
+		$tt('.div-tt-search-category-checkbox').removeClass('checked');
+		$tt('#current-section-search-category').addClass('checked');
+		$tt('#current-section-search-category').
 			children('.div-tt-search-category-checkbox').addClass('checked');
-		$('.text-field-tt-search').select();
+		$tt('.text-field-tt-search').select();
 		updateSearchBarPlaceholder('Current Section');
 	}
 	
@@ -336,19 +366,29 @@ $(document).ready(function()
 	
 	function selectClearSearchBar()
 	{
-		$('.text-field-tt-search').val('');
-		$('.text-field-tt-search').select();
+		$tt('.text-field-tt-search').val('');
+		$tt('.text-field-tt-search').select();
 	}
 
 	function updateSearchBarPlaceholder(text)
 	{
-		$('.text-field-tt-search').attr('placeholder', text);
+		$tt('.text-field-tt-search').attr('placeholder', text);
 	}
 
+	function updateMainTopicHeading(text)
+	{
+	  $tt('.h-main-topic-heading').html(text);
+	}
+	
+	function updateSubTopicHeading(text)
+	{
+	  $tt('.h-sub-topic-heading').html(text);
+	}
+	
 	function toggleSidebar()
 	{
-		$('.div-sidebar-scroll').toggleClass('sidebar-close');
-		$('.div-page-content-wrapper').toggleClass('stretch');
+		$tt('.div-sidebar-scroll').toggleClass('sidebar-close');
+		$tt('.div-page-content-wrapper').toggleClass('stretch');
 	}
 
 	function togglePopupAppear(popupArray)
@@ -374,9 +414,21 @@ $(document).ready(function()
 	HELPERS
 	*/
 	
+	function $tt(query)
+	{ // cache the jquery queries
+		this.cache = this.cache || {};
+		if (!this.cache[query]) this.cache[query] = $(query);
+		return this.cache[query];
+	}
+	
 	function callController(segments)
 	{
 		return siteUrl+'/'+segments;
+	}
+	
+	function loadAsset(segments)
+	{
+		return baseUrl+segments;
 	}
 	
 	function leftColExists(slotCol)
@@ -408,6 +460,7 @@ $(document).ready(function()
 		console.log(out);
 	}
 });
+
 /* TT SEARCH INPUT */
 	/* $('.text-field-tt-search').keypress(function(event)
 	{

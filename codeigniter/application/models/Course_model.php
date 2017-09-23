@@ -23,6 +23,15 @@ class Course_model extends CI_Model
 		foreach ($query->result_array() as $row) $courses[] = new Course($row);
 		return $courses;
   }
+	
+	public function get_user_courses_session()
+	{
+		$courses = array();
+    foreach (self::$user->schools as $school)
+      foreach ($school->courses as $course) 
+				$courses[] = $course;
+    return $courses;
+	}
 
   public function set_and_get_course($school_id, $course_type)
   {
