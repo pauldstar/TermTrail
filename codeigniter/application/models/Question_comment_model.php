@@ -42,7 +42,7 @@ class Question_comment_model extends CI_Model
   public function get_user_question_comments($user_id)
   {
     $query = $this->db->query("SELECT * FROM question_comment WHERE question_owner_id='$user_id'");
-    if (isset($query)) return null;
+    if ( ! isset($query)) return NULL;
 		$question_comments = array();
 		foreach ($query->result_array() as $row) $question_comments[] = new Question_comment($row);
 		return $question_comments;
@@ -59,7 +59,7 @@ class Question_comment_model extends CI_Model
 			"chapter_id" => $chapter_id, 
 			"question_id" => $question_id );
     $query = $this->db->get_where('question_comment', $full_question_id);
-    if (!isset($query)) return null;
+    if ( ! isset($query)) return NULL;
 		$question_comments = array();
 		foreach ($query->result() as $row) 
 		{
@@ -93,7 +93,7 @@ class Question_comment_model extends CI_Model
 			'comment' => $this->input->post('comment'), 
 			'last_edit_time' => $current_time );
     $query_successful = $this->db->insert('question_comment', $question_comment_params);
-    if (!$query_successful) return null;
+    if ( ! $query_successful) return NULL;
 		$question_comment_params['resolved'] = 'N';
 		return new Question_comment($question_comment_params);
   }

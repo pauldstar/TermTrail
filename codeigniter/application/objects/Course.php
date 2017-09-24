@@ -1,9 +1,15 @@
 <?php
-
 class Course 
 {
-  public $owner_id, $school_id, $course_id, $course_title, $scope;
-  public $course_view_count, $course_type, $category, $time_added;
+  public $owner_id; 
+	public $school_id; 
+	public $course_id; 
+	public $course_title; 
+	public $scope;
+  public $course_view_count; 
+	public $course_type; 
+	public $category; 
+	public $time_added;
   public $banks;
 
   public function __construct($params)

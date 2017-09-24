@@ -1,9 +1,20 @@
 <?php
 class Question 
 {
-  public $owner_id, $school_id, $course_id, $bank_id, $chapter_id, $question_id;
-  public $author_id, $question_position, $content, $answer, $hint;
-  public $revision_state, $confidence_score, $last_edit_time;
+  public $owner_id; 
+	public $school_id; 
+	public $course_id; 
+	public $bank_id; 
+	public $chapter_id; 
+	public $question_id;
+  public $author_id; 
+	public $question_position; 
+	public $content; 
+	public $answer; 
+	public $hint;
+  public $revision_state; 
+	public $confidence_score; 
+	public $last_edit_time;
   public $question_comments;
 
   public function __construct($params)

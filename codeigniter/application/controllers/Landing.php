@@ -5,7 +5,6 @@ class Landing extends CI_Controller
   {
     parent::__construct();
     $this->load->helper('url');
-    $this->load->library('session');
   }
 
   public function login()
@@ -24,8 +23,8 @@ class Landing extends CI_Controller
     else
     {
       $this->load->model('user_model');
-      $this->user_model->setup_user_session();
-      if (isset($_SESSION['user'])) redirect('dashboard');
+      $session_started = $this->user_model->set_user_session();
+      if ($session_started) redirect('dashboard');
       else show_error("Invalid Username/Password");
     }
   }

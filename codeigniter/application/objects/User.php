@@ -1,8 +1,14 @@
 <?php
 class User 
 {
-  public $user_id, $account_balance, $email, $username, $scope;
-  public $sign_up_time, $last_login_time, $has_notification;
+  public $user_id; 
+	public $account_balance; 
+	public $email; 
+	public $username; 
+	public $scope;
+  public $sign_up_time; 
+	public $last_login_time; 
+	public $has_notification;
   public $schools;
 
   public function __construct($params)

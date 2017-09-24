@@ -40,7 +40,7 @@ class Revision_model extends CI_Model {
         $revisions[] = new Revision($row);
       return $revisions;
     }
-    return null;
+    return NULL;
   }
 
   public function begin_revision($user_id, $course_id, $trail_id, $mode)
@@ -59,11 +59,11 @@ class Revision_model extends CI_Model {
     if ($query_successful)
     {
       $rev_params['elapsed_time'] = 0;
-      $rev_params['stop_time'] = null;
+      $rev_params['stop_time'] = NULL;
       $rev_params['confidence_score'] = 0;
       return new Revision($rev_params);
     }
-    return null;
+    return NULL;
   }
 
   public function pause_revision($user_id, $course_id, $trail_id)
@@ -98,7 +98,7 @@ class Revision_model extends CI_Model {
    * $this->db->where('trail_owner_id', $user_id);
    * $this->db->where('trail_course_id', $course_id);
    * $this->db->where('trail_id', $trail_id);
-   * $this->db->where('stop_time !=', null);
+   * $this->db->where('stop_time !=', NULL);
    * $query = $this->db->get('revision');
    * if (isset($query)) {
    * $revisions = array();
@@ -106,7 +106,7 @@ class Revision_model extends CI_Model {
    * $revisions[] = new Revision($row);
    * return $revisions;
    * }
-   * return null;
+   * return NULL;
    * }
    */
 }

@@ -7,21 +7,15 @@ class Question_model extends CI_Model
   {
     parent::__construct();
     $this->load->database();
-    require_once APPPATH.'objects/User.php';
-    require_once APPPATH.'objects/School.php';
-    require_once APPPATH.'objects/Course.php';
-    require_once APPPATH.'objects/Bank.php';
-    require_once APPPATH.'objects/Chapter.php';
-    require_once APPPATH.'objects/Question.php';
-    $this->load->library('session');
-		self::$user = $_SESSION['user'];
+    $this->load->model('user_model');
+    self::$user = $this->user_model->get_user();
   }
 
   public function get_user_questions_db($user_id = '')
   {
 		if (empty($user_id)) $user_id = self::$user->user_id;
-		$query = $this->db->query("SELECT * FROM question WHERE owner_id='$user_id'");
-    if (!isset($query)) return null;
+		$query = $this->db->query("SELECT * FROM question WHERE owner_id='{$user_id}'");
+    if ( ! isset($query)) return NULL;
 		$questions = array();
 		foreach ($query->result_array() as $row) $questions[] = new Question($row);
 		return $questions;
@@ -37,7 +31,7 @@ class Question_model extends CI_Model
 			"bank_id" => $bank_id, 
 			"chapter_id" => $chapter_id );
     $query = $this->db->get_where('question', $full_chapter_id);
-    if ($query == null) return null;
+    if ( ! isset($query)) return NULL;
 		$questions = array();
 		foreach ($query->result_array() as $row) $questions[] = new Question($row);
 		return $questions;
@@ -62,10 +56,10 @@ class Question_model extends CI_Model
 			'hint' => $this->input->post('hint'), 
 			'last_edit_time' => $current_time );
     $query_successful = $this->db->insert('question', $question_params);
-    if (!$query_successful) return null;
+    if ( ! $query_successful) return NULL;
 		$question_params['revision_state'] = 'pending';
 		$question_params['confidence_score'] = 0;
-		$question_params['is_main_user'] = true;
+		$question_params['is_main_user'] = TRUE;
 		return new Question($question_params);
   }
 }

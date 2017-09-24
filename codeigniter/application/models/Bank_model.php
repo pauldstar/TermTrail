@@ -1,5 +1,4 @@
 <?php
-
 class Bank_model extends CI_Model
 {
   private static $user;
@@ -8,19 +7,15 @@ class Bank_model extends CI_Model
   {
     parent::__construct();
     $this->load->database();
-    require_once APPPATH.'objects/User.php';
-    require_once APPPATH.'objects/School.php';
-    require_once APPPATH.'objects/Course.php';
-    require_once APPPATH.'objects/Bank.php';
-    $this->load->library('session');
-		self::$user = $_SESSION['user'];
+    $this->load->model('user_model');
+    self::$user = $this->user_model->get_user();
   }
 
   public function get_user_banks_db($user_id = '')
   {
     if (empty($user_id)) $user_id = self::$user->user_id;
-		$query = $this->db->query("SELECT * FROM bank WHERE owner_id='$user_id'");
-    if ($query == null) return null;
+		$query = $this->db->query("SELECT * FROM bank WHERE owner_id='{$user_id}'");
+    if ( ! isset($query)) return NULL;
 		$banks = array();
 		foreach ($query->result_array() as $row) $banks[] = new Bank($row);
 		return $banks;
@@ -40,7 +35,7 @@ class Bank_model extends CI_Model
   {
     $full_course_id = array('owner_id'=>$user_id, 'course_id'=>$course_id);
     $query = $this->db->get_where('bank', $full_course_id);
-    if ($query != null) return null;
+    if ($query != NULL) return NULL;
 		$banks = array();
 		foreach ($query->result() as $row) $banks[] = new Bank($row);
 		return $banks;
@@ -61,10 +56,10 @@ class Bank_model extends CI_Model
 			'time_added' => $current_time, 
 			'bank_type' => $bank_type );
     $query_successful = $this->db->insert('bank', $bank_params);
-    if (!$query_successful) return null;
+    if ( ! $query_successful) return NULL;
 		$bank_params['mode'] = 'building';
 		$bank_params['bank_view_count'] = 0;
-		$bank_params['is_main_user'] = true;
+		$bank_params['is_main_user'] = TRUE;
 		return new Bank($bank_params);
   }
 }

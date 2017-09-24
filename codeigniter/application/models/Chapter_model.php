@@ -7,20 +7,15 @@ class Chapter_model extends CI_Model
   {
     parent::__construct();
     $this->load->database();
-    require_once APPPATH.'objects/User.php';
-    require_once APPPATH.'objects/School.php';
-    require_once APPPATH.'objects/Course.php';
-    require_once APPPATH.'objects/Bank.php';
-    require_once APPPATH.'objects/Chapter.php';
-    $this->load->library('session');
-    self::$user = $_SESSION['user'];
+    $this->load->model('user_model');
+    self::$user = $this->user_model->get_user();
   }
 
   public function get_user_chapters_db($user_id = '')
   {
 		if (empty($user_id)) $user_id = self::$user->user_id;
-    $query = $this->db->query("SELECT * FROM chapter WHERE owner_id='$user_id'");
-    if (!isset($query)) return null;
+    $query = $this->db->query("SELECT * FROM chapter WHERE owner_id='{$user_id}'");
+    if ( ! isset($query)) return NULL;
 		$chapters = array();
 		foreach ($query->result_array() as $row) $chapters[] = new Chapter($row);
 		return $chapters;
@@ -34,7 +29,7 @@ class Chapter_model extends CI_Model
 			'course_id' => $course_id, 
 			'bank_id' => $bank_id );
     $query = $this->db->get_where('chapter', $full_bank_id);
-    if (!$query != null) return null;
+    if ( ! $query != NULL) return NULL;
 		$chapters = array();
 		foreach ($query->result_array() as $row) $chapters[] = new Chapter($row);
 		return $chapters;
@@ -54,6 +49,6 @@ class Chapter_model extends CI_Model
 			'chapter_position' => 1 );
     $query_successful = $this->db->insert('chapter', $chapter_params);
     if ($query_successful) return new Chapter($chapter_params);
-    return null;
+    return NULL;
   }
 }

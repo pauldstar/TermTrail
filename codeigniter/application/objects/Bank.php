@@ -1,17 +1,25 @@
 <?php
-
 class Bank 
 {
-  // variables for origin bank
-  public $bank_id, $school_id, $course_id, $owner_id, $bank_type, $bank_title; 
-  public $scope, $mode, $bank_view_count, $time_added;
+  // for origin bank
+  public $bank_id; 
+	public $school_id; 
+	public $course_id; 
+	public $owner_id; 
+	public $bank_type; 
+	public $bank_title; 
+  public $scope; 
+	public $mode; 
+	public $bank_view_count; 
+	public $time_added;
   /*
    * // variables for import bank
-   * public $import_id, $importers_course_id, $importers_id;
-   * public , $date_imported, $purchase_price;
+   * public $import_id; $importers_course_id; $importers_id;
+   * public ; $date_imported; $purchase_price;
    */
   // and finally...
-  public $chapters, $revisions;
+  public $chapters; 
+	public $revisions;
 
   public function __construct($params) 
 	{

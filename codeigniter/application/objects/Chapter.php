@@ -1,8 +1,13 @@
 <?php
 class Chapter 
 {
-  public $owner_id, $school_id, $course_id, $bank_id;
-  public $chapter_id, $chapter_title, $chapter_position;
+  public $owner_id; 
+	public $school_id; 
+	public $course_id; 
+	public $bank_id;
+  public $chapter_id; 
+	public $chapter_title; 
+	public $chapter_position;
   public $questions;
 
   public function __construct($params)

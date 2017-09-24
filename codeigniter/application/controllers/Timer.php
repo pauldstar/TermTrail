@@ -7,7 +7,7 @@ class Timer
   public $elapsed = 0;
   
   // Constructor
-  public function __construct($start = true) {
+  public function __construct($start = TRUE) {
     if ($start)
       $this->start();
   }
@@ -25,7 +25,7 @@ class Timer
   
   // Get Elapsed Time
   public function elapsed() {
-    if (! $elapsed)
+    if ( ! $elapsed)
       $this->stop();
     
     return $this->elapsed;

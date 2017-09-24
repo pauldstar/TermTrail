@@ -7,17 +7,15 @@ class School_model extends CI_Model
   {
     parent::__construct();
     $this->load->database();
-    require_once APPPATH.'objects/User.php';
-    require_once APPPATH.'objects/School.php';
-    $this->load->library('session');
-    self::$user = $_SESSION['user'];
+    $this->load->model('user_model');
+    self::$user = $this->user_model->get_user();
   }
 
   public function get_user_schools_db($user_id = '')
   {
 		if (empty($user_id)) $user_id = self::$user->user_id;
-    $query = $this->db->query("SELECT * FROM school WHERE owner_id='$user_id'");
-    if ($query == null) return null;
+    $query = $this->db->query("SELECT * FROM school WHERE owner_id='{$user_id}'");
+    if ( ! isset($query)) return NULL;
 		$schools = array();
 		foreach ($query->result_array() as $row) $schools[] = new School($row);
 		return $schools;
@@ -36,9 +34,9 @@ class School_model extends CI_Model
 			'education_level' => $this->input->post('education_level'), 
 			'time_added' => $current_time );
     $query_successful = $this->db->insert('school', $school_params);
-    if (!$query_successful) return null;
+    if ( ! $query_successful) return NULL;
 		$school_params['school_view_count'] = 0;
-		$school_params['is_main_user'] = true;
+		$school_params['is_main_user'] = TRUE;
 		return new School($school_params);
   }
 }

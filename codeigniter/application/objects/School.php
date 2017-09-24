@@ -1,8 +1,14 @@
 <?php
 class School 
 {
-  public $owner_id, $school_id, $school_title, $scope, $time_added;
-  public $school_view_count, $school_type, $education_level;
+  public $owner_id;
+	public $school_id; 
+	public $school_title; 
+	public $scope; 
+	public $time_added;
+  public $school_view_count; 
+	public $school_type; 
+	public $education_level;
   public $courses;
 
   public function __construct($params)

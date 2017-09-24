@@ -7,18 +7,15 @@ class Course_model extends CI_Model
   {
     parent::__construct();
     $this->load->database();
-    require_once APPPATH.'objects/User.php';
-    require_once APPPATH.'objects/School.php';
-    require_once APPPATH.'objects/Course.php';
-    $this->load->library('session');
-		self::$user = $_SESSION['user'];
+    $this->load->model('user_model');
+    self::$user = $this->user_model->get_user();
   }
 
   public function get_user_courses_db($user_id = '')
   {
     if (empty($user_id)) $user_id = self::$user->user_id;
-		$query = $this->db->query("SELECT * FROM course WHERE owner_id='$user_id'");
-    if ($query == null) return null;
+		$query = $this->db->query("SELECT * FROM course WHERE owner_id='{$user_id}'");
+    if ( ! isset($query)) return NULL;
 		$courses = array();
 		foreach ($query->result_array() as $row) $courses[] = new Course($row);
 		return $courses;
@@ -47,9 +44,9 @@ class Course_model extends CI_Model
 			'category' => $this->input->post('category'), 
 			'time_added' => $current_time );
     $query_successful = $this->db->insert('course', $course_params);
-    if (!$query_successful) return null;
+    if ( ! $query_successful) return NULL;
 		$course_params['course_view_count'] = 0;
-		$course_params['is_main_user'] = true;
+		$course_params['is_main_user'] = TRUE;
 		return new Course($course_params);
   }
 }

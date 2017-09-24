@@ -45,10 +45,10 @@ class Test extends CI_Controller
     $this->form_validation->set_rules('school_title', 'Title', 'required');
     $this->form_validation->set_rules('scope', 'Scope', 'required');
     $this->form_validation->set_rules('education_level', 'Education Level', 'required');
-    if ($this->form_validation->run() === true)
+    if ($this->form_validation->run() === TRUE)
     {
       $school = $this->school_model->set_and_get_school('origin');
-      if ($school === null) show_error("Couldn't save new school in database");
+      if ($school === NULL) show_error("Couldn't save new school in database");
       else 
 			{
 				self::$user->schools[] = $school;
@@ -68,11 +68,11 @@ class Test extends CI_Controller
     $this->form_validation->set_rules('scope', 'Scope', 'required');
     $this->form_validation->set_rules('school_id', 'School_ID', 'required');
     $this->form_validation->set_rules('category', 'Category', 'required');
-		if ($this->form_validation->run() === true)
+		if ($this->form_validation->run() === TRUE)
     {
       $school_id = $this->input->post('school_id');
 			$course = $this->course_model->set_and_get_course($school_id, 'origin');
-      if ($course === null) show_error("Couldn't save new course in database");
+      if ($course === NULL) show_error("Couldn't save new course in database");
       else 
 			{
 				self::$user->schools[$school_id-1]->courses[] = $course;
@@ -92,12 +92,12 @@ class Test extends CI_Controller
     $this->form_validation->set_rules('scope', 'Scope', 'required');
     $this->form_validation->set_rules('school_id', 'School_ID', 'required');
     $this->form_validation->set_rules('course_id', 'Course_ID', 'required');
-		if ($this->form_validation->run() === true)
+		if ($this->form_validation->run() === TRUE)
     {
       $school_id = $this->input->post('school_id');
       $course_id = $this->input->post('course_id');
       $bank = $this->bank_model->set_and_get_bank($school_id, $course_id, 'origin');
-      if ($bank === null) show_error("Couldn't save new bank in database");
+      if ($bank === NULL) show_error("Couldn't save new bank in database");
       else 
 			{
 				self::$user->schools[$school_id-1]->courses[$course_id-1]->banks[] = $bank;
@@ -117,13 +117,13 @@ class Test extends CI_Controller
     $this->form_validation->set_rules('school_id', 'School_ID', 'required');
     $this->form_validation->set_rules('course_id', 'Course_ID', 'required');
     $this->form_validation->set_rules('bank_id', 'Bank_ID', 'required');
-		if ($this->form_validation->run() === true)
+		if ($this->form_validation->run() === TRUE)
     {
       $school_id = $this->input->post('school_id');
       $course_id = $this->input->post('course_id');
       $bank_id = $this->input->post('bank_id');
 			$chapter = $this->chapter_model->set_and_get_chapter($school_id, $course_id, $bank_id);
-      if ($chapter === null) show_error("Couldn't save new chapter in database");
+      if ($chapter === NULL) show_error("Couldn't save new chapter in database");
       else 
 			{
 				self::$user->schools[$school_id-1]->courses[$course_id-1]->
@@ -146,7 +146,7 @@ class Test extends CI_Controller
     $this->form_validation->set_rules('course_id', 'Course_ID', 'required');
     $this->form_validation->set_rules('bank_id', 'Bank_ID', 'required');
     $this->form_validation->set_rules('chapter_id', 'Chapter_ID', 'required');
-		if ($this->form_validation->run() === true)
+		if ($this->form_validation->run() === TRUE)
     {
       $school_id = $this->input->post('school_id');
       $course_id = $this->input->post('course_id');
@@ -154,7 +154,7 @@ class Test extends CI_Controller
       $chapter_id = $this->input->post('chapter_id');
 			$question = $this->question_model->set_and_get_question(
 				self::$user->user_id, $school_id, $course_id, $bank_id, $chapter_id);
-      if ($question === null) show_error("Couldn't save new question in database");
+      if ($question === NULL) show_error("Couldn't save new question in database");
       else 
 			{
 				self::$user->schools[$school_id-1]->courses[$course_id-1]->
@@ -178,7 +178,7 @@ class Test extends CI_Controller
     $this->form_validation->set_rules('chapter_id', 'Chapter_ID', 'required');
     $this->form_validation->set_rules('question_id', 'Question_ID', 'required');
     $this->form_validation->set_rules('comment', 'Comment', 'required');
-		if ($this->form_validation->run() === true)
+		if ($this->form_validation->run() === TRUE)
     {
       $school_id = $this->input->post('school_id');
       $course_id = $this->input->post('course_id');
@@ -187,7 +187,7 @@ class Test extends CI_Controller
       $question_id = $this->input->post('question_id');
       $question_comment = $this->question_comment_model->set_and_get_question_comment(
           self::$user->user_id, $owner_id, $course_id, $bank_id, $chapter_id, $question_id);
-      if ($question_comment === null) show_error("Couldn't save new bank in database");
+      if ($question_comment === NULL) show_error("Couldn't save new bank in database");
       else 
 			{
 				$bank =& self::$user->schools[$school_id-1]->courses[$course_id-1]->bank[$bank_id - 1];

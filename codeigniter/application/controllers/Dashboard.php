@@ -1,5 +1,4 @@
 <?php
-
 class Dashboard extends CI_Controller 
 {
   private static $user;
@@ -8,19 +7,9 @@ class Dashboard extends CI_Controller
   {
     parent::__construct();
     $this->load->helper('url');
-    // object classes are needed to serialise the objects stored in session
-    require_once APPPATH.'objects/User.php';
-    require_once APPPATH.'objects/School.php';
-    require_once APPPATH.'objects/Course.php';
-    require_once APPPATH.'objects/Bank.php';
-    require_once APPPATH.'objects/Revision.php';
-    require_once APPPATH.'objects/Chapter.php';
-    require_once APPPATH.'objects/Question.php';
-    require_once APPPATH.'objects/Question_comment.php';
-    require_once APPPATH.'objects/Gridbox.php';
-    $this->load->library('session');
-    if (isset($_SESSION['user'])) self::$user = $_SESSION['user'];
-    else redirect('login');
+    $this->load->model('user_model');
+    self::$user = $this->user_model->get_user();
+		if (empty(self::$user)) redirect('login');
   }
 
   public function landing()
@@ -46,68 +35,11 @@ class Dashboard extends CI_Controller
 	
   public function logout()
   {
-    $_SESSION = array();
-    $session_running = session_id() != "" || isset($_COOKIE[session_name()]);
-    if ($session_running)
-    {
-      setcookie(session_name(), '', time() - 2592000, '/');
-      session_destroy();
-      redirect('login');
-    }
-    else show_error("You aren't logged in anyway mate!");
+    $session_ended = $this->user_model->end_user_session();
+		if ($session_ended) redirect('login');
+		else show_error("You aren't logged in anyway mate!");
   }
-	
-	public function ajax_get_grid($section, $parent_id = '')
-	{
-		$this->load->model($grid_title.'_model', 'item_model');
-		
-		$items;
-		$section_type;
-		$grid = array();
-		$gridbox_params = array();
-		
-		if ($parent_id == '')
-		{
-			$section_type = 'general';
-			$items = self::get_user_items_session($section);
-		}
-		else
-		{
-			$section_type = 'specific';
-			$items = self::get_user_items_session($section, $parent_id);
-		}
-		
-		foreach ($items as $index => $item)
-		{
-			$gridbox_params['section'] = $section;
-			$gridbox_params['section_type'] = $section_type;
-			$gridbox_params['gridbox_number'] = $index + 1;
-			$gridbox_params['title'] = self::get_item_title($section, $item);
-			$gridbox_params['parent_label'] = 'Course';
-			$gridbox_params['parent_name'] = 
-				self::$user->schools[$bank->school_id - 1]->courses[$bank->course_id - 1]->course_title;
-			$gridbox_params['child_label'] = 'Chapters';
-			$gridbox_params['child_count'] = sizeof($bank->chapters);
-			$gridbox_params['source_type'] = $bank->bank_type;
-			$gridbox_params['comment_count'] = 0;
-			
-			$data['gridbox'] = new Gridbox($section, $section_type, $item, $index+1);
-			$grid[] = $this->load->view('dashboard/gridbox', $data, TRUE);
-		}
-		
-		echo json_encode($grid);
-	}
-	
-	private function get_user_items_session($item_title)
-	{
-		
-	}
-	
-	private function get_item_title($item_title)
-	{
-		
-	}
-	
+
 	public function ajax_get_school_grid()
 	{
 		$this->load->model('school_model');
@@ -144,7 +76,7 @@ class Dashboard extends CI_Controller
 		$course_grid = array();
 		$gridbox_params = array();
 		
-		if ($school_id == '')
+		if ($school_id === '')
 		{
 			$section_type = 'general';
 			$courses = $this->course_model->get_user_courses_session();
@@ -185,7 +117,7 @@ class Dashboard extends CI_Controller
 		$bank_grid = array();
 		$gridbox_params = array();
 		
-		if ($course_id == '')
+		if ($course_id === '')
 		{
 			$section_type = 'general';
 			$banks = $this->bank_model->get_user_banks_session();

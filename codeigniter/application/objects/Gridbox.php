@@ -19,28 +19,8 @@ class Gridbox
 	// for questions only
 	public $subquestions;
 	
-	// for currently accessed item
-	public $item_name, $item;
-
-  public function __construct($item_name, $section_type, $item, $item_number)
+  public function __construct($params)
   {
-		$this->item_name = $item_name;
-		$this->item = $item;
-		$this->section = $item_name;
-		$this->section_type = $section_type;
-		$this->gridbox_number = $item_number;
-		$this->title = self::get_item_title();
-		$this->parent_label = self::get_item_parent_label();
-		$this->parent_name = self::get_item_parent_name();
-		$this->child_label = self::get_item_child_label();
-		$this->child_count = self::get_item_child_count();
-		$this->source_type = self::get_item_type();
-		$this->comment_count = 0;
-		
-		
-			self::$user->schools[$bank->school_id - 1]->courses[$bank->course_id - 1]->course_title;
-		
-		
 		$this->section = $params['section'];
 		$this->section_type = $params['section_type'];
 		$this->gridbox_number = $params['gridbox_number'];
@@ -62,6 +42,4 @@ class Gridbox
 			$this->parent_name = $params['parent_name'];
 		}
   }
-	
-	
 }
