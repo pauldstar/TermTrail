@@ -11,7 +11,7 @@ class Bank_model extends CI_Model
     self::$user = $this->user_model->get_user();
   }
 
-  public function get_user_banks_db($user_id = '')
+  public function get_db_banks($user_id = '')
   {
     if (empty($user_id)) $user_id = self::$user->user_id;
 		$query = $this->db->query("SELECT * FROM bank WHERE owner_id='{$user_id}'");
@@ -21,7 +21,7 @@ class Bank_model extends CI_Model
 		return $banks;
   }
 
-  public function get_user_banks_session()
+  public function get_session_banks()
   {
     $banks = array();
     foreach (self::$user->schools as $school)

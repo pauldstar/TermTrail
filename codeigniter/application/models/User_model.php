@@ -1,7 +1,7 @@
 <?php
 class User_model extends CI_Model 
 {
-  private static $user = '';
+  private static $user;
 	
 	public function __construct()
   {
@@ -18,7 +18,7 @@ class User_model extends CI_Model
     require_once APPPATH.'objects/Question_comment.php';
     require_once APPPATH.'objects/Gridbox.php';
 		$this->load->library('session');
-		if (isset($_SESSION['user'])) self::$user = $_SESSION['user'];
+		self::$user = isset($_SESSION['user']) ? $_SESSION['user'] : '';
   }
 	
   public function get_user($user_id = '')
@@ -43,27 +43,27 @@ class User_model extends CI_Model
       self::$user = $_SESSION['user'] = new User($row);
 			
       $this->load->model('school_model');
-			$schools = $this->school_model->get_user_schools_db();
+			$schools = $this->school_model->get_db_schools();
       if ($schools === NULL) return TRUE;
 			self::add_component_to_session('schools', $schools);
 			
       $this->load->model('course_model');
-			$courses = $this->course_model->get_user_courses_db();
+			$courses = $this->course_model->get_db_courses();
 			if ($courses === NULL)  return TRUE;
 			self::add_component_to_session('courses', $courses);
 			
 			$this->load->model('bank_model');
-			$banks = $this->bank_model->get_user_banks_db();
+			$banks = $this->bank_model->get_db_banks();
 			if ($banks === NULL)  return TRUE;
 			self::add_component_to_session('banks', $banks);
 			
 			$this->load->model('chapter_model');
-			$chapters = $this->chapter_model->get_user_chapters_db();
+			$chapters = $this->chapter_model->get_db_chapters();
 			if ($chapters === NULL)  return TRUE;
 			self::add_component_to_session('chapters', $chapters);
 			
 			$this->load->model('question_model');
-			$questions = $this->question_model->get_user_questions_db();
+			$questions = $this->question_model->get_db_questions();
 			if ($questions === NULL)  return TRUE;
 			self::add_component_to_session('questions', $questions);
 			

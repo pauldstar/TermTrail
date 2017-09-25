@@ -20,6 +20,9 @@ class Bank
   // and finally...
   public $chapters; 
 	public $revisions;
+	
+	public $parent_label = 'course';
+	public $child_label = 'chapters';
 
   public function __construct($params) 
 	{
@@ -44,4 +47,19 @@ class Bank
      * }
      */
   }
+	
+	public function get_parent_title($user)
+	{
+		return $user->schools[$this->school_id - 1]->courses[$this->course_id - 1]->course_title;
+	}
+		
+	public function get_child_count()
+	{
+		return sizeof($this->chapters);
+	}
+	
+	public function get_comment_count($user)
+	{
+		return 0;
+	}
 }

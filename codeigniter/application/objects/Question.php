@@ -8,6 +8,7 @@ class Question
 	public $chapter_id; 
 	public $question_id;
   public $author_id; 
+  public $question_type; 
 	public $question_position; 
 	public $content; 
 	public $answer; 
@@ -16,6 +17,8 @@ class Question
 	public $confidence_score; 
 	public $last_edit_time;
   public $question_comments;
+		
+	public $parent_label = 'chapter';
 
   public function __construct($params)
   {
@@ -26,6 +29,7 @@ class Question
     $this->chapter_id = $params['chapter_id'];
     $this->question_id = $params['question_id'];
     $this->author_id = $params['author_id'];
+    $this->question_type = 'origin'; // $params['question_type'];
     $this->question_position = $params['question_position'];
     $this->content = $params['content'];
     $this->answer = $params['answer'];
@@ -35,4 +39,9 @@ class Question
     $this->last_edit_time = $params['last_edit_time'];
     $this->question_comments = array();
   }
+		
+	public function get_comment_count($user)
+	{
+		return 0;
+	}
 }

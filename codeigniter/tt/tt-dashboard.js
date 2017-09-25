@@ -52,8 +52,9 @@ $(document).ready(function()
 	$searchCategory.click(selectSearchCategory);
 	// PAGE CONTENT
 	initPageContentGrid();
-	refreshPageGrid('banks');
+	refreshPageGrid('bank');
 	$tt(document).on('click', '.div-selection-checkbox', selectGridbox);
+	$tt(document).on('click', '.div-gridbox', openGridboxSection);
 	$tt(document).on('mouseenter', '.div-gridbox', displayGridIcons);
 	$tt(document).on('mouseleave', '.div-gridbox', hideGridIcons);
 	// POPUP
@@ -63,6 +64,11 @@ $(document).ready(function()
 	/*
 	INTERACTIONS
 	*/
+	
+	function openGridboxSection()
+	{
+		return;
+	}
 	
 	function initPageContentGrid()
 	{
@@ -257,33 +263,21 @@ $(document).ready(function()
 			var alreadyActive = $(this).is($currentSidebarMenuLi);
 			if (liAttribute == 'refresh-grid' && !alreadyActive)
 			{
-				var gridTitle = $(this).attr('data-title');
-				refreshPageGrid(gridTitle);
-				updateMainTopicHeading(gridTitle);
+				var section = $(this).attr('data-title');
+				refreshPageGrid(section);
+				updateMainTopicHeading(section);
 				$currentSidebarMenuLi = $(this);
 			}
 		}
 	}
 	
-	function refreshPageGrid(gridTitle)
+	function refreshPageGrid(section, itemId = '')
 	{
 		var gridItems = $pageGrid.getItems();
 		$pageGrid.remove(gridItems, {removeElements: true, layout: false});
 		
-		var gridPost;
-		switch (gridTitle)
-		{
-			case 'banks':
-				gridPost = $.post(callController('dashboard/ajax_get_bank_grid'));
-				break;
-			
-			case 'courses':
-				gridPost = $.post(callController('dashboard/ajax_get_course_grid'));
-				break;
-			
-			case 'schools':
-				gridPost = $.post(callController('dashboard/ajax_get_school_grid'));
-		}
+		var ajaxUrlSegments = 'dashboard/ajax_get_grid/' + section + '/' + itemId;
+		var gridPost = $.post(callController(ajaxUrlSegments));
 		
 		gridPost.done(function(data) 
 		{ 

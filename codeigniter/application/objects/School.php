@@ -10,7 +10,9 @@ class School
 	public $school_type; 
 	public $education_level;
   public $courses;
-
+	
+	public $child_label = 'courses';
+	
   public function __construct($params)
   {
     $this->owner_id = $params['owner_id'];
@@ -23,4 +25,14 @@ class School
     $this->education_level = $params['education_level'];
     $this->courses = array();
   }
+
+	public function get_child_count()
+	{
+		return sizeof($this->courses);
+	}
+
+	public function get_comment_count($user)
+	{
+		return 0;
+	}
 }

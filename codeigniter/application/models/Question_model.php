@@ -2,7 +2,7 @@
 class Question_model extends CI_Model
 {
 	private static $user;
-		
+	
   public function __construct()
   {
     parent::__construct();
@@ -11,7 +11,7 @@ class Question_model extends CI_Model
     self::$user = $this->user_model->get_user();
   }
 
-  public function get_user_questions_db($user_id = '')
+  public function get_db_questions($user_id = '')
   {
 		if (empty($user_id)) $user_id = self::$user->user_id;
 		$query = $this->db->query("SELECT * FROM question WHERE owner_id='{$user_id}'");
@@ -39,8 +39,8 @@ class Question_model extends CI_Model
 
   public function set_and_get_question($author_id, $school_id, $course_id, $bank_id, $chapter_id)
   {
-    $question_id = 1 + sizeof(self::$user->schools[$school_id-1]->courses[$course_id-1]->
-															banks[$bank_id-1]->chapters[$chapter_id-1]->questions);
+    $question_id = 1 + sizeof(self::$user->schools[$school_id-1]->
+			courses[$course_id-1]->banks[$bank_id-1]->chapters[$chapter_id-1]->questions);
     $current_time = date_timestamp_get(date_create());
     $question_params = array( 
 			'owner_id' => self::$user->user_id, 

@@ -11,7 +11,7 @@ class School_model extends CI_Model
     self::$user = $this->user_model->get_user();
   }
 
-  public function get_user_schools_db($user_id = '')
+  public function get_db_schools($user_id = '')
   {
 		if (empty($user_id)) $user_id = self::$user->user_id;
     $query = $this->db->query("SELECT * FROM school WHERE owner_id='{$user_id}'");

@@ -11,7 +11,7 @@ class Course_model extends CI_Model
     self::$user = $this->user_model->get_user();
   }
 
-  public function get_user_courses_db($user_id = '')
+  public function get_db_courses($user_id = '')
   {
     if (empty($user_id)) $user_id = self::$user->user_id;
 		$query = $this->db->query("SELECT * FROM course WHERE owner_id='{$user_id}'");
@@ -21,7 +21,7 @@ class Course_model extends CI_Model
 		return $courses;
   }
 	
-	public function get_user_courses_session()
+	public function get_session_courses()
 	{
 		$courses = array();
     foreach (self::$user->schools as $school)

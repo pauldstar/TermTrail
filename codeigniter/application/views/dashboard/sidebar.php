@@ -19,19 +19,19 @@
 			<div class="div-sidebar-menu">
 				<ul class="ul-sidebar-menu w-list-unstyled">
 					<li class="li-sidebar-menu">
-						<a class="a-sidebar-menu-li active w-inline-block"  data-action="refresh-grid" data-title="banks" href="#">
+						<a class="a-sidebar-menu-li active w-inline-block"  data-action="refresh-grid" data-title="bank" href="#">
 							<img src='<?=base_url("webflow/dashboard/images/bank.png")?>'>
 							<div class="text-sidebar-menu">Banks</div>
 						</a>
 					</li>
 					<li class="li-sidebar-menu">
-						<a class="a-sidebar-menu-li w-inline-block" data-action="refresh-grid" data-title="courses" href="#">
+						<a class="a-sidebar-menu-li w-inline-block" data-action="refresh-grid" data-title="course" href="#">
 							<img src='<?=base_url("webflow/dashboard/images/course.png")?>'>
 							<div class="text-sidebar-menu">Courses</div>
 						</a>
 					</li>
 					<li class="li-sidebar-menu">
-						<a class="a-sidebar-menu-li w-inline-block" data-action="refresh-grid" data-title="schools" href="#">
+						<a class="a-sidebar-menu-li w-inline-block" data-action="refresh-grid" data-title="school" href="#">
 							<img src='<?=base_url("webflow/dashboard/images/school-bag.png")?>'>
 							<div class="text-sidebar-menu">Schools</div>
 						</a>

@@ -3,12 +3,12 @@
 class Gridbox
 {
 	public $section; // school, course, bank, chapter, question
-	public $section_type; // universal, specific
+	public $is_universal;
 	public $gridbox_number;
 	public $title; // also holds gridbox question
 	
 	// for gridbox in general section type (except schools) 
-	public $parent_label, $parent_name;
+	public $parent_label, $parent_title;
 	
 	// for all sections except questions
 	public $child_label, $child_count; 
@@ -22,7 +22,7 @@ class Gridbox
   public function __construct($params)
   {
 		$this->section = $params['section'];
-		$this->section_type = $params['section_type'];
+		$this->is_universal = $params['is_universal'];
 		$this->gridbox_number = $params['gridbox_number'];
 		$this->title = $params['title'];
 		$this->comment_count = $params['comment_count'];
@@ -36,10 +36,10 @@ class Gridbox
 				$this->child_count = $params['child_count'];
 				$this->source_type = $params['source_type'];
 		}
-		if ($this->section_type == 'general')
+		if ($this->is_universal)
 		{
 			$this->parent_label = $params['parent_label']; 
-			$this->parent_name = $params['parent_name'];
+			$this->parent_name = $params['parent_title'];
 		}
   }
 }

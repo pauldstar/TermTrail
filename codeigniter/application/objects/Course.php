@@ -1,7 +1,7 @@
 <?php
 class Course 
 {
-  public $owner_id; 
+	public $owner_id; 
 	public $school_id; 
 	public $course_id; 
 	public $course_title; 
@@ -11,6 +11,9 @@ class Course
 	public $category; 
 	public $time_added;
   public $banks;
+	
+	public $parent_label = 'school';
+	public $child_label = 'banks';
 
   public function __construct($params)
   {
@@ -25,4 +28,19 @@ class Course
     $this->category = $params['category'];
     $this->banks = array();
   }
+	
+	public function get_parent_title($user)
+	{
+		return $user->schools[$this->school_id - 1]->school_title;
+	}	
+	
+	public function get_child_count()
+	{
+		return sizeof($this->banks);
+	}
+	
+	public function get_comment_count($user)
+	{
+		return 0;
+	}
 }
