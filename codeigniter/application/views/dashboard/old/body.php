@@ -6,7 +6,7 @@
         <li id="collapse-plus">
           <a class='sidebar-collapsible' href="#">
             Courses
-            <img id="icon" src='<?=base_url('images/plus.png')?>' alt="+"/>
+            <img id="icon" src='<?=base_url('webflow/dashboard/plus.png')?>' alt="+"/>
           </a>
           <ul class="sidebar-submenu bg-dark-colour">
             <li><a href="#">Maths</a></li>
@@ -26,17 +26,17 @@
           <h3>Recent Trails</h3>
         </div>
         <?php foreach ($trails as $trail): ?>
-        <div class='grid-box-wrapper col-sm-4 col-lg-3'>
-          <div class='grid-box container-fluid'>
+        <div class='gridbox-wrapper col-sm-4 col-lg-3'>
+          <div class='gridbox container-fluid'>
             <div class='grid-header row'>
               <div class='col-xs-12'>
                 <?=ucwords($trail->trail_title)?>
-                <a href='#'><img class='settings-icon' src='<?=base_url('images/settings.png')?>' alt='Settings'/></a>
+                <a href='#'><img class='settings-icon' src='<?=base_url('webflow/dashboard/settings.png')?>' alt='Settings'/></a>
               </div>
             </div>
             <div class='row'>
               <div class='col-xs-12'>
-                <ul class='grid-box-trail-data-list'>
+                <ul class='gridbox-trail-data-list'>
                   <li><?=$trail->course_id?></li>
                 </ul>
               </div>
@@ -44,7 +44,7 @@
             <div class='grid-footer row'>
               <div class='col-xs-12'>
                 <?=$trail->owner_id?> 
-                <a href='#'><img class='share-icon' src='<?=base_url('images/share.png')?>' alt='Settings'/></a>
+                <a href='#'><img class='share-icon' src='<?=base_url('webflow/dashboard/share.png')?>' alt='Settings'/></a>
               </div>
             </div>
           </div>
@@ -64,13 +64,13 @@ $('.sidebar-collapsible').click(function(event)
   var li_id = $(li).attr('id');
   if (li_id == 'collapse-plus')
   {
-    var src = "<?php echo base_url('images/minus.png')?>";
+    var src = "<?php echo base_url('webflow/dashboard/minus.png')?>";
     $(img).attr('src', src);
     $(li).attr('id', 'collapse-minus');
   }
   else
   {
-    var src = '<?php echo base_url("images/plus.png")?>';
+    var src = '<?php echo base_url("webflow/dashboard/plus.png')?>";
     $(img).attr('src', src);
     $(li).attr('id', 'collapse-plus');
   }

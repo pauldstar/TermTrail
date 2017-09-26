@@ -11,11 +11,10 @@
   <!-- The first 3 meta tags *must* come first in the head -->
   <!-- any other head content must come *after* these tags -->
 	<link href="<?=base_url('favicon.ico')?>" rel="shortcut icon" type="image/x-icon">
-	<link href="<?=base_url('tt/tt-dashboard.css')?>" rel="stylesheet" type="text/css">
-	<link href="<?=base_url('bootstrap3/css/bootstrap.css')?>" rel="stylesheet" type="text/css">
-	<link href="<?=base_url('webflow/dashboard/css/webflow.css')?>" rel="stylesheet" type="text/css">
-	<link href="<?=base_url('webflow/dashboard/css/normalize.css')?>" rel="stylesheet" type="text/css">
-	<link href="<?=base_url('webflow/dashboard/css/tt-webflow.css')?>" rel="stylesheet" type="text/css">
+	<link href="<?=base_url('external/bootstrap3/css/bootstrap.css')?>" rel="stylesheet" type="text/css">
+	<link href="<?=base_url('external/webflow/dashboard/css/webflow.css')?>" rel="stylesheet" type="text/css">
+	<link href="<?=base_url('external/webflow/dashboard/css/normalize.css')?>" rel="stylesheet" type="text/css">
+	<link href="<?=base_url('external/webflow/dashboard/css/tt-webflow.css')?>" rel="stylesheet" type="text/css">
   <title>TermTrail (<?=$user->username?>)</title>
 </head>
 <body class="body">

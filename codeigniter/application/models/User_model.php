@@ -1,26 +1,6 @@
 <?php
-class User_model extends CI_Model 
+class User_model extends MY_Model 
 {
-  private static $user;
-	
-	public function __construct()
-  {
-    parent::__construct();
-    $this->load->database();
-    // object classes are needed to serialise the objects stored in session
-    require_once APPPATH.'objects/User.php';
-    require_once APPPATH.'objects/School.php';
-    require_once APPPATH.'objects/Course.php';
-    require_once APPPATH.'objects/Bank.php';
-    require_once APPPATH.'objects/Revision.php';
-    require_once APPPATH.'objects/Chapter.php';
-    require_once APPPATH.'objects/Question.php';
-    require_once APPPATH.'objects/Question_comment.php';
-    require_once APPPATH.'objects/Gridbox.php';
-		$this->load->library('session');
-		self::$user = isset($_SESSION['user']) ? $_SESSION['user'] : '';
-  }
-	
   public function get_user($user_id = '')
   {
 		if (empty($user_id)) return self::$user;
@@ -30,7 +10,7 @@ class User_model extends CI_Model
     return NULL;
   }
 	
-  public function set_user_session()
+  public function set_session_user()
   {
     $email = $this->input->post('email');
     $password = $this->input->post('password');
@@ -41,83 +21,12 @@ class User_model extends CI_Model
     if (isset($row) && password_verify($password, $row['password_hash']))
     { // get user components
       self::$user = $_SESSION['user'] = new User($row);
-			
       $this->load->model('school_model');
-			$schools = $this->school_model->get_db_schools();
-      if ($schools === NULL) return TRUE;
-			self::add_component_to_session('schools', $schools);
-			
-      $this->load->model('course_model');
-			$courses = $this->course_model->get_db_courses();
-			if ($courses === NULL)  return TRUE;
-			self::add_component_to_session('courses', $courses);
-			
-			$this->load->model('bank_model');
-			$banks = $this->bank_model->get_db_banks();
-			if ($banks === NULL)  return TRUE;
-			self::add_component_to_session('banks', $banks);
-			
-			$this->load->model('chapter_model');
-			$chapters = $this->chapter_model->get_db_chapters();
-			if ($chapters === NULL)  return TRUE;
-			self::add_component_to_session('chapters', $chapters);
-			
-			$this->load->model('question_model');
-			$questions = $this->question_model->get_db_questions();
-			if ($questions === NULL)  return TRUE;
-			self::add_component_to_session('questions', $questions);
-			
+			$this->school_model->set_session_schools();
 			return TRUE;
     }
-		
 		return FALSE;
   }
-
-	private static function add_component_to_session($name, $array)
-	{
-		switch ($name)
-		{
-			case 'schools':
-				foreach ($array as $school) self::$user->schools[] = $school;
-				break;
-			case 'courses':
-				foreach ($array as $course)
-				{
-					$school_id = $course->school_id;
-					self::$user->schools[$school_id-1]->courses[] = $course;
-				}
-				break;
-			case 'banks':
-				foreach ($array as $bank)
-				{
-					$school_id = $bank->school_id;
-					$course_id = $bank->course_id;
-					self::$user->schools[$school_id-1]->
-						courses[$course_id-1]->banks[] = $bank;
-				}
-				break;
-			case 'chapters':
-				foreach ($array as $chapter)
-				{
-					$school_id = $chapter->school_id;
-					$course_id = $chapter->course_id;
-					$bank_id = $chapter->bank_id;
-					self::$user->schools[$school_id-1]->
-						courses[$course_id-1]->banks[$bank_id-1]->chapters[] = $chapter;
-				}
-				break;
-			case 'questions':
-			  foreach ($array as $question)
-				{
-					$school_id = $question->school_id;
-					$course_id = $question->course_id;
-					$bank_id = $question->bank_id;
-					$chapter_id = $question->chapter_id;
-					self::$user->schools[$school_id-1]->courses[$course_id-1]->
-						banks[$bank_id-1]->chapters[$chapter_id-1]->questions[] = $question;
-				}
-		}
-	}
 	
   public function set_and_get_user()
   { // new sign up
@@ -150,7 +59,8 @@ class User_model extends CI_Model
     $session_running = session_id() != "" || isset($_COOKIE[session_name()]);
     if ($session_running)
     {
-      setcookie(session_name(), '', time() - 2592000, '/');
+			session_unset(); 
+			//setcookie(session_name(), '', time() - 2592000, '/');
       session_destroy();
 			return TRUE;
     }

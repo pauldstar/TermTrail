@@ -1,45 +1,45 @@
 <div class="div-toolbar w-clearfix w-hidden-tiny">
   <div class="div-tool-dropdown-wrapper w-dropdown" data-delay="0" id="toolbar-play-revision">
-    <div class="div-tool-dropdown-toggle pressed w-dropdown-toggle" data-tool-toggle="1"><img src='<?=base_url("webflow/dashboard/images/revision.png")?>'></div>
+    <div class="div-tool-dropdown-toggle pressed w-dropdown-toggle" data-tool-toggle="1"><img src="<?=base_url('images/revision.png')?>"></div>
     <nav class="div-tool-dropdown-list w-dropdown-list"></nav>
   </div>
   <div class="div-tool-dropdown-wrapper w-dropdown" data-delay="0" id="toolbar-stop-revision">
-    <div class="div-tool-dropdown-toggle w-dropdown-toggle"><img src='<?=base_url("webflow/dashboard/images/stop.png")?>'></div>
+    <div class="div-tool-dropdown-toggle w-dropdown-toggle"><img src="<?=base_url('images/stop.png')?>"></div>
     <nav class="div-tool-dropdown-list w-dropdown-list"></nav>
   </div>
   <div class="div-tool-dropdown-wrapper w-dropdown" data-delay="0" id="toolbar-random">
-    <div class="div-tool-dropdown-toggle w-dropdown-toggle" data-tool-toggle="1"><img src='<?=base_url("webflow/dashboard/images/dice.png")?>'></div>
+    <div class="div-tool-dropdown-toggle w-dropdown-toggle" data-tool-toggle="1"><img src="<?=base_url('images/dice.png')?>"></div>
     <nav class="div-tool-dropdown-list w-dropdown-list"></nav>
   </div>
   <div class="div-tool-dropdown-wrapper w-dropdown" data-delay="0" id="toolbar-timer">
-    <div class="div-tool-dropdown-toggle pressed w-dropdown-toggle" data-tool-toggle="1"><img src='<?=base_url("webflow/dashboard/images/timer.png")?>'></div>
+    <div class="div-tool-dropdown-toggle pressed w-dropdown-toggle" data-tool-toggle="1"><img src="<?=base_url('images/timer.png')?>"></div>
     <nav class="div-tool-dropdown-list w-dropdown-list"></nav>
   </div>
   <div class="div-tool-dropdown-wrapper w-dropdown" data-delay="0" id="toolbar-tutorial">
-    <div class="div-tool-dropdown-toggle w-dropdown-toggle" data-tool-toggle="1"><img src='<?=base_url("webflow/dashboard/images/tutorial.png")?>'></div>
+    <div class="div-tool-dropdown-toggle w-dropdown-toggle" data-tool-toggle="1"><img src="<?=base_url('images/tutorial.png')?>"></div>
     <nav class="div-tool-dropdown-list w-dropdown-list"></nav>
   </div>
   <div class="div-tool-dropdown-wrapper w-dropdown" data-delay="0" data-hover="1" id="toolbar-add-resource">
-    <div class="div-tool-dropdown-toggle w-dropdown-toggle"><img src='<?=base_url("webflow/dashboard/images/plus-s_2.png")?>'></div>
+    <div class="div-tool-dropdown-toggle w-dropdown-toggle"><img src="<?=base_url('images/plus-s_2.png')?>"></div>
     <nav class="div-tool-dropdown-list w-dropdown-list">
 			<a class="a-toolbar-dropdown-li w-dropdown-link" href="#">Add Chapter</a>
 			<a class="a-toolbar-dropdown-li w-dropdown-link" href="#">Add Questions</a>
 		</nav>
   </div>
   <div class="div-tool-dropdown-wrapper w-dropdown" data-delay="0" id="toolbar-edit">
-    <div class="div-tool-dropdown-toggle w-dropdown-toggle"><img src='<?=base_url("webflow/dashboard/images/edit.png")?>'></div>
+    <div class="div-tool-dropdown-toggle w-dropdown-toggle"><img src="<?=base_url('images/edit.png')?>"></div>
     <nav class="div-tool-dropdown-list w-dropdown-list"></nav>
   </div>
   <div class="div-tool-dropdown-wrapper w-dropdown" data-delay="0" id="toolbar-archive">
-    <div class="div-tool-dropdown-toggle w-dropdown-toggle"><img src='<?=base_url("webflow/dashboard/images/archive.png")?>'></div>
+    <div class="div-tool-dropdown-toggle w-dropdown-toggle"><img src="<?=base_url('images/archive.png')?>"></div>
     <nav class="div-tool-dropdown-list w-dropdown-list"></nav>
   </div>
   <div class="div-tool-dropdown-wrapper w-dropdown" data-delay="0" id="toolbar-delete">
-    <div class="div-tool-dropdown-toggle w-dropdown-toggle"><img src='<?=base_url("webflow/dashboard/images/delete_1.png")?>'></div>
+    <div class="div-tool-dropdown-toggle w-dropdown-toggle"><img src="<?=base_url('images/delete_1.png')?>"></div>
     <nav class="div-tool-dropdown-list w-dropdown-list"></nav>
   </div>
   <div class="div-tool-dropdown-wrapper w-dropdown" data-delay="0" data-hover="1" id="toolbar-sort">
-    <div class="div-tool-dropdown-toggle w-dropdown-toggle" data-dropdown-toggle="1"><img src='<?=base_url("webflow/dashboard/images/drag-drop.png")?>'></div>
+    <div class="div-tool-dropdown-toggle w-dropdown-toggle" data-dropdown-toggle="1"><img src="<?=base_url('images/drag-drop.png')?>"></div>
     <nav class="div-tool-dropdown-list w-dropdown-list">
 			<a class="a-toolbar-dropdown-li w-dropdown-link" href="#">Recently modified</a>
 			<a class="a-toolbar-dropdown-li w-dropdown-link" href="#">Colour (desc)</a>
@@ -50,7 +50,7 @@
 		</nav>
   </div>
   <div class="div-tool-dropdown-wrapper w-dropdown" data-delay="0" data-hover="1" id="toolbar-filter">
-    <div class="div-tool-dropdown-toggle w-dropdown-toggle" data-dropdown-toggle=="1"><img src='<?=base_url("webflow/dashboard/images/filter-grey.png")?>'></div>
+    <div class="div-tool-dropdown-toggle w-dropdown-toggle" data-dropdown-toggle=="1"><img src="<?=base_url('images/filter-grey.png')?>"></div>
     <nav class="div-tool-dropdown-list w-dropdown-list">
 			<a class="a-toolbar-dropdown-li w-dropdown-link" href="#">All</a>
 			<a class="a-toolbar-dropdown-li w-dropdown-link" href="#">Private</a>
@@ -60,19 +60,12 @@
 			<a class="a-toolbar-dropdown-li w-dropdown-link" href="#">Green</a>
 		</nav>
   </div>
-	<div class="div-tool-dropdown-wrapper w-dropdown" data-delay="0" id="toolbar-grid-format">
-    <div class="div-tool-dropdown-toggle w-dropdown-toggle">
-			<img id='icon-grid-rows' src='<?=base_url("images/grey/grid-rows.png")?>'>
-			<img id='icon-grid-cascade' src='<?=base_url("images/grey/grid-cascade.png")?>'>
-		</div>
-    <nav class="div-tool-dropdown-list w-dropdown-list"></nav>
-  </div>
   <div class="div-tool-dropdown-wrapper w-dropdown" data-delay="0" id="toolbar-info">
-    <div class="div-tool-dropdown-toggle w-dropdown-toggle"><img src='<?=base_url("webflow/dashboard/images/exclamation.png")?>'></div>
+    <div class="div-tool-dropdown-toggle w-dropdown-toggle"><img src="<?=base_url('images/exclamation.png')?>"></div>
     <nav class="div-tool-dropdown-list w-dropdown-list"></nav>
   </div>
   <div class="div-tool-dropdown-wrapper w-dropdown" data-delay="0" id="toolbar-search">
-    <div class="div-tool-dropdown-toggle w-dropdown-toggle"><img src='<?=base_url("webflow/dashboard/images/search-grey.png")?>'></div>
+    <div class="div-tool-dropdown-toggle w-dropdown-toggle"><img src="<?=base_url('images/search-grey.png')?>"></div>
     <nav class="div-tool-dropdown-list w-dropdown-list"></nav>
   </div>
   <div class="text-grid-status">Recently Modified | All</div>

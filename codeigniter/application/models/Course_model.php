@@ -1,16 +1,21 @@
 <?php
-class Course_model extends CI_Model 
+class Course_model extends MY_Model 
 {
-  private static $user;
-
-  public function __construct()
-  {
-    parent::__construct();
-    $this->load->database();
-    $this->load->model('user_model');
-    self::$user = $this->user_model->get_user();
-  }
-
+	public function set_session_courses()
+	{
+		$courses = self::get_db_courses();
+		if ($courses === NULL) return;
+		
+		foreach ($courses as $course)
+		{
+			$school_id = $course->school_id;
+			self::$user->schools[$school_id-1]->courses[] = $course;
+		}
+		
+		$this->load->model('bank_model');
+		$this->bank_model->set_session_banks();
+	}
+	
   public function get_db_courses($user_id = '')
   {
     if (empty($user_id)) $user_id = self::$user->user_id;

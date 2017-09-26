@@ -1,16 +1,17 @@
 <?php
-class School_model extends CI_Model 
+class School_model extends MY_Model 
 {
-	private static $user;
-	
-  public function __construct()
-  {
-    parent::__construct();
-    $this->load->database();
-    $this->load->model('user_model');
-    self::$user = $this->user_model->get_user();
-  }
+	public function set_session_schools()
+	{
+		$schools = self::get_db_schools();
+		if ($schools === NULL) return;
 
+		foreach ($schools as $school) self::$user->schools[] = $school;
+		
+		$this->load->model('course_model');
+		$this->course_model->set_session_courses();
+	}
+	
   public function get_db_schools($user_id = '')
   {
 		if (empty($user_id)) $user_id = self::$user->user_id;

@@ -16,14 +16,14 @@ class Landing extends CI_Controller
     if ($this->form_validation->run() === FALSE)
     {
       $data['login_title'] = 'Login';
-      $this->load->view('landing/header_ld', $data);
+      $this->load->view('templates/header', $data);
       $this->load->view('landing/login');
-      $this->load->view('landing/footer_ld');
+      $this->load->view('templates/footer');
     }
     else
     {
       $this->load->model('user_model');
-      $session_started = $this->user_model->set_user_session();
+      $session_started = $this->user_model->set_session_user();
       if ($session_started) redirect('dashboard');
       else show_error("Invalid Username/Password");
     }
@@ -41,9 +41,9 @@ class Landing extends CI_Controller
     if ($this->form_validation->run() === FALSE)
     {
       $data['signup_title'] = 'Sign Up';
-      $this->load->view('landing/header_ld', $data);
+      $this->load->view('templates/header', $data);
       $this->load->view('landing/signup');
-      $this->load->view('landing/footer_ld');
+      $this->load->view('templates/footer');
     }
     else
     {

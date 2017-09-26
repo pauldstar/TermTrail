@@ -1,15 +1,24 @@
 <?php
-class Question_model extends CI_Model
+class Question_model extends My_Model
 {
-	private static $user;
-	
-  public function __construct()
-  {
-    parent::__construct();
-    $this->load->database();
-    $this->load->model('user_model');
-    self::$user = $this->user_model->get_user();
-  }
+	public function set_session_questions()
+	{
+		$questions = self::get_db_questions();
+		if ($questions === NULL) return;
+		
+		foreach ($questions as $question)
+		{
+			$school_id = $question->school_id;
+			$course_id = $question->course_id;
+			$bank_id = $question->bank_id;
+			$chapter_id = $question->chapter_id;
+			self::$user->schools[$school_id-1]->courses[$course_id-1]->
+				banks[$bank_id-1]->chapters[$chapter_id-1]->questions[] = $question;
+		}
+		
+		// $this->load->model('question_model');
+		// $this->question_model->set_session_questions();
+	}
 
   public function get_db_questions($user_id = '')
   {

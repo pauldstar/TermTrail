@@ -39,7 +39,7 @@ class Gridbox
 		if ($this->is_universal)
 		{
 			$this->parent_label = $params['parent_label']; 
-			$this->parent_name = $params['parent_title'];
+			$this->parent_title = $params['parent_title'];
 		}
   }
 }

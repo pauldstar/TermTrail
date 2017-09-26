@@ -14,12 +14,12 @@
 		</div>
 		
 		<div class="div-gridbox-middle">
-			<ul class="ul-grid-box-data w-list-unstyled">
+			<ul class="ul-gridbox-data w-list-unstyled">
 				<?php switch($gridbox->section):
 					case 'question': ?>
 						<?php foreach ($gridbox->subquestions as $subquestion): ?>
 							<li class="li-gridbox-subquestion">
-								<div class="text-grid-box-data-li"><?= $subquestion ?></div>
+								<div class="text-gridbox-data-li"><?= $subquestion ?></div>
 							</li>
 						<?php endforeach; ?>
 						<?php break; ?>
@@ -27,22 +27,22 @@
 					<?php case 'bank': ?>
 					<?php case 'course': ?>
 						<?php if ($gridbox->is_universal): ?>
-							<li class="li-grid-box-data">
-								<div class="text-grid-box-data-li">
+							<li class="li-gridbox-data">
+								<div class="text-gridbox-data-li">
 									<strong><?= $gridbox->parent_label ?></strong><br>
 									<?= $gridbox->parent_title ?>
 								</div>
 							</li>
 						<?php endif; ?>
 					<?php case 'school': ?>
-						<li class="li-grid-box-data">
-							<div class="text-grid-box-data-li">
+						<li class="li-gridbox-data">
+							<div class="text-gridbox-data-li">
 								<strong><?= $gridbox->child_label ?></strong><br>
 								<?= $gridbox->child_count ?>
 							</div>
 						</li>
-						<li class="li-grid-box-data">
-							<h5 class="grid-box-item-type"><?= $gridbox->source_type ?></h5>
+						<li class="li-gridbox-data">
+							<h5 class="gridbox-item-type"><?= $gridbox->source_type ?></h5>
 						</li>
 				<?php endswitch; ?>
 			</ul>
@@ -52,7 +52,7 @@
 			<div class="div-gridbox-footer-buttons">
 				<div class="w-dropdown" data-delay="0">
 					<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle">
-						<img class="img-gridbox-share" src="<?=base_url('webflow/dashboard/images/share.png')?>">
+						<img class="img-gridbox-share" src="<?=base_url('images/share.png')?>">
 					</div>
 					<nav class="div-gridbox-footer-dropdown-li w-dropdown-list">
 						<a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Twitter</a>
@@ -61,7 +61,7 @@
 				</div>
 				<div class="w-dropdown" data-delay="0">
 					<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle">
-						<img class="img-gridbox-settings" data-ix="gridbox-settings-appear" src="<?=base_url('webflow/dashboard/images/settings-black.png')?>">
+						<img class="img-gridbox-settings" data-ix="gridbox-settings-appear" src="<?=base_url('images/settings-black.png')?>">
 					</div>
 					<nav class="div-gridbox-footer-dropdown-li w-dropdown-list">
 						<a class="a-gridbox-footer-dropdown-li w-dropdown-link" href="#">Duplicate</a>
@@ -73,7 +73,7 @@
 			</div>
 			<div class="div-gridbox-stat">
 				<?php if ($gridbox->comment_count !== 0): ?>
-					<img class="img-gridbox-comments" src="<?=base_url('webflow/dashboard/images/comment.png')?>">
+					<img class="img-gridbox-comments" src="<?=base_url('images/comment.png')?>">
 					<div class="text-stats-number"><?= $gridbox->comment_count ?></div>
 				<?php endif; ?>
 			</div>

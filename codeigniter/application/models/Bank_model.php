@@ -1,16 +1,22 @@
 <?php
-class Bank_model extends CI_Model
+class Bank_model extends MY_Model
 {
-  private static $user;
+	public function set_session_banks()
+	{
+		$banks = self::get_db_banks();
+		if ($banks === NULL) return;
+		
+		foreach ($banks as $bank)
+		{
+			$school_id = $bank->school_id;
+			$course_id = $bank->course_id;
+			self::$user->schools[$school_id-1]->courses[$course_id-1]->banks[] = $bank;
+		}
+		
+		$this->load->model('chapter_model');
+		$this->chapter_model->set_session_chapters();
+	}
 	
-  public function __construct()
-  {
-    parent::__construct();
-    $this->load->database();
-    $this->load->model('user_model');
-    self::$user = $this->user_model->get_user();
-  }
-
   public function get_db_banks($user_id = '')
   {
     if (empty($user_id)) $user_id = self::$user->user_id;

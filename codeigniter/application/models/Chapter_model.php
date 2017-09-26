@@ -1,16 +1,24 @@
 <?php
-class Chapter_model extends CI_Model 
+class Chapter_model extends MY_Model 
 {
-	private static $user;
+	public function set_session_chapters()
+	{
+		$chapters = self::get_db_chapters();
+		if ($chapters === NULL) return;
+		
+		foreach ($chapters as $chapter)
+		{
+			$school_id = $chapter->school_id;
+			$course_id = $chapter->course_id;
+			$bank_id = $chapter->bank_id;
+			self::$user->schools[$school_id-1]->
+				courses[$course_id-1]->banks[$bank_id-1]->chapters[] = $chapter;
+		}
+		
+		$this->load->model('question_model');
+		$this->question_model->set_session_questions();
+	}
 	
-  public function __construct()
-  {
-    parent::__construct();
-    $this->load->database();
-    $this->load->model('user_model');
-    self::$user = $this->user_model->get_user();
-  }
-
   public function get_db_chapters($user_id = '')
   {
 		if (empty($user_id)) $user_id = self::$user->user_id;

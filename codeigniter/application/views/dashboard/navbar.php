@@ -17,11 +17,11 @@
   </div>
   <div class="div-navbar-account">
     <a class="btn-navbar-account-menu-item w-inline-block" href="<?=site_url('logout')?>">
-      <img class="img-navbar-account-menu-item" src='<?=base_url("webflow/dashboard/images/power-off-icon.png")?>'/>
+      <img class="img-navbar-account-menu-item" src="<?=base_url('images/power-off-icon.png')?>"/>
       <div class="text-navbar-account-menu-item">Sign Out</div>
     </a>
     <a class="btn-navbar-account-menu-item w-inline-block" href="#">
-      <img class="img-navbar-account-menu-item" src='<?=base_url("webflow/dashboard/images/settings_1.png")?>'/>
+      <img class="img-navbar-account-menu-item" src="<?=base_url('images/settings_1.png')?>"/>
       <div class="text-navbar-account-menu-item">Account</div>
     </a>
   </div>
