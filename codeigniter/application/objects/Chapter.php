@@ -12,7 +12,7 @@ class Chapter
   public $questions;
 	
 	public $parent_label = 'bank';
-	public $child_label = 'questions';
+	public $child_label = 'question';
 
   public function __construct($params)
   {
@@ -26,6 +26,18 @@ class Chapter
     $this->chapter_position = $params['chapter_position'];
     $this->questions = array();
   }
+		
+	public function get_full_id()
+	{
+	  $full_id = array( 
+			'school_id' => $this->school_id,
+			'course_id' => $this->course_id,
+			'bank_id' => $this->bank_id,
+			'chapter_id' => $this->chapter_id
+		);
+		
+		return $full_id;
+	}
 	
 	public function get_parent_title($user)
 	{

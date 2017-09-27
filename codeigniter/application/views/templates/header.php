@@ -1,7 +1,6 @@
 <?php
   $this->load->helper('html');
   $this->load->helper('url');
-	$user = $_SESSION['user'];
   ?>
 <!DOCTYPE html>
 <html lang='en'>

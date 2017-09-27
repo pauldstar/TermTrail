@@ -40,6 +40,19 @@ class Question
     $this->question_comments = array();
   }
 		
+	public function get_full_id()
+	{
+	  $full_id = array( 
+			'school_id' => $this->school_id,
+			'course_id' => $this->course_id,
+			'bank_id' => $this->bank_id,
+			'chapter_id' => $this->chapter_id,
+			'question_id' => $this->question_id
+		);
+		
+		return $full_id;
+	}
+	
 	public function get_comment_count($user)
 	{
 		return 0;

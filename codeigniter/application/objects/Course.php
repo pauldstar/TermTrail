@@ -13,7 +13,7 @@ class Course
   public $banks;
 	
 	public $parent_label = 'school';
-	public $child_label = 'banks';
+	public $child_label = 'bank';
 
   public function __construct($params)
   {
@@ -28,6 +28,16 @@ class Course
     $this->category = $params['category'];
     $this->banks = array();
   }
+	
+	public function get_full_id()
+	{
+	  $full_id = array( 
+			'school_id' => $this->school_id,
+			'course_id' => $this->course_id 
+		);
+		
+		return $full_id;
+	}
 	
 	public function get_parent_title($user)
 	{

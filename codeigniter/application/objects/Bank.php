@@ -24,7 +24,7 @@ class Bank
 	public $revisions;
 	
 	public $parent_label = 'course';
-	public $child_label = 'chapters';
+	public $child_label = 'chapter';
 
   public function __construct($params) 
 	{ // for origin bank
@@ -40,6 +40,17 @@ class Bank
     $this->bank_view_count = $params['bank_view_count'];
     $this->chapters = array();
   }
+		
+	public function get_full_id()
+	{
+	  $full_id = array( 
+			'school_id' => $this->school_id,
+			'course_id' => $this->course_id, 
+			'bank_id' => $this->bank_id 
+		);
+		
+		return $full_id;
+	}
 	
 	public function get_parent_title($user)
 	{

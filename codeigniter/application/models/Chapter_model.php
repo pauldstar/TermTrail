@@ -4,21 +4,30 @@ class Chapter_model extends MY_Model
 	public function set_session_chapters()
 	{
 		$chapters = self::get_db_chapters();
-		if ($chapters === NULL) return;
-		
-		foreach ($chapters as $chapter)
+		if ($chapters !== NULL)
 		{
-			$school_id = $chapter->school_id;
-			$course_id = $chapter->course_id;
-			$bank_id = $chapter->bank_id;
-			self::$user->schools[$school_id-1]->
-				courses[$course_id-1]->banks[$bank_id-1]->chapters[] = $chapter;
+			foreach ($chapters as $chapter)
+			{
+				$school_id = $chapter->school_id;
+				$course_id = $chapter->course_id;
+				$bank_id = $chapter->bank_id;
+				self::$user->schools[$school_id-1]->
+					courses[$course_id-1]->banks[$bank_id-1]->chapters[] = $chapter;
+			}
+			
+			$this->load->model('question_model');
+			$this->question_model->set_session_questions();
 		}
-		
-		$this->load->model('question_model');
-		$this->question_model->set_session_questions();
 	}
 	
+  public function get_session_chapters($full_parent_id)
+  {
+		$school_id =  $full_parent_id['school_id'];
+		$course_id =  $full_parent_id['course_id'];
+		$bank_id =  $full_parent_id['bank_id'];
+		return self::$user->schools[$school_id-1]->courses[$course_id-1]->banks[$bank_id-1]->chapters;
+  }
+
   public function get_db_chapters($user_id = '')
   {
 		if (empty($user_id)) $user_id = self::$user->user_id;

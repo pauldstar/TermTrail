@@ -4,16 +4,32 @@ class Course_model extends MY_Model
 	public function set_session_courses()
 	{
 		$courses = self::get_db_courses();
-		if ($courses === NULL) return;
-		
-		foreach ($courses as $course)
+		if ($courses !== NULL)
 		{
-			$school_id = $course->school_id;
-			self::$user->schools[$school_id-1]->courses[] = $course;
+			foreach ($courses as $course)
+			{
+				$school_id = $course->school_id;
+				self::$user->schools[$school_id-1]->courses[] = $course;
+			}
+			
+			$this->load->model('bank_model');
+			$this->bank_model->set_session_banks();
 		}
-		
-		$this->load->model('bank_model');
-		$this->bank_model->set_session_banks();
+	}
+	
+	public function get_session_courses($full_parent_id = '')
+	{
+		if (empty($full_parent_id))
+		{
+			$courses = array();
+			foreach (self::$user->schools as $school)
+				foreach ($school->courses as $course) 
+					$courses[] = $course;
+			return $courses;
+		}
+
+		$school_id = $full_parent_id['school_id'];
+		return self::$user->schools[$school_id-1]->courses;
 	}
 	
   public function get_db_courses($user_id = '')
@@ -25,15 +41,6 @@ class Course_model extends MY_Model
 		foreach ($query->result_array() as $row) $courses[] = new Course($row);
 		return $courses;
   }
-	
-	public function get_session_courses()
-	{
-		$courses = array();
-    foreach (self::$user->schools as $school)
-      foreach ($school->courses as $course) 
-				$courses[] = $course;
-    return $courses;
-	}
 
   public function set_and_get_course($school_id, $course_type)
   {

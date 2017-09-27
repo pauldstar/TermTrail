@@ -1,5 +1,5 @@
 <div class="div-gridbox-wrapper">
-	<div class="div-gridbox">
+	<div class="div-gridbox" data-full-id-json='[<?= json_encode($gridbox->full_id) ?>]' data-child-section="<?= $gridbox->child_label ?>">
 		
 		<div class="div-gridbox-header">
 			<div class="text-gridbox-numbering"><?= $gridbox->gridbox_number ?></div>
@@ -37,7 +37,7 @@
 					<?php case 'school': ?>
 						<li class="li-gridbox-data">
 							<div class="text-gridbox-data-li">
-								<strong><?= $gridbox->child_label ?></strong><br>
+								<strong><?= $gridbox->child_label.'s' ?></strong><br>
 								<?= $gridbox->child_count ?>
 							</div>
 						</li>

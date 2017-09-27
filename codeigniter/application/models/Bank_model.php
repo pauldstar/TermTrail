@@ -4,19 +4,37 @@ class Bank_model extends MY_Model
 	public function set_session_banks()
 	{
 		$banks = self::get_db_banks();
-		if ($banks === NULL) return;
-		
-		foreach ($banks as $bank)
+		if ($banks !== NULL)
 		{
-			$school_id = $bank->school_id;
-			$course_id = $bank->course_id;
-			self::$user->schools[$school_id-1]->courses[$course_id-1]->banks[] = $bank;
+			foreach ($banks as $bank)
+			{
+				$school_id = $bank->school_id;
+				$course_id = $bank->course_id;
+				self::$user->schools[$school_id-1]->courses[$course_id-1]->banks[] = $bank;
+			}
+			
+			$this->load->model('chapter_model');
+			$this->chapter_model->set_session_chapters();
+		}
+	}
+
+  public function get_session_banks($full_parent_id = '')
+  {
+		if (empty($full_parent_id))
+		{
+			$banks = array();
+			foreach (self::$user->schools as $school)
+				foreach ($school->courses as $course) 
+					foreach ($course->banks as $bank)
+						$banks[] = $bank;
+			return $banks;
 		}
 		
-		$this->load->model('chapter_model');
-		$this->chapter_model->set_session_chapters();
-	}
-	
+		$school_id =  $full_parent_id['school_id'];
+		$course_id =  $full_parent_id['course_id'];
+		return self::$user->schools[$school_id-1]->courses[$course_id-1]->banks;
+  }
+
   public function get_db_banks($user_id = '')
   {
     if (empty($user_id)) $user_id = self::$user->user_id;
@@ -26,17 +44,7 @@ class Bank_model extends MY_Model
 		foreach ($query->result_array() as $row) $banks[] = new Bank($row);
 		return $banks;
   }
-
-  public function get_session_banks()
-  {
-    $banks = array();
-    foreach (self::$user->schools as $school)
-      foreach ($school->courses as $course) 
-				foreach ($course->banks as $bank)
-					$banks[] = $bank;
-    return $banks;
-  }
-
+	
   public function get_course_banks($course_id, $user_id = '')
   {
     $full_course_id = array('owner_id'=>$user_id, 'course_id'=>$course_id);

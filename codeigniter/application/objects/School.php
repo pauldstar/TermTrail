@@ -11,7 +11,7 @@ class School
 	public $education_level;
   public $courses;
 	
-	public $child_label = 'courses';
+	public $child_label = 'course';
 	
   public function __construct($params)
   {
@@ -25,7 +25,14 @@ class School
     $this->education_level = $params['education_level'];
     $this->courses = array();
   }
-
+	
+	public function get_full_id()
+	{
+	  $full_id = array('school_id' => $this->school_id);
+		
+		return $full_id;
+	}
+	
 	public function get_child_count()
 	{
 		return sizeof($this->courses);

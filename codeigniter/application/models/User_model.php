@@ -1,15 +1,6 @@
 <?php
 class User_model extends MY_Model 
 {
-  public function get_user($user_id = '')
-  {
-		if (empty($user_id)) return self::$user;
-		$query = $this->db->query("SELECT * FROM user WHERE username='{$user_id}'");
-    $row = $query->row_array();
-    if (isset($row)) return new User($row);
-    return NULL;
-  }
-	
   public function set_session_user()
   {
     $email = $this->input->post('email');
@@ -26,6 +17,15 @@ class User_model extends MY_Model
 			return TRUE;
     }
 		return FALSE;
+  }
+	
+  public function get_user($user_id = '')
+  {
+		if (empty($user_id)) return self::$user;
+		$query = $this->db->query("SELECT * FROM user WHERE username='{$user_id}'");
+    $row = $query->row_array();
+    if (isset($row)) return new User($row);
+    return NULL;
   }
 	
   public function set_and_get_user()

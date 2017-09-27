@@ -1,14 +1,14 @@
 <?php
 class Gridbox_model extends MY_Model 
 {
-  public function get_gridbox_objects($section, $parent_id = '')
+  public function get_gridbox_objects($section, $full_parent_id = '')
 	{
 		$this->load->model("{$section}_model", 'item_model');
 		$func_get_session_items = "get_session_{$section}s";
 		$items = $section === 'school' ? 
-			self::$user->schools : $this->item_model->$func_get_session_items($parent_id);
+			self::$user->schools : $this->item_model->$func_get_session_items($full_parent_id);
 		
-		$is_universal = $parent_id === '' ?: FALSE;
+		$is_universal = $full_parent_id === '' ?: FALSE;
 		$var_item_title = $section === 'question' ? "content" : "{$section}_title";
 		$var_item_type = "{$section}_type";
 		$gridbox_objects = array();
@@ -16,6 +16,7 @@ class Gridbox_model extends MY_Model
 		
 		foreach ($items as $index => $item)
 		{
+			$params['full_id'] = $item->get_full_id();
 			$params['section'] = $section;
 			$params['is_universal'] = $is_universal;
 			$params['gridbox_number'] = $index + 1;

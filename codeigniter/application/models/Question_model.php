@@ -4,22 +4,33 @@ class Question_model extends My_Model
 	public function set_session_questions()
 	{
 		$questions = self::get_db_questions();
-		if ($questions === NULL) return;
-		
-		foreach ($questions as $question)
-		{
-			$school_id = $question->school_id;
-			$course_id = $question->course_id;
-			$bank_id = $question->bank_id;
-			$chapter_id = $question->chapter_id;
-			self::$user->schools[$school_id-1]->courses[$course_id-1]->
-				banks[$bank_id-1]->chapters[$chapter_id-1]->questions[] = $question;
+		if ($questions !== NULL)
+		{			
+			foreach ($questions as $question)
+			{
+				$school_id = $question->school_id;
+				$course_id = $question->course_id;
+				$bank_id = $question->bank_id;
+				$chapter_id = $question->chapter_id;
+				self::$user->schools[$school_id-1]->courses[$course_id-1]->
+					banks[$bank_id-1]->chapters[$chapter_id-1]->questions[] = $question;
+			}
+			
+			// $this->load->model('question_model');
+			// $this->question_model->set_session_questions();
 		}
-		
-		// $this->load->model('question_model');
-		// $this->question_model->set_session_questions();
 	}
-
+	
+  public function get_session_questions($full_parent_id)
+  {
+		$school_id =  $full_parent_id['school_id'];
+		$course_id =  $full_parent_id['course_id'];
+		$bank_id =  $full_parent_id['bank_id'];
+		$chapter_id =  $full_parent_id['chapter_id'];
+		return self::$user->schools[$school_id-1]->
+			courses[$course_id-1]->banks[$bank_id-1]->chapters[$chapter_id-1]->questions;
+  }
+	
   public function get_db_questions($user_id = '')
   {
 		if (empty($user_id)) $user_id = self::$user->user_id;

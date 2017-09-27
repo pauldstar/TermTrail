@@ -26,10 +26,18 @@ class Dashboard extends CI_Controller
     $this->load->view('dashboard/footer');
   }
 
-	public function ajax_get_grid($section, $parent_id = '')
+	public function ajax_get_grid($section)
 	{
 		$this->load->model('gridbox_model');
-		$gridbox_objects = $this->gridbox_model->get_gridbox_objects($section, $parent_id = '');
+		// decode JSON ID back to array
+		$full_parent_id_json = $this->input->post('fullItemIdJson');
+		$full_parent_id = json_decode($full_parent_id_json, TRUE);
+		$full_parent_id = empty($full_parent_id) ? '' : $full_parent_id[0];
+		
+		$gridbox_objects = 
+			$this->gridbox_model->get_gridbox_objects($section, $full_parent_id);
+		
+		$grid = array();
 		
 		foreach ($gridbox_objects as $gridbox)
 		{

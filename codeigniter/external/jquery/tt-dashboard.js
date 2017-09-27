@@ -13,7 +13,7 @@ $(document).ready(function()
 	var $toolDropdownToggle = $('.div-tool-dropdown-toggle');
 	// SIDEBAR
 	var $addResource = $('.a-sidebar-submenu');
-	var $currentSidebarMenuLi = $('.a-sidebar-menu-li').eq(0);
+	var $activeSidebarMenuLi = $('.a-sidebar-menu-li').eq(0);
 	var $gridCounter = $('.ul-sidebar-questions-list');
 	var $gridCounterLi = $('.li-sidebar-question');
 	var $sidebarNavButton = $('.a-navbar-toggle-buttons');
@@ -38,7 +38,7 @@ $(document).ready(function()
 	// NAVBAR
 	$navBurgerMenu.click(toggleSidebar);
 	// TOOLBAR
-	$toolbarSearch.click(launchSidebarSearch);
+	$toolbarSearch.click (launchSidebarSearch);
 	$toolDropdownToggle.click(toggleToolDropDown);
 	// SIDEBAR
 	initGridCounter();
@@ -67,7 +67,11 @@ $(document).ready(function()
 	
 	function openGridboxSection()
 	{
-		return;
+		$activeSidebarMenuLi.removeClass('active');
+		
+		var fullItemIdJson = $(this).data('full-id-json');
+		var section = $(this).data('child-section');
+		refreshPageGrid(section, fullItemIdJson);
 	}
 	
 	function initPageContentGrid()
@@ -86,7 +90,7 @@ $(document).ready(function()
 			},
 			layout: function(items, containerWidth, containerHeight) 
 			{ // custom strict horizontal left-to-right order
-				if (!items.length) return layout;
+				if ( ! items.length) return layout;
 				var layout = { slots: {}, height: 0, setHeight: true }; 
 				// container width is always perfectly divisible by item width (210px)
 				var colCount = containerWidth / items[0]._width;
@@ -255,32 +259,41 @@ $(document).ready(function()
 	
 	function switchActiveSidebarMenu()
 	{
-		if (!$(this).hasClass('collapsible')) 
-		{ // only activate if not a collapsible
+		if ( ! $(this).hasClass('collapsible'))
+		{
 			$tt('.a-sidebar-menu-li').removeClass('active');
-			$(this).addClass('active');
-			var liAttribute = $(this).attr('data-action');
-			var alreadyActive = $(this).is($currentSidebarMenuLi);
-			if (liAttribute == 'refresh-grid' && !alreadyActive)
+			
+			if (visible)
 			{
-				var section = $(this).attr('data-title');
-				refreshPageGrid(section);
-				updateMainTopicHeading(section);
-				$currentSidebarMenuLi = $(this);
+				$(this).addClass('active');
+				var liAttribute = $(this).attr('data-action');
+				var alreadyActive = $(this).is($activeSidebarMenuLi);
+				
+				if (liAttribute == 'refresh-grid' && !alreadyActive)
+				{
+					var section = $(this).attr('data-title');
+					refreshPageGrid(section);
+					updateMainTopicHeading(section+'s');
+					$activeSidebarMenuLi = $(this);
+				}
 			}
 		}
 	}
 	
-	function refreshPageGrid(section, itemId = '')
+	function refreshPageGrid(section, fullItemIdJson = '')
 	{
 		var gridItems = $pageGrid.getItems();
 		$pageGrid.remove(gridItems, {removeElements: true, layout: false});
-		
-		var ajaxUrlSegments = 'dashboard/ajax_get_grid/' + section + '/' + itemId;
-		var gridPost = $.post(callController(ajaxUrlSegments));
+		var ajaxUrlSegments = 'dashboard/ajax_get_grid/' + section;
+		log(ajaxUrlSegments);
+		var gridPost = $.post(callController(ajaxUrlSegments), 
+		{
+			fullItemIdJson: JSON.stringify(fullItemIdJson)
+		});
 		
 		gridPost.done(function(data) 
 		{ 
+			log(data);
 			var gridData = JSON.parse(data);
 			gridItems = getGridItems(gridData);
 			$pageGrid.add(gridItems);
@@ -351,7 +364,7 @@ $(document).ready(function()
 	
 	function hideGridIcons()
 	{
-		if (!$(this).hasClass('selected'))
+		if ( ! $(this).hasClass('selected'))
 		{ // only fadeout if grid-box hasn't been selected
 			$(this).find('.div-gridbox-footer-buttons').fadeTo(200, 0);
 			$(this).find('.div-selection-checkbox').fadeTo(200, 0);
@@ -408,10 +421,15 @@ $(document).ready(function()
 	HELPERS
 	*/
 	
+	function getGridboxFullId($gridbox)
+	{
+		return $gridbox.data('full-id');
+	}
+	
 	function $tt(query)
 	{ // cache the jquery queries
 		this.cache = this.cache || {};
-		if (!this.cache[query]) this.cache[query] = $(query);
+		if ( ! this.cache[query]) this.cache[query] = $(query);
 		return this.cache[query];
 	}
 	
@@ -482,7 +500,7 @@ $(document).ready(function()
 	$('.a-chapter-item').mouseleave(function(event)
 	{
 		// only fadeout if grid-box hasn't been selected
-		if (!$(this).hasClass('selected'))
+		if ( ! $(this).hasClass('selected'))
 		{
 			$(this).find('.img-chapter-info').fadeOut(200);
 			$(this).find('.img-edit-chapter').fadeOut(200);

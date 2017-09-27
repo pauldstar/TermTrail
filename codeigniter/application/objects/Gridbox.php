@@ -2,16 +2,19 @@
 
 class Gridbox
 {
+	public $full_id;
 	public $section; // school, course, bank, chapter, question
 	public $is_universal;
 	public $gridbox_number;
 	public $title; // also holds gridbox question
 	
 	// for gridbox in general section type (except schools) 
-	public $parent_label, $parent_title;
+	public $parent_label;
+	public $parent_title;
 	
 	// for all sections except questions
-	public $child_label, $child_count; 
+	public $child_label;
+	public $child_count; 
 	
 	public $source_type; // origin, import
 	public $comment_count;
@@ -21,6 +24,7 @@ class Gridbox
 	
   public function __construct($params)
   {
+		$this->full_id = $params['full_id'];
 		$this->section = $params['section'];
 		$this->is_universal = $params['is_universal'];
 		$this->gridbox_number = $params['gridbox_number'];
@@ -28,7 +32,7 @@ class Gridbox
 		$this->comment_count = $params['comment_count'];
 		switch ($params['section'])
 		{
-			case 'questions':
+			case 'question':
 				$this->subquestions = $params['subquestions'];
 				break;
 			default:
