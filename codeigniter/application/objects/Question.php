@@ -49,7 +49,6 @@ class Question
 			'chapter_id' => $this->chapter_id,
 			'question_id' => $this->question_id
 		);
-		
 		return $full_id;
 	}
 	

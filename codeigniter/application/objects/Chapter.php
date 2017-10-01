@@ -35,7 +35,6 @@ class Chapter
 			'bank_id' => $this->bank_id,
 			'chapter_id' => $this->chapter_id
 		);
-		
 		return $full_id;
 	}
 	

@@ -74,7 +74,8 @@ class Question_model extends My_Model
 			'content' => $this->input->post('content'), 
 			'answer' => $this->input->post('answer'), 
 			'hint' => $this->input->post('hint'), 
-			'last_edit_time' => $current_time );
+			'last_edit_time' => $current_time 
+		);
     $query_successful = $this->db->insert('question', $question_params);
     if ( ! $query_successful) return NULL;
 		$question_params['revision_state'] = 'pending';

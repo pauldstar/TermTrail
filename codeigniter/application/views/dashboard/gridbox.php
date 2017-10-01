@@ -17,11 +17,13 @@
 			<ul class="ul-gridbox-data w-list-unstyled">
 				<?php switch($gridbox->section):
 					case 'question': ?>
-						<?php foreach ($gridbox->subquestions as $subquestion): ?>
-							<li class="li-gridbox-subquestion">
-								<div class="text-gridbox-data-li"><?= $subquestion ?></div>
-							</li>
-						<?php endforeach; ?>
+						<?php if ($gridbox->subquestions !== NULL): ?>
+							<?php foreach ($gridbox->subquestions as $subquestion): ?>
+								<li class="li-gridbox-subquestion">
+									<div class="text-gridbox-data-li"><?= $subquestion ?></div>
+								</li>
+							<?php endforeach; ?>
+						<?php endif; ?>
 						<?php break; ?>
 					<?php case 'chapter': ?>
 					<?php case 'bank': ?>
@@ -41,10 +43,10 @@
 								<?= $gridbox->child_count ?>
 							</div>
 						</li>
-						<li class="li-gridbox-data">
-							<h5 class="gridbox-item-type"><?= $gridbox->source_type ?></h5>
-						</li>
 				<?php endswitch; ?>
+				<li class="li-gridbox-data">
+					<h5 class="gridbox-item-type"><?= $gridbox->source_type ?></h5>
+				</li>
 			</ul>
 		</div>
 		

@@ -513,34 +513,34 @@ img {
 	position: relative;
 	margin: auto;
 }
-@media (min-width: 651px) {
+@media (min-width: 731px) {
   .div-page-content-grid {
-    width: 420px;
+    width: 500px;
   }
 }
-@media (min-width: 861px) {
+@media (min-width: 981px) {
   .div-page-content-grid {
-    width: 630px;
+    width: 750px;
   }
 }
-@media (min-width: 1071px) {
+@media (min-width: 1231px) {
   .div-page-content-grid {
-    width: 840px;
+    width: 1000px;
   }
 }
-@media (min-width: 1281px) {
+@media (min-width: 1481px) {
   .div-page-content-grid {
-    width: 1050px;
+    width: 1250px;
   }
 }
-@media (min-width: 1491px) {
+@media (min-width: 1731px) {
   .div-page-content-grid {
-    width: 1260px;
+    width: 1500px;
   }
 }
-@media (min-width: 1701px) {
+@media (min-width: 1981px) {
   .div-page-content-grid {
-    width: 1470px;
+    width: 1750px;
   }
 }
 .div-tool-dropdown-list {
@@ -581,7 +581,7 @@ img {
 	position: absolute;
   padding: 5px;
   z-index: 1;
-	width: 210px;
+	width: 250px;
 }
 .div-gridbox-wrapper.muuri-item-dragging {
   z-index: 3;
@@ -709,10 +709,12 @@ img {
 .h-gridbox-title {
   display: inline-block;
   font-family: 'Open Sans', sans-serif;
-  text-transform: capitalize;
+	width: 100%;
+	text-align: center;
 }
 h4.h-gridbox-title {
   font-size: 16px;
+	text-transform: capitalize;
 }
 .div-gridbox-header {
   padding-right: 12px;
@@ -803,12 +805,13 @@ h4.h-gridbox-title {
 }
 .h-sub-topic-heading {
   display: inline-block;
-  margin-left: 10px;
+  margin-right: 10px;
   opacity: 0.77;
   font-family: Montserrat, sans-serif;
   font-size: 17px;
   font-style: normal;
   font-weight: 500;
+	cursor: pointer;
 }
 .text-numbering {
   position: absolute;

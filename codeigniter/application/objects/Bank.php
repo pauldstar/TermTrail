@@ -48,7 +48,6 @@ class Bank
 			'course_id' => $this->course_id, 
 			'bank_id' => $this->bank_id 
 		);
-		
 		return $full_id;
 	}
 	

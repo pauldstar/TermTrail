@@ -28,8 +28,9 @@ class Gridbox_model extends MY_Model
 				$params['parent_title'] = $section === 'school' ? '' : $item->get_parent_title(self::$user);
 			}
 			
-			$params['child_label'] = $item->child_label;
-			$params['child_count'] = $item->get_child_count();
+			$params['child_label'] = $section === 'question' ? '' : $item->child_label;
+			$params['child_count'] = $section === 'question' ? '' : $item->get_child_count();
+			$params['subquestions'] = NULL;
 			$params['source_type'] = $item->$var_item_type;
 			$params['comment_count'] = $item->get_comment_count(self::$user);
 			

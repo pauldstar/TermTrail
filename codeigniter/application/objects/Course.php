@@ -35,7 +35,6 @@ class Course
 			'school_id' => $this->school_id,
 			'course_id' => $this->course_id 
 		);
-		
 		return $full_id;
 	}
 	

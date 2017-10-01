@@ -30,6 +30,8 @@ class Gridbox
 		$this->gridbox_number = $params['gridbox_number'];
 		$this->title = $params['title'];
 		$this->comment_count = $params['comment_count'];
+		$this->source_type = $params['source_type'];
+		
 		switch ($params['section'])
 		{
 			case 'question':
@@ -38,8 +40,8 @@ class Gridbox
 			default:
 				$this->child_label = $params['child_label'];
 				$this->child_count = $params['child_count'];
-				$this->source_type = $params['source_type'];
 		}
+		
 		if ($this->is_universal)
 		{
 			$this->parent_label = $params['parent_label']; 
