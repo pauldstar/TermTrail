@@ -1,15 +1,11 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
+
 /*
  * Table names and structure. The tables are ordered in a steadily ascending order of foreign
  * key references: e.g. $config[table_name] = "structure";
- *
- * For some tables, the options of some variables are written above it.
- *
- * USER TABLE
- * scope: public/private
- * has_notification: Y/N
  */
+ 
 $config['user'] = "
 	user_id INT UNSIGNED AUTO_INCREMENT NOT NULL,
 	username VARCHAR(50) NOT NULL UNIQUE,
@@ -21,8 +17,11 @@ $config['user'] = "
 	sign_up_time BIGINT UNSIGNED NOT NULL,
 	last_login_time BIGINT UNSIGNED NOT NULL,
 	has_notification CHAR(1) DEFAULT 'N',
+	CONSTRAINT scope_constraint CHECK(scope IN ('public', 'private')),
+	CONSTRAINT has_notification_constraint CHECK(has_notification IN ('Y', 'N')),
 	INDEX(username),
 	PRIMARY KEY(user_id)";
+	
 /*
  * $config['subscription'] = "user INT UNSIGNED NOT NULL,
  * start_date BIGINT UNSIGNED NOT NULL,
@@ -41,12 +40,7 @@ $config['user'] = "
  * FOREIGN KEY(passive_user) REFERENCES user(user_id),
  * PRIMARY KEY(active_user, passive_user, time_added)";
  */
-/*
- * SCHOOL TABLE
- * scope: public/private
- * school_type: origin/import
- * education_level: primary/secondary/tertiary
- */
+
 $config['school'] = "
 	owner_id INT UNSIGNED NOT NULL,
 	school_id SMALLINT UNSIGNED NOT NULL,
@@ -56,16 +50,15 @@ $config['school'] = "
 	school_view_count INT UNSIGNED DEFAULT 0,
 	school_type CHAR(6) NOT NULL,
 	education_level VARCHAR(10) NOT NULL,
+	CONSTRAINT scope_constraint CHECK(scope IN ('public', 'private')),
+	CONSTRAINT school_type_constraint CHECK(school_type IN ('origin', 'import')),
+	CONSTRAINT education_level_constraint CHECK(education_level IN ('primary', 'secondary', 'tertiary')),
 	INDEX(school_title),
 	INDEX(school_type),
 	INDEX(education_level),
 	FOREIGN KEY(owner_id) REFERENCES user(user_id),
 	PRIMARY KEY(school_id, owner_id)";
-/*
- * COURSE TABLE
- * scope: public/private
- * course_type: origin/import
- */
+	
 $config['course'] = "
 	owner_id INT UNSIGNED NOT NULL,
 	school_id SMALLINT UNSIGNED NOT NULL,
@@ -76,12 +69,15 @@ $config['course'] = "
 	course_view_count INT UNSIGNED DEFAULT 0,
 	course_type CHAR(6) NOT NULL,
 	category VARCHAR(50) NOT NULL,
+	CONSTRAINT scope_constraint CHECK(scope IN ('public', 'private')),
+	CONSTRAINT course_type_constraint CHECK(course_type IN ('origin', 'import')),
 	INDEX(course_title),
 	INDEX(course_type),
 	INDEX(category),
 	FOREIGN KEY(owner_id) REFERENCES user(user_id),
 	FOREIGN KEY(school_id) REFERENCES school(school_id),
 	PRIMARY KEY(course_id, school_id, owner_id)";
+	
 /*
  * $config['course_import'] = "importer_id INT UNSIGNED NOT NULL,
  * course_id SMALLINT UNSIGNED NOT NULL,
@@ -94,6 +90,7 @@ $config['course'] = "
  * FOREIGN KEY(origin_course_id) REFERENCES course(course_id),
  * PRIMARY KEY(importer_id, school_id, course_id)";
  */
+ 
 /*
  * ACCESS COURSE TABLE
  * access_request_state: pending/accepted
@@ -110,12 +107,7 @@ $config['course'] = "
  * FOREIGN KEY(course_id) REFERENCES course(course_id),
  * PRIMARY KEY(accessor_id, course_id, school_id, course_owner_id)";
  */
-/*
- * BANK TABLE
- * scope: public/private
- * mode: buiding/revision
- * bank_type: origin/import
- */
+ 
 $config['bank'] = "
 	owner_id INT UNSIGNED NOT NULL,
 	school_id SMALLINT UNSIGNED NOT NULL,
@@ -128,10 +120,14 @@ $config['bank'] = "
 	bank_view_count INT UNSIGNED DEFAULT 0,
 	bank_type CHAR(6) NOT NULL,
 	rating TINYINT UNSIGNED DEFAULT 0,
+	CONSTRAINT scope_constraint CHECK(scope IN ('public', 'private')),
+	CONSTRAINT mode_constraint CHECK(mode IN ('building', 'revision')),
+	CONSTRAINT bank_type_constraint CHECK(bank_type IN ('origin', 'import')),
 	FOREIGN KEY(owner_id) REFERENCES course(owner_id),
 	FOREIGN KEY(school_id) REFERENCES school(school_id),
 	FOREIGN KEY(course_id) REFERENCES course(course_id),
 	PRIMARY KEY(bank_id, course_id, school_id, owner_id)";
+	
 /*
  * $config['bank_import'] = "importer_id INT UNSIGNED NOT NULL,
  * course_id SMALLINT UNSIGNED NOT NULL,
@@ -148,6 +144,7 @@ $config['bank'] = "
  * FOREIGN KEY(origin_bank_id) REFERENCES bank(bank_id),
  * PRIMARY KEY(bank_id, course_id, school_id, importer_id)";
  */
+ 
 /*
  * ACCESS BANK TABLE
  * access_request_state: pending/accepted
@@ -168,6 +165,7 @@ $config['bank'] = "
  * FOREIGN KEY(bank_id) REFERENCES bank(bank_id),
  * PRIMARY KEY(accessor_id, bank_id, course_id, school_id, course_owner_id)";
  */
+ 
 /*
  * REVISION TABLE
  * mode: sequential/random
@@ -195,15 +193,14 @@ $config['chapter'] = "
 	chapter_id TINYINT UNSIGNED NOT NULL,
 	chapter_title VARCHAR(50) NOT NULL,
 	chapter_position SMALLINT UNSIGNED NOT NULL,
+	chapter_type CHAR(6) NOT NULL,
+	CONSTRAINT chapter_type_constraint CHECK(chapter_type IN ('origin', 'import')),
 	FOREIGN KEY(owner_id) REFERENCES bank(owner_id),
 	FOREIGN KEY(school_id) REFERENCES school(school_id),
 	FOREIGN KEY(course_id) REFERENCES bank(course_id),
 	FOREIGN KEY(bank_id) REFERENCES bank(bank_id),
 	PRIMARY KEY(chapter_id, bank_id, course_id, school_id, owner_id)";
-/*
- * QUESTION TABLE
- * revision_state: pending/done
- */
+
 $config['question'] = "
 	owner_id INT UNSIGNED NOT NULL,
 	school_id SMALLINT UNSIGNED NOT NULL,
@@ -213,18 +210,22 @@ $config['question'] = "
 	question_id SMALLINT UNSIGNED NOT NULL,
 	author_id INT UNSIGNED NOT NULL,
 	question_position SMALLINT UNSIGNED NOT NULL,
-	content TEXT NOT NULL,
+	question_type CHAR(6) NOT NULL,
+	question TEXT NOT NULL,
 	answer TEXT,
 	hint TEXT,
 	revision_state VARCHAR(7) DEFAULT 'pending',
 	confidence_score INT UNSIGNED,
 	last_edit_time BIGINT UNSIGNED NOT NULL,
+	CONSTRAINT revision_state_constraint CHECK(revision_state IN ('pending', 'done')),
+	CONSTRAINT question_type_constraint CHECK(question_type IN ('origin', 'import')),
 	FOREIGN KEY(owner_id) REFERENCES chapter(owner_id),
 	FOREIGN KEY(school_id) REFERENCES school(school_id),
 	FOREIGN KEY(course_id) REFERENCES chapter(course_id),
 	FOREIGN KEY(bank_id) REFERENCES chapter(bank_id),
 	FOREIGN KEY(chapter_id) REFERENCES chapter(chapter_id),
 	PRIMARY KEY(question_id, chapter_id, bank_id, course_id, school_id, owner_id)";
+	
 /* QUESTION_COMMENT TABLE
  * resolved: Y/N
  */

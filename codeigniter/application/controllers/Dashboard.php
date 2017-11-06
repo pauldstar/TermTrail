@@ -37,15 +37,15 @@ class Dashboard extends CI_Controller
 		
 		$this->load->model('gridbox_model');
 		$gridbox_objects = $this->gridbox_model->get_gridbox_objects($section, $full_parent_id);
-		$grid = array();
+		$grid_views = array();
 		
 		foreach ($gridbox_objects as $gridbox)
 		{
 			$data['gridbox'] = $gridbox;
-			$grid[] = $this->load->view('dashboard/gridbox', $data, TRUE);
+			$grid_views[] = $this->load->view('dashboard/gridbox', $data, TRUE);
 		}
 		
-		echo json_encode($grid);
+		echo json_encode($grid_views);
 	}
 	
   public function logout()

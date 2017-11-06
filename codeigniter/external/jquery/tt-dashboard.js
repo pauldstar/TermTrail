@@ -247,14 +247,14 @@ var PAGE_CONTENT =
 		return $(item.getElement()).find('.text-gridbox-numbering');
 	},
 	
-	getGridItems: function(gridData)
+	getGridItems: function(gridViews)
 	{
 		var gridItems = [];
 		
-		gridData.forEach(function(content)
+		gridViews.forEach(function(gridboxView)
 		{
 			element = document.createElement('div');
-			element.innerHTML = content;
+			element.innerHTML = gridboxView;
 			gridItems.push(element.firstChild);
 		});
 		
@@ -405,8 +405,8 @@ var PAGE_CONTENT =
 		
 		gridPost.done(function(data) 
 		{ 
-			var gridData = JSON.parse(data);
-			gridItems = PAGE_CONTENT.getGridItems(gridData);
+			var gridViews = JSON.parse(data);
+			gridItems = PAGE_CONTENT.getGridItems(gridViews);
 			PAGE_CONTENT.$pageGrid.add(gridItems);
 		});
 	},
