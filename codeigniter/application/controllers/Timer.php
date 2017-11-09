@@ -1,13 +1,13 @@
 <?php
-class Timer {
-  
-  var $classname = "Timer";
-  var $start = 0;
-  var $stop = 0;
-  var $elapsed = 0;
+class Timer 
+{
+  public $classname = "Timer";
+  public $start = 0;
+  public $stop = 0;
+  public $elapsed = 0;
   
   // Constructor
-  public function __construct($start = true) {
+  public function __construct($start = TRUE) {
     if ($start)
       $this->start();
   }
@@ -25,7 +25,7 @@ class Timer {
   
   // Get Elapsed Time
   public function elapsed() {
-    if (! $elapsed)
+    if ( ! $elapsed)
       $this->stop();
     
     return $this->elapsed;

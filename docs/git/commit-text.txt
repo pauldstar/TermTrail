@@ -1,1 +1,0 @@
-edited db_tables; added school table; integrated school into all models & objects; renamed trails to banks, and terms to questions in all files; edited database model; edited get_user_component_db() functions in models

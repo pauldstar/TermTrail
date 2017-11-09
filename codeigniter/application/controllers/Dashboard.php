@@ -1,5 +1,4 @@
 <?php
-
 class Dashboard extends CI_Controller 
 {
   private static $user;
@@ -8,50 +7,51 @@ class Dashboard extends CI_Controller
   {
     parent::__construct();
     $this->load->helper('url');
-    // object classes are needed to serialise the objects stored in session
-    require_once APPPATH . 'objects/User.php';
-    require_once APPPATH . 'objects/Course.php';
-    require_once APPPATH . 'objects/Bank.php';
-    require_once APPPATH . 'objects/Revision.php';
-    require_once APPPATH . 'objects/Chapter.php';
-    require_once APPPATH . 'objects/Question.php';
-    require_once APPPATH . 'objects/Question_comment.php';
-    $this->load->library('session');
-    if (isset($_SESSION['user'])) self::$user = $_SESSION['user'];
-    else redirect('login');
-  }
-
-  public function landing()
-  {
-    $this->load->view('landing/header_ld');
-    $this->load->view('landing/index_ld');
-    $this->load->view('landing/footer_ld');
+    $this->load->model('user_model');
+    self::$user = $this->user_model->get_user();
+		if (empty(self::$user)) redirect('login');
   }
 
   public function dashboard()
-  {	// get list of banks from user object
-    $this->load->model('bank_model');
-    $data['banks'] = $this->bank_model->get_user_banks_session();
-    $this->load->view('dashboard/header-db', $data);
-    $this->load->view('dashboard/navbar-db');
-    $this->load->view('dashboard/sidebar-db');
-    $this->load->view('dashboard/toolbar-db');
-    $this->load->view('dashboard/page-content-db');
-    $this->load->view('dashboard/popup-db');
-    $this->load->view('dashboard/footer-db');
+  {
+		$this->load->helper('url');
+		$this->load->helper('html');
+		
+		$data['user'] = self::$user;
+		
+    $this->load->view('dashboard/header', $data);
+    $this->load->view('dashboard/navbar', $data);
+    $this->load->view('dashboard/sidebar');
+    $this->load->view('dashboard/toolbar');
+    $this->load->view('dashboard/page-content');
+    $this->load->view('dashboard/popup');
+    $this->load->view('dashboard/scripts');
+    $this->load->view('dashboard/footer');
   }
 
+	public function ajax_get_grid($section)
+	{
+		$full_parent_id_json = $this->input->post('full_item_id_json');
+		$decoded_2d_array = json_decode($full_parent_id_json, TRUE);
+		$full_parent_id = empty($decoded_2d_array) ? '' : $decoded_2d_array[0];
+		
+		$this->load->model('gridbox_model');
+		$gridbox_objects = $this->gridbox_model->get_gridbox_objects($section, $full_parent_id);
+		$grid_views = array();
+		
+		foreach ($gridbox_objects as $gridbox)
+		{
+			$data['gridbox'] = $gridbox;
+			$grid_views[] = $this->load->view('dashboard/gridbox', $data, TRUE);
+		}
+		
+		echo json_encode($grid_views);
+	}
+	
   public function logout()
   {
-    $_SESSION = array();
-    $session_running = session_id() != "" || isset($_COOKIE[session_name()]);
-    if ($session_running)
-    {
-      setcookie(session_name(), '', time() - 2592000, '/');
-      session_destroy();
-      header("Location: " . base_url('index.php/login'));
-    }
-    else
-      show_error("You aren't logged in anyway mate!");
+    $session_ended = $this->user_model->end_user_session();
+		if ($session_ended) redirect('login');
+		else show_error("You aren't logged in anyway mate!");
   }
 }

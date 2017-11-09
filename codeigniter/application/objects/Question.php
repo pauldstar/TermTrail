@@ -1,10 +1,24 @@
 <?php
 class Question 
 {
-  public $owner_id, $school_id, $course_id, $bank_id, $chapter_id, $question_id;
-  public $author_id, $question_position, $content, $answer, $hint;
-  public $revision_state, $confidence_score, $last_edit_time;
+  public $owner_id; 
+	public $school_id; 
+	public $course_id; 
+	public $bank_id; 
+	public $chapter_id; 
+	public $question_id;
+  public $author_id; 
+  public $question_type; 
+	public $question_position; 
+	public $content; 
+	public $answer; 
+	public $hint;
+  public $revision_state; 
+	public $confidence_score; 
+	public $last_edit_time;
   public $question_comments;
+		
+	public $parent_label = 'chapter';
 
   public function __construct($params)
   {
@@ -15,6 +29,7 @@ class Question
     $this->chapter_id = $params['chapter_id'];
     $this->question_id = $params['question_id'];
     $this->author_id = $params['author_id'];
+    $this->question_type = 'origin'; // $params['question_type'];
     $this->question_position = $params['question_position'];
     $this->content = $params['content'];
     $this->answer = $params['answer'];
@@ -24,4 +39,21 @@ class Question
     $this->last_edit_time = $params['last_edit_time'];
     $this->question_comments = array();
   }
+		
+	public function get_full_id()
+	{
+	  $full_id = array( 
+			'school_id' => $this->school_id,
+			'course_id' => $this->course_id,
+			'bank_id' => $this->bank_id,
+			'chapter_id' => $this->chapter_id,
+			'question_id' => $this->question_id
+		);
+		return $full_id;
+	}
+	
+	public function get_comment_count($user)
+	{
+		return 0;
+	}
 }

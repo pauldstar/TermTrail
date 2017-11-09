@@ -1,24 +1,42 @@
 <?php
-class Course_model extends CI_Model 
+class Course_model extends MY_Model 
 {
-  private static $user;
+	public function set_session_courses()
+	{
+		$courses = self::get_db_courses();
+		if ($courses !== NULL)
+		{
+			foreach ($courses as $course)
+			{
+				$school_id = $course->school_id;
+				self::$user->schools[$school_id-1]->courses[] = $course;
+			}
+			
+			$this->load->model('bank_model');
+			$this->bank_model->set_session_banks();
+		}
+	}
+	
+	public function get_session_courses($full_parent_id = '')
+	{
+		if (empty($full_parent_id))
+		{
+			$courses = array();
+			foreach (self::$user->schools as $school)
+				foreach ($school->courses as $course) 
+					$courses[] = $course;
+			return $courses;
+		}
 
-  public function __construct()
-  {
-    parent::__construct();
-    $this->load->database();
-    require_once APPPATH . 'objects/User.php';
-    require_once APPPATH . 'objects/School.php';
-    require_once APPPATH . 'objects/Course.php';
-    $this->load->library('session');
-		self::$user = $_SESSION['user'];
-  }
-
-  public function get_user_courses_db($user_id = '')
+		$school_id = $full_parent_id['school_id'];
+		return self::$user->schools[$school_id-1]->courses;
+	}
+	
+  public function get_db_courses($user_id = '')
   {
     if (empty($user_id)) $user_id = self::$user->user_id;
-		$query = $this->db->query("SELECT * FROM course WHERE owner_id='$user_id'");
-    if ($query == null) return null;
+		$query = $this->db->query("SELECT * FROM course WHERE owner_id='{$user_id}'");
+    if ( ! isset($query)) return NULL;
 		$courses = array();
 		foreach ($query->result_array() as $row) $courses[] = new Course($row);
 		return $courses;
@@ -38,9 +56,9 @@ class Course_model extends CI_Model
 			'category' => $this->input->post('category'), 
 			'time_added' => $current_time );
     $query_successful = $this->db->insert('course', $course_params);
-    if (!$query_successful) return null;
+    if ( ! $query_successful) return NULL;
 		$course_params['course_view_count'] = 0;
-		$course_params['is_main_user'] = true;
+		$course_params['is_main_user'] = TRUE;
 		return new Course($course_params);
   }
 }

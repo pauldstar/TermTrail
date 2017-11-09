@@ -1,12 +1,11 @@
 <?php
-
-class Landing extends CI_Controller {
-
+class Landing extends CI_Controller 
+{
   public function __construct()
   {
-    parent::__construct()
+    parent::__construct();
     $this->load->helper('url');
-    $this->load->library('session');
+		$this->load->helper('html');
   }
 
   public function login()
@@ -18,15 +17,15 @@ class Landing extends CI_Controller {
     if ($this->form_validation->run() === FALSE)
     {
       $data['login_title'] = 'Login';
-      $this->load->view('landing/header_ld', $data);
+      $this->load->view('templates/header', $data);
       $this->load->view('landing/login');
-      $this->load->view('landing/footer_ld');
+      $this->load->view('templates/footer');
     }
     else
     {
       $this->load->model('user_model');
-      self::$user_model->setup_user_session();
-      if (isset($_SESSION['user'])) redirect('test_body');
+      $session_started = $this->user_model->set_session_user();
+      if ($session_started) redirect('dashboard');
       else show_error("Invalid Username/Password");
     }
   }
@@ -43,13 +42,13 @@ class Landing extends CI_Controller {
     if ($this->form_validation->run() === FALSE)
     {
       $data['signup_title'] = 'Sign Up';
-      $this->load->view('landing/header_ld', $data);
+      $this->load->view('templates/header', $data);
       $this->load->view('landing/signup');
-      $this->load->view('landing/footer_ld');
+      $this->load->view('templates/footer');
     }
     else
     {
-      $_SESSION['user'] = self::$user_model->set_and_get_user();
+      $_SESSION['user'] = $this->user_model->set_and_get_user();
       redirect('dashboard');
     }
   }
