@@ -10,14 +10,14 @@ class Question
   public $author_id; 
   public $question_type; 
 	public $question_position; 
-	public $content; 
+	public $question;
 	public $answer; 
 	public $hint;
   public $revision_state; 
 	public $confidence_score; 
 	public $last_edit_time;
   public $question_comments;
-		
+	
 	public $parent_label = 'chapter';
 
   public function __construct($params)
@@ -31,7 +31,7 @@ class Question
     $this->author_id = $params['author_id'];
     $this->question_type = 'origin'; // $params['question_type'];
     $this->question_position = $params['question_position'];
-    $this->content = $params['content'];
+    $this->question = $params['question'];
     $this->answer = $params['answer'];
     $this->hint = $params['hint'];
     $this->revision_state = $params['revision_state'];
@@ -39,7 +39,7 @@ class Question
     $this->last_edit_time = $params['last_edit_time'];
     $this->question_comments = array();
   }
-		
+	
 	public function get_full_id()
 	{
 	  $full_id = array( 

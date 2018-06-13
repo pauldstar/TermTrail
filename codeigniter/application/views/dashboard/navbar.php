@@ -2,7 +2,7 @@
   <div class="btn-navbar-menu" data-ix="sidebar-appear-toggle">
 		<span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
 	</div>
-  <h3 class="h-logo">TermTrail</h3>
+  <h3 class="h-logo">TermtraiL</h3>
   <div class="div-navbar-container w-container">
     <h4 class="h-sub-topic-heading"></h4>
     <h3 class="h-main-topic-heading">Banks</h3>

@@ -56,6 +56,8 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['(:any)'] = 'index/user/$1'; 
 */
+$route['flashcard'] = 'flashcard/index';
+
 
 $route['logout'] = 'dashboard/logout';
 $route['drop_db'] = 'database/drop_db';

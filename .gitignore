@@ -4,4 +4,9 @@
 .buildpath
 
 # My files and directories
-docs\git\commit-text.txt
+docs
+codeigniter/application/controllers/Flashcards.php
+codeigniter/application/models/Flashcard_model.php
+codeigniter/application/objects/Flashcard.php
+codeigniter/application/views/flashcards/
+codeigniter/external/flashcards/

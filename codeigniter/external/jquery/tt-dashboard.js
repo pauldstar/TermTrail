@@ -1,5 +1,5 @@
-function $tt(query)
-{ // cache the jquery queries
+function $jqCache(query)
+{ // cache the jqueries
 	this.cache = this.cache || {};
 	if ( ! this.cache[query]) this.cache[query] = $(query);
 	return this.cache[query];
@@ -10,7 +10,7 @@ function log(out)
 	console.log(out);
 }
 
-$tt(document).ready(function()
+$jqCache(document).ready(function()
 {
 	NAVBAR.$navBurgerMenu.click(SIDEBAR.toggleSidebar);
 	NAVBAR.$subTopicHeading.click(PAGE_CONTENT.openPreviousSection);
@@ -31,11 +31,12 @@ $tt(document).ready(function()
 
 	PAGE_CONTENT.initPageContentGrid();
 	PAGE_CONTENT.refreshPageGrid('bank');
-	$tt(document).on('click', '.div-gridbox', PAGE_CONTENT.openGridboxSection);
-	$tt(document).on('click', '.div-selection-checkbox', PAGE_CONTENT.selectGridbox);
-	$tt(document).on('mouseenter', '.div-gridbox', PAGE_CONTENT.displayGridIcons);
-	$tt(document).on('mouseleave', '.div-gridbox', PAGE_CONTENT.hideGridIcons);
-	
+	$jqCache(document).on('click', '.div-gridbox', PAGE_CONTENT.openGridboxSection);
+	$jqCache(document).on('click', '.div-selection-checkbox', PAGE_CONTENT.selectGridbox);
+	$jqCache(document).on('mouseenter', '.div-gridbox', PAGE_CONTENT.displayGridIcons);
+	$jqCache(document).on('mouseleave', '.div-gridbox', PAGE_CONTENT.hideGridIcons);
+	$jqCache(document).on('click', 'body', PAGE_CONTENT.clearGridboxSelections);
+
 	POPUP.$popupBackground.click(POPUP.removePopup);
 });
 
@@ -50,12 +51,12 @@ var NAVBAR =
 	
 	updateMainTopicHeading: function(text)
 	{
-	  $tt('.h-main-topic-heading').html(text);
+	  $jqCache('.h-main-topic-heading').html(text);
 	},
 	
 	updateSubTopicHeading: function(text)
 	{
-	  $tt('.h-sub-topic-heading').html(text);
+	  $jqCache('.h-sub-topic-heading').html(text);
 	}
 }
 
@@ -83,16 +84,16 @@ SIDEBAR
 
 var SIDEBAR =
 {
-	$addResourceLi:  $('.a-sidebar-submenu'),
-	$activeSidebarMenuLi:  $('.a-sidebar-menu-li').eq(0),
-	$gridCounter:  $('.ul-sidebar-questions-list'),
-	$gridCounterLi:  $('.li-sidebar-question'),
-	$sidebarNavButton:  $('.a-navbar-toggle-buttons'),
-	$sidebarMenuLi:  $('.a-sidebar-menu-li'),
-	$searchCategory:  $('.a-sidebar-search-category'),
-	$searchCross:  $('.img-clear-tt-sidebar-search'),
-	$searchNavButton:  $('#btn-sidebar-search'),
-	searchValue:  '',
+	$addResourceLi: $('.a-sidebar-submenu'),
+	$activeSidebarMenuLi: $('.a-sidebar-menu-li').eq(0),
+	$gridCounter: $('.ul-sidebar-questions-list'),
+	$gridCounterLi: $('.li-sidebar-question'),
+	$sidebarNavButton: $('.a-navbar-toggle-buttons'),
+	$sidebarMenuLi: $('.a-sidebar-menu-li'),
+	$searchCategory: $('.a-sidebar-search-category'),
+	$searchCross: $('.img-clear-tt-sidebar-search'),
+	$searchNavButton: $('#btn-sidebar-search'),
+	searchValue: '',
 	
 	initGridCounter: function()
 	{
@@ -102,7 +103,7 @@ var SIDEBAR =
 			update: function(event, ui)
 			{ // update indices after sort and DOM change
 				var gridCounterNumbers = 
-					$tt('.ul-sidebar-questions-list').sortable('toArray', {attribute: 'data-gc-id'});
+					$jqCache('.ul-sidebar-questions-list').sortable('toArray', {attribute: 'data-gc-id'});
 				var movedGridCounterElement = ui.item;
 				var gridCounterNumber = parseInt(movedGridCounterElement.html());
 				var fromIndex = toIndex = gridCounterNumber - 1;
@@ -110,7 +111,7 @@ var SIDEBAR =
 				while (gridCounterNumber < gridCounterNumbers[toIndex])
 				{ // item dragged down the order
 					currentGridCounterElement = 
-						$tt('.ul-sidebar-questions-list').children('.li-sidebar-question').eq(toIndex);
+						$jqCache('.ul-sidebar-questions-list').children('.li-sidebar-question').eq(toIndex);
 					newGridCounterNumber = parseInt(currentGridCounterElement.html()) - 1;
 					currentGridCounterElement.html(newGridCounterNumber);
 					currentGridCounterElement.attr('data-gc-id', newGridCounterNumber);
@@ -119,7 +120,7 @@ var SIDEBAR =
 				while (gridCounterNumber > gridCounterNumbers[toIndex])
 				{ // item dragged up the order
 					currentGridCounterElement = 
-						$tt('.ul-sidebar-questions-list').children('.li-sidebar-question').eq(toIndex);
+						$jqCache('.ul-sidebar-questions-list').children('.li-sidebar-question').eq(toIndex);
 					newGridCounterNumber = parseInt(currentGridCounterElement.html()) + 1;
 					currentGridCounterElement.html(newGridCounterNumber);
 					currentGridCounterElement.attr('data-gc-id', newGridCounterNumber);
@@ -135,31 +136,31 @@ var SIDEBAR =
 	
 	launchSidebarSearch: function()
 	{
-		if ($tt('.div-sidebar-scroll').hasClass('sidebar-close')) SIDEBAR.toggleSidebar();
-		$tt('.div-sidebar-content').children().css('display', 'none');
-		$tt('.div-sidebar-navbar').children().removeClass('active');
-		$tt('#btn-sidebar-search').addClass('active');		
-		$tt('.div-sidebar-search').css('display', 'block');
+		if ($jqCache('.div-sidebar-scroll').hasClass('sidebar-close')) SIDEBAR.toggleSidebar();
+		$jqCache('.div-sidebar-content').children().css('display', 'none');
+		$jqCache('.div-sidebar-navbar').children().removeClass('active');
+		$jqCache('#btn-sidebar-search').addClass('active');		
+		$jqCache('.div-sidebar-search').css('display', 'block');
 		// select to search 'current section' category
-		$tt('.a-sidebar-search-category').removeClass('checked');
-		$tt('.div-tt-search-category-checkbox').removeClass('checked');
-		$tt('#current-section-search-category').addClass('checked');
-		$tt('#current-section-search-category').
+		$jqCache('.a-sidebar-search-category').removeClass('checked');
+		$jqCache('.div-tt-search-category-checkbox').removeClass('checked');
+		$jqCache('#current-section-search-category').addClass('checked');
+		$jqCache('#current-section-search-category').
 			children('.div-tt-search-category-checkbox').addClass('checked');
-		$tt('.text-field-tt-search').select();
+		$jqCache('.text-field-tt-search').select();
 		SIDEBAR.updateSearchBarPlaceholder('Current Section');
 	},
 	
 	selectClearSearchBar: function()
 	{
-		$tt('.text-field-tt-search').val('');
-		$tt('.text-field-tt-search').select();
+		$jqCache('.text-field-tt-search').val('');
+		$jqCache('.text-field-tt-search').select();
 	},
 	
 	selectSearchCategory: function()
 	{
-		$tt('.a-sidebar-search-category').removeClass('checked');
-		$tt('.div-tt-search-category-checkbox').removeClass('checked');
+		$jqCache('.a-sidebar-search-category').removeClass('checked');
+		$jqCache('.div-tt-search-category-checkbox').removeClass('checked');
 		$(this).addClass('checked');
 		$(this).children('.div-tt-search-category-checkbox').addClass('checked');
 		// update search bar placeholder
@@ -173,7 +174,7 @@ var SIDEBAR =
 	{
 		if ( ! $(this).hasClass('collapsible'))
 		{
-			$tt('.a-sidebar-menu-li').removeClass('active');
+			$jqCache('.a-sidebar-menu-li').removeClass('active');
 			
 			$(this).addClass('active');
 			var liAttribute = $(this).attr('data-action');
@@ -192,19 +193,19 @@ var SIDEBAR =
 	
 	switchActiveSidebarNav: function()
 	{
-		$tt('.a-navbar-toggle-buttons').removeClass('active');
+		$jqCache('.a-navbar-toggle-buttons').removeClass('active');
 		$(this).addClass('active');
 	},
 	
 	toggleSidebar: function()
 	{
-		$tt('.div-sidebar-scroll').toggleClass('sidebar-close');
-		$tt('.div-page-content-wrapper').toggleClass('stretch');
+		$jqCache('.div-sidebar-scroll').toggleClass('sidebar-close');
+		$jqCache('.div-page-content-wrapper').toggleClass('stretch');
 	},
 	
 	updateSearchBarPlaceholder: function(text)
 	{
-		$tt('.text-field-tt-search').attr('placeholder', text);
+		$jqCache('.text-field-tt-search').attr('placeholder', text);
 	}
 }
 
@@ -218,6 +219,18 @@ var PAGE_CONTENT =
 	$focusedGridbox: '',
 	$pageGrid: '',
 	previousGridSectionData: [],
+	gridboxesAreSelected: false,
+	
+	clearGridboxSelections: function()
+	{
+		if ( ! PAGE_CONTENT.gridboxesAreSelected) return;
+		$jqCache('.text-grid-status').html(TOOLBAR.defaultGridStatusText);
+		$jqCache('.text-grid-status').removeClass('selected');
+		$jqCache('.div-selection-checkbox').removeClass('selected');
+		$jqCache('.div-gridbox').removeClass('selected');
+		$jqCache('.div-gridbox-footer').removeClass('selected');
+		TOOLBAR.selectedGridboxCount = 0;
+	},
 	
 	displayGridIcons: function()
 	{
@@ -264,10 +277,10 @@ var PAGE_CONTENT =
 	gridboxFocus: function()
 	{ // scroll to highlighted gridbox
 		var gridIndex = $(this).html() - 1;
-		PAGE_CONTENT.$focusedGridbox = $tt('.div-gridbox').eq(gridIndex);
+		PAGE_CONTENT.$focusedGridbox = $jqCache('.div-gridbox').eq(gridIndex);
 		PAGE_CONTENT.$focusedGridbox.addClass('outline-div-gridbox');
 		var scrollOffset = PAGE_CONTENT.$focusedGridbox.offset().top - 350;
-		$tt('html, body').animate({scrollTop: scrollOffset}, 500);
+		$jqCache('html, body').animate({scrollTop: scrollOffset}, 500);
 	},
 	
 	gridboxUnfocus: function()
@@ -411,10 +424,12 @@ var PAGE_CONTENT =
 		});
 	},
 	
-	selectGridbox: function()
+	selectGridbox: function(event)
 	{
+		event.stopPropagation();
+		
 		var $target = $(this);
-		if ($(event.target).is($SIDEBAR.gridCounterLi))
+		if ($(event.target).is(SIDEBAR.gridCounterLi))
 		{
 			$target = PAGE_CONTENT.$focusedGridbox.children('.div-selection-checkbox');
 			PAGE_CONTENT.gridboxUnfocus();
@@ -423,15 +438,23 @@ var PAGE_CONTENT =
 		{ // update status text
 			TOOLBAR.selectedGridboxCount--;
 			if (TOOLBAR.selectedGridboxCount === 0) 
-				$tt('.text-grid-status').html(TOOLBAR.defaultGridStatusText);
-			else $tt('.text-grid-status').html(TOOLBAR.selectedGridboxCount + ' Selected');
+			{
+				$jqCache('.text-grid-status').html(TOOLBAR.defaultGridStatusText);
+				$jqCache('.text-grid-status').removeClass('selected');
+				PAGE_CONTENT.gridboxesAreSelected = false;
+			}
+			else $jqCache('.text-grid-status').html('Clear '+TOOLBAR.selectedGridboxCount+' Selection(s)');
 		}
 		else 
 		{ // update status text
 			TOOLBAR.selectedGridboxCount++;
-			if (TOOLBAR.selectedGridboxCount === 1) 
-				TOOLBAR.defaultGridStatusText = $tt('.text-grid-status').html();
-			$tt('.text-grid-status').html(TOOLBAR.selectedGridboxCount + ' Selected');
+			if (TOOLBAR.selectedGridboxCount === 1)
+			{
+				TOOLBAR.defaultGridStatusText = $jqCache('.text-grid-status').html();
+				PAGE_CONTENT.gridboxesAreSelected = true;
+			}
+			$jqCache('.text-grid-status').html('Clear '+TOOLBAR.selectedGridboxCount+' Selection(s)');
+			$jqCache('.text-grid-status').addClass('selected');
 		}
 		$target.toggleClass('selected');
 		$target.parents('.div-gridbox').toggleClass('selected');
@@ -452,45 +475,55 @@ POPUP
 var POPUP = 
 {
 	$popupBackground: $('.popup-background'),
-	visiblePopups: [],
+	popupElementsToDisplay: [],
+	popupsAreDisplayed: false,
 	
 	popupAddResource: function()
 	{
 		var popups = [];
-		popups.push($tt('.popup-background'));
-		popups.push($tt('.div-add-resource'));
-		popups.push($tt('.div-generic-popup-wrapper'));
-		POPUP.togglePopupAppear(popups);
+		POPUP.popupElementsToDisplay.push($jqCache('.popup-background'));
+		POPUP.popupElementsToDisplay.push($jqCache('.div-add-resource'));
+		POPUP.popupElementsToDisplay.push($jqCache('.div-generic-popup-wrapper'));
+		POPUP.togglePopupAppear();
 		var elementID = $(this).attr('id');
 		switch (elementID)
 		{
 			case 'sidebar-submenu-add-question':
-				$tt('.h-resource-main').html('Add Question');
+				$jqCache('.h-resource-main').html('Add Question');
 				break;
 			case 'sidebar-submenu-add-chapter':
-				$tt('.h-resource-main').html('Add Chapter');
+				$jqCache('.h-resource-main').html('Add Chapter');
 				break;
 			case 'sidebar-submenu-add-bank':
-				$tt('.h-resource-main').html('Add Bank');
+				$jqCache('.h-resource-main').html('Add Bank');
 				break;
 			case 'sidebar-submenu-add-course':
-				$tt('.h-resource-main').html('Add Course');
+				$jqCache('.h-resource-main').html('Add Course');
 				break;
 			case 'sidebar-submenu-add-school':
-				$tt('.h-resource-main').html('Add School');
+				$jqCache('.h-resource-main').html('Add School');
 		}
 	},
 	
 	removePopup: function(event) 
 	{ 
-		if (event.target === POPUP.$popupBackground) POPUP.togglePopupAppear();
+		var target = $jqCache(event.target);
+		if (target.is(POPUP.$popupBackground)) POPUP.togglePopupAppear();
 	},
 	
-	togglePopupAppear: function(popupArray)
+	togglePopupAppear: function()
 	{
-		POPUP.visiblePopups = popupArray;
-		POPUP.visiblePopups.forEach(function(popup) { popup.toggleClass('appear') });
-		if (POPUP.visiblePopups.length > 0) POPUP.visiblePopups = [];
+		if (POPUP.popupsAreDisplayed) 
+		{
+			POPUP.popupsAreDisplayed = false;
+			POPUP.popupElementsToDisplay.forEach(function(element) { element.removeClass('appear') });
+			POPUP.popupElementsToDisplay = [];
+		}
+		else
+		{
+			POPUP.popupsAreDisplayed = true;
+			POPUP.popupElementsToDisplay.forEach(function(element) { element.addClass('appear') });
+		}
 	}
 }
 
@@ -532,4 +565,25 @@ var HELPER =
 				filter();
 			}
 		}
-	}); */
+	}); 
+	
+	(function($) {
+
+  var allStarCast = [
+    { firstName: "Zack", lastName: "Morris" },
+    { firstName: "Kelly", lastName: "Kapowski" },
+    { firstName: "Lisa", lastName: "Turtle" },
+    { firstName: "Screech", lastName: "Powers" },
+    { firstName: "A.C.", lastName: "Slater" },
+    { firstName: "Jessie", lastName: "Spano" },
+    { firstName: "Richard", lastName: "Belding" }
+  ]
+
+  // iterate through the cast and find zack and kelly
+
+  var worldsCutestCouple = $.map(allStarCast, function(actor, idx) {
+    if (actor.firstName === "Zack" || actor.firstName === "Kelly") {
+      return actor;
+    }
+  });
+	*/

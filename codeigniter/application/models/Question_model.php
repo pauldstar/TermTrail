@@ -37,7 +37,8 @@ class Question_model extends My_Model
 		$query = $this->db->query("SELECT * FROM question WHERE owner_id='{$user_id}'");
     if ( ! isset($query)) return NULL;
 		$questions = array();
-		foreach ($query->result_array() as $row) $questions[] = new Question($row);
+		foreach ($query->result_array() as $row) { $questions[] = new Question($row);
+		var_dump($row);  }
 		return $questions;
   }
 	
@@ -71,7 +72,7 @@ class Question_model extends My_Model
 			'question_id' => $question_id, 
 			'author_id' => $author_id, 
 			'question_position' => $this->input->post('question_position'), 
-			'content' => $this->input->post('content'), 
+			'question' => $this->input->post('question'), 
 			'answer' => $this->input->post('answer'), 
 			'hint' => $this->input->post('hint'), 
 			'last_edit_time' => $current_time 

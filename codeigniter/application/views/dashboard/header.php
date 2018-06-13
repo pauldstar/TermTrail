@@ -14,6 +14,6 @@
 	<link href="<?=base_url('external/webflow/dashboard/css/webflow.css')?>" rel="stylesheet" type="text/css">
 	<link href="<?=base_url('external/webflow/dashboard/css/normalize.css')?>" rel="stylesheet" type="text/css">
 	<link href="<?=base_url('external/webflow/dashboard/css/tt-webflow.css')?>" rel="stylesheet" type="text/css">
-  <title>TermTrail (<?=$user->username?>)</title>
+  <title>TermtraiL (<?=$user->username?>)</title>
 </head>
 <body class="body">
