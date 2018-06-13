@@ -66,10 +66,10 @@ TOOLBAR
 
 var TOOLBAR = 
 {
-	defaultGridStatusText:  '',
-	selectedGridboxCount:  0,
-	$toolbarSearch:  $('#toolbar-search'),
-	$toolDropdownToggle:  $('.div-tool-dropdown-toggle'),
+	defaultGridStatusText: '',
+	selectedGridboxCount: 0,
+	$toolbarSearch: $('#toolbar-search'),
+	$toolDropdownToggle: $('.div-tool-dropdown-toggle'),
 	
 	toggleToolDropDown: function()
 	{
@@ -94,6 +94,12 @@ var SIDEBAR =
 	$searchCross: $('.img-clear-tt-sidebar-search'),
 	$searchNavButton: $('#btn-sidebar-search'),
 	searchValue: '',
+	
+	deactivateSidebarMenuLi: function()
+	{
+		SIDEBAR.$activeSidebarMenuLi.removeClass('active');
+		SIDEBAR.$activeSidebarMenuLi = '';
+	},
 	
 	initGridCounter: function()
 	{
@@ -180,7 +186,7 @@ var SIDEBAR =
 			var liAttribute = $(this).attr('data-action');
 			var alreadyActive = $(this).is(SIDEBAR.$activeSidebarMenuLi);
 			
-			if (liAttribute === 'refresh-grid' && !alreadyActive)
+			if (liAttribute === 'refresh-grid' && ! alreadyActive)
 			{
 				var section = $(this).attr('data-title');
 				PAGE_CONTENT.refreshPageGrid(section);
@@ -378,7 +384,7 @@ var PAGE_CONTENT =
 	
 	openGridboxSection: function()
 	{
-		SIDEBAR.$activeSidebarMenuLi.removeClass('active');
+		SIDEBAR.deactivateSidebarMenuLi();
 		
 		var fullItemIdJson = $(this).data('full-id-json');
 		var section = $(this).data('child-section');
