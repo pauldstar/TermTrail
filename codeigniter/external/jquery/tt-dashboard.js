@@ -5,10 +5,7 @@ function $jqCache(query)
 	return this.cache[query];
 }
 
-function log(out) 
-{
-	console.log(out);
-}
+function log(out) { console.log(out); }
 
 $jqCache(document).ready(function()
 {
@@ -97,8 +94,8 @@ var SIDEBAR =
 	
 	deactivateSidebarMenuLi: function()
 	{
-		SIDEBAR.$activeSidebarMenuLi.removeClass('active');
-		SIDEBAR.$activeSidebarMenuLi = '';
+		if (SIDEBAR.$activeSidebarMenuLi != null) SIDEBAR.$activeSidebarMenuLi.removeClass('active');
+		SIDEBAR.$activeSidebarMenuLi = null;
 	},
 	
 	initGridCounter: function()
@@ -222,8 +219,8 @@ PAGE CONTENT
 var PAGE_CONTENT =
 {
 	currentPageGridParentID: '',
-	$focusedGridbox: '',
-	$pageGrid: '',
+	$focusedGridbox: null,
+	$pageGrid: null,
 	previousGridSectionData: [],
 	gridboxesAreSelected: false,
 	
@@ -291,10 +288,10 @@ var PAGE_CONTENT =
 	
 	gridboxUnfocus: function()
 	{
-		if (PAGE_CONTENT.$focusedGridbox != '') 
+		if (PAGE_CONTENT.$focusedGridbox != null) 
 		{
 			PAGE_CONTENT.$focusedGridbox.removeClass('outline-div-gridbox');
-			PAGE_CONTENT.$focusedGridbox = '';
+			PAGE_CONTENT.$focusedGridbox = null;
 		}
 	},
 	
