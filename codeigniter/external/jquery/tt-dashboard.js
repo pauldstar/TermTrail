@@ -413,14 +413,17 @@ var PAGE_CONTENT =
 	{
 		var gridItems = PAGE_CONTENT.$pageGrid.getItems();
 		PAGE_CONTENT.$pageGrid.remove(gridItems, {removeElements: true, layout: false});
-		var ajaxUrlSegments = 'dashboard/ajax_get_grid/' + section;
+		var ajaxUrlSegments = 'dashboard/ajax_get_grid_views/' + section;
+		log(HELPER.callController(ajaxUrlSegments));
+		log(JSON.stringify(fullItemIdJson));
 		var gridPost = $.post(HELPER.callController(ajaxUrlSegments), 
 		{
-			full_item_id_json: JSON.stringify(fullItemIdJson)
+			grid_item_full_id_json: JSON.stringify(fullItemIdJson)
 		});
 		
 		gridPost.done(function(data) 
 		{ 
+			log(data);
 			var gridViews = JSON.parse(data);
 			gridItems = PAGE_CONTENT.getGridItems(gridViews);
 			PAGE_CONTENT.$pageGrid.add(gridItems);

@@ -29,14 +29,12 @@ class Dashboard extends CI_Controller
     $this->load->view('dashboard/footer');
   }
 
-	public function ajax_get_grid($section)
+	public function ajax_get_grid_views($section)
 	{
-		$full_parent_id_json = $this->input->post('full_item_id_json');
-		$decoded_2d_array = json_decode($full_parent_id_json, TRUE);
-		$full_parent_id = empty($decoded_2d_array) ? '' : $decoded_2d_array[0];
+		$grid_parent_full_id = Dashboard::get_grid_parent_full_id();
 		
 		$this->load->model('gridbox_model');
-		$gridbox_objects = $this->gridbox_model->get_gridbox_objects($section, $full_parent_id);
+		$gridbox_objects = $this->gridbox_model->get_gridbox_objects($section, $grid_parent_full_id);
 		$grid_views = array();
 		
 		foreach ($gridbox_objects as $gridbox)
@@ -46,6 +44,13 @@ class Dashboard extends CI_Controller
 		}
 		
 		echo json_encode($grid_views);
+	}
+	
+	private function get_grid_parent_full_id()
+	{
+		$grid_parent_full_id_json = $this->input->post('grid_item_full_id_json');
+		$decoded_2d_array = json_decode($grid_parent_full_id_json, TRUE);
+		return empty($decoded_2d_array) ? '' : $decoded_2d_array[0];
 	}
 	
   public function logout()
