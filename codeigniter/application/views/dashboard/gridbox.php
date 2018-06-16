@@ -1,5 +1,5 @@
 <div class="div-gridbox-wrapper">
-	<div class="div-gridbox" data-full-id-json='[<?= json_encode($gridbox->full_id) ?>]' data-child-section="<?= $gridbox->child_label ?>">
+	<div class="div-gridbox" data-full-id-json='[<?= json_encode($gridbox->full_id) ?>]' data-grid-section="<?= $gridbox->section ?>" data-grid-child-section="<?= $gridbox->child_label ?>">
 		
 		<div class="div-gridbox-header">
 			<div class="text-gridbox-numbering"><?= $gridbox->gridbox_number ?></div>

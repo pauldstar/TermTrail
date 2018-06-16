@@ -94,8 +94,11 @@ var SIDEBAR =
 	
 	deactivateSidebarMenuLi: function()
 	{
-		if (SIDEBAR.$activeSidebarMenuLi != null) SIDEBAR.$activeSidebarMenuLi.removeClass('active');
-		SIDEBAR.$activeSidebarMenuLi = null;
+		if (SIDEBAR.$activeSidebarMenuLi != null) 
+		{
+			SIDEBAR.$activeSidebarMenuLi.removeClass('active');
+			SIDEBAR.$activeSidebarMenuLi = null;
+		}
 	},
 	
 	initGridCounter: function()
@@ -218,7 +221,7 @@ PAGE CONTENT
 
 var PAGE_CONTENT =
 {
-	currentPageGridParentID: '',
+	currentGridParentFullID: '',
 	$focusedGridbox: null,
 	$pageGrid: null,
 	previousGridSectionData: [],
@@ -383,15 +386,21 @@ var PAGE_CONTENT =
 	{
 		SIDEBAR.deactivateSidebarMenuLi();
 		
-		var fullItemIdJson = $(this).data('full-id-json');
-		var section = $(this).data('child-section');
-		PAGE_CONTENT.refreshPageGrid(section, fullItemIdJson);
+		var gridboxFullJsonId = $(this).data('full-id-json');
+		var gridboxSection = $(this).data('grid-section');
+		var gridboxChildSection = $(this).data('grid-child-section');
 		
-		var gridboxTitle = PAGE_CONTENT.getGridboxTitle($(this));
-		NAVBAR.updateMainTopicHeading(section+'s');
-		NAVBAR.updateSubTopicHeading(gridboxTitle);
+		if (gridboxSection === 'question') POPUP.popupQuestionTabs();
+		else
+		{
+			PAGE_CONTENT.refreshPageGrid(gridboxChildSection, gridboxFullJsonId);
+			
+			var gridboxTitle = PAGE_CONTENT.getGridboxTitle($(this));
+			NAVBAR.updateMainTopicHeading(gridboxChildSection+'s');
+			NAVBAR.updateSubTopicHeading(gridboxTitle);
 
-		PAGE_CONTENT.savePreviousGridSectionData(section);
+			PAGE_CONTENT.savePreviousGridSectionData(gridboxSection);
+		}
 	},
 	
 	openPreviousSection: function()
@@ -403,9 +412,7 @@ var PAGE_CONTENT =
 	
 	savePreviousGridSectionData: function(gridSection)
 	{
-		var fullParentId = 
-			PAGE_CONTENT.currentPageGridParentID === '' ? '' : PAGE_CONTENT.currentPageGridParentID;
-		var data = {section: gridSection, fullParentId: fullParentId};
+		var data = {section: gridSection, gridParentFullId: PAGE_CONTENT.currentGridParentFullId};
 		PAGE_CONTENT.previousGridSectionData.push(data);
 	},
 	
@@ -414,8 +421,6 @@ var PAGE_CONTENT =
 		var gridItems = PAGE_CONTENT.$pageGrid.getItems();
 		PAGE_CONTENT.$pageGrid.remove(gridItems, {removeElements: true, layout: false});
 		var ajaxUrlSegments = 'dashboard/ajax_get_grid_views/' + section;
-		log(HELPER.callController(ajaxUrlSegments));
-		log(JSON.stringify(fullItemIdJson));
 		var gridPost = $.post(HELPER.callController(ajaxUrlSegments), 
 		{
 			grid_item_full_id_json: JSON.stringify(fullItemIdJson)
@@ -423,7 +428,6 @@ var PAGE_CONTENT =
 		
 		gridPost.done(function(data) 
 		{ 
-			log(data);
 			var gridViews = JSON.parse(data);
 			gridItems = PAGE_CONTENT.getGridItems(gridViews);
 			PAGE_CONTENT.$pageGrid.add(gridItems);
@@ -486,13 +490,12 @@ var POPUP =
 	
 	popupAddResource: function()
 	{
-		var popups = [];
 		POPUP.popupElementsToDisplay.push($jqCache('.popup-background'));
-		POPUP.popupElementsToDisplay.push($jqCache('.div-add-resource'));
 		POPUP.popupElementsToDisplay.push($jqCache('.div-generic-popup-wrapper'));
+		POPUP.popupElementsToDisplay.push($jqCache('.div-add-resource'));
 		POPUP.togglePopupAppear();
-		var elementID = $(this).attr('id');
-		switch (elementID)
+		var elementId = $(this).attr('id');
+		switch (elementId)
 		{
 			case 'sidebar-submenu-add-question':
 				$jqCache('.h-resource-main').html('Add Question');
@@ -509,6 +512,14 @@ var POPUP =
 			case 'sidebar-submenu-add-school':
 				$jqCache('.h-resource-main').html('Add School');
 		}
+	},
+	
+	popupQuestionTabs: function()
+	{
+		POPUP.popupElementsToDisplay.push($jqCache('.popup-background'));
+		POPUP.popupElementsToDisplay.push($jqCache('.div-generic-popup-wrapper'));
+		POPUP.popupElementsToDisplay.push($jqCache('.tabs-question'));
+		POPUP.togglePopupAppear();
 	},
 	
 	removePopup: function(event) 
