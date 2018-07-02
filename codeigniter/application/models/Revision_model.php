@@ -1,5 +1,5 @@
 <?php
-class Revision_model extends CI_Model {
+class Revision_model extends TL_Model {
 
   public function __construct()
   {

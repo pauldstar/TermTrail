@@ -1,5 +1,5 @@
 <?php
-class Course_model extends MY_Model 
+class Course_model extends TL_Model 
 {
 	public function set_session_courses()
 	{

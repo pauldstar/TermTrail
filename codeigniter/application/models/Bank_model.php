@@ -1,5 +1,5 @@
 <?php
-class Bank_model extends MY_Model
+class Bank_model extends TL_Model
 {
 	public function set_session_banks()
 	{

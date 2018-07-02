@@ -1,5 +1,5 @@
 <?php
-class User_model extends MY_Model 
+class User_model extends TL_Model 
 {
   public function set_session_user()
   {

@@ -1,5 +1,5 @@
 <div class="div-gridbox-wrapper">
-	<div class="div-gridbox" data-full-id-json='[<?= json_encode($gridbox->full_id) ?>]' data-grid-section="<?= $gridbox->section ?>" data-grid-child-section="<?= $gridbox->child_label ?>">
+	<div class="div-gridbox" data-full-json-id='[<?= json_encode($gridbox->full_id) ?>]' data-grid-section="<?= $gridbox->section ?>" data-grid-child-section="<?= $gridbox->child_label ?>">
 		
 		<div class="div-gridbox-header">
 			<div class="text-gridbox-numbering"><?= $gridbox->gridbox_number ?></div>
@@ -8,7 +8,7 @@
 			<?php else: ?>
 				<h4 class="h-gridbox-title"><?= $gridbox->title ?></h4>
 			<?php endif; ?>
-			<div class="div-selection-checkbox">
+			<div class="div-selection-checkbox icon-wrapper">
 				<span class="icon-selection-tick glyphicon glyphicon-ok" aria-hidden="true"></span>
 			</div>
 		</div>
@@ -51,7 +51,7 @@
 		</div>
 		
 		<div class="div-gridbox-footer w-clearfix">
-			<div class="div-gridbox-footer-buttons">
+			<div class="div-gridbox-footer-buttons icon-wrapper">
 				<div class="w-dropdown" data-delay="0">
 					<div class="div-gridbox-footer-dropdown-toggle w-dropdown-toggle">
 						<img class="img-gridbox-share" src="<?=base_url('images/share.png')?>">
@@ -79,6 +79,7 @@
 					<div class="text-stats-number"><?= $gridbox->comment_count ?></div>
 				<?php endif; ?>
 			</div>
+			
 		</div>
 		
 	</div>

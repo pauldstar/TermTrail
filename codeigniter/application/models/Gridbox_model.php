@@ -1,5 +1,5 @@
 <?php
-class Gridbox_model extends MY_Model 
+class Gridbox_model extends TL_Model 
 {
   public function get_gridbox_objects($section, $grid_parent_full_id = '')
 	{

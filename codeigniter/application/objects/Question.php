@@ -9,13 +9,14 @@ class Question
 	public $question_id;
   public $author_id; 
   public $question_type; 
-	public $question_position; 
+	public $question_position;
 	public $question;
 	public $answer; 
 	public $hint;
   public $revision_state; 
 	public $confidence_score; 
 	public $last_edit_time;
+  public $subquestions;
   public $question_comments;
 	
 	public $parent_label = 'chapter';
@@ -37,6 +38,7 @@ class Question
     $this->revision_state = $params['revision_state'];
     $this->confidence_score = $params['confidence_score'];
     $this->last_edit_time = $params['last_edit_time'];
+    $this->subquestions = array();
     $this->question_comments = array();
   }
 	

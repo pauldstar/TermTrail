@@ -891,19 +891,10 @@ h4.h-gridbox-title {
   top:0px;
   right:0px;
   bottom:0px;
-  z-index:20;
+  z-index:10;
   display:none;
-  -webkit-box-pack:center;
-  -webkit-justify-content:center;
-  -ms-flex-pack:center;
-  justify-content:center;
-  -webkit-box-align:center;
-  -webkit-align-items:center;
-  -ms-flex-align:center;
-  align-items:center;
   background-color:rgba(0, 0, 0, .91);
 }
-.popup-background.appear,
 .div-revision-popup.appear {
 	display:-webkit-box;
   display:-webkit-flex;
@@ -911,20 +902,14 @@ h4.h-gridbox-title {
   display:flex;
 }
 .div-generic-popup-wrapper {
-  display:-webkit-box;
-  display:-webkit-flex;
-  display:-ms-flexbox;
-  display:flex;
   width:500px;
-  margin-right:auto;
-  margin-left:auto;
-  -webkit-box-orient:vertical;
-  -webkit-box-direction:normal;
-  -webkit-flex-direction:column;
-  -ms-flex-direction:column;
-  flex-direction:column;
   background-color:#fff;
-  color:#000;
+	z-index:11;
+	position:fixed;
+	left:50%;
+	top:10%;
+	margin-left:-250px;
+	max-height:80%;
 }
 .div-question-wrapper {
   display:block;
@@ -970,7 +955,7 @@ h4.h-gridbox-title {
   opacity:1;
 }
 .div-qna-toolbar {
-  display:block;
+  display:none;
   -webkit-flex-wrap:nowrap;
   -ms-flex-wrap:nowrap;
   flex-wrap:nowrap;
@@ -978,13 +963,6 @@ h4.h-gridbox-title {
   -webkit-align-items:center;
   -ms-flex-align:center;
   align-items:center;
-}
-.div-qna-toolbar.question {
-  display:-webkit-box;
-  display:-webkit-flex;
-  display:-ms-flexbox;
-  display:flex;
-  opacity:1;
 }
 .div-qna-toolbar.answer {
   position:absolute;
@@ -1029,7 +1007,7 @@ h4.h-gridbox-title {
   background-color:#adadad;
 }
 .div-answer-wrapper.ready-answer {
-  background-color:#ffd799;
+  background-color:#ffd700;
 }
 .div-qna-title {
   display:-webkit-box;
@@ -1094,7 +1072,7 @@ h4.h-gridbox-title {
   font-size:13px;
   font-weight:600;
 }
-.div-questioln-comment-wrapper {
+.div-question-comment-wrapper {
   padding-bottom:10px;
   border-top:1px solid #dfdfdf;
 }
@@ -1291,7 +1269,9 @@ h4.h-gridbox-title {
 .div-user-settings.appear,
 .div-name-resource.appear,
 .div-add-resource.appear,
-.div-generic-popup-wrapper.appear {
+.div-generic-popup-wrapper.appear,
+.popup-background.appear,
+.form-block-answer.appear {
   display:block;
 }
 .div-revision-main-content {

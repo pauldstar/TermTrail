@@ -1,3 +1,9 @@
+/*
+ - use jquery filters e.g. 'div:not(.box)' rather than if statements
+ - set event listeners as shown in the 'document ready' section
+ - Unless creating a new module is necessary, encapsulate all variables and functions inside the currently provided modules.
+*/
+
 function $jqCache(query)
 { // cache the jqueries
 	this.cache = this.cache || {};
@@ -10,7 +16,7 @@ function log(out) { console.log(out); }
 $jqCache(document).ready(function()
 {
 	NAVBAR.$navBurgerMenu.click(SIDEBAR.toggleSidebar);
-	NAVBAR.$subTopicHeading.click(PAGE_CONTENT.openPreviousSection);
+	NAVBAR.$subTopicHeading.click(PAGE_CONTENT.openPreviousGridSection);
 
 	TOOLBAR.$toolbarSearch.click(SIDEBAR.launchSidebarSearch);
 	TOOLBAR.$toolDropdownToggle.click(TOOLBAR.toggleToolDropDown);
@@ -20,22 +26,69 @@ $jqCache(document).ready(function()
 	SIDEBAR.$gridCounterLi.click(PAGE_CONTENT.gridboxFocus);
 	SIDEBAR.$gridCounterLi.dblclick(PAGE_CONTENT.selectGridbox);
 	SIDEBAR.$gridCounterLi.mouseleave(PAGE_CONTENT.gridboxUnfocus);
-	SIDEBAR.$sidebarMenuLi.click(SIDEBAR.switchActiveSidebarMenu);
+	SIDEBAR.$nonCollapsibleSidebarMenuLi.click(SIDEBAR.switchActiveSidebarMenu);
 	SIDEBAR.$sidebarNavButton.click(SIDEBAR.switchActiveSidebarNav);
 	SIDEBAR.$searchCross.click(SIDEBAR.selectClearSearchBar);
 	SIDEBAR.$searchNavButton.click(SIDEBAR.selectClearSearchBar);
 	SIDEBAR.$searchCategory.click(SIDEBAR.selectSearchCategory);
 
+	$jqCache(document).on('click', 'body', PAGE_CONTENT.clearGridboxSelections);
+	$jqCache(document).on('click', '.div-gridbox', PAGE_CONTENT.openGridbox);
+	$jqCache(document).on('click', '.div-selection-checkbox', PAGE_CONTENT.selectGridbox);
+	$jqCache(document).on('mouseenter', '.div-gridbox', HELPER.displayIcons);
+	$jqCache(document).on('mouseleave', '.div-gridbox:not(.selected)', HELPER.hideIcons);
 	PAGE_CONTENT.initPageContentGrid();
 	PAGE_CONTENT.refreshPageGrid('bank');
-	$jqCache(document).on('click', '.div-gridbox', PAGE_CONTENT.openGridboxSection);
-	$jqCache(document).on('click', '.div-selection-checkbox', PAGE_CONTENT.selectGridbox);
-	$jqCache(document).on('mouseenter', '.div-gridbox', PAGE_CONTENT.displayGridIcons);
-	$jqCache(document).on('mouseleave', '.div-gridbox', PAGE_CONTENT.hideGridIcons);
-	$jqCache(document).on('click', 'body', PAGE_CONTENT.clearGridboxSelections);
 
+	$jqCache(document).on('click', '.div-answer-wrapper:not(.expanded)', HELPER.displayIcons);
+	$jqCache(document).on('click', '.div-answer-wrapper *:not(.div-qna-header)', HELPER.stopEventPropagation);
+	$jqCache(document).on('click', '.div-answer-wrapper.expanded', HELPER.hideIcons);
+	$jqCache(document).on('click', '.div-answer-wrapper', POPUP.toggleQuestionAnswerForm);
+	$jqCache(document).on('mouseenter', '.div-answer-wrapper.expanded', HELPER.displayIcons);
+	$jqCache(document).on('mouseenter', '.div-question-wrapper', HELPER.displayIcons);
+	$jqCache(document).on('mouseleave', '.div-answer-wrapper.expanded', HELPER.hideIcons);
+	$jqCache(document).on('mouseleave', '.div-question-wrapper', HELPER.hideIcons);
 	POPUP.$popupBackground.click(POPUP.removePopup);
 });
+
+/* 
+HELPER FUNCTIONS
+*/
+
+var HELPER = 
+{
+	array2D: function(rows)
+	{
+		var array = [];
+		for (var i = 0; i < rows; i++) array[i] = [];
+		return array;
+	},
+
+	callController: function(segments)
+	{
+		return siteUrl+'/'+segments;
+	},
+	
+	displayIcons: function()
+	{
+		$(this).find('.icon-wrapper').fadeTo(200, 1);
+	},
+		
+	hideIcons: function()
+	{
+		$(this).find('.icon-wrapper').fadeTo(200, 0);
+	},
+	
+	loadAsset: function(segments)
+	{
+		return baseUrl+segments;
+	},
+	
+	stopEventPropagation: function(event)
+	{
+		event.stopPropagation();
+	}
+}
 
 /* 
 NAVBAR
@@ -86,7 +139,7 @@ var SIDEBAR =
 	$gridCounter: $('.ul-sidebar-questions-list'),
 	$gridCounterLi: $('.li-sidebar-question'),
 	$sidebarNavButton: $('.a-navbar-toggle-buttons'),
-	$sidebarMenuLi: $('.a-sidebar-menu-li'),
+	$nonCollapsibleSidebarMenuLi: $('.a-sidebar-menu-li:not(.collapsible)'),
 	$searchCategory: $('.a-sidebar-search-category'),
 	$searchCross: $('.img-clear-tt-sidebar-search'),
 	$searchNavButton: $('#btn-sidebar-search'),
@@ -178,22 +231,19 @@ var SIDEBAR =
 	
 	switchActiveSidebarMenu: function()
 	{
-		if ( ! $(this).hasClass('collapsible'))
+		$jqCache('.a-sidebar-menu-li').removeClass('active');
+		
+		$(this).addClass('active');
+		var liAttribute = $(this).attr('data-action');
+		var alreadyActive = $(this).is(SIDEBAR.$activeSidebarMenuLi);
+		
+		if (liAttribute === 'refresh-grid' && ! alreadyActive)
 		{
-			$jqCache('.a-sidebar-menu-li').removeClass('active');
-			
-			$(this).addClass('active');
-			var liAttribute = $(this).attr('data-action');
-			var alreadyActive = $(this).is(SIDEBAR.$activeSidebarMenuLi);
-			
-			if (liAttribute === 'refresh-grid' && ! alreadyActive)
-			{
-				var section = $(this).attr('data-title');
-				PAGE_CONTENT.refreshPageGrid(section);
-				NAVBAR.updateMainTopicHeading(section+'s');
-				NAVBAR.updateSubTopicHeading('');
-				SIDEBAR.$activeSidebarMenuLi = $(this);
-			}
+			var section = $(this).attr('data-title');
+			PAGE_CONTENT.refreshPageGrid(section);
+			NAVBAR.updateMainTopicHeading(section+'s');
+			NAVBAR.updateSubTopicHeading('');
+			SIDEBAR.$activeSidebarMenuLi = $(this);
 		}
 	},
 	
@@ -238,12 +288,6 @@ var PAGE_CONTENT =
 		TOOLBAR.selectedGridboxCount = 0;
 	},
 	
-	displayGridIcons: function()
-	{
-		$(this).find('.div-gridbox-footer-buttons').fadeTo(200, 1);
-		$(this).find('.div-selection-checkbox').fadeTo(200, 1);
-	},
-	
 	filter: function()
 	{
 		//filterFieldValue = filterField.value;
@@ -255,12 +299,12 @@ var PAGE_CONTENT =
 			return isSearchMatch && isFilterMatch;
 		});
 	},
-		
+	
 	getGridboxTitle: function($gridbox)
 	{
 		return $gridbox.children('.div-gridbox-header').children('.h-gridbox-title').html();
 	},
-		
+
 	getGridboxNumberElement: function(item)
 	{
 		return $(item.getElement()).find('.text-gridbox-numbering');
@@ -275,6 +319,8 @@ var PAGE_CONTENT =
 			element = document.createElement('div');
 			element.innerHTML = gridboxView;
 			gridItems.push(element.firstChild);
+			// gridboxView by itself isn't of type Node; which is required by the Muuri grid
+			// the above process converts it
 		});
 		
 		return gridItems;
@@ -295,15 +341,6 @@ var PAGE_CONTENT =
 		{
 			PAGE_CONTENT.$focusedGridbox.removeClass('outline-div-gridbox');
 			PAGE_CONTENT.$focusedGridbox = null;
-		}
-	},
-	
-	hideGridIcons: function()
-	{
-		if ( ! $(this).hasClass('selected'))
-		{ // only fadeout if grid-box hasn't been selected
-			$(this).find('.div-gridbox-footer-buttons').fadeTo(200, 0);
-			$(this).find('.div-selection-checkbox').fadeTo(200, 0);
 		}
 	},
 	
@@ -382,15 +419,15 @@ var PAGE_CONTENT =
 		return true;
 	},
 	
-	openGridboxSection: function()
+	openGridbox: function()
 	{
 		SIDEBAR.deactivateSidebarMenuLi();
 		
-		var gridboxFullJsonId = $(this).data('full-id-json');
+		var gridboxFullJsonId = $(this).data('full-json-id');
 		var gridboxSection = $(this).data('grid-section');
 		var gridboxChildSection = $(this).data('grid-child-section');
 		
-		if (gridboxSection === 'question') POPUP.popupQuestionTabs();
+		if (gridboxSection === 'question') POPUP.popupQuestionTabs(gridboxFullJsonId);
 		else
 		{
 			PAGE_CONTENT.refreshPageGrid(gridboxChildSection, gridboxFullJsonId);
@@ -403,7 +440,7 @@ var PAGE_CONTENT =
 		}
 	},
 	
-	openPreviousSection: function()
+	openPreviousGridSection: function()
 	{
 		var data = PAGE_CONTENT.previousGridSectionData.pop();
 		
@@ -416,14 +453,14 @@ var PAGE_CONTENT =
 		PAGE_CONTENT.previousGridSectionData.push(data);
 	},
 	
-	refreshPageGrid: function(section, fullItemIdJson = '')
+	refreshPageGrid: function(section, gridboxFullJsonId = '')
 	{
 		var gridItems = PAGE_CONTENT.$pageGrid.getItems();
 		PAGE_CONTENT.$pageGrid.remove(gridItems, {removeElements: true, layout: false});
 		var ajaxUrlSegments = 'dashboard/ajax_get_grid_views/' + section;
 		var gridPost = $.post(HELPER.callController(ajaxUrlSegments), 
 		{
-			grid_item_full_id_json: JSON.stringify(fullItemIdJson)
+			grid_box_full_json_id: JSON.stringify(gridboxFullJsonId)
 		});
 		
 		gridPost.done(function(data) 
@@ -484,16 +521,22 @@ POPUP
 
 var POPUP = 
 {
-	$popupBackground: $('.popup-background'),
+	$popupBackground: $jqCache('.popup-background'),
+	$popupWrapper: $jqCache('.div-generic-popup-wrapper'),
 	popupElementsToDisplay: [],
-	popupsAreDisplayed: false,
+	answerFormIsExpanded: false,
+	
+	addQuestionTabPopup: function(popupView)
+	{
+		
+	},
 	
 	popupAddResource: function()
 	{
 		POPUP.popupElementsToDisplay.push($jqCache('.popup-background'));
 		POPUP.popupElementsToDisplay.push($jqCache('.div-generic-popup-wrapper'));
 		POPUP.popupElementsToDisplay.push($jqCache('.div-add-resource'));
-		POPUP.togglePopupAppear();
+		POPUP.displayPopup();
 		var elementId = $(this).attr('id');
 		switch (elementId)
 		{
@@ -514,57 +557,59 @@ var POPUP =
 		}
 	},
 	
-	popupQuestionTabs: function()
+	popupQuestionTabs: function(gridboxFullJsonId)
 	{
-		POPUP.popupElementsToDisplay.push($jqCache('.popup-background'));
-		POPUP.popupElementsToDisplay.push($jqCache('.div-generic-popup-wrapper'));
-		POPUP.popupElementsToDisplay.push($jqCache('.tabs-question'));
-		POPUP.togglePopupAppear();
-	},
+		var ajaxUrlSegments = 'dashboard/ajax_get_question_tab_popup_view/';
+		var popupPost = $.post(HELPER.callController(ajaxUrlSegments), 
+		{
+			grid_box_full_json_id: JSON.stringify(gridboxFullJsonId)
+		});
+		
+		popupPost.done(function(data) 
+		{ 
+			var popupView = JSON.parse(data);
+			// no jqCache for tabs-question; the clicked question may not be cached due to change
+			$('.tabs-question').replaceWith(popupView);
+			POPUP.popupElementsToDisplay.push($jqCache('.popup-background'));
+			POPUP.popupElementsToDisplay.push($jqCache('.div-generic-popup-wrapper'));
+			POPUP.popupElementsToDisplay.push($('.tabs-question'));
+			POPUP.displayPopup();
+		});
+	},	
 	
 	removePopup: function(event) 
 	{ 
-		var target = $jqCache(event.target);
-		if (target.is(POPUP.$popupBackground)) POPUP.togglePopupAppear();
+		POPUP.popupElementsToDisplay.forEach(function(element) 
+		{ 
+			element.removeClass('appear') 
+		});
+		
+		POPUP.popupElementsToDisplay = [];
+		POPUP.answerFormIsExpanded = false;
 	},
 	
-	togglePopupAppear: function()
+	displayPopup: function()
 	{
-		if (POPUP.popupsAreDisplayed) 
+		POPUP.popupElementsToDisplay.forEach(function(element) 
+		{ 
+			element.addClass('appear') 
+		});
+	},
+	
+	toggleQuestionAnswerForm: function(event)
+	{
+		if (POPUP.answerFormIsExpanded)
 		{
-			POPUP.popupsAreDisplayed = false;
-			POPUP.popupElementsToDisplay.forEach(function(element) { element.removeClass('appear') });
-			POPUP.popupElementsToDisplay = [];
+			$(this).children('.form-block-answer').removeClass('appear');
+			$(this).removeClass('expanded');
+			POPUP.answerFormIsExpanded = false;
 		}
 		else
 		{
-			POPUP.popupsAreDisplayed = true;
-			POPUP.popupElementsToDisplay.forEach(function(element) { element.addClass('appear') });
+			$(this).children('.form-block-answer').addClass('appear');
+			$(this).addClass('expanded');
+			POPUP.answerFormIsExpanded = true;
 		}
-	}
-}
-
-/* 
-HELPER
-*/
-
-var HELPER = 
-{
-	array2D: function(rows)
-	{
-		var array = [];
-		for (var i = 0; i < rows; i++) array[i] = [];
-		return array;
-	},
-
-	callController: function(segments)
-	{
-		return siteUrl+'/'+segments;
-	},
-	
-	loadAsset: function(segments)
-	{
-		return baseUrl+segments;
 	}
 }
 

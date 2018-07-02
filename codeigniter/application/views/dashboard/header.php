@@ -13,7 +13,7 @@
 	<link href="<?=base_url('external/bootstrap3/css/bootstrap.css')?>" rel="stylesheet" type="text/css">
 	<link href="<?=base_url('external/webflow/dashboard/css/webflow.css')?>" rel="stylesheet" type="text/css">
 	<link href="<?=base_url('external/webflow/dashboard/css/normalize.css')?>" rel="stylesheet" type="text/css">
-	<link href="<?=base_url('external/webflow/dashboard/css/tt-webflow.css')?>" rel="stylesheet" type="text/css">
-  <title>TermtraiL (<?=$user->username?>)</title>
+	<link href="<?=base_url('external/webflow/dashboard/css/tl-webflow.css')?>" rel="stylesheet" type="text/css">
+  <title>TermtraiL - <?=$user->username?></title>
 </head>
 <body class="body">

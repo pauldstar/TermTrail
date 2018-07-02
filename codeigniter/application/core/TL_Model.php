@@ -1,5 +1,5 @@
 <?php
-class MY_Model extends CI_Model 
+class TL_Model extends CI_Model 
 {
   protected static $user;
 	

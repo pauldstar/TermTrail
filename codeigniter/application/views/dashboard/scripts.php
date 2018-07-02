@@ -42,5 +42,5 @@
 	var baseUrl = "<?=base_url()?>";
 </script>
 <script src="<?=base_url('external/jquery/tt-dashboard.js')?>" type="text/javascript"></script>
-<script src="<?=base_url('external/webflow/dashboard/js/webflow.js')?>" type="text/javascript"></script>
+<!--<script src="<?=base_url('external/webflow/dashboard/js/webflow.js')?>" type="text/javascript"></script>->
 <!-- [if lte IE 9]><script src="<?=base_url('external/webflow/dashboard/js/placeholders.min.js')?>" type="text/javascript"></script> -->

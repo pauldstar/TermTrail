@@ -1,5 +1,5 @@
 <?php
-class Chapter_model extends MY_Model 
+class Chapter_model extends TL_Model 
 {
 	public function set_session_chapters()
 	{

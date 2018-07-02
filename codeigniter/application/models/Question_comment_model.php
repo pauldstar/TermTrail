@@ -1,5 +1,5 @@
 <?php
-class Question_comment_model extends CI_Model 
+class Question_comment_model extends TL_Model 
 {
 	private static $user;
 	

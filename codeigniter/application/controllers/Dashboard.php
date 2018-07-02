@@ -48,15 +48,26 @@ class Dashboard extends CI_Controller
 	
 	private function get_grid_parent_full_id()
 	{
-		$grid_parent_full_id_json = $this->input->post('grid_item_full_id_json');
+		$grid_parent_full_id_json = $this->input->post('grid_box_full_json_id');
 		$decoded_2d_array = json_decode($grid_parent_full_id_json, TRUE);
 		return empty($decoded_2d_array) ? '' : $decoded_2d_array[0];
+	}
+	
+	public function ajax_get_question_tab_popup_view()
+	{
+		$grid_parent_full_id = Dashboard::get_grid_parent_full_id();
+		
+		$this->load->model('question_model');
+		$data['question'] = $this->question_model->get_single_session_question($grid_parent_full_id);
+		$popupView = $this->load->view('dashboard/popup-question-tabs', $data, TRUE);
+		
+		echo json_encode($popupView);
 	}
 	
   public function logout()
   {
     $session_ended = $this->user_model->end_user_session();
 		if ($session_ended) redirect('login');
-		else show_error("You aren't logged in anyway mate!");
+		else show_error("You're not logged in anyway mate!");
   }
 }
