@@ -40,8 +40,9 @@ $jqCache(document).ready(function()
 	PAGE_CONTENT.initPageContentGrid();
 	PAGE_CONTENT.refreshPageGrid('bank');
 
-	$jqCache(document).on('click', '.div-answer-wrapper:not(.expanded)', HELPER.displayIcons);
+	$jqCache(document).on('click', '.a-question-tab:not(.w--current)', POPUP.switchActiveQuestionPopupTab);
 	$jqCache(document).on('click', '.div-answer-wrapper *:not(.div-qna-header)', HELPER.stopEventPropagation);
+	$jqCache(document).on('click', '.div-answer-wrapper:not(.expanded)', HELPER.displayIcons);
 	$jqCache(document).on('click', '.div-answer-wrapper.expanded', HELPER.hideIcons);
 	$jqCache(document).on('click', '.div-answer-wrapper', POPUP.toggleQuestionAnswerForm);
 	$jqCache(document).on('mouseenter', '.div-answer-wrapper.expanded', HELPER.displayIcons);
@@ -594,6 +595,17 @@ var POPUP =
 		{ 
 			element.addClass('appear') 
 		});
+	},
+	
+	switchActiveQuestionPopupTab: function()
+	{
+		var $newActiveTab = $('.a-question-popup-tab:not(w--current)');
+		$('.a-question-popup-tab').removeClass('w--current');
+		$newActiveTab.addClass('w--current');
+		
+		var $newActiveTabPane = $('.tab-pane-question-popup:not(.w--tab-active)');
+		$('.tab-pane-question-popup').removeClass('.w--tab-active');
+		$newActive.addClass('.w--tab-active');
 	},
 	
 	toggleQuestionAnswerForm: function(event)

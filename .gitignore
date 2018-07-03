@@ -5,8 +5,9 @@
 
 # My files and directories
 docs
+codeigniter/user_guide/
+codeigniter/external/flashcards/
+codeigniter/application/views/flashcards/
+codeigniter/application/objects/Flashcard.php
 codeigniter/application/controllers/Flashcards.php
 codeigniter/application/models/Flashcard_model.php
-codeigniter/application/objects/Flashcard.php
-codeigniter/application/views/flashcards/
-codeigniter/external/flashcards/

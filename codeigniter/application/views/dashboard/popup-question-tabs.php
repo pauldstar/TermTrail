@@ -1,16 +1,16 @@
 <div class="tabs-question w-tabs" data-duration-in="300" data-duration-out="100">
 	<div class="div-question-tab-menu w-tab-menu">
-		<a class="a-question-tab w--current w-inline-block w-tab-link" data-w-tab="question-tab">
+		<a class="a-question-popup-tab w--current w-inline-block w-tab-link" id="a-question-popup-question-tab">
 			<img class="img-tab" src="<?=base_url('images/question.png')?>">
 			<div id="question-count"><?=$question->question_position?></div>
 		</a>
-		<a class="a-question-tab w-inline-block w-tab-link" data-w-tab="comment-tab">
+		<a class="a-question-popup-tab w-inline-block w-tab-link" id="a-question-popup-comment-tab">
 			<img class="img-tab" src="<?=base_url('images/comment_1.png')?>">
 			<div id="question-comment-count"><?=count($question->question_comments)?></div>
 		</a>
 	</div>
 	<div class="w-tab-content">
-		<div class="w--tab-active w-tab-pane" data-w-tab="question-tab">
+		<div class="tab-pane-question-popup w--tab-active w-tab-pane" id="tab-question-popup-question">
 			<div class="div-qna-wrapper">
 				<div class="div-question-wrapper">
 					<div class="div-qna-header">
@@ -112,7 +112,7 @@
 				<?php endforeach; ?>
 			<?php endif; ?>
 		</div>
-		<div class="w-tab-pane" data-w-tab="comment-tab">
+		<div class="tab-pane-question-popup w-tab-pane" id="tab-question-popup-comment">
 			<div class="comment form-block-question w-form">
 				<form class="div-qna-form" data-name="Email Form" id="wf-form-Email-Form" name="wf-form-Email-Form">
 					<textarea class="question text-area-qna w-input" data-name="Question Text 3" id="question-text-3" maxlength="5000" name="question-text-3" placeholder="Enter comment..."></textarea>
