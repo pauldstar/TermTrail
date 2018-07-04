@@ -2,6 +2,7 @@
  - use jquery filters e.g. 'div:not(.box)' rather than if statements
  - set event listeners as shown in the 'document ready' section
  - Unless creating a new module is necessary, encapsulate all variables and functions inside the currently provided modules.
+ - prefix jQuery object variables with $ e.g. $sidebarMenuDiv
 */
 
 function $jqCache(query)
@@ -15,23 +16,28 @@ function log(out) { console.log(out); }
 
 $jqCache(document).ready(function()
 {
+	// NAVBAR
 	NAVBAR.$navBurgerMenu.click(SIDEBAR.toggleSidebar);
 	NAVBAR.$subTopicHeading.click(PAGE_CONTENT.openPreviousGridSection);
 
+	// TOOL-BAR
 	TOOLBAR.$toolbarSearch.click(SIDEBAR.launchSidebarSearch);
 	TOOLBAR.$toolDropdownToggle.click(TOOLBAR.toggleToolDropDown);
 
+	// SIDEBAR
 	SIDEBAR.$addResourceLi.click(POPUP.popupAddResource);
-	SIDEBAR.initGridCounter();
-	SIDEBAR.$gridCounterLi.click(PAGE_CONTENT.gridboxFocus);
-	SIDEBAR.$gridCounterLi.dblclick(PAGE_CONTENT.selectGridbox);
-	SIDEBAR.$gridCounterLi.mouseleave(PAGE_CONTENT.gridboxUnfocus);
+	SIDEBAR.initGridTracker();
+	SIDEBAR.$gridTrackerLi.click(PAGE_CONTENT.gridboxFocus);
+	SIDEBAR.$gridTrackerLi.dblclick(PAGE_CONTENT.selectGridbox);
+	SIDEBAR.$gridTrackerLi.mouseleave(PAGE_CONTENT.gridboxUnfocus);
 	SIDEBAR.$nonCollapsibleSidebarMenuLi.click(SIDEBAR.switchActiveSidebarMenu);
-	SIDEBAR.$sidebarNavButton.click(SIDEBAR.switchActiveSidebarNav);
+	SIDEBAR.$sidebarNavTab.click(SIDEBAR.switchActiveSidebarNavSection);
 	SIDEBAR.$searchCross.click(SIDEBAR.selectClearSearchBar);
 	SIDEBAR.$searchNavButton.click(SIDEBAR.selectClearSearchBar);
 	SIDEBAR.$searchCategory.click(SIDEBAR.selectSearchCategory);
+	SIDEBAR.$collapsibleSidebarMenuLi.click(SIDEBAR.toggleSidebarSubmenu);
 
+	// PAGE_CONTENT
 	$jqCache(document).on('click', 'body', PAGE_CONTENT.clearGridboxSelections);
 	$jqCache(document).on('click', '.div-gridbox', PAGE_CONTENT.openGridbox);
 	$jqCache(document).on('click', '.div-selection-checkbox', PAGE_CONTENT.selectGridbox);
@@ -40,14 +46,17 @@ $jqCache(document).ready(function()
 	PAGE_CONTENT.initPageContentGrid();
 	PAGE_CONTENT.refreshPageGrid('bank');
 
-	$jqCache(document).on('click', '.a-question-tab:not(.w--current)', POPUP.switchActiveQuestionPopupTab);
+	// POP-UP
+	$jqCache(document).on('click', '.a-question-popup-tab:not(.w--current)', POPUP.switchActiveQuestionPopupTab);
 	$jqCache(document).on('click', '.div-answer-wrapper *:not(.div-qna-header)', HELPER.stopEventPropagation);
 	$jqCache(document).on('click', '.div-answer-wrapper:not(.expanded)', HELPER.displayIcons);
 	$jqCache(document).on('click', '.div-answer-wrapper.expanded', HELPER.hideIcons);
 	$jqCache(document).on('click', '.div-answer-wrapper', POPUP.toggleQuestionAnswerForm);
 	$jqCache(document).on('mouseenter', '.div-answer-wrapper.expanded', HELPER.displayIcons);
+	$jqCache(document).on('mouseenter', '.div-question-comment-wrapper', HELPER.displayIcons);
 	$jqCache(document).on('mouseenter', '.div-question-wrapper', HELPER.displayIcons);
 	$jqCache(document).on('mouseleave', '.div-answer-wrapper.expanded', HELPER.hideIcons);
+	$jqCache(document).on('mouseleave', '.div-question-comment-wrapper', HELPER.hideIcons);
 	$jqCache(document).on('mouseleave', '.div-question-wrapper', HELPER.hideIcons);
 	POPUP.$popupBackground.click(POPUP.removePopup);
 });
@@ -55,7 +64,7 @@ $jqCache(document).ready(function()
 /* 
 HELPER FUNCTIONS
 */
-
+	
 var HELPER = 
 {
 	array2D: function(rows)
@@ -112,7 +121,7 @@ var NAVBAR =
 }
 
 /* 
-TOOLBAR
+TOOL-BAR
 */
 
 var TOOLBAR = 
@@ -137,10 +146,11 @@ var SIDEBAR =
 {
 	$addResourceLi: $('.a-sidebar-submenu'),
 	$activeSidebarMenuLi: $('.a-sidebar-menu-li').eq(0),
-	$gridCounter: $('.ul-sidebar-questions-list'),
-	$gridCounterLi: $('.li-sidebar-question'),
-	$sidebarNavButton: $('.a-navbar-toggle-buttons'),
+	$collapsibleSidebarMenuLi: $('.a-sidebar-menu-li.collapsible'),
+	$gridTracker: $('.ul-sidebar-questions-list'),
+	$gridTrackerLi: $('.li-sidebar-question'),
 	$nonCollapsibleSidebarMenuLi: $('.a-sidebar-menu-li:not(.collapsible)'),
+	$sidebarNavTab: $('.a-sidebar-navbar-tab'),
 	$searchCategory: $('.a-sidebar-search-category'),
 	$searchCross: $('.img-clear-tt-sidebar-search'),
 	$searchNavButton: $('#btn-sidebar-search'),
@@ -155,41 +165,46 @@ var SIDEBAR =
 		}
 	},
 	
-	initGridCounter: function()
+	getThisSidebarSubmenu: function($sidebarMenuItem)
 	{
-		SIDEBAR.$gridCounter.sortable(
+		return $sidebarMenuItem.next();
+	},
+	
+	initGridTracker: function()
+	{
+		SIDEBAR.$gridTracker.sortable(
 		{ 
 			scroll: false,
 			update: function(event, ui)
 			{ // update indices after sort and DOM change
-				var gridCounterNumbers = 
+				var gridTrackerNumbers = 
 					$jqCache('.ul-sidebar-questions-list').sortable('toArray', {attribute: 'data-gc-id'});
-				var movedGridCounterElement = ui.item;
-				var gridCounterNumber = parseInt(movedGridCounterElement.html());
-				var fromIndex = toIndex = gridCounterNumber - 1;
-				var currentGridCounterElement, newGridCounterNumber;
-				while (gridCounterNumber < gridCounterNumbers[toIndex])
+				var movedGridTrackerElement = ui.item;
+				var gridTrackerNumber = parseInt(movedGridTrackerElement.html());
+				var fromIndex = toIndex = gridTrackerNumber - 1;
+				var currentGridTrackerElement, newGridTrackerNumber;
+				while (gridTrackerNumber < gridTrackerNumbers[toIndex])
 				{ // item dragged down the order
-					currentGridCounterElement = 
+					currentGridTrackerElement = 
 						$jqCache('.ul-sidebar-questions-list').children('.li-sidebar-question').eq(toIndex);
-					newGridCounterNumber = parseInt(currentGridCounterElement.html()) - 1;
-					currentGridCounterElement.html(newGridCounterNumber);
-					currentGridCounterElement.attr('data-gc-id', newGridCounterNumber);
+					newGridTrackerNumber = parseInt(currentGridTrackerElement.html()) - 1;
+					currentGridTrackerElement.html(newGridTrackerNumber);
+					currentGridTrackerElement.attr('data-gc-id', newGridTrackerNumber);
 					toIndex++;
 				}
-				while (gridCounterNumber > gridCounterNumbers[toIndex])
+				while (gridTrackerNumber > gridTrackerNumbers[toIndex])
 				{ // item dragged up the order
-					currentGridCounterElement = 
+					currentGridTrackerElement = 
 						$jqCache('.ul-sidebar-questions-list').children('.li-sidebar-question').eq(toIndex);
-					newGridCounterNumber = parseInt(currentGridCounterElement.html()) + 1;
-					currentGridCounterElement.html(newGridCounterNumber);
-					currentGridCounterElement.attr('data-gc-id', newGridCounterNumber);
+					newGridTrackerNumber = parseInt(currentGridTrackerElement.html()) + 1;
+					currentGridTrackerElement.html(newGridTrackerNumber);
+					currentGridTrackerElement.attr('data-gc-id', newGridTrackerNumber);
 					toIndex--;
 				}
-				movedGridCounterElement.html(toIndex+1);
-				movedGridCounterElement.attr('data-gc-id', toIndex+1);
+				movedGridTrackerElement.html(toIndex+1);
+				movedGridTrackerElement.attr('data-gc-id', toIndex+1);
 				PAGE_CONTENT.$pageGrid.move(fromIndex, toIndex);
-				movedGridCounterElement.trigger("click");
+				movedGridTrackerElement.trigger("click");
 			}
 		});
 	},
@@ -200,7 +215,7 @@ var SIDEBAR =
 		$jqCache('.div-sidebar-content').children().css('display', 'none');
 		$jqCache('.div-sidebar-navbar').children().removeClass('active');
 		$jqCache('#btn-sidebar-search').addClass('active');		
-		$jqCache('.div-sidebar-search').css('display', 'block');
+		$jqCache('#div-sidebar-search').css('display', 'block');
 		// select to search 'current section' category
 		$jqCache('.a-sidebar-search-category').removeClass('checked');
 		$jqCache('.div-tt-search-category-checkbox').removeClass('checked');
@@ -248,16 +263,39 @@ var SIDEBAR =
 		}
 	},
 	
-	switchActiveSidebarNav: function()
+	switchActiveSidebarNavSection: function()
 	{
-		$jqCache('.a-navbar-toggle-buttons').removeClass('active');
+		SIDEBAR.$sidebarNavTab.removeClass('active');
 		$(this).addClass('active');
+		$jqCache('.div-sidebar-navbar-tab-pane').removeClass('appear');
+		
+		switch ($(this).attr('id'))
+		{
+			case 'a-sidebar-menu-tab':
+				$jqCache('#div-sidebar-menu').addClass('appear');
+				break;
+			case 'a-sidebar-inbox-tab':
+				$jqCache('#div-sidebar-messages').addClass('appear');
+				break;
+			case 'a-sidebar-search-tab':
+				$jqCache('#div-sidebar-search').addClass('appear');
+				break;
+			case 'a-sidebar-grid-tracker-tab':
+				$jqCache('#div-sidebar-grid-tracker').addClass('appear');
+		}
 	},
 	
 	toggleSidebar: function()
 	{
 		$jqCache('.div-sidebar-scroll').toggleClass('sidebar-close');
 		$jqCache('.div-page-content-wrapper').toggleClass('stretch');
+	},
+	
+	toggleSidebarSubmenu: function()
+	{
+		SIDEBAR.getThisSidebarSubmenu($(this)).toggleClass('appear');
+		$(this).children('.img-sidebar-li-expand').toggleClass('appear');
+		$(this).children('.img-sidebar-li-collapse').toggleClass('appear');
 	},
 	
 	updateSearchBarPlaceholder: function(text)
@@ -477,7 +515,7 @@ var PAGE_CONTENT =
 		event.stopPropagation();
 		
 		var $target = $(this);
-		if ($(event.target).is(SIDEBAR.gridCounterLi))
+		if ($(event.target).is(SIDEBAR.gridTrackerLi))
 		{
 			$target = PAGE_CONTENT.$focusedGridbox.children('.div-selection-checkbox');
 			PAGE_CONTENT.gridboxUnfocus();
@@ -517,25 +555,20 @@ var PAGE_CONTENT =
 }
 
 /* 
-POPUP
+POP-UP
 */
 
 var POPUP = 
 {
-	$popupBackground: $jqCache('.popup-background'),
-	$popupWrapper: $jqCache('.div-generic-popup-wrapper'),
+	$popupBackground: $('.popup-background'),
+	$popupWrapper: $('.div-generic-popup-wrapper'),
 	popupElementsToDisplay: [],
 	answerFormIsExpanded: false,
 	
-	addQuestionTabPopup: function(popupView)
-	{
-		
-	},
-	
 	popupAddResource: function()
 	{
-		POPUP.popupElementsToDisplay.push($jqCache('.popup-background'));
-		POPUP.popupElementsToDisplay.push($jqCache('.div-generic-popup-wrapper'));
+		POPUP.popupElementsToDisplay.push(POPUP.$popupBackground);
+		POPUP.popupElementsToDisplay.push(POPUP.$popupWrapper);
 		POPUP.popupElementsToDisplay.push($jqCache('.div-add-resource'));
 		POPUP.displayPopup();
 		var elementId = $(this).attr('id');
@@ -571,8 +604,8 @@ var POPUP =
 			var popupView = JSON.parse(data);
 			// no jqCache for tabs-question; the clicked question may not be cached due to change
 			$('.tabs-question').replaceWith(popupView);
-			POPUP.popupElementsToDisplay.push($jqCache('.popup-background'));
-			POPUP.popupElementsToDisplay.push($jqCache('.div-generic-popup-wrapper'));
+			POPUP.popupElementsToDisplay.push(POPUP.$popupBackground);
+			POPUP.popupElementsToDisplay.push(POPUP.$popupWrapper);
 			POPUP.popupElementsToDisplay.push($('.tabs-question'));
 			POPUP.displayPopup();
 		});
@@ -599,13 +632,13 @@ var POPUP =
 	
 	switchActiveQuestionPopupTab: function()
 	{
-		var $newActiveTab = $('.a-question-popup-tab:not(w--current)');
+		var $newActiveTab = $('.a-question-popup-tab:not(.w--current)');
 		$('.a-question-popup-tab').removeClass('w--current');
 		$newActiveTab.addClass('w--current');
 		
 		var $newActiveTabPane = $('.tab-pane-question-popup:not(.w--tab-active)');
-		$('.tab-pane-question-popup').removeClass('.w--tab-active');
-		$newActive.addClass('.w--tab-active');
+		$('.tab-pane-question-popup').removeClass('w--tab-active');
+		$newActiveTabPane.addClass('w--tab-active');
 	},
 	
 	toggleQuestionAnswerForm: function(event)

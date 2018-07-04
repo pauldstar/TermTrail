@@ -129,7 +129,6 @@
 				<div class="form-block-comment-sort w-form">
 					<form data-name="Email Form 2" id="email-form-2" name="email-form-2">
 						<select class="select-field-comment-sort w-select" data-name="Select Comment Filter 2" id="select-comment-filter-2" name="select-comment-filter-2">
-							<option value="">Most Recent</option>
 							<option value="most-recent">Most Recent</option>
 							<option value="best-rated">Best Rated</option>
 						</select>
