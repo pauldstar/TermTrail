@@ -1,18 +1,18 @@
 <div class='div-sidebar-scroll'>
 	<div class="div-sidebar">
 		<div class="div-sidebar-navbar w-clearfix">
-			<a class="a-sidebar-navbar-tab active w-inline-block" data-ix="sidebar-menu-appear" href="#" id="a-sidebar-menu-tab">
+			<a class="a-sidebar-navbar-tab active w-inline-block" href="#" id="a-sidebar-menu-tab">
 				<img src="<?=base_url('images/menu-s.png')?>">
 			</a>
-			<a class="a-sidebar-navbar-tab w-inline-block" data-ix="sidebar-messages-appear" href="#" id="a-sidebar-inbox-tab">
+			<a class="a-sidebar-navbar-tab w-inline-block" href="#" id="a-sidebar-inbox-tab">
 				<img src="<?=base_url('images/inbox-no-notification-s.png')?>">
 			</a>
-			<a class="a-sidebar-navbar-tab w-inline-block" data-ix="sidebar-search-appear" href="#" id="a-sidebar-search-tab">
+			<a class="a-sidebar-navbar-tab w-inline-block" href="#" id="a-sidebar-search-tab">
 				<img src="<?=base_url('images/search-folder-gold.png')?>">
 			</a>
-			<a class="a-sidebar-navbar-tab w-inline-block" data-ix="sidebar-questions-appear" href="#" id="a-sidebar-grid-tracker-tab">
-				<img id='chapter-grey' src="<?=base_url('images/chapter-grey.png')?>" alt='Chapter'>
-				<img id='chapter-gold' src="<?=base_url('images/chapter-gold.png')?>" alt='Chapter'>
+			<a class="a-sidebar-navbar-tab disabled w-inline-block" href="#" id="a-sidebar-grid-tracker-tab">
+				<img class="img-sidebar-grid-tracker-tab img-appear" id="img-grid-tracker-chapter-grey" src="<?=base_url('images/chapter-grey.png')?>" alt='Chapter'>
+				<img class="img-sidebar-grid-tracker-tab" id="img-grid-tracker-chapter-gold" src="<?=base_url('images/chapter-gold.png')?>" alt='Chapter'>
 			</a>
 		</div>
 		<div class="div-sidebar-content">
@@ -194,30 +194,10 @@
 			</div>
 			<div class="div-sidebar-navbar-tab-pane" id="div-sidebar-grid-tracker">
 				<ul class="ul-sidebar-questions-list w-clearfix">
-					<li class="li-sidebar-question" data-gc-id="1">1</li>
-					<li class="li-sidebar-question" data-gc-id="2">2</li>
-					<li class="li-sidebar-question" data-gc-id="3">3</li>
-					<li class="li-sidebar-question" data-gc-id="4">4</li>
-					<li class="li-sidebar-question" data-gc-id="5">5</li>
-					<li class="li-sidebar-question" data-gc-id="6">6</li>
-					<li class="li-sidebar-question" data-gc-id="7">7</li>
-					<li class="li-sidebar-question" data-gc-id="8">8</li>
-					<li class="li-sidebar-question" data-gc-id="9">9</li>
-					<li class="li-sidebar-question" data-gc-id="10">10</li>
-					<li class="li-sidebar-question" data-gc-id="11">11</li>
-					<li class="li-sidebar-question" data-gc-id="12">12</li>
-					<li class="li-sidebar-question" data-gc-id="13">13</li>
-					<li class="li-sidebar-question" data-gc-id="14">14</li>
-					<li class="li-sidebar-question" data-gc-id="15">15</li>
-					<li class="li-sidebar-question" data-gc-id="16">16</li>
-					<li class="li-sidebar-question" data-gc-id="17">17</li>
-					<li class="li-sidebar-question" data-gc-id="18">18</li>
-					<li class="li-sidebar-question" data-gc-id="19">19</li>
-					<li class="li-sidebar-question" data-gc-id="20">20</li>
-					<li class="li-sidebar-question" data-gc-id="21">21</li>
-					<li class="li-sidebar-question" data-gc-id="22">22</li>
-					<li class="li-sidebar-question" data-gc-id="23">23</li>
-					<li class="li-sidebar-question" data-gc-id="24">24</li>
+					<li class="li-grid-tracker-item" data-grid-tracker-item-id="1">1</li>
+					<li class="li-grid-tracker-item" data-grid-tracker-item-id="2">2</li>
+					<li class="li-grid-tracker-item" data-grid-tracker-item-id="3">3</li>
+					<li class="li-grid-tracker-item" data-grid-tracker-item-id="4">4</li>
 				</ul>
 			</div>
 		</div>

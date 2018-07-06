@@ -107,8 +107,11 @@ img {
   display:block;
   background-color:#dfdcdc;
 }
-#chapter-gold {
+.img-sidebar-grid-tracker-tab {
 	display:none;
+}
+.img-appear {
+	display:inline-block;
 }
 .div-sidebar-scroll {
   overflow:auto;
@@ -150,6 +153,9 @@ img {
 }
 .div-sidebar-navbar-tab-pane {
 	display:none;
+}
+.a-sidebar-navbar-tab.disabled {
+	cursor: not-allowed;
 }
 .ul-sidebar-menu {
   margin-bottom:0px;
@@ -878,7 +884,7 @@ h4.h-gridbox-title {
 }
 .div-selection-checkbox.selected {
   background-color:#ffffff;
-  opacity:1;
+  opacity:1 !important;
 }
 .icon-selection-tick {
   font-size:17px;
@@ -1270,7 +1276,7 @@ h4.h-gridbox-title {
   background-color:#fff;
 }
 .appear {
-  display:block;
+  display:block !important;
 }
 .div-revision-main-content {
   position:relative;
@@ -1735,7 +1741,7 @@ h4.h-gridbox-title {
   padding-left:2px;
   list-style-type:none;
 }
-.li-sidebar-question {
+.li-grid-tracker-item {
   width:46px;
   height:46px;
   margin:2px;
@@ -1749,12 +1755,12 @@ h4.h-gridbox-title {
   text-align:center;
   cursor:pointer;
 }
-.li-sidebar-question:hover {
+.li-grid-tracker-item:hover {
   border-color:black;
   color:#000;
 	outline:black solid 2px;
 }
-.li-sidebar-question:active {
+.li-grid-tracker-item:active {
   cursor:-webkit-grabbing;
 }
 .visible-lg-block, .visible-md-block, .visible-sm-block, .visible-xs-block {

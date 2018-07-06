@@ -2,7 +2,9 @@
  - use jquery filters e.g. 'div:not(.box)' rather than if statements
  - set event listeners as shown in the 'document ready' section
  - Unless creating a new module is necessary, encapsulate all variables and functions inside the currently provided modules.
- - prefix jQuery object variables with $ e.g. $sidebarMenuDiv
+ - prefix jQuery object variables with '$' e.g. $sidebarMenuDiv
+ - arrange functions, event delegations, and variables in alphabetical order
+ - cache jqueries by either storing in a variable (prefixed with '$'), or calling via the $jqCache function; which reuses previously called jQueries.
 */
 
 function $jqCache(query)
@@ -25,22 +27,22 @@ $jqCache(document).ready(function()
 	TOOLBAR.$toolDropdownToggle.click(TOOLBAR.toggleToolDropDown);
 
 	// SIDEBAR
+	$jqCache(document).on('click', '.a-sidebar-navbar-tab:not(.disabled)', SIDEBAR.switchActiveSidebarNavSection);
+	$jqCache(document).on('click', '.li-grid-tracker-item', PAGE_CONTENT.gridboxFocus);
+	$jqCache(document).on('dblclick', '.li-grid-tracker-item', PAGE_CONTENT.toggleGridboxSelect);
+	$jqCache(document).on('mouseleave', '.li-grid-tracker-item', PAGE_CONTENT.gridboxUnfocus);
 	SIDEBAR.$addResourceLi.click(POPUP.popupAddResource);
+	SIDEBAR.$collapsibleSidebarMenuLi.click(SIDEBAR.toggleSidebarSubmenu);
 	SIDEBAR.initGridTracker();
-	SIDEBAR.$gridTrackerLi.click(PAGE_CONTENT.gridboxFocus);
-	SIDEBAR.$gridTrackerLi.dblclick(PAGE_CONTENT.selectGridbox);
-	SIDEBAR.$gridTrackerLi.mouseleave(PAGE_CONTENT.gridboxUnfocus);
 	SIDEBAR.$nonCollapsibleSidebarMenuLi.click(SIDEBAR.switchActiveSidebarMenu);
-	SIDEBAR.$sidebarNavTab.click(SIDEBAR.switchActiveSidebarNavSection);
+	SIDEBAR.$searchCategory.click(SIDEBAR.selectSearchCategory);
 	SIDEBAR.$searchCross.click(SIDEBAR.selectClearSearchBar);
 	SIDEBAR.$searchNavButton.click(SIDEBAR.selectClearSearchBar);
-	SIDEBAR.$searchCategory.click(SIDEBAR.selectSearchCategory);
-	SIDEBAR.$collapsibleSidebarMenuLi.click(SIDEBAR.toggleSidebarSubmenu);
 
 	// PAGE_CONTENT
 	$jqCache(document).on('click', 'body', PAGE_CONTENT.clearGridboxSelections);
 	$jqCache(document).on('click', '.div-gridbox', PAGE_CONTENT.openGridbox);
-	$jqCache(document).on('click', '.div-selection-checkbox', PAGE_CONTENT.selectGridbox);
+	$jqCache(document).on('click', '.div-selection-checkbox', PAGE_CONTENT.toggleGridboxSelect);
 	$jqCache(document).on('mouseenter', '.div-gridbox', HELPER.displayIcons);
 	$jqCache(document).on('mouseleave', '.div-gridbox:not(.selected)', HELPER.hideIcons);
 	PAGE_CONTENT.initPageContentGrid();
@@ -148,13 +150,38 @@ var SIDEBAR =
 	$activeSidebarMenuLi: $('.a-sidebar-menu-li').eq(0),
 	$collapsibleSidebarMenuLi: $('.a-sidebar-menu-li.collapsible'),
 	$gridTracker: $('.ul-sidebar-questions-list'),
-	$gridTrackerLi: $('.li-sidebar-question'),
 	$nonCollapsibleSidebarMenuLi: $('.a-sidebar-menu-li:not(.collapsible)'),
-	$sidebarNavTab: $('.a-sidebar-navbar-tab'),
 	$searchCategory: $('.a-sidebar-search-category'),
 	$searchCross: $('.img-clear-tt-sidebar-search'),
 	$searchNavButton: $('#btn-sidebar-search'),
 	searchValue: '',
+	
+	buildGridTracker: function()
+	{
+		if (PAGE_CONTENT.pageGridItemsCount === 0) return '<li>No grid items</li>';
+		
+		var sidebarHtml = '';
+		for (var id = 1; id <= PAGE_CONTENT.pageGridItemsCount; id++)
+			sidebarHtml += 
+				'<li class="li-grid-tracker-item" data-grid-tracker-item-id="'+id+'">'+id+'</li>';
+		
+		SIDEBAR.$gridTracker.html(sidebarHtml);
+	},
+	
+	closeGridTracker: function()
+	{
+		$jqCache('#img-grid-tracker-chapter-gold').removeClass('img-appear');
+		$jqCache('#img-grid-tracker-chapter-grey').addClass('img-appear');
+		$jqCache('#a-sidebar-grid-tracker-tab').addClass('disabled');
+		SIDEBAR.$gridTracker.sortable('disable');
+		if ($jqCache('#a-sidebar-grid-tracker-tab').hasClass('active'))
+		{
+			$jqCache('#a-sidebar-grid-tracker-tab').removeClass('active');
+			$jqCache('#a-sidebar-menu-tab').addClass('active');
+			$jqCache('#div-sidebar-grid-tracker').removeClass('appear');
+			$jqCache('.div-sidebar-menu').addClass('appear');
+		}
+	},
 	
 	deactivateSidebarMenuLi: function()
 	{
@@ -174,11 +201,12 @@ var SIDEBAR =
 	{
 		SIDEBAR.$gridTracker.sortable(
 		{ 
+			disabled: true,
 			scroll: false,
 			update: function(event, ui)
 			{ // update indices after sort and DOM change
 				var gridTrackerNumbers = 
-					$jqCache('.ul-sidebar-questions-list').sortable('toArray', {attribute: 'data-gc-id'});
+					$jqCache('.ul-sidebar-questions-list').sortable('toArray', {attribute: 'data-grid-tracker-item-id'});
 				var movedGridTrackerElement = ui.item;
 				var gridTrackerNumber = parseInt(movedGridTrackerElement.html());
 				var fromIndex = toIndex = gridTrackerNumber - 1;
@@ -186,36 +214,52 @@ var SIDEBAR =
 				while (gridTrackerNumber < gridTrackerNumbers[toIndex])
 				{ // item dragged down the order
 					currentGridTrackerElement = 
-						$jqCache('.ul-sidebar-questions-list').children('.li-sidebar-question').eq(toIndex);
+						$jqCache('.ul-sidebar-questions-list').children('.li-grid-tracker-item').eq(toIndex);
 					newGridTrackerNumber = parseInt(currentGridTrackerElement.html()) - 1;
 					currentGridTrackerElement.html(newGridTrackerNumber);
-					currentGridTrackerElement.attr('data-gc-id', newGridTrackerNumber);
+					currentGridTrackerElement.attr('data-grid-tracker-item-id', newGridTrackerNumber);
 					toIndex++;
 				}
 				while (gridTrackerNumber > gridTrackerNumbers[toIndex])
 				{ // item dragged up the order
 					currentGridTrackerElement = 
-						$jqCache('.ul-sidebar-questions-list').children('.li-sidebar-question').eq(toIndex);
+						$jqCache('.ul-sidebar-questions-list').children('.li-grid-tracker-item').eq(toIndex);
 					newGridTrackerNumber = parseInt(currentGridTrackerElement.html()) + 1;
 					currentGridTrackerElement.html(newGridTrackerNumber);
-					currentGridTrackerElement.attr('data-gc-id', newGridTrackerNumber);
+					currentGridTrackerElement.attr('data-grid-tracker-item-id', newGridTrackerNumber);
 					toIndex--;
 				}
 				movedGridTrackerElement.html(toIndex+1);
-				movedGridTrackerElement.attr('data-gc-id', toIndex+1);
+				movedGridTrackerElement.attr('data-grid-tracker-item-id', toIndex+1);
 				PAGE_CONTENT.$pageGrid.move(fromIndex, toIndex);
 				movedGridTrackerElement.trigger("click");
 			}
 		});
 	},
 	
+	launchGridTracker: function()
+	{
+		SIDEBAR.buildGridTracker();
+		
+		$jqCache('#img-grid-tracker-chapter-grey').removeClass('img-appear');
+		$jqCache('#img-grid-tracker-chapter-gold').addClass('img-appear');
+		$jqCache('#a-sidebar-grid-tracker-tab').removeClass('disabled');
+		SIDEBAR.$gridTracker.sortable('enable');
+		
+		if ($jqCache('.div-sidebar-scroll').hasClass('sidebar-close')) SIDEBAR.toggleSidebar();
+		$jqCache('.a-sidebar-navbar-tab').removeClass('active');
+		$jqCache('#a-sidebar-grid-tracker-tab').addClass('active');
+		$jqCache('.div-sidebar-navbar-tab-pane').removeClass('appear');
+		$jqCache('#div-sidebar-grid-tracker').addClass('appear');
+	},
+	
 	launchSidebarSearch: function()
 	{
 		if ($jqCache('.div-sidebar-scroll').hasClass('sidebar-close')) SIDEBAR.toggleSidebar();
-		$jqCache('.div-sidebar-content').children().css('display', 'none');
-		$jqCache('.div-sidebar-navbar').children().removeClass('active');
-		$jqCache('#btn-sidebar-search').addClass('active');		
-		$jqCache('#div-sidebar-search').css('display', 'block');
+		$jqCache('.div-sidebar-navbar-tab-pane').removeClass('appear');
+		$jqCache('.a-sidebar-navbar-tab').removeClass('active');
+		$jqCache('#a-sidebar-search-tab').addClass('active');		
+		$jqCache('#div-sidebar-search').addClass('appear');
 		// select to search 'current section' category
 		$jqCache('.a-sidebar-search-category').removeClass('checked');
 		$jqCache('.div-tt-search-category-checkbox').removeClass('checked');
@@ -265,7 +309,7 @@ var SIDEBAR =
 	
 	switchActiveSidebarNavSection: function()
 	{
-		SIDEBAR.$sidebarNavTab.removeClass('active');
+		$('.a-sidebar-navbar-tab').removeClass('active');
 		$(this).addClass('active');
 		$jqCache('.div-sidebar-navbar-tab-pane').removeClass('appear');
 		
@@ -313,18 +357,21 @@ var PAGE_CONTENT =
 	currentGridParentFullID: '',
 	$focusedGridbox: null,
 	$pageGrid: null,
+	pageGridItemsCount: 0,
 	previousGridSectionData: [],
 	gridboxesAreSelected: false,
 	
 	clearGridboxSelections: function()
 	{
-		if ( ! PAGE_CONTENT.gridboxesAreSelected) return;
-		$jqCache('.text-grid-status').html(TOOLBAR.defaultGridStatusText);
-		$jqCache('.text-grid-status').removeClass('selected');
-		$jqCache('.div-selection-checkbox').removeClass('selected');
-		$jqCache('.div-gridbox').removeClass('selected');
-		$jqCache('.div-gridbox-footer').removeClass('selected');
-		TOOLBAR.selectedGridboxCount = 0;
+		if (PAGE_CONTENT.gridboxesAreSelected)
+		{
+			$jqCache('.text-grid-status').html(TOOLBAR.defaultGridStatusText);
+			$jqCache('.text-grid-status').removeClass('selected');
+			$jqCache('.div-selection-checkbox').removeClass('selected');
+			$jqCache('.div-gridbox').removeClass('selected');
+			$jqCache('.div-gridbox-footer').removeClass('selected');
+			TOOLBAR.selectedGridboxCount = 0;
+		}
 	},
 	
 	filter: function()
@@ -365,10 +412,11 @@ var PAGE_CONTENT =
 		return gridItems;
 	},
 	
-	gridboxFocus: function()
+	gridboxFocus: function(event)
 	{ // scroll to highlighted gridbox
+		event.stopPropagation();
 		var gridIndex = $(this).html() - 1;
-		PAGE_CONTENT.$focusedGridbox = $jqCache('.div-gridbox').eq(gridIndex);
+		PAGE_CONTENT.$focusedGridbox = $('.div-gridbox').eq(gridIndex);
 		PAGE_CONTENT.$focusedGridbox.addClass('outline-div-gridbox');
 		var scrollOffset = PAGE_CONTENT.$focusedGridbox.offset().top - 350;
 		$jqCache('html, body').animate({scrollTop: scrollOffset}, 500);
@@ -474,7 +522,7 @@ var PAGE_CONTENT =
 			var gridboxTitle = PAGE_CONTENT.getGridboxTitle($(this));
 			NAVBAR.updateMainTopicHeading(gridboxChildSection+'s');
 			NAVBAR.updateSubTopicHeading(gridboxTitle);
-
+			
 			PAGE_CONTENT.savePreviousGridSectionData(gridboxSection);
 		}
 	},
@@ -507,20 +555,25 @@ var PAGE_CONTENT =
 			var gridViews = JSON.parse(data);
 			gridItems = PAGE_CONTENT.getGridItems(gridViews);
 			PAGE_CONTENT.$pageGrid.add(gridItems);
+			PAGE_CONTENT.pageGridItemsCount = gridItems.length;
+			if (section === 'chapter' || section === 'question') SIDEBAR.launchGridTracker();
+			else SIDEBAR.closeGridTracker();
 		});
 	},
 	
-	selectGridbox: function(event)
+	toggleGridboxSelect: function(event)
 	{
 		event.stopPropagation();
 		
-		var $target = $(this);
-		if ($(event.target).is(SIDEBAR.gridTrackerLi))
+		var $targetedGridboxCheckbox;
+		if ($(event.target).is($('.li-grid-tracker-item')))
 		{
-			$target = PAGE_CONTENT.$focusedGridbox.children('.div-selection-checkbox');
+			$targetedGridboxCheckbox = PAGE_CONTENT.$focusedGridbox.find('.div-selection-checkbox');
 			PAGE_CONTENT.gridboxUnfocus();
 		}
-	  if ($target.hasClass('selected'))
+		else $targetedGridboxCheckbox = $(this);
+		
+	  if ($targetedGridboxCheckbox.hasClass('selected'))
 		{ // update status text
 			TOOLBAR.selectedGridboxCount--;
 			if (TOOLBAR.selectedGridboxCount === 0) 
@@ -529,7 +582,8 @@ var PAGE_CONTENT =
 				$jqCache('.text-grid-status').removeClass('selected');
 				PAGE_CONTENT.gridboxesAreSelected = false;
 			}
-			else $jqCache('.text-grid-status').html('Clear '+TOOLBAR.selectedGridboxCount+' Selection(s)');
+			else $jqCache('.text-grid-status').
+				html('Clear '+TOOLBAR.selectedGridboxCount+' Selection(s)');
 		}
 		else 
 		{ // update status text
@@ -542,9 +596,9 @@ var PAGE_CONTENT =
 			$jqCache('.text-grid-status').html('Clear '+TOOLBAR.selectedGridboxCount+' Selection(s)');
 			$jqCache('.text-grid-status').addClass('selected');
 		}
-		$target.toggleClass('selected');
-		$target.parents('.div-gridbox').toggleClass('selected');
-		$target.siblings('.div-gridbox-footer').toggleClass('selected');
+		$targetedGridboxCheckbox.toggleClass('selected');
+		$targetedGridboxCheckbox.parents('.div-gridbox').toggleClass('selected');
+		$targetedGridboxCheckbox.siblings('.div-gridbox-footer').toggleClass('selected');
 	},
 	
 	topRowExists: function(slotRow)
