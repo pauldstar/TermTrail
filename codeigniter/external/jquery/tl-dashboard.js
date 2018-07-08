@@ -553,11 +553,19 @@ var PAGE_CONTENT =
 		gridPost.done(function(data) 
 		{ 
 			var gridViews = JSON.parse(data);
+			PAGE_CONTENT.pageGridItemsCount = gridViews.length;
+			if (section === 'chapter' || section === 'question') 
+			{
+				SIDEBAR.launchGridTracker();
+				PAGE_CONTENT.$pageGrid._settings.dragEnabled = true;
+			}
+			else 
+			{
+				SIDEBAR.closeGridTracker();
+				PAGE_CONTENT.$pageGrid._settings.dragEnabled = false;
+			}
 			gridItems = PAGE_CONTENT.getGridItems(gridViews);
 			PAGE_CONTENT.$pageGrid.add(gridItems);
-			PAGE_CONTENT.pageGridItemsCount = gridItems.length;
-			if (section === 'chapter' || section === 'question') SIDEBAR.launchGridTracker();
-			else SIDEBAR.closeGridTracker();
 		});
 	},
 	
