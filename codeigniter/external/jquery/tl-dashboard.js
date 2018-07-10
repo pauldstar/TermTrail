@@ -540,7 +540,7 @@ var PAGE_CONTENT =
 		PAGE_CONTENT.previousGridSectionData.push(data);
 	},
 	
-	refreshPageGrid: function(section, gridboxFullJsonId = '')
+	refreshPageGrid: function(section, gridboxFullJsonId)
 	{
 		var gridItems = PAGE_CONTENT.$pageGrid.getItems();
 		PAGE_CONTENT.$pageGrid.remove(gridItems, {removeElements: true, layout: false});

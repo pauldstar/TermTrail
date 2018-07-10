@@ -7,7 +7,7 @@
 <![endif]-->
 
 <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
-<script>window.jQuery || document.write('<script src="<?=base_url('external/jquery/jquery3/jquery-3.2.1.min.js')?>">\x3C/script>')</script>
+<script>window.jQuery || document.write('<script src="<?=base_url('external/jquery/jquery-3.2.1.min.js')?>">\x3C/script>')</script>
 
 <script src="<?=base_url('external/bootstrap3/js/bootstrap.min.js')?>"></script>;
 <script src="<?=base_url('external/webflow/dashboard/js/webfont.js')?>" type="text/javascript"></script>
@@ -36,11 +36,11 @@
 <script src="<?=base_url('external/muuri/hammer.min.js')?>"></script>
 <script src="<?=base_url('external/muuri/velocity.min.js')?>"></script>
 <script src="<?=base_url('external/muuri/muuri.min.js')?>"></script>
-<script src="<?=base_url('external/jquery/jquery-ui-1.12.1.custom/jquery-ui.min.js')?>"></script>
+<script src="<?=base_url('external/jquery/jquery-ui-custom-1.12.1.min.js')?>"></script>
 <script type="text/javascript"> 
 	var siteUrl = "<?=site_url()?>";
 	var baseUrl = "<?=base_url()?>";
 </script>
-<script src="<?=base_url('external/jquery/tl-dashboard.js')?>" type="text/javascript"></script>
+<script src="<?=base_url('external/jquery/tl-dashboard.min.js')?>" type="text/javascript"></script>
 <!--<script src="<?=base_url('external/webflow/dashboard/js/webflow.js')?>" type="text/javascript"></script>->
 <!-- [if lte IE 9]><script src="<?=base_url('external/webflow/dashboard/js/placeholders.min.js')?>" type="text/javascript"></script> -->
