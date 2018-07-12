@@ -448,6 +448,7 @@ img {
   text-align:center;
   text-transform:capitalize;
   cursor:default;
+	font-size:21px;
 }
 .div-sidebar-menu {
   display:block;
@@ -814,14 +815,19 @@ h4.h-gridbox-title {
   opacity:0;
 }
 .h-sub-topic-heading {
-  display:inline-block;
-  margin-right:10px;
-  opacity:0.77;
-  font-family:Montserrat, sans-serif;
-  font-size:17px;
-  font-style:normal;
-  font-weight:500;
-	cursor:pointer;
+	display: inline-block;
+	opacity: 0.77;
+	font-family: Montserrat, sans-serif;
+	font-size: 17px;
+	font-style: normal;
+	font-weight: 500;
+	cursor: pointer;
+	position: relative;
+	bottom: 1px;
+	right: 11px;
+}
+.h-sub-topic-heading:hover {
+	opacity:1;
 }
 .text-numbering {
   position:absolute;
