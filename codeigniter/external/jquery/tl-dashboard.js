@@ -523,6 +523,8 @@ var PAGE_CONTENT =
 		var gridboxSection = $(this).data('grid-section');
 		var gridboxChildSection = $(this).data('grid-child-section');
 		
+		$(this).trigger('mouseleave'); // hide icons
+		
 		if (gridboxSection === 'question') POPUP.popupQuestionTabs(gridboxFullJsonId);
 		else
 		{
