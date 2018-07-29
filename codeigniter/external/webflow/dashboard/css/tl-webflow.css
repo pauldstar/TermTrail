@@ -703,6 +703,11 @@ img {
   font-family:'Open Sans', sans-serif;
   color:#000;
   cursor:pointer;
+	user-select: none;
+	-moz-user-select: none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	-o-user-select: none;
 }
 .div-gridbox:hover {
   box-shadow:0 0 23px -1px #707070;
@@ -825,6 +830,11 @@ h4.h-gridbox-title {
 	position: relative;
 	bottom: 1px;
 	right: 11px;
+	user-select: none;
+	-moz-user-select: none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	-o-user-select: none;
 }
 .h-sub-topic-heading:hover {
 	opacity:1;
@@ -1543,7 +1553,7 @@ h4.h-gridbox-title {
   bottom:0px;
 }
 .div-revision-popup {
-  position:absolute;
+  position: relative;
   left:0px;
   top:0px;
   right:0px;

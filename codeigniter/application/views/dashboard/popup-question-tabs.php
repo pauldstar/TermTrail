@@ -2,7 +2,7 @@
 	<div class="div-question-tab-menu w-tab-menu">
 		<a class="a-question-popup-tab w--current w-inline-block w-tab-link" id="a-question-popup-question-tab">
 			<img class="img-tab" src="<?=base_url('images/question.png')?>">
-			<div id="question-count"><?=$question->question_position?></div>
+			<div id="question-count"><?=$question->grid_position?></div>
 		</a>
 		<a class="a-question-popup-tab w-inline-block w-tab-link" id="a-question-popup-comment-tab">
 			<img class="img-tab" src="<?=base_url('images/comment_1.png')?>">
@@ -15,7 +15,7 @@
 				<div class="div-question-wrapper">
 					<div class="div-qna-header">
 						<div class="div-qna-title">
-							<h5 class="h-qna-title"><?=$question->question_position?>. Question</h5>
+							<h5 class="h-qna-title"><?=$question->grid_position?>. Question</h5>
 						</div>
 						<div class="div-qna-toolbar icon-wrapper question w-clearfix">
 							<img class="img-qna-tool" id="add-bullet-point" src="<?=base_url('images/bullet-points-small.png')?>" width="20">
@@ -44,7 +44,7 @@
 					</div>
 					<div class="div-qna-header ready-answer">
 						<div class="div-qna-title">
-							<h5 class="h-qna-title"><?=$question->question_position?>. Answer</h5>
+							<h5 class="h-qna-title"><?=$question->grid_position?>. Answer</h5>
 						</div>
 					</div>
 					<div class="form-block-answer w-form">

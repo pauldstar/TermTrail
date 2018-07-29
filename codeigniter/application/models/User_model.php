@@ -12,10 +12,18 @@ class User_model extends TL_Model
     if (isset($row) && password_verify($password, $row['password_hash']))
     { // get user components
       self::$user = $_SESSION['user'] = new User($row);
-      $this->load->model('school_model');
-			$this->school_model->set_session_schools();
+			$current_time = date_timestamp_get(date_create());
+			
+			$this->db->set('last_login_time', $current_time);
+			$this->db->where('user_id', self::$user->user_id);
+			$this->db->update('user');
+			
+      $this->load->model('component_model');
+			$this->component_model->set_session_components();
+			
 			return TRUE;
     }
+		
 		return FALSE;
   }
 	
@@ -34,14 +42,16 @@ class User_model extends TL_Model
     $password_hash = password_hash($password, PASSWORD_BCRYPT);
     $current_time = date_timestamp_get(date_create());
 		
-    $user_params = array( 
+    $user_params = array
+		( 
 			'username' => $this->input->post('username'), 
 			'scope' => $this->input->post('scope'), 
 			'password_hash' => $password_hash, 
 			'email' => $this->input->post('email'), 
 			'sign_up_time' => $current_time, 
-			'last_login_time' => $current_time );
-			
+			'last_login_time' => $current_time 
+		);
+		
     $query_successful = $this->db->insert('user', $user_params);
     if ( ! $query_successful) return FALSE;
 		

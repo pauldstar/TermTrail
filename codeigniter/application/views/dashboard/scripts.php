@@ -40,6 +40,7 @@
 <script type="text/javascript"> 
 	var siteUrl = "<?=site_url()?>";
 	var baseUrl = "<?=base_url()?>";
+	var pageTitle = "<?=$page_title?>";
 </script>
-<script src="<?=base_url('external/jquery/tl-dashboard.js')?>" type="text/javascript"></script>
+<script src="<?=base_url('external/jquery/tl-dashboard.js')?>"></script>
 <!-- [if lte IE 9]><script src="<?=base_url('external/webflow/dashboard/js/placeholders.min.js')?>" type="text/javascript"></script> -->

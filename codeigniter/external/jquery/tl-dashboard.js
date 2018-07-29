@@ -1,10 +1,11 @@
 /*
- - use jquery filters e.g. 'div:not(.box)' rather than if statements
- - set event listeners as shown in the 'document ready' section
+ - use jquery filters e.g. 'div:not(.box)' rather than if statements.
+ - set event listeners as shown in the 'document ready' section.
  - Unless creating a new module is necessary, encapsulate all variables and functions inside the currently provided modules.
- - prefix jQuery object variables with '$' e.g. $sidebarMenuDiv
- - arrange functions, event delegations, and variables in alphabetical order
+ - prefix jQuery object variables with '$' e.g. $sidebarMenuDiv.
+ - arrange functions, event delegations, and variables in alphabetical order.
  - cache jqueries by either storing in a variable (prefixed with '$'), or calling via the $jqCache function; which reuses previously called jQueries.
+ - make dependencies between functions explicit by: encapsulating in a function; function parameters; callbacks; throwing errors; using global variables (last resort as it can be easy to neglect updating them).
 */
 
 function $jqCache(query)
@@ -18,49 +19,57 @@ function log(out) { console.log(out); }
 
 $jqCache(document).ready(function()
 {
-	// NAVBAR
-	NAVBAR.$navBurgerMenu.click(SIDEBAR.toggleSidebar);
-	NAVBAR.$subTopicHeading.click(PAGE_CONTENT.reloadPreviousPageGrid);
+	switch (pageTitle)
+	{
+		case 'dashboard':
+			// NAVBAR
+			NAVBAR.$navBurgerMenu.click(SIDEBAR.toggleSidebar);
+			NAVBAR.$subTopicHeading.click(PAGE_CONTENT.reloadPreviousPageGrid);
 
-	// TOOL-BAR
-	TOOLBAR.$toolbarSearch.click(SIDEBAR.launchSidebarSearch);
-	TOOLBAR.$toolDropdownToggle.click(TOOLBAR.toggleToolDropDown);
+			// TOOL-BAR
+			TOOLBAR.$toolbarSearch.click(SIDEBAR.launchSidebarSearch);
+			TOOLBAR.$toolDropdownToggle.click(TOOLBAR.toggleToolDropDown);
 
-	// SIDEBAR
-	$jqCache(document).on('click', '.a-sidebar-navbar-tab:not(.disabled)', SIDEBAR.switchActiveSidebarNavSection);
-	$jqCache(document).on('click', '.li-grid-tracker-item', PAGE_CONTENT.gridboxFocus);
-	$jqCache(document).on('dblclick', '.li-grid-tracker-item', PAGE_CONTENT.toggleGridboxSelect);
-	$jqCache(document).on('mouseleave', '.li-grid-tracker-item', PAGE_CONTENT.gridboxUnfocus);
-	SIDEBAR.$addResourceLi.click(POPUP.popupAddResource);
-	SIDEBAR.$collapsibleSidebarMenuLi.click(SIDEBAR.toggleSidebarSubmenu);
-	SIDEBAR.initGridTracker();
-	SIDEBAR.$nonCollapsibleSidebarMenuLi.click(SIDEBAR.switchActiveSidebarMenu);
-	SIDEBAR.$searchCategory.click(SIDEBAR.selectSearchCategory);
-	SIDEBAR.$searchCross.click(SIDEBAR.selectClearSearchBar);
-	SIDEBAR.$searchNavButton.click(SIDEBAR.selectClearSearchBar);
+			// SIDEBAR
+			$jqCache(document).on('click', '.a-sidebar-navbar-tab:not(.disabled)', SIDEBAR.switchActiveSidebarNavSection);
+			$jqCache(document).on('click', '.li-grid-tracker-item', PAGE_CONTENT.gridboxFocus);
+			$jqCache(document).on('dblclick', '.li-grid-tracker-item', PAGE_CONTENT.toggleGridboxSelect);
+			$jqCache(document).on('mouseleave', '.li-grid-tracker-item', PAGE_CONTENT.gridboxUnfocus);
+			SIDEBAR.$addResourceLi.click(POPUP.popupAddResource);
+			SIDEBAR.$collapsibleSidebarMenuLi.click(SIDEBAR.toggleSidebarSubmenu);
+			SIDEBAR.initGridTracker();
+			SIDEBAR.$nonCollapsibleSidebarMenuLi.click(SIDEBAR.switchActiveSidebarMenu);
+			SIDEBAR.$searchCategory.click(SIDEBAR.selectSearchCategory);
+			SIDEBAR.$searchCross.click(SIDEBAR.selectClearSearchBar);
+			SIDEBAR.$searchNavButton.click(SIDEBAR.selectClearSearchBar);
 
-	// PAGE_CONTENT
-	$jqCache(document).on('click', 'body', PAGE_CONTENT.clearGridboxSelections);
-	$jqCache(document).on('click', '.div-gridbox', PAGE_CONTENT.openGridbox);
-	$jqCache(document).on('click', '.div-selection-checkbox', PAGE_CONTENT.toggleGridboxSelect);
-	$jqCache(document).on('mouseenter', '.div-gridbox', HELPER.displayIcons);
-	$jqCache(document).on('mouseleave', '.div-gridbox:not(.selected)', HELPER.hideIcons);
-	PAGE_CONTENT.initPageContentGrid();
-	PAGE_CONTENT.loadNewPageGrid('bank');
+			// PAGE_CONTENT
+			$jqCache(document).on('click', 'body', PAGE_CONTENT.clearGridboxSelections);
+			$jqCache(document).on('click', '.div-gridbox', PAGE_CONTENT.openGridbox);
+			$jqCache(document).on('click', '.div-selection-checkbox', PAGE_CONTENT.toggleGridboxSelect);
+			$jqCache(document).on('mouseenter', '.div-gridbox', HELPER.displayIcons);
+			$jqCache(document).on('mouseleave', '.div-gridbox:not(.selected)', HELPER.hideIcons);
+			PAGE_CONTENT.initPageContentGrid();
+			PAGE_CONTENT.loadNewPageGrid('bank');
 
-	// POP-UP
-	$jqCache(document).on('click', '.a-question-popup-tab:not(.w--current)', POPUP.switchActiveQuestionPopupTab);
-	$jqCache(document).on('click', '.div-answer-wrapper *:not(.div-qna-header)', HELPER.stopEventPropagation);
-	$jqCache(document).on('click', '.div-answer-wrapper:not(.expanded)', HELPER.displayIcons);
-	$jqCache(document).on('click', '.div-answer-wrapper.expanded', HELPER.hideIcons);
-	$jqCache(document).on('click', '.div-answer-wrapper', POPUP.toggleQuestionAnswerForm);
-	$jqCache(document).on('mouseenter', '.div-answer-wrapper.expanded', HELPER.displayIcons);
-	$jqCache(document).on('mouseenter', '.div-question-comment-wrapper', HELPER.displayIcons);
-	$jqCache(document).on('mouseenter', '.div-question-wrapper', HELPER.displayIcons);
-	$jqCache(document).on('mouseleave', '.div-answer-wrapper.expanded', HELPER.hideIcons);
-	$jqCache(document).on('mouseleave', '.div-question-comment-wrapper', HELPER.hideIcons);
-	$jqCache(document).on('mouseleave', '.div-question-wrapper', HELPER.hideIcons);
-	POPUP.$popupBackground.click(POPUP.removePopup);
+			// POP-UP
+			$jqCache(document).on('click', '.a-question-popup-tab:not(.w--current)', POPUP.switchActiveQuestionPopupTab);
+			$jqCache(document).on('click', '.div-answer-wrapper *:not(.div-qna-header)', HELPER.stopEventPropagation);
+			$jqCache(document).on('click', '.div-answer-wrapper:not(.expanded)', HELPER.displayIcons);
+			$jqCache(document).on('click', '.div-answer-wrapper.expanded', HELPER.hideIcons);
+			$jqCache(document).on('click', '.div-answer-wrapper', POPUP.toggleQuestionAnswerForm);
+			$jqCache(document).on('mouseenter', '.div-answer-wrapper.expanded', HELPER.displayIcons);
+			$jqCache(document).on('mouseenter', '.div-question-comment-wrapper', HELPER.displayIcons);
+			$jqCache(document).on('mouseenter', '.div-question-wrapper', HELPER.displayIcons);
+			$jqCache(document).on('mouseleave', '.div-answer-wrapper.expanded', HELPER.hideIcons);
+			$jqCache(document).on('mouseleave', '.div-question-comment-wrapper', HELPER.hideIcons);
+			$jqCache(document).on('mouseleave', '.div-question-wrapper', HELPER.hideIcons);
+			POPUP.$popupBackground.click(POPUP.removePopup);
+			break;
+			
+		case 'landing_page':
+			return;
+	}
 });
 
 /* 
@@ -69,7 +78,7 @@ HELPER FUNCTIONS
 	
 var HELPER = 
 {
-	array2D: function(rows)
+	array2d: function(rows)
 	{
 		var array = [];
 		for (var i = 0; i < rows; i++) array[i] = [];
@@ -158,12 +167,12 @@ var SIDEBAR =
 	
 	buildGridTracker: function(gridItemCount)
 	{
-		if (gridItemCount === 0) return '<li>No grid items</li>';
-		
 		var sidebarHtml = '';
-		for (var id = 1; id <= gridItemCount; id++)
-			sidebarHtml += 
-				'<li class="li-grid-tracker-item" data-grid-tracker-item-id="'+id+'">'+id+'</li>';
+		if (gridItemCount === 0) sidebarHtml = '<li>No grid items</li>';
+		else
+			for (var id = 1; id <= gridItemCount; id++)
+				sidebarHtml += 
+					'<li class="li-grid-tracker-item" data-grid-tracker-item-id="'+id+'">'+id+'</li>';
 		
 		SIDEBAR.$gridTracker.html(sidebarHtml);
 	},
@@ -205,34 +214,33 @@ var SIDEBAR =
 			scroll: false,
 			update: function(event, ui)
 			{ // update indices after sort and DOM change
-				var gridTrackerNumbers = 
-					$jqCache('.ul-sidebar-questions-list').sortable('toArray', {attribute: 'data-grid-tracker-item-id'});
+				var unorderedGridTrackerNumbersAfterMove = 
+					SIDEBAR.$gridTracker.sortable('toArray', {attribute: 'data-grid-tracker-item-id'});
 				var movedGridTrackerElement = ui.item;
-				var gridTrackerNumber = parseInt(movedGridTrackerElement.html());
-				var fromIndex = toIndex = gridTrackerNumber - 1;
-				var currentGridTrackerElement, newGridTrackerNumber;
-				while (gridTrackerNumber < gridTrackerNumbers[toIndex])
+				var movedGridTrackerElementNumber = parseInt(movedGridTrackerElement.html());
+				var fromIndex = toIndex = movedGridTrackerElementNumber - 1;
+				var currentGridTrackerElement, newGridTrackerElementNumber;
+				while (movedGridTrackerElementNumber < unorderedGridTrackerNumbersAfterMove[toIndex])
 				{ // item dragged down the order
 					currentGridTrackerElement = 
-						$jqCache('.ul-sidebar-questions-list').children('.li-grid-tracker-item').eq(toIndex);
-					newGridTrackerNumber = parseInt(currentGridTrackerElement.html()) - 1;
-					currentGridTrackerElement.html(newGridTrackerNumber);
-					currentGridTrackerElement.attr('data-grid-tracker-item-id', newGridTrackerNumber);
+						SIDEBAR.$gridTracker.children('.li-grid-tracker-item').eq(toIndex);
+					newGridTrackerElementNumber = parseInt(currentGridTrackerElement.html()) - 1;
+					currentGridTrackerElement.html(newGridTrackerElementNumber);
+					currentGridTrackerElement.attr('data-grid-tracker-item-id', newGridTrackerElementNumber);
 					toIndex++;
 				}
-				while (gridTrackerNumber > gridTrackerNumbers[toIndex])
+				while (movedGridTrackerElementNumber > unorderedGridTrackerNumbersAfterMove[toIndex])
 				{ // item dragged up the order
 					currentGridTrackerElement = 
-						$jqCache('.ul-sidebar-questions-list').children('.li-grid-tracker-item').eq(toIndex);
-					newGridTrackerNumber = parseInt(currentGridTrackerElement.html()) + 1;
-					currentGridTrackerElement.html(newGridTrackerNumber);
-					currentGridTrackerElement.attr('data-grid-tracker-item-id', newGridTrackerNumber);
+						SIDEBAR.$gridTracker.children('.li-grid-tracker-item').eq(toIndex);
+					newGridTrackerElementNumber = parseInt(currentGridTrackerElement.html()) + 1;
+					currentGridTrackerElement.html(newGridTrackerElementNumber);
+					currentGridTrackerElement.attr('data-grid-tracker-item-id', newGridTrackerElementNumber);
 					toIndex--;
 				}
 				movedGridTrackerElement.html(toIndex+1);
 				movedGridTrackerElement.attr('data-grid-tracker-item-id', toIndex+1);
 				PAGE_CONTENT.$pageGrid.move(fromIndex, toIndex);
-				movedGridTrackerElement.trigger("click");
 			}
 		});
 	},
@@ -299,9 +307,9 @@ var SIDEBAR =
 		
 		if (liAttribute === 'refresh-grid' && ! alreadyActive)
 		{
-			var section = $(this).attr('data-title');
-			PAGE_CONTENT.loadNewPageGrid(section);
-			NAVBAR.updateMainTopicHeading(section+'s');
+			var gridSection = $(this).attr('data-title');
+			PAGE_CONTENT.loadNewPageGrid(gridSection);
+			NAVBAR.updateMainTopicHeading(gridSection+'s');
 			NAVBAR.updateSubTopicHeading('');
 			SIDEBAR.$activeSidebarMenuLi = $(this);
 		}
@@ -390,7 +398,7 @@ var PAGE_CONTENT =
 		return $gridbox.children('.div-gridbox-header').children('.h-gridbox-title').html();
 	},
 
-	getGridboxNumberElement: function(item)
+	getGridItemNumberElement: function(item)
 	{
 		return $(item.getElement()).find('.text-gridbox-numbering');
 	},
@@ -424,8 +432,8 @@ var PAGE_CONTENT =
 	gridboxFocus: function(event)
 	{ // scroll to highlighted gridbox
 		event.stopPropagation();
-		var gridIndex = $(this).html() - 1;
-		PAGE_CONTENT.$focusedGridbox = $('.div-gridbox').eq(gridIndex);
+		var gridItemIndex = $(this).html() - 1;
+		PAGE_CONTENT.$focusedGridbox = $('.div-gridbox').eq(gridItemIndex);
 		PAGE_CONTENT.$focusedGridbox.addClass('outline-div-gridbox');
 		var scrollOffset = PAGE_CONTENT.$focusedGridbox.offset().top - 350;
 		$jqCache('html, body').animate({scrollTop: scrollOffset}, 500);
@@ -450,7 +458,7 @@ var PAGE_CONTENT =
 			{
 				gridboxNumber: function(item, element) 
 				{
-					var gridboxNumber = PAGE_CONTENT.getGridboxNumberElement(item).html();
+					var gridboxNumber = PAGE_CONTENT.getGridItemNumberElement(item).html();
 					return parseInt(gridboxNumber);
 				}
 			},
@@ -461,7 +469,7 @@ var PAGE_CONTENT =
 				// container width is always perfectly divisible by item width (210px)
 				var colCount = containerWidth / items[0]._width;
 				var rowCount = 1 + parseInt(items.length / colCount);
-				var slotDimensions = HELPER.array2D(rowCount);
+				var slotDimensions = HELPER.array2d(rowCount);
 				var newSlot, topSlot, leftSlot, slotRow, slotCol;
 				items.forEach(function(item, index)
 				{
@@ -485,27 +493,44 @@ var PAGE_CONTENT =
 				return layout;
 			}
 		})
-		.on('move', function(data)
-		{ // update indices after item move
-			var fromIndex = data.fromIndex;
-			var toIndex = data.toIndex;
-			var $pageGridItems = PAGE_CONTENT.$pageGrid.getItems();
-			var gridboxNumberClass;
-			while (fromIndex < toIndex)
-			{ // dragged down the order
-				gridboxNumberClass = PAGE_CONTENT.getGridboxNumberElement($pageGridItems[fromIndex]);
-				fromIndex++;
-				gridboxNumberClass.html(fromIndex);
-			}
-			while (fromIndex > toIndex)
-			{ // dragged up the order
-				gridboxNumberClass = PAGE_CONTENT.getGridboxNumberElement($pageGridItems[fromIndex]);
-				gridboxNumberClass.html(fromIndex+1);
-				fromIndex--;
-			}
-			PAGE_CONTENT.getGridboxNumberElement(data.item).html(toIndex+1);
-			PAGE_CONTENT.$pageGrid.refreshSortData();
-			PAGE_CONTENT.$pageGrid.synchronize();
+		.on('dragStart', function(item, event) 
+		{
+			// check if user is online, else disable drag sort
+		})
+		.on('move', function(moveData)
+		{ // update indices after item move (for both UI and database)
+			var fromIndex = moveData.fromIndex;
+			var toIndex = moveData.toIndex;
+			
+			var $gridboxItem = $(moveData.item.getElement());
+			var gridboxFullJsonId = $gridboxItem.children('.div-gridbox').data('full-json-id');
+			var gridboxSection = $gridboxItem.children('.div-gridbox').data('grid-section');
+
+			var ajaxUrlSegments = 
+				'dashboard/ajax_move_gridbox/'+gridboxSection+'/'+fromIndex+'/'+toIndex;
+			var gridPost = $.post(HELPER.callController(ajaxUrlSegments),
+				{ grid_box_full_json_id: JSON.stringify(gridboxFullJsonId) });
+			
+			gridPost.done(function(data)
+			{ 
+				var $pageGridItems = PAGE_CONTENT.$pageGrid.getItems();
+				var gridboxNumberElement;
+				while (fromIndex < toIndex)
+				{ // dragged down the order
+					gridboxNumberElement = PAGE_CONTENT.getGridItemNumberElement($pageGridItems[fromIndex]);
+					fromIndex++;
+					gridboxNumberElement.html(fromIndex);
+				}
+				while (fromIndex > toIndex)
+				{ // dragged up the order
+					gridboxNumberElement = PAGE_CONTENT.getGridItemNumberElement($pageGridItems[fromIndex]);
+					gridboxNumberElement.html(fromIndex+1);
+					fromIndex--;
+				}
+				PAGE_CONTENT.getGridItemNumberElement(moveData.item).html(toIndex+1);
+				PAGE_CONTENT.$pageGrid.refreshSortData();
+				PAGE_CONTENT.$pageGrid.synchronize();
+			});
 		});
 	},
 	
@@ -545,9 +570,14 @@ var PAGE_CONTENT =
 		$('.h-main-topic-heading').html(data.mainTopicHeading);
 		$('.h-sub-topic-heading').html(data.subTopicHeading);
 		
-		var gridElements = PAGE_CONTENT.getGridItemElements('gridItems', data.gridItems);
-		PAGE_CONTENT.$pageGrid.add(gridElements);
-		PAGE_CONTENT.checkAndToggleGridDragAndTracker(data.gridSection, gridElements.length);
+		var gridItemElements = PAGE_CONTENT.getGridItemElements('gridItems', data.gridItems);
+		PAGE_CONTENT.addGridElements(data.gridSection, gridItemElements);
+	},
+	
+	addGridElements: function(gridSection, gridItemElements)
+	{
+		PAGE_CONTENT.checkAndToggleGridDragAndTracker(gridSection, gridItemElements.length);
+		PAGE_CONTENT.$pageGrid.add(gridItemElements);
 	},
 	
 	savePreviousGridSectionData: function(gridSection)
@@ -562,9 +592,9 @@ var PAGE_CONTENT =
 		PAGE_CONTENT.previousGridSectionData.push(data);
 	},
 	
-	loadNewPageGrid: function(section, gridboxFullJsonId)
+	loadNewPageGrid: function(gridSection, gridboxFullJsonId)
 	{
-		var ajaxUrlSegments = 'dashboard/ajax_get_grid_views/'+section;
+		var ajaxUrlSegments = 'dashboard/ajax_get_grid_views/'+gridSection;
 		var gridPost = $.post(HELPER.callController(ajaxUrlSegments), 
 			{ grid_box_full_json_id: JSON.stringify(gridboxFullJsonId) });
 		
@@ -573,9 +603,8 @@ var PAGE_CONTENT =
 			PAGE_CONTENT.removePageGridItems();
 		
 			var gridViews = JSON.parse(data);
-			PAGE_CONTENT.checkAndToggleGridDragAndTracker(section, gridViews.length);
 			var gridItemElements = PAGE_CONTENT.getGridItemElements('gridViews', gridViews);
-			PAGE_CONTENT.$pageGrid.add(gridItemElements);
+			PAGE_CONTENT.addGridElements(gridSection, gridItemElements);
 		});
 	},
 	
@@ -759,7 +788,7 @@ var POPUP =
 			if (SIDEBAR.searchValue !=== newSearch)
 			{
 				SIDEBAR.searchValue = newSearch;
-				console.log(SIDEBAR.searchValue);
+				log(SIDEBAR.searchValue);
 				filter();
 			}
 		}

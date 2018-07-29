@@ -4,7 +4,7 @@ class Gridbox
 {
 	public $full_id;
 	public $section; // school, course, bank, chapter, question
-	public $is_universal;
+	public $in_sidebar_menu_grid;
 	public $gridbox_number;
 	public $title; // also holds gridbox question
 	
@@ -26,7 +26,7 @@ class Gridbox
   {
 		$this->full_id = $params['full_id'];
 		$this->section = $params['section'];
-		$this->is_universal = $params['is_universal'];
+		$this->in_sidebar_menu_grid = $params['in_sidebar_menu_grid'];
 		$this->gridbox_number = $params['gridbox_number'];
 		$this->title = $params['title'];
 		$this->comment_count = $params['comment_count'];
@@ -42,7 +42,7 @@ class Gridbox
 				$this->child_count = $params['child_count'];
 		}
 		
-		if ($this->is_universal)
+		if ($this->in_sidebar_menu_grid)
 		{
 			$this->parent_label = $params['parent_label']; 
 			$this->parent_title = $params['parent_title'];

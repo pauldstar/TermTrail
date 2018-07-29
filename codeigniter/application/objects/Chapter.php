@@ -8,7 +8,7 @@ class Chapter
   public $chapter_id; 
   public $chapter_type; 
 	public $chapter_title; 
-	public $chapter_position;
+	public $grid_position;
   public $questions;
 	
 	public $parent_label = 'bank';
@@ -23,10 +23,10 @@ class Chapter
     $this->chapter_type = 'origin'; // $params['chapter_type'];
     $this->chapter_id = $params['chapter_id'];
     $this->chapter_title = $params['chapter_title'];
-    $this->chapter_position = $params['chapter_position'];
+    $this->grid_position = $params['grid_position'];
     $this->questions = array();
   }
-		
+	
 	public function get_full_id()
 	{
 	  $full_id = array( 

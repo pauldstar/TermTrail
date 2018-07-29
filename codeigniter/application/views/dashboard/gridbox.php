@@ -28,7 +28,7 @@
 					<?php case 'chapter': ?>
 					<?php case 'bank': ?>
 					<?php case 'course': ?>
-						<?php if ($gridbox->is_universal): ?>
+						<?php if ($gridbox->in_sidebar_menu_grid): ?>
 							<li class="li-gridbox-data">
 								<div class="text-gridbox-data-li">
 									<strong><?= $gridbox->parent_label ?></strong><br>

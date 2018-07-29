@@ -1,39 +1,40 @@
 <?php
 class Gridbox_model extends TL_Model 
 {
-  public function get_gridbox_objects($section, $grid_parent_full_id = '')
+  public function get_gridbox_objects($grid_section, $grid_parent_full_id = '')
 	{
-		$this->load->model("{$section}_model", 'item_model');
-		$get_session_items_func_name = "get_session_{$section}s";
-		$items = $section === 'school' ? 
-			self::$user->schools : $this->item_model->$get_session_items_func_name($grid_parent_full_id);
+		$this->load->model('component_model');
+		$components = $this->component_model->
+			get_session_components($grid_section, $grid_parent_full_id);
 		
-		$is_universal = $grid_parent_full_id === '' ?: FALSE;
-		$item_title_var_name = $section === 'question' ? "question" : "{$section}_title";
-		$item_type_var_name = "{$section}_type";
+		$in_sidebar_menu_grid = $grid_parent_full_id === '' ?: FALSE;
+		$component_title_var_ref = $grid_section === 'question' ? "question" : "{$grid_section}_title";
+		$component_type_var_name = "{$grid_section}_type";
 		$gridbox_objects = array();
 		$gridbox_params = array();
 		
-		foreach ($items as $index => $item)
+		foreach ($components as $index => $component)
 		{
-			$gridbox_params['full_id'] = $item->get_full_id();
-			$gridbox_params['section'] = $section;
-			$gridbox_params['is_universal'] = $is_universal;
+			$gridbox_params['full_id'] = $component->get_full_id();
+			$gridbox_params['section'] = $grid_section;
+			$gridbox_params['in_sidebar_menu_grid'] = $in_sidebar_menu_grid;
 			$gridbox_params['gridbox_number'] = $index + 1;
-			$gridbox_params['title'] = $item->$item_title_var_name;
+			$gridbox_params['title'] = $component->$component_title_var_ref;
 			
-			if ($is_universal)
+			if ($in_sidebar_menu_grid)
 			{
-				$gridbox_params['parent_label'] = $section === 'school' ? '' : $item->parent_label;
+				$gridbox_params['parent_label'] = 
+					$grid_section === 'school' ? '' : $component->parent_label;
 				$gridbox_params['parent_title'] = 
-					$section === 'school' ? '' : $item->get_parent_title(self::$user);
+					$grid_section === 'school' ? '' : $component->get_parent_title(self::$user);
 			}
 			
-			$gridbox_params['child_label'] = $section === 'question' ? '' : $item->child_label;
-			$gridbox_params['child_count'] = $section === 'question' ? '' : $item->get_child_count();
+			$gridbox_params['child_label'] = $grid_section === 'question' ? '' : $component->child_label;
+			$gridbox_params['child_count'] 
+				= $grid_section === 'question' ? '' : $component->get_child_count();
 			$gridbox_params['subquestions'] = NULL;
-			$gridbox_params['source_type'] = $item->$item_type_var_name;
-			$gridbox_params['comment_count'] = $item->get_comment_count(self::$user);
+			$gridbox_params['source_type'] = $component->$component_type_var_name;
+			$gridbox_params['comment_count'] = $component->get_comment_count(self::$user);
 			
 			$gridbox_objects[] = new Gridbox($gridbox_params);
 		}

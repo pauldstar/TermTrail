@@ -9,7 +9,7 @@ class Question
 	public $question_id;
   public $author_id; 
   public $question_type; 
-	public $question_position;
+	public $grid_position;
 	public $question;
 	public $answer; 
 	public $hint;
@@ -31,7 +31,7 @@ class Question
     $this->question_id = $params['question_id'];
     $this->author_id = $params['author_id'];
     $this->question_type = 'origin'; // $params['question_type'];
-    $this->question_position = $params['question_position'];
+    $this->grid_position = $params['grid_position'];
     $this->question = $params['question'];
     $this->answer = $params['answer'];
     $this->hint = $params['hint'];

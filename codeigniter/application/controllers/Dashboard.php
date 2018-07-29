@@ -18,6 +18,7 @@ class Dashboard extends CI_Controller
 		$this->load->helper('html');
 		
 		$data['user'] = self::$user;
+		$data['page_title'] = 'dashboard';
 		
     $this->load->view('dashboard/header', $data);
     $this->load->view('dashboard/navbar', $data);
@@ -25,16 +26,17 @@ class Dashboard extends CI_Controller
     $this->load->view('dashboard/toolbar');
     $this->load->view('dashboard/page-content');
     $this->load->view('dashboard/popup');
-    $this->load->view('dashboard/scripts');
+    $this->load->view('dashboard/scripts', $data);
     $this->load->view('dashboard/footer');
   }
 
-	public function ajax_get_grid_views($section)
+	public function ajax_get_grid_views($grid_section)
 	{
-		$grid_parent_full_id = Dashboard::get_grid_parent_full_id();
+		$grid_parent_full_id = Dashboard::get_gridbox_full_id();
 		
 		$this->load->model('gridbox_model');
-		$gridbox_objects = $this->gridbox_model->get_gridbox_objects($section, $grid_parent_full_id);
+		$gridbox_objects = $this->gridbox_model->
+			get_gridbox_objects($grid_section, $grid_parent_full_id);
 		$grid_views = array();
 		
 		foreach ($gridbox_objects as $gridbox)
@@ -46,22 +48,34 @@ class Dashboard extends CI_Controller
 		echo json_encode($grid_views);
 	}
 	
-	private function get_grid_parent_full_id()
+	private function get_gridbox_full_id()
 	{
-		$grid_parent_full_id_json = $this->input->post('grid_box_full_json_id');
-		$decoded_2d_array = json_decode($grid_parent_full_id_json, TRUE);
+		$gridbox_full_id_json = $this->input->post('grid_box_full_json_id');
+		$decoded_2d_array = json_decode($gridbox_full_id_json, TRUE);
 		return empty($decoded_2d_array) ? '' : $decoded_2d_array[0];
 	}
 	
 	public function ajax_get_question_tab_popup_view()
 	{
-		$grid_parent_full_id = Dashboard::get_grid_parent_full_id();
+		$grid_parent_full_id = Dashboard::get_gridbox_full_id();
 		
-		$this->load->model('question_model');
-		$data['question'] = $this->question_model->get_single_session_question($grid_parent_full_id);
+		$this->load->model('component_model');
+		$data['question'] = $this->component_model->
+			get_single_session_component('question', $grid_parent_full_id);
 		$popupView = $this->load->view('dashboard/popup-question-tabs', $data, TRUE);
 		
 		echo json_encode($popupView);
+	}
+	
+	public function ajax_move_gridbox($grid_section, $from_index, $to_index)
+	{
+		$gridbox_full_id = Dashboard::get_gridbox_full_id();
+		
+		$this->load->model('component_model');
+		$update_is_successsful = $this->component_model->
+			update_component_grid_positions($grid_section, $gridbox_full_id, $from_index, $to_index);
+		
+		echo json_encode($update_is_successsful);
 	}
 	
   public function logout()
