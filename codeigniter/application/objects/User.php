@@ -20,13 +20,5 @@ class User
     $this->last_login_time = $params['last_login_time'];
     $this->has_notification = $params['has_notification'];
     $this->schools = array();
-    /*
-     * if ($is_main_user) {
-     * $this->scope = $params['scope'];
-     * $this->email = $params['email'];
-     * // courses each contain trails, trails contain chapters, then terms, then term_comments
-     * // loading the courses loads the rest of the user's work; for good offline behaviour
-     * $this->courses = $this_class->course_model->get_user_courses($this->user_id, true);
-     */
   }
 }

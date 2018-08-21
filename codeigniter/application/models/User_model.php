@@ -36,6 +36,15 @@ class User_model extends TL_Model
     return NULL;
   }
 	
+	public function get_all_users()
+	{
+    $query_result = $this->db->query("SELECT * FROM user");
+    if ( ! isset($query_result)) return NULL;
+		$users = array();
+		foreach ($query_result->result_array() as $row) $users[] = new User($row);
+		return $users;
+	}
+	
   public function set_and_get_user()
   { // new sign up
     $password = $this->input->post('password');

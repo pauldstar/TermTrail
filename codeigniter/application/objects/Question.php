@@ -54,6 +54,12 @@ class Question
 		return $full_id;
 	}
 	
+	public function get_parent_title($user)
+	{
+		return $user->schools[$this->school_id-1]->
+			courses[$this->course_id-1]->banks[$this->bank_id-1]->chapters[$this->chapter_id-1]->chapter_title;
+	}
+	
 	public function get_comment_count($user)
 	{
 		return 0;

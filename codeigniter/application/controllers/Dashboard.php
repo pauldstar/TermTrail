@@ -30,13 +30,37 @@ class Dashboard extends CI_Controller
     $this->load->view('dashboard/footer');
   }
 
-	public function ajax_get_grid_views($grid_section)
+	public function ajax_get_grid_views($grid_section, $grid_source)
 	{
 		$grid_parent_full_id = Dashboard::get_gridbox_full_id();
 		
+		$grid_data_objects = NULL;
+		
+		switch ($grid_source)
+		{
+			case 'local':
+				$this->load->model('component_model');
+				$grid_data_objects = $this->component_model->
+					get_session_components($grid_section, $grid_parent_full_id);
+				break;
+			
+			case 'universal':
+				switch($grid_section)
+				{
+					case 'user':
+						$this->load->model('user_model');
+						$grid_data_objects = $this->user_model->get_all_users();
+						break;
+					
+					default:
+						$this->load->model('component_model');
+						$grid_data_objects = $this->component_model->get_db_components($grid_section);
+				}
+		}
+		
 		$this->load->model('gridbox_model');
 		$gridbox_objects = $this->gridbox_model->
-			get_gridbox_objects($grid_section, $grid_parent_full_id);
+			get_gridbox_objects($grid_section, $grid_source, $grid_data_objects, $grid_parent_full_id);
 		$grid_views = array();
 		
 		foreach ($gridbox_objects as $gridbox)

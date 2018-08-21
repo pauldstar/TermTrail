@@ -49,7 +49,7 @@
 					</div>
 					<div class="form-block-answer w-form">
 						<form class="answer div-qna-form" data-name="Email Form" id="email-form" name="email-form">
-							<textarea class="answer text-area-qna w-input" data-name="Answer Text 3" id="answer-text-3" maxlength="5000" name="answer-text-3" placeholder="Enter answer...">This is some example answer to see if this is how this works</textarea>
+							<textarea class="answer text-area-qna w-input" data-name="Answer Text 3" id="answer-text-3" maxlength="5000" name="answer-text-3" placeholder="Enter answer..."><?=$question->answer?></textarea>
 						</form>
 						<!--<div class="w-form-done">
 							<div>Thank you! Your submission has been received!</div>
@@ -144,7 +144,10 @@
 			<div class="div-question-comment-wrapper">
 				<div class="div-qna-header">
 					<div class="text-question-comment-author">pauldstar</div>
-					<div class="div-qna-toolbar icon-wrapper question w-clearfix"><img class="img-qna-tool" src="<?=base_url('images/edit-black.png')?>"><img class="img-qna-tool" id="delete-question" src="<?=base_url('images/delete-black.png')?>" width="20"></div>
+					<div class="div-qna-toolbar icon-wrapper question w-clearfix">
+						<img class="img-qna-tool" src="<?=base_url('images/edit-black.png')?>">
+						<img class="img-qna-tool" id="delete-question" src="<?=base_url('images/delete-black.png')?>" width="20">
+					</div>
 					<div class="div-vote-count-wrapper">
 						<div class="div-vote-click-wrapper">
 							<div class="text-vote-count" id="upvote-count">122846</div>

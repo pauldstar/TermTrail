@@ -39,7 +39,7 @@
 				</ul>
 				<ul class="ul-sidebar-menu w-list-unstyled">
 					<li class="li-sidebar-menu">
-						<a class="a-sidebar-menu-li collapsible w-clearfix w-inline-block" data-ix="submenu-expand" href="#">
+						<a class="a-sidebar-menu-li collapsible w-clearfix w-inline-block" href="#">
 							<img src="<?=base_url('images/resource.png')?>">
 							<div class="a-sidebar-collapsible text-sidebar-menu">Add Resource</div>
 							<img class="img-sidebar-li-expand appear" fill="#b3b3b3" src="<?=base_url('images/plus-s_1.png')?>" width="25">
@@ -48,32 +48,32 @@
 						<ul class="div-sidebar-submenu w-list-unstyled">
 							<li class="li-sidebar-submenu">
 								<a class="a-sidebar-submenu add-resource w-inline-block" id="sidebar-submenu-add-question" href="#">
-									<img class="img-sidebar-menu-li" src="<?=base_url('images/minus-s_1.png')?>">
-									<div class="text-sidebar-submenu" data-ix="hide-submenu">Question</div>
+									<img class="img-sidebar-menu-li" src="<?=base_url('images/minus-s.png')?>">
+									<div class="text-sidebar-submenu">Question</div>
 								</a>
 							</li>
 							<li class="li-sidebar-submenu">
 								<a class="a-sidebar-submenu add-resource w-inline-block" id="sidebar-submenu-add-chapter" href="#">
-									<img class="img-sidebar-menu-li" src="<?=base_url('images/minus-s_1.png')?>">
-									<div class="text-sidebar-submenu" data-ix="hide-submenu">Chapter</div>
+									<img class="img-sidebar-menu-li" src="<?=base_url('images/minus-s.png')?>">
+									<div class="text-sidebar-submenu">Chapter</div>
 								</a>
 							</li>
 							<li class="li-sidebar-submenu">
 								<a class="a-sidebar-submenu add-resource w-inline-block" id="sidebar-submenu-add-bank" href="#">
-									<img class="img-sidebar-menu-li" src="<?=base_url('images/minus-s_1.png')?>">
-									<div class="text-sidebar-submenu" data-ix="hide-submenu">Bank</div>
+									<img class="img-sidebar-menu-li" src="<?=base_url('images/minus-s.png')?>">
+									<div class="text-sidebar-submenu">Bank</div>
 								</a>
 							</li>
 							<li class="li-sidebar-submenu">
 								<a class="a-sidebar-submenu add-resource w-inline-block" id="sidebar-submenu-add-course" href="#">
-									<img class="img-sidebar-menu-li" src="<?=base_url('images/minus-s_1.png')?>">
-									<div class="text-sidebar-submenu" data-ix="hide-submenu">Course</div>
+									<img class="img-sidebar-menu-li" src="<?=base_url('images/minus-s.png')?>">
+									<div class="text-sidebar-submenu">Course</div>
 								</a>
 							</li>
 							<li class="li-sidebar-submenu">
 								<a class="a-sidebar-submenu add-resource w-inline-block" id="sidebar-submenu-add-school" href="#">
-									<img class="img-sidebar-menu-li" src="<?=base_url('images/minus-s_1.png')?>">
-									<div class="text-sidebar-submenu" data-ix="hide-submenu">School</div>
+									<img class="img-sidebar-menu-li" src="<?=base_url('images/minus-s.png')?>">
+									<div class="text-sidebar-submenu">School</div>
 								</a>
 							</li>
 						</ul>
@@ -148,47 +148,93 @@
 			</div>
 			<div class="div-sidebar-navbar-tab-pane" id="div-sidebar-search">
 				<div class="div-tt-search-bar-wrapper">
-					<form id="tt-search-form" name="email-form">
-						<input class="text-field-tt-search w-input" data-name="tt-search" id="tt-search-input" maxlength="256" name="tt-search" placeholder="Current Section" type="text">
+					<form id="tt-search-form" autocomplete="off">
+						<input class="w-input" id="tt-search-input" data-name="tt-search" maxlength="256" name="tt-search" placeholder="Current Section" type="text">
 					</form>
 					<img class="img-clear-tt-sidebar-search" src="<?=base_url('images/cross-diag-grey.png')?>">
 				</div>
-				<ul class="ul-sidebar-search-categories">
-					<li class="li-sidebar-search-category">
-						<a class="a-sidebar-search-category checked w-inline-block" id="current-section-search-category" href="#">
-							<div class="checked div-tt-search-category-checkbox"></div>
-							<div class="text-tt-search-category">Current Section</div>
+				<ul class="ul-sidebar-menu w-list-unstyled">
+					<li class="li-sidebar-menu">
+						<a class="a-sidebar-menu-li collapsible w-clearfix w-inline-block" id="user-search-categories-anchor" href="#">
+							<img src="http://localhost/images/resource.png">
+							<div class="a-sidebar-collapsible text-sidebar-menu">
+								<?= strlen($user->username) > 16 ? substr($user->username, 0, 13).'...' : $user->username ?>
+							</div>
+							<img class="img-sidebar-li-expand" fill="#b3b3b3" src="http://localhost/images/plus-s_1.png" width="25">
+							<img class="img-sidebar-li-collapse appear" fill="#b3b3b3" src="http://localhost/images/minus-thin.png">
 						</a>
+						<ul class="ul-sidebar-search-categories appear">
+							<li class="li-sidebar-search-category">
+								<a class="a-sidebar-search-category a-sidebar-submenu w-inline-block checked"  data-grid-source="local" data-grid-section="current-section" data-category-title="Current Section" id="current-section-search-category" href="#">
+									<div class="div-tt-search-category-checkbox checked"></div>
+									<div class="text-tt-search-category">Current Section</div>
+								</a>
+							</li>
+							<li class="li-sidebar-search-category">
+								<a class="a-sidebar-search-category a-sidebar-submenu w-inline-block" data-grid-source="local" data-grid-section="school" data-category-title="Your Schools" id="user-schools-search-category" href="#">
+									<div class="div-tt-search-category-checkbox"></div>
+									<div class="text-tt-search-category">Schools</div>
+								</a>
+							</li>
+							<li class="li-sidebar-search-category">
+								<a class="a-sidebar-search-category a-sidebar-submenu w-inline-block" data-grid-source="local" data-grid-section="course" data-category-title="Your Courses" id="user-courses-search-category" href="#">
+									<div class="div-tt-search-category-checkbox"></div>
+									<div class="text-tt-search-category">Courses</div>
+								</a>
+							</li>
+							<li class="li-sidebar-search-category">
+								<a class="a-sidebar-search-category a-sidebar-submenu w-inline-block" data-grid-source="local" data-grid-section="bank" data-category-title="Your Banks" id="user-banks-search-category" href="#">
+									<div class="div-tt-search-category-checkbox"></div>
+									<div class="text-tt-search-category">Banks</div>
+								</a>
+							</li>
+							<li class="li-sidebar-search-category">
+								<a class="a-sidebar-search-category a-sidebar-submenu w-inline-block" data-grid-source="local" data-grid-section="chapter" data-category-title="Your Chapters" id="user-chapters-search-category" href="#">
+									<div class="div-tt-search-category-checkbox"></div>
+									<div class="text-tt-search-category">Chapters</div>
+								</a>
+							</li>
+							<li class="li-sidebar-search-category">
+								<a class="a-sidebar-search-category a-sidebar-submenu w-inline-block" data-grid-source="local" data-grid-section="question" data-category-title="Your Questions" id="user-questions-search-category" href="#">
+									<div class="div-tt-search-category-checkbox"></div>
+									<div class="text-tt-search-category">Questions</div>
+								</a>
+							</li>
+						</ul>
 					</li>
-					<li class="li-sidebar-search-category">
-						<a class="a-sidebar-search-category w-inline-block" href="#">
-							<div class="div-tt-search-category-checkbox"></div>
-							<div class="text-tt-search-category">Schools</div>
+					<li class="li-sidebar-menu">
+						<a class="a-sidebar-menu-li collapsible w-clearfix w-inline-block" id="termtrail-search-categories-anchor" href="#">
+							<img src="http://localhost/images/tl_logo.png">
+							<div class="a-sidebar-collapsible text-sidebar-menu">TermtraiL</div>
+							<img class="img-sidebar-li-expand appear" fill="#b3b3b3" src="http://localhost/images/plus-s_1.png" width="25">
+							<img class="img-sidebar-li-collapse" fill="#b3b3b3" src="http://localhost/images/minus-thin.png">
 						</a>
-					</li>
-					<li class="li-sidebar-search-category">
-						<a class="a-sidebar-search-category w-inline-block" href="#">
-							<div class="div-tt-search-category-checkbox"></div>
-							<div class="text-tt-search-category">Courses</div>
-						</a>
-					</li>
-					<li class="li-sidebar-search-category">
-						<a class="a-sidebar-search-category w-inline-block" href="#">
-							<div class="div-tt-search-category-checkbox"></div>
-							<div class="text-tt-search-category">Banks</div>
-						</a>
-					</li>
-					<li class="li-sidebar-search-category">
-						<a class="a-sidebar-search-category w-inline-block" href="#">
-							<div class="div-tt-search-category-checkbox"></div>
-							<div class="text-tt-search-category">Chapters</div>
-						</a>
-					</li>
-					<li class="li-sidebar-search-category">
-						<a class="a-sidebar-search-category w-inline-block" href="#">
-							<div class="div-tt-search-category-checkbox"></div>
-							<div class="text-tt-search-category">Questions</div>
-						</a>
+						<ul class="ul-sidebar-search-categories" id="termtrail-search-categories-ul">
+							<li class="li-sidebar-search-category">
+								<a class="a-sidebar-search-category a-sidebar-submenu w-inline-block" data-grid-source="universal" data-grid-section="user" data-category-title="TL Users" id="termtrail-users-search-category" href="#">
+									<div class="div-tt-search-category-checkbox"></div>
+									<div class="text-tt-search-category">Users</div>
+								</a>
+							</li>
+							<li class="li-sidebar-search-category">
+								<a class="a-sidebar-search-category a-sidebar-submenu w-inline-block" data-grid-source="universal" data-grid-section="school" data-category-title="TL Schools" id="termtrail-schools-search-category" href="#">
+									<div class="div-tt-search-category-checkbox"></div>
+									<div class="text-tt-search-category">Schools</div>
+								</a>
+							</li>
+							<li class="li-sidebar-search-category">
+								<a class="a-sidebar-search-category a-sidebar-submenu w-inline-block" data-grid-source="universal" data-grid-section="course" data-category-title="TL Courses" id="termtrail-courses-search-category" href="#">
+									<div class="div-tt-search-category-checkbox"></div>
+									<div class="text-tt-search-category">Courses</div>
+								</a>
+							</li>
+							<li class="li-sidebar-search-category">
+								<a class="a-sidebar-search-category a-sidebar-submenu w-inline-block" data-grid-source="universal" data-grid-section="bank" data-category-title="TL Banks" id="termtrail-banks-search-category" href="#">
+									<div class="div-tt-search-category-checkbox"></div>
+									<div class="text-tt-search-category">Banks</div>
+								</a>
+							</li>
+						</ul>
 					</li>
 				</ul>
 			</div>

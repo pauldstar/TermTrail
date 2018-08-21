@@ -100,13 +100,11 @@ class Component_model extends TL_Model
 	public function get_session_components(
 		$component_type, $component_full_id = '', $update_session_components_mode = FALSE)
   {
-		if ($update_session_components_mode === TRUE 
-				&& ($component_type !== 'chapter' && $component_type !== 'question'))
-			throw new Exception('The "$update_session_components_mode" in the model function "get_session_components" can only be set TRUE for Chapter and Question components.'); 
-		
-		if ($component_type === 'school') return self::$user->schools;
-		
-		if (empty($component_full_id)) return self::get_all_of_session_component_type($component_type);
+		if ($update_session_components_mode === TRUE && 
+			($component_type !== 'chapter' && $component_type !== 'question'))
+			throw new Exception('The "$update_session_components_mode" in the model function "get_session_components" can only be set TRUE for Chapter and Question components.');
+
+			if (empty($component_full_id)) return self::get_all_of_session_component_type($component_type);
 
 		$components = NULL;
 		
@@ -165,24 +163,42 @@ class Component_model extends TL_Model
 		
 		switch ($component_type)
 		{
-			case 'course': 
+			case 'school':
+				$components = self::$user->schools;
+				break;
+			case 'course':
 				foreach (self::$user->schools as $school)
 					foreach ($school->courses as $course) 
 						$components[] = $course;
 				break;
-			case 'bank': 
+			case 'bank':
 				foreach (self::$user->schools as $school)
 					foreach ($school->courses as $course) 
 						foreach ($course->banks as $bank)
 							$components[] = $bank;
+				break;
+			case 'chapter':
+				foreach (self::$user->schools as $school)
+					foreach ($school->courses as $course) 
+						foreach ($course->banks as $bank)
+							foreach ($bank->chapters as $chapter)
+								$components[] = $chapter;
+				break;
+			case 'question':
+				foreach (self::$user->schools as $school)
+					foreach ($school->courses as $course) 
+						foreach ($course->banks as $bank)
+							foreach ($bank->chapters as $chapter)
+								foreach ($chapter->questions as $question)
+									$components[] = $question;
 		}
 		
 		return $components;
 	}
-			
+	
 	public function set_session_components($component_type = 'school')
 	{
-		$components = self::get_db_components($component_type);
+		$components = self::get_db_components($component_type, self::$user->user_id);
 		
 		if ( ! $components) return;
 
@@ -247,19 +263,19 @@ class Component_model extends TL_Model
   {
 		switch ($component_type)
 		{
-			case 'school': 
+			case 'school':
 				return self::$user->schools[$component_full_id['school_id']-1];
-			case 'course': 
+			case 'course':
 				return self::$user->schools[$component_full_id['school_id']-1]->
 					courses[$component_full_id['course_id']-1];
-			case 'bank': 
+			case 'bank':
 				return self::$user->schools[$component_full_id['school_id']-1]->
 					courses[$component_full_id['course_id']-1]->banks[$component_full_id['bank_id']-1]; 
 			case 'chapter':
 				return self::$user->schools[$component_full_id['school_id']-1]->
 					courses[$component_full_id['course_id']-1]->banks[$component_full_id['bank_id']-1]->
 					chapters[$component_full_id['chapter_id']-1];
-			case 'question': 
+			case 'question':
 				return self::$user->schools[$component_full_id['school_id']-1]->
 					courses[$component_full_id['course_id']-1]->banks[$component_full_id['bank_id']-1]->
 					chapters[$component_full_id['chapter_id']-1]->
@@ -269,12 +285,14 @@ class Component_model extends TL_Model
 	
   public function get_db_components($component_type, $user_id = '')
   {
-		if (empty($user_id)) $user_id = self::$user->user_id;
-    $query = $this->db->query("SELECT * FROM {$component_type} WHERE owner_id='{$user_id}'");
-    if ( ! isset($query)) return NULL;
+		$query_string = empty($user_id) ? "SELECT * FROM {$component_type}" :
+			"SELECT * FROM {$component_type} WHERE owner_id='{$user_id}'";
+    $query_result = $this->db->query($query_string);
+		
+    if ( ! isset($query_result)) return NULL;
 		$components = array();
 		$component_object_ref = ucfirst($component_type);
-		foreach ($query->result_array() as $row) $components[] = new $component_object_ref($row);
+		foreach ($query_result->result_array() as $row) $components[] = new $component_object_ref($row);
 		return $components;
   }
 	
@@ -288,7 +306,7 @@ class Component_model extends TL_Model
 		return new $component_object_ref($component_params);
   }
 	
-	private function get_new_component_id()
+	private function get_new_component_id($component_type)
 	{
 		switch ($component_type)
 		{

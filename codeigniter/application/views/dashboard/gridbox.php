@@ -1,4 +1,4 @@
-<div class="div-gridbox-wrapper">
+<div class="div-gridbox-wrapper" data-gridbox-title="<?= $gridbox->title ?>">
 	<div class="div-gridbox" data-full-json-id='[<?= json_encode($gridbox->full_id) ?>]' data-grid-section="<?= $gridbox->section ?>" data-grid-child-section="<?= $gridbox->child_label ?>">
 		
 		<div class="div-gridbox-header">
@@ -15,41 +15,44 @@
 		
 		<div class="div-gridbox-middle">
 			<ul class="ul-gridbox-data w-list-unstyled">
-				<?php switch($gridbox->section):
-					case 'question': ?>
-						<?php if ($gridbox->subquestions !== NULL): ?>
-							<?php foreach ($gridbox->subquestions as $subquestion): ?>
-								<li class="li-gridbox-subquestion">
-									<div class="text-gridbox-data-li"><?= $subquestion ?></div>
+				<?php if ($gridbox->grid_source === 'local'): ?>
+					<?php switch($gridbox->section):
+						case 'question': ?>
+							<?php if ($gridbox->subquestions !== NULL): ?>
+								<?php foreach ($gridbox->subquestions as $subquestion): ?>
+									<li class="li-gridbox-subquestion">
+										<div class="text-gridbox-data-li"><?= $subquestion ?></div>
+									</li>
+								<?php endforeach; ?>
+							<?php endif; ?>
+							<?php break; ?>
+						<?php case 'chapter': ?>
+						<?php case 'bank': ?>
+						<?php case 'course': ?>
+							<?php if ($gridbox->evoked_from_sidebar_menu): ?>
+								<li class="li-gridbox-data">
+									<div class="text-gridbox-data-li">
+										<strong><?= $gridbox->parent_label ?></strong><br>
+										<?= $gridbox->parent_title ?>
+									</div>
 								</li>
-							<?php endforeach; ?>
-						<?php endif; ?>
-						<?php break; ?>
-					<?php case 'chapter': ?>
-					<?php case 'bank': ?>
-					<?php case 'course': ?>
-						<?php if ($gridbox->in_sidebar_menu_grid): ?>
-							<li class="li-gridbox-data">
-								<div class="text-gridbox-data-li">
-									<strong><?= $gridbox->parent_label ?></strong><br>
-									<?= $gridbox->parent_title ?>
-								</div>
-							</li>
-						<?php endif; ?>
-					<?php case 'school': ?>
-						<li class="li-gridbox-data">
-							<div class="text-gridbox-data-li">
-								<strong><?= $gridbox->child_label.'s' ?></strong><br>
-								<?= $gridbox->child_count ?>
-							</div>
-						</li>
-				<?php endswitch; ?>
+							<?php endif; ?>
+						<?php case 'school': ?>
+							<?php if ($gridbox->section !== 'question'): ?>
+								<li class="li-gridbox-data">
+									<div class="text-gridbox-data-li">
+										<strong><?= $gridbox->child_label.'s' ?></strong><br>
+										<?= $gridbox->child_count ?>
+									</div>
+								</li>
+							<?php endif; ?>	
+					<?php endswitch; ?>
+				<?php endif; ?>
 				<li class="li-gridbox-data">
 					<h5 class="gridbox-item-type"><?= $gridbox->source_type ?></h5>
 				</li>
 			</ul>
 		</div>
-		
 		<div class="div-gridbox-footer w-clearfix">
 			<div class="div-gridbox-footer-buttons icon-wrapper">
 				<div class="w-dropdown" data-delay="0">
@@ -74,7 +77,7 @@
 				</div>
 			</div>
 			<div class="div-gridbox-stat">
-				<?php if ($gridbox->comment_count !== 0): ?>
+				<?php if ($gridbox->grid_source === 'local' && $gridbox->comment_count !== 0): ?>
 					<img class="img-gridbox-comments" src="<?=base_url('images/comment.png')?>">
 					<div class="text-stats-number"><?= $gridbox->comment_count ?></div>
 				<?php endif; ?>
