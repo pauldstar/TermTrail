@@ -50,6 +50,8 @@ $jqCache(document).ready(function()
 			SIDEBAR.$nonCollapsibleSidebarMenuLi.click(
 				SIDEBAR.switchActiveSidebarMenu);
 			SIDEBAR.$searchCategory.click(SIDEBAR.selectSearchCategory);
+			SIDEBAR.$searchCategoryCollapsibleAnchor.click(
+				SIDEBAR.switchExpandedSearchCategorySubmenu);
 			SIDEBAR.$searchNavButton.click(SIDEBAR.resetSearchBarActivity);
 			SIDEBAR.$searchField.keyup(PAGE_CONTENT.searchGrid);
 			SIDEBAR.$searchForm.submit(HELPER.preventDefault);
@@ -89,6 +91,7 @@ $jqCache(document).ready(function()
 			$(document).on('mouseleave', '.div-question-wrapper', 
 				HELPER.hideIcons);
 			POPUP.$popupBackground.click(POPUP.removePopup);
+			
 			break;
 			
 		case 'landing_page':
@@ -102,6 +105,18 @@ HELPER FUNCTIONS
 	
 var HELPER = 
 {
+	stringContainsSubstrings: function(string, substringArray)
+	{
+		var containsSubstring = true;
+		
+		substringArray.forEach(substring =>
+		{
+			if (string.indexOf(substring) === -1) containsSubstring = false;
+    });
+		
+    return containsSubstring;
+	},
+	
 	array2d: function(rows)
 	{
 		var array = [];
@@ -181,6 +196,22 @@ var SIDEBAR =
 	currentSearchFieldValue: '',
 	currentSearchCategoryTitle: 'Current Section',
 	searchTabWasAltered: false,
+	$searchCategoryCollapsibleAnchor: $('.search-category-collapsible-anchor'),
+	
+	switchExpandedSearchCategorySubmenu: function()
+	{
+		var clickedAnchorId = $(this).attr('id');
+		
+		switch (clickedAnchorId)
+		{
+			case 'user-search-categories-anchor':
+				SIDEBAR.closeSidebarSubmenu('#termtrail-search-categories-anchor');
+				break;
+			
+			case 'termtrail-search-categories-anchor':
+				SIDEBAR.closeSidebarSubmenu('#user-search-categories-anchor');
+		}
+	},
 	
 	buildGridTracker: function(gridItemCount)
 	{
@@ -262,7 +293,8 @@ var SIDEBAR =
 					newGridTrackerElementNumber = 
 						parseInt(currentGridTrackerElement.html()) - 1;
 					currentGridTrackerElement.html(newGridTrackerElementNumber);
-					currentGridTrackerElement.attr('data-grid-tracker-item-id', newGridTrackerElementNumber);
+					currentGridTrackerElement.attr(
+						'data-grid-tracker-item-id', newGridTrackerElementNumber);
 					toIndex++;
 				}
 				while (movedGridTrackerElementNumber > 
@@ -273,7 +305,8 @@ var SIDEBAR =
 					newGridTrackerElementNumber = 
 						parseInt(currentGridTrackerElement.html()) + 1;
 					currentGridTrackerElement.html(newGridTrackerElementNumber);
-					currentGridTrackerElement.attr('data-grid-tracker-item-id', newGridTrackerElementNumber);
+					currentGridTrackerElement.attr(
+						'data-grid-tracker-item-id', newGridTrackerElementNumber);
 					toIndex--;
 				}
 				movedGridTrackerElement.html(toIndex+1);
@@ -316,14 +349,14 @@ var SIDEBAR =
 		$jqCache('#current-section-search-category').addClass('checked');
 		$jqCache('#current-section-search-category').
 			children('.div-tt-search-category-checkbox').addClass('checked');
-		$jqCache('.text-field-tt-search').select();
+		$jqCache('#tt-search-input').select();
 		SIDEBAR.setSearchBarPlaceholder('Current Section');
 	},
 	
 	selectAndClearSearchBar: function()
 	{
-		$jqCache('.text-field-tt-search').val('');
-		$jqCache('.text-field-tt-search').select();
+		$jqCache('#tt-search-input').val('');
+		$jqCache('#tt-search-input').select();
 	},
 	
 	resetSearchBarActivity: function()
@@ -370,7 +403,7 @@ var SIDEBAR =
 	{
 		if (SIDEBAR.searchTabWasAltered)
 		{
-			$jqCache('.text-field-tt-search').val('');
+			$jqCache('#tt-search-input').val('');
 			SIDEBAR.setSearchBarPlaceholder('Current Section');
 			
 			$jqCache('.a-sidebar-search-category').removeClass('checked');
@@ -466,7 +499,7 @@ var SIDEBAR =
 	
 	setSearchBarPlaceholder: function(text)
 	{
-		$jqCache('.text-field-tt-search').attr('placeholder', text);
+		$jqCache('#tt-search-input').attr('placeholder', text);
 	}
 }
 
@@ -498,10 +531,15 @@ var PAGE_CONTENT =
 	searchGrid: function(event)
 	{
 		var newSearchValue = $(this).val().toLowerCase();
+		
 		if (SIDEBAR.currentSearchFieldValue !== newSearchValue)
 		{
-			if (newSearchValue !== '') SIDEBAR.disableGridTrackerTab();
-			else SIDEBAR.enableGridTrackerTab();
+			if (newSearchValue === '') SIDEBAR.enableGridTrackerTab();
+			else 
+			{
+				SIDEBAR.searchTabWasAltered = true;
+				SIDEBAR.disableGridTrackerTab();
+			}
 			
 			SIDEBAR.currentSearchFieldValue = newSearchValue;
 			PAGE_CONTENT.filterGrid('search');
@@ -512,16 +550,32 @@ var PAGE_CONTENT =
 	{
 		try
 		{
-			PAGE_CONTENT.$pageGrid.filter(function(item)
+			switch (filterMode)
 			{
-				var element = item.getElement();
+				case 'search':
+				{
+					var searchTerms = SIDEBAR.currentSearchFieldValue.split(' ');
+
+					PAGE_CONTENT.$pageGrid.filter(function(item)
+					{
+						var gridboxTitle = item.getElement().
+							getAttribute('data-gridbox-title').toLowerCase();
+							
+						var isSearchMatch = HELPER.stringContainsSubstrings(
+							gridboxTitle, searchTerms);
+							
+						return isSearchMatch;
+					});
+					
+					break;
+				}
 				
-				var isSearchMatch = !SIDEBAR.currentSearchFieldValue ? true : 
-					-1 < element.getAttribute('data-gridbox-title').toLowerCase().
-					indexOf(SIDEBAR.currentSearchFieldValue);
-				
-				return isSearchMatch;
-			});
+				case 'filter':
+					break;
+					
+				case 'sort':
+					return;
+			}
 		}
 		catch (error) {}
 	},
@@ -720,6 +774,7 @@ var PAGE_CONTENT =
 	addGridElements: function(
 		gridSection, gridItemElements, evokedFromSidebarMenu)
 	{
+		PAGE_CONTENT.currentGridSection = gridSection;
 		PAGE_CONTENT.checkAndToggleGridDragAndTracker(
 			gridItemElements.length, evokedFromSidebarMenu);
 		PAGE_CONTENT.$pageGrid.add(gridItemElements);
@@ -752,14 +807,13 @@ var PAGE_CONTENT =
 			var gridViews = JSON.parse(data);
 			var gridItemElements = 
 				PAGE_CONTENT.getGridItemElements('gridViews', gridViews);
-			var evokedFromSidebarMenu = ! gridboxFullJsonId ? true : false;
 			var mainTopicHeading = gridTitle;
 			var subTopicHeading = gridboxFullJsonId ? 
 				'< '+PAGE_CONTENT.currentGridSection : '';
 			NAVBAR.updateNavbarHeadings(mainTopicHeading, subTopicHeading);
+			var evokedFromSidebarMenu = ! gridboxFullJsonId ? true : false;
 			PAGE_CONTENT.addGridElements(
 				gridSection, gridItemElements, evokedFromSidebarMenu);
-			PAGE_CONTENT.currentGridSection = gridSection;
 		});
 	},
 	

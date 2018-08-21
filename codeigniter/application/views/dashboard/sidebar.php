@@ -155,7 +155,7 @@
 				</div>
 				<ul class="ul-sidebar-menu w-list-unstyled">
 					<li class="li-sidebar-menu">
-						<a class="a-sidebar-menu-li collapsible w-clearfix w-inline-block" id="user-search-categories-anchor" href="#">
+						<a class="a-sidebar-menu-li collapsible search-category-collapsible-anchor w-clearfix w-inline-block" id="user-search-categories-anchor" href="#">
 							<img src="http://localhost/images/resource.png">
 							<div class="a-sidebar-collapsible text-sidebar-menu">
 								<?= strlen($user->username) > 16 ? substr($user->username, 0, 13).'...' : $user->username ?>
@@ -203,7 +203,7 @@
 						</ul>
 					</li>
 					<li class="li-sidebar-menu">
-						<a class="a-sidebar-menu-li collapsible w-clearfix w-inline-block" id="termtrail-search-categories-anchor" href="#">
+						<a class="a-sidebar-menu-li collapsible search-category-collapsible-anchor w-clearfix w-inline-block" id="termtrail-search-categories-anchor" href="#">
 							<img src="http://localhost/images/tl_logo.png">
 							<div class="a-sidebar-collapsible text-sidebar-menu">TermtraiL</div>
 							<img class="img-sidebar-li-expand appear" fill="#b3b3b3" src="http://localhost/images/plus-s_1.png" width="25">
